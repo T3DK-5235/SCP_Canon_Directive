@@ -10,6 +10,8 @@ public class HiddenGameVariables : ScriptableObject
     public GenericProposal _prevProposal;
     public GenericProposal _currentProposal;
 
+    public int _lastSavedProposal;
+
     [Space(20)]
 
     public DClassMethodEnum _chosenDClassMethod = DClassMethodEnum.NONE;

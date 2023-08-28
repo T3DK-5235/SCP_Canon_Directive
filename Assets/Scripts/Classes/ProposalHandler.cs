@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using TMPro;
+
 public class ProposalHandler : MonoBehaviour
 {
     public List<GenericProposal> activeProposalEventBus;
@@ -11,12 +13,15 @@ public class ProposalHandler : MonoBehaviour
     public List<ScriptableObject> statChangeEventBus;
 
     private static StatTabletHandler statTabletHandler;
-    private SaveHandler saveHandler;
+    //private SaveHandler saveHandler;
 
     [SerializeField] PublicGameVariables publicGameVariables;
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
     [SerializeField] ProposalsList proposalsList;
+
+    //Maybe instead try make a UI scriptable object
+    [SerializeField] GameObject proposalDescription_Text;
 
     void Awake() {
         //Stores proposal objects
@@ -24,12 +29,22 @@ public class ProposalHandler : MonoBehaviour
         standbyProposalEventBus = new List<GenericProposal>();
 
         statTabletHandler = new StatTabletHandler();
-        saveHandler = new SaveHandler();
+        // saveHandler = new SaveHandler();
 
         //Stores stat scriptable objects
         //Check every month
         statChangeEventBus = new List<ScriptableObject>();
         //Construct all of the proposals and add them to the ProposalList scriptable object
+
+
+        //Get the last saved proposal (0 when starting) and set it to the current proposal
+        hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
+    }
+
+    void Update() {
+        //Maybe put in try catch
+        //get the text from the proposal UI object and set it to the current proposal's description
+        proposalDescription_Text.transform.GetComponent<TextMeshProUGUI>().text = hiddenGameVariables._currentProposal.getProposalDescription();
     }
 
     //Might need to be a Coroutine to prevent game from continuing before all stats are changed

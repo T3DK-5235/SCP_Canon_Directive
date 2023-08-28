@@ -10,22 +10,9 @@ public class SaveHandler : MonoBehaviour
 
     [SerializeField] ProposalsList proposalsList;
 
-    private GenericProposal exampleProposal;
-
-    // string proposalDescription; 
-    // int proposalID;
-    // int requiredMonth;
-                           
-    // List<int> proposalPrerequisites;
-
-    // List<int> proposalPostUnlocksAccept; 
-    // List<int> proposalPostUnlocksDeny; 
-    
-    // List<string> proposalStatChangesAccept;
-    // List<string> proposalStatChangesDeny;
-
     void Awake() {
         InitProposals();
+        GetSaves();
     }
 
     public void InitProposals() {
@@ -36,6 +23,13 @@ public class SaveHandler : MonoBehaviour
 
         //Check this isnt inefficient
         GenericProposal[] proposalArray = JsonHelper.FromJson<GenericProposal>(totalProposalsString); 
-        proposalsList._proposals.AddRange(proposalArray);   
+        proposalsList._proposals.AddRange(proposalArray);
+    }
+
+    public void GetSaves() {
+        //There is always 3 saves. Sometimes they are just empty
+        //Wrapper used to store saves?
+
+        hiddenGameVariables._lastSavedProposal = 0;
     }
 }

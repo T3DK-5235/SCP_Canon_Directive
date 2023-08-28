@@ -108,4 +108,12 @@ public class GenericProposal
     public List<string> getStatChangesDeny() {
         return proposalStatChangesDeny;
     }
+
+    public string getProposalDescription() {
+        return proposalDescription;
+    }
+
+    public int getProposalID() {
+        return proposalID;
+    }
 }
