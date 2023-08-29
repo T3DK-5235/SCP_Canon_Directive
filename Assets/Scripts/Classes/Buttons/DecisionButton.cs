@@ -21,7 +21,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
     public void OnPointerClick(PointerEventData eventData)
     {
         //TODO Check that the proposal can be accepted due to the stats
-        Debug.Log("ButtonClicked: " + nameof(eventData.pointerPress));
         //This deals with the button used for accepting or denying the proposal
         if(eventData.pointerPress == decisionButton) {
 
@@ -30,7 +29,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
 
             if (eventData.button == PointerEventData.InputButton.Left) {
                 choice = "accept";
-                //onDecisionChecked.Raise(choice);
+                //onDecisionChecked.Raise(choice); //Used to display stat changes
                 if(denyStamp.activeSelf) {
                     denyStamp.SetActive(false);
                 }
@@ -56,7 +55,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
 
             //Send out event
             onDecisionMade.Raise(choice);
-            
+
             //reset choice to a blank string for next use
             choice = "";
 

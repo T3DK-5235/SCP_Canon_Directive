@@ -15,6 +15,9 @@ public class SaveHandler : MonoBehaviour
         GetSaves();
     }
 
+    //TODO Make an initial save file that can be used as a template to create new save files from
+    //TODO This will include stuff like the basic proposal list
+
     public void InitProposals() {
 
         string totalProposalsString = System.IO.File.ReadAllText(Application.persistentDataPath + "/ProposalList.json");

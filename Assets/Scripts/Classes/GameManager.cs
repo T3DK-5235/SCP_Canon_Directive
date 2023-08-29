@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    //
+
+    //
+
+    //
+
+    //TODO May Just remove this class, as it doesn't have anything unique. Could use it as an Init class later
+
+    //
+
+    //
+
+    //
+
+    /*
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
     private ProposalHandler proposalHandler;
@@ -26,4 +42,7 @@ public class GameManager : MonoBehaviour
         //Get next proposal
         //Check standby proposal    
     }
+
+    //TODO maybe have the game manager construct proposal manager and pass in references to scriptable objects
+    */
 }

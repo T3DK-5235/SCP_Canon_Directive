@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using TMPro;
-
 public class ProposalHandler : MonoBehaviour
 {
     public List<GenericProposal> activeProposalEventBus;
@@ -20,8 +18,8 @@ public class ProposalHandler : MonoBehaviour
 
     [SerializeField] ProposalsList proposalsList;
 
-    //Maybe instead try make a UI scriptable object
-    [SerializeField] GameObject proposalDescription_Text;
+    [Header("Events")]
+    public GameEvent onProposalChanged;
 
     void Awake() {
         //Stores proposal objects
@@ -39,12 +37,6 @@ public class ProposalHandler : MonoBehaviour
 
         //Get the last saved proposal (0 when starting) and set it to the current proposal
         hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
-    }
-
-    void Update() {
-        //Maybe put in try catch
-        //get the text from the proposal UI object and set it to the current proposal's description
-        proposalDescription_Text.transform.GetComponent<TextMeshProUGUI>().text = hiddenGameVariables._currentProposal.getProposalDescription();
     }
 
     //Might need to be a Coroutine to prevent game from continuing before all stats are changed
@@ -122,13 +114,10 @@ public class ProposalHandler : MonoBehaviour
 
     //Listens to the PlayerProposalDecision event system
     public void proposalDecision(Component sender, object data) {
-        // Debug.Log("Accept proposal has recieved: " + data);
-        // if (data is string) {
-        //     Will send the choice of either deny or accept
-        // }
+
+        List<string> proposalStatChanges = null;
 
         List<int> proposalPostUnlocks = null;
-        List<string> proposalStatChanges = null;
 
         //Changes what is unlocked and changed based on player decision
         if (data == "accept") {
@@ -136,22 +125,59 @@ public class ProposalHandler : MonoBehaviour
         } else if (data == "deny") {
             proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksDeny();
         }
+
+        //TODO raise a event that the proposal is finished? Allows everything to check if updates are needed
+
+        //TODO make the clipboard slide off screen, then update the contents, then return it. Probably use coroutine
         
-        //If the proposal has any PostUnlocks
+        
+        checkInactiveProposals(proposalPostUnlocks);
+
+        //Check Standby bus for any proposals to make active
+        checkStandbyProposals();
+
+        getNextProposal();
+
+    }
+
+    public void checkInactiveProposals(List<int> proposalPostUnlocks) {
+         
+        //If the proposal has any PostUnlocks (proposals that can be added to the standby list)
         if (proposalPostUnlocks.Count > 0) {
+
+            Debug.Log("post unlocks num" + proposalPostUnlocks.Count + "post unlocks value " + proposalPostUnlocks[0]);
+
             //Loops through the PostUnlocks
             for (int i = 0; i < proposalPostUnlocks.Count; i++) {
                 //Get the proposal uuid from proposalPostUnlocks
                 //Find the Proposal Object at the location of the uuid in the proposal list from the scriptable object
+                GenericProposal proposalToUpdate = proposalsList._proposals[proposalPostUnlocks[i]];
+
+
+                proposalToUpdate.updatePrerequisites(hiddenGameVariables._currentProposal.getProposalID());
+                
                 //Add that Proposal Object to the standby bus
+                //TODO change this to instead add just the proposal ID to the bus, acting as a pointer
                 standbyProposalEventBus.Add(proposalsList._proposals[proposalPostUnlocks[i]]);
             }
         }
-
-        //TODO raise a event that the proposal is finished for the game manager to access?
     }
 
-    
+    public void checkStandbyProposals() {
+
+        for(int i = 0; i < standbyProposalEventBus.Count; i++) {
+
+            Debug.Log("Standby Bus Size " + standbyProposalEventBus.Count + " and current standby proposal" + standbyProposalEventBus[i].getProposalDescription());
+
+            //Check if the proposal is available to be moved to the active bus
+            if (standbyProposalEventBus[i].isProposalAvailable()) {
+                //add the proposal to the active event bus, then remove it from the standby bus
+                activeProposalEventBus.Add(standbyProposalEventBus[i]);
+                standbyProposalEventBus.RemoveAt(i);
+            }
+        }
+    }
+
     // public void handleRequirementChanges() {   
     //     string requirementChange = hiddenGameVariables._currentProposal.getRequirementChange();
 
@@ -199,31 +225,23 @@ public class ProposalHandler : MonoBehaviour
     // }
 
     public void getNextProposal() {
-        //Check Standby bus for any proposals to make active
-        checkStandbyProposals();
+
+        Debug.Log("Active Bus Size " + activeProposalEventBus.Count + " and current active proposal" + activeProposalEventBus[0].getProposalDescription());
 
         //Make this slightly more deterministic at a later date maybe
-        int nextProposal = UnityEngine.Random.Range(0, activeProposalEventBus.Count - 1);
+        int nextProposalPos = UnityEngine.Random.Range(0, activeProposalEventBus.Count);
 
         //Add Proposal to currentProposal variable
         hiddenGameVariables._prevProposal = hiddenGameVariables._currentProposal;
-        hiddenGameVariables._currentProposal = activeProposalEventBus[nextProposal];
+        hiddenGameVariables._currentProposal = activeProposalEventBus[nextProposalPos];
 
         //Remove Proposal from active event bus
-        activeProposalEventBus.RemoveAt(nextProposal);
+        activeProposalEventBus.RemoveAt(nextProposalPos);
 
         //TODO Actually check if this proposal can be accepted with the users current stats (Maybe not here, but somewhere)
-    }
 
-    public void checkStandbyProposals() {
-        for(int i = 0; i < standbyProposalEventBus.Count; i++) {
-            //Check if the proposal is available to be moved to the active bus
-            if (standbyProposalEventBus[i].isProposalAvailable()) {
-                //add the proposal to the active event bus, then remove it from the standby bus
-                activeProposalEventBus.Add(standbyProposalEventBus[i]);
-                standbyProposalEventBus.RemoveAt(i);
-            }
-        }
+        //TODO Raise event for UI to update
+        onProposalChanged.Raise();
     }
 
     // ==============================================================================================================
