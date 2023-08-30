@@ -19,10 +19,6 @@ public class GenericProposal
     [SerializeField] private List<string> proposalStatChangesAccept;
     [SerializeField] private List<string> proposalStatChangesDeny;
 
-    
-    [System. NonSerialized] [SerializeField] PublicGameVariables publicGameVariables;
-    [System. NonSerialized] [SerializeField] HiddenGameVariables hiddenGameVariables;
-
     //ProposalPrereqs are proposals that have to be done to unlock this proposal
     //ProposalRequirements are a set of states that have to be set to unlock this proposal. For example, if a D-Class obtainment scenario is decided
     //
@@ -80,9 +76,9 @@ public class GenericProposal
     //     }
     // }
     
-    public bool isProposalAvailable() {
+    public bool isProposalAvailable(int currentMonth) {
         //If there are no unfulfilled prereqs, reqs, and the current month is correct then the proposal is available
-        if (proposalPrerequisites.Count == 0 && publicGameVariables._currentMonth <= requiredMonth) {
+        if (proposalPrerequisites.Count == 0 && currentMonth <= requiredMonth) {
             return true;
         } else {
             return false;

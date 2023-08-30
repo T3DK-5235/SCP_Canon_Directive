@@ -23,10 +23,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         //TODO Check that the proposal can be accepted due to the stats
         //This deals with the button used for accepting or denying the proposal
         if(eventData.pointerPress == decisionButton) {
-
-
-            Debug.Log("Button Got Here");
-
             if (eventData.button == PointerEventData.InputButton.Left) {
                 choice = "accept";
                 //onDecisionChecked.Raise(choice); //Used to display stat changes

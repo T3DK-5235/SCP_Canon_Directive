@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class ProposalHandler : MonoBehaviour
 {
-    public List<GenericProposal> activeProposalEventBus;
-    public List<GenericProposal> standbyProposalEventBus;
+    public List<int> activeProposalEventBus;
+    public List<int> standbyProposalEventBus;
 
     public List<ScriptableObject> statChangeEventBus;
 
@@ -23,8 +23,8 @@ public class ProposalHandler : MonoBehaviour
 
     void Awake() {
         //Stores proposal objects
-        activeProposalEventBus = new List<GenericProposal>();
-        standbyProposalEventBus = new List<GenericProposal>();
+        activeProposalEventBus = new List<int>();
+        standbyProposalEventBus = new List<int>();
 
         statTabletHandler = new StatTabletHandler();
         // saveHandler = new SaveHandler();
@@ -141,36 +141,26 @@ public class ProposalHandler : MonoBehaviour
     }
 
     public void checkInactiveProposals(List<int> proposalPostUnlocks) {
-         
         //If the proposal has any PostUnlocks (proposals that can be added to the standby list)
         if (proposalPostUnlocks.Count > 0) {
-
-            Debug.Log("post unlocks num" + proposalPostUnlocks.Count + "post unlocks value " + proposalPostUnlocks[0]);
-
             //Loops through the PostUnlocks
             for (int i = 0; i < proposalPostUnlocks.Count; i++) {
                 //Get the proposal uuid from proposalPostUnlocks
                 //Find the Proposal Object at the location of the uuid in the proposal list from the scriptable object
                 GenericProposal proposalToUpdate = proposalsList._proposals[proposalPostUnlocks[i]];
-
-
+                //Update the prereq of the newly unlocked proposal
                 proposalToUpdate.updatePrerequisites(hiddenGameVariables._currentProposal.getProposalID());
                 
-                //Add that Proposal Object to the standby bus
-                //TODO change this to instead add just the proposal ID to the bus, acting as a pointer
-                standbyProposalEventBus.Add(proposalsList._proposals[proposalPostUnlocks[i]]);
+                //Add that Proposal ID to the standby bus
+                standbyProposalEventBus.Add(proposalPostUnlocks[i]);
             }
         }
     }
 
     public void checkStandbyProposals() {
-
         for(int i = 0; i < standbyProposalEventBus.Count; i++) {
-
-            Debug.Log("Standby Bus Size " + standbyProposalEventBus.Count + " and current standby proposal" + standbyProposalEventBus[i].getProposalDescription());
-
-            //Check if the proposal is available to be moved to the active bus
-            if (standbyProposalEventBus[i].isProposalAvailable()) {
+            //Check if the proposal is available to be moved (or at least, its ID) to the active bus
+            if (proposalsList._proposals[standbyProposalEventBus[i]].isProposalAvailable(publicGameVariables._currentMonth)) {
                 //add the proposal to the active event bus, then remove it from the standby bus
                 activeProposalEventBus.Add(standbyProposalEventBus[i]);
                 standbyProposalEventBus.RemoveAt(i);
@@ -226,14 +216,15 @@ public class ProposalHandler : MonoBehaviour
 
     public void getNextProposal() {
 
-        Debug.Log("Active Bus Size " + activeProposalEventBus.Count + " and current active proposal" + activeProposalEventBus[0].getProposalDescription());
-
-        //Make this slightly more deterministic at a later date maybe
-        int nextProposalPos = UnityEngine.Random.Range(0, activeProposalEventBus.Count);
+        //If there is only 1 proposal possible, choose that, if not then randomly (Make this slightly more deterministic at a later date maybe) choose
+        // int nextProposalPos = activeProposalEventBus[0];
+        // if(activeProposalEventBus.Count != 1) {
+        int nextProposalPos = UnityEngine.Random.Range(0, activeProposalEventBus.Count - 1);
+        // }
 
         //Add Proposal to currentProposal variable
         hiddenGameVariables._prevProposal = hiddenGameVariables._currentProposal;
-        hiddenGameVariables._currentProposal = activeProposalEventBus[nextProposalPos];
+        hiddenGameVariables._currentProposal = proposalsList._proposals[activeProposalEventBus[nextProposalPos]];
 
         //Remove Proposal from active event bus
         activeProposalEventBus.RemoveAt(nextProposalPos);
