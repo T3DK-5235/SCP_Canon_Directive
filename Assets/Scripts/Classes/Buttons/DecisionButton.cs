@@ -45,6 +45,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
             signature.SetActive(true);
 
             //Disallow users interacting with the buttons at this point
+            //TODO check if this is efficient
             CanvasGroup canvasGroup = GetComponentInParent<CanvasGroup>(true);
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
@@ -55,12 +56,11 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
             //reset choice to a blank string for next use
             choice = "";
 
-            StartCoroutine(AnimationCoroutine());
-
+            StartCoroutine(AnimationCoroutine(canvasGroup));
         }
     }
 
-    IEnumerator AnimationCoroutine()
+    IEnumerator AnimationCoroutine(CanvasGroup canvasGroup)
     {
         //TODO Do animation of sliding clipboard on screen in co-routine (or at least, raise an event for the UIHandler to do)
 
@@ -68,8 +68,10 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         yield return new WaitForSeconds(3);
 
         signature.SetActive(false);
-
         denyStamp.SetActive(false);
         acceptStamp.SetActive(false);
+
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
     }
 }

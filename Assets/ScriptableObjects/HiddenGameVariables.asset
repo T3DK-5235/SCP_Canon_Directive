@@ -13,6 +13,45 @@ MonoBehaviour:
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
   _hasActiveProposal: 0
-  _prevProposal: StartingProposal
-  totalDClass: 100
-  availableDClass: 100
+  _prevProposal:
+    proposalDescription: 'If you wish to play the tutorial, accept this proposal
+      by stamping the decision button and signing on the line.
+
+
+      if you instead
+      wish to jump in, deny the proposal.'
+    proposalID: 0
+    requiredMonth: 0
+    proposalTitle: welcome to scp administration
+    proposalPrerequisites: 
+    proposalPostUnlocksAccept: 01000000
+    proposalPostUnlocksDeny: 01000000
+    proposalStatChangesAccept: []
+    proposalStatChangesDeny: []
+  _currentProposal:
+    proposalDescription: This is proposal 1 description
+    proposalID: 1
+    requiredMonth: 0
+    proposalTitle: This is proposal 1 title
+    proposalPrerequisites: 
+    proposalPostUnlocksAccept: 03000000
+    proposalPostUnlocksDeny: 03000000
+    proposalStatChangesAccept:
+    - MTF
+    - 5
+    - 2
+    proposalStatChangesDeny:
+    - Researchers
+    - 5
+    - -5
+  _lastSavedProposal: 0
+  _chosenDClassMethod: 0
+  _currentMajorCanon: 0
+  _totalMTF: 100
+  _availableMTF: 100
+  _totalResearchers: 100
+  _availableResearchers: 100
+  _totalDClass: 100
+  _availableDClass: 100
+  _totalMorale: 100
+  _currentMorale: 100

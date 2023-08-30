@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+//using UnityEngine.UIElements;
+
 using TMPro;
 
 public class UIHandler : MonoBehaviour
@@ -13,6 +16,9 @@ public class UIHandler : MonoBehaviour
     //Maybe instead try make a UI scriptable object
     
     [SerializeField] GameObject proposalClipboard;
+
+    [SerializeField] GameObject initialTabletScreen;
+    [SerializeField] GameObject scorpLogo;
     
     private TextMeshProUGUI proposalTitle;
     private TextMeshProUGUI proposalDesc;
@@ -40,6 +46,8 @@ public class UIHandler : MonoBehaviour
         // and set it to the current proposal's description
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
+
+        StartCoroutine(TabletOnCoroutine());
     }
 
     public void updateProposal(Component sender, object data) {
@@ -52,5 +60,31 @@ public class UIHandler : MonoBehaviour
 
     private void ProjectClipboardOverlay() {
         projectClipboardOverlay.SetActive(true);
+    }
+
+
+    IEnumerator TabletOnCoroutine()
+    {
+        
+        //TODO Lerp opacity of tablet main section
+        //TODO Lerp opacity of logo
+        //TODO disable both and display stat screen
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(3);
+
+        Image initialTabletImage = initialTabletScreen.GetComponent<Image>();
+
+        // Color c = image.color;
+        // c.a = 0;
+        // initialTabletImage.color = c;
+        Color temp = initialTabletImage.color;
+
+        while (temp.a != 1) {
+            Debug.Log(temp);
+            temp = initialTabletImage.color;
+            temp.a = Mathf.Lerp(temp.a, 1, Time.deltaTime);
+            initialTabletImage.color = temp;
+        }
+
     }
 }
