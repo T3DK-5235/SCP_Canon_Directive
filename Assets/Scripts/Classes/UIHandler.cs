@@ -11,7 +11,11 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject projectClipboardOverlay;
 
     //Maybe instead try make a UI scriptable object
-    [SerializeField] GameObject proposalDescription_Text;
+    
+    [SerializeField] GameObject proposalClipboard;
+    
+    private TextMeshProUGUI proposalTitle;
+    private TextMeshProUGUI proposalDesc;
 
     //TODO utilize events to fire the below actions instead of update?
     //TODO update background of window 
@@ -29,14 +33,21 @@ public class UIHandler : MonoBehaviour
     }
 
     void Start() {
-        //Maybe put in try catch
-        //get the text from the proposal UI object and set it to the current proposal's description
-        proposalDescription_Text.transform.GetComponent<TextMeshProUGUI>().text = hiddenGameVariables._currentProposal.getProposalDescription();
+        // Maybe put in try catch
+        // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
+        proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+        // and set it to the current proposal's description
+        proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
+        proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
     }
 
-    //TODO have this be an event that can be called
     public void updateProposal(Component sender, object data) {
-        proposalDescription_Text.transform.GetComponent<TextMeshProUGUI>().text = hiddenGameVariables._currentProposal.getProposalDescription();
+
+
+        //TODO Add animation or movement here of the proposal
+        proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
+        proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
     }
 
     private void ProjectClipboardOverlay() {

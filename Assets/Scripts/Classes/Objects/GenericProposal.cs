@@ -10,6 +10,7 @@ public class GenericProposal
     [SerializeField] private string proposalDescription; 
     [SerializeField] private int proposalID;
     [SerializeField] private int requiredMonth;
+    [SerializeField] private string proposalTitle;
                            
     [SerializeField] private List<int> proposalPrerequisites;
 
@@ -27,10 +28,11 @@ public class GenericProposal
     // Unlocks after processing proposal and clicking accept | Unlocks after processing proposal and clicking Deny
     // Stats changed by proposal (eg MTF, 60, 0 for increase MTF by 60 permanently. OR BrokeMasq 60 0 which increases the progression for a canon by 60)
     // In addition, stats can store if a requirement is fulfilled, like if a d class choice is made eg: "Requirement name (same as enum), num reference to enum value (_DClassMethod, 1, 0);
-    public GenericProposal(string proposalDescription, int proposalID, int requiredMonth,
+    public GenericProposal(string proposalTitle, string proposalDescription, int proposalID, int requiredMonth,
                            List<int> proposalPrerequisites,
                            List<int> proposalPostUnlocksAccept, List<int> proposalPostUnlocksDeny, 
                            List<string> proposalStatChangesAccept, List<string> proposalStatChangesDeny) {
+        this.proposalTitle = proposalTitle;
         this.proposalDescription = proposalDescription;
         this.proposalID = proposalID;
         this.requiredMonth = requiredMonth;
@@ -103,6 +105,10 @@ public class GenericProposal
 
     public List<string> getStatChangesDeny() {
         return proposalStatChangesDeny;
+    }
+
+    public string getProposalTitle() {
+        return proposalTitle;
     }
 
     public string getProposalDescription() {

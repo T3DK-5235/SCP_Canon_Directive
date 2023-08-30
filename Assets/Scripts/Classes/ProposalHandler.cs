@@ -7,8 +7,7 @@ public class ProposalHandler : MonoBehaviour
 {
     public List<int> activeProposalEventBus;
     public List<int> standbyProposalEventBus;
-
-    public List<ScriptableObject> statChangeEventBus;
+    public List<ActiveStatChange> statChangeEventBus;
 
     private static StatTabletHandler statTabletHandler;
     //private SaveHandler saveHandler;
@@ -21,6 +20,8 @@ public class ProposalHandler : MonoBehaviour
     [Header("Events")]
     public GameEvent onProposalChanged;
 
+    private bool isCurrentDecisionAccept;
+
     void Awake() {
         //Stores proposal objects
         activeProposalEventBus = new List<int>();
@@ -31,85 +32,12 @@ public class ProposalHandler : MonoBehaviour
 
         //Stores stat scriptable objects
         //Check every month
-        statChangeEventBus = new List<ScriptableObject>();
+        statChangeEventBus = new List<ActiveStatChange>();
         //Construct all of the proposals and add them to the ProposalList scriptable object
 
 
         //Get the last saved proposal (0 when starting) and set it to the current proposal
         hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
-    }
-
-    //Might need to be a Coroutine to prevent game from continuing before all stats are changed
-    // TODO make this into a listener function that checks whether accept or deny is ticked
-    //Listens to the PlayerProposalTempDecision event system
-    public void handleStatChanges(Component sender, object data) {
-        List<string> proposalStatChanges = null;
-
-        //Save an instance of the stats prior to changes for comparison purposes
-        //This only really needs to be used when resetting requirements such as the D-Class 
-        HiddenGameVariables statClone = statTabletHandler.storeCurrentStats();
-
-        if (data == "accept") {
-            proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesAccept();
-        } else if (data == "deny") {
-            proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesDeny();
-        }
-
-        // Generic Stat changes are stored in blocks of 3 in the order "stat, amount, duration"
-        // Certain stat changes change enums instead, such as when changing indirect proposal requirements
-        // In this case it is instead "Requirement name (same as enum), num reference to enum value (_DClassMethod, 1, 0);
-
-        // Stores all possible stats
-        for(int i = 0; i < proposalStatChanges.Count; i += 3) {
-            //Convert string from json to int for numerical comparisons
-            int statAmount = Int32.Parse(proposalStatChanges[i+1]);
-            int statDuration = Int32.Parse(proposalStatChanges[i+2]);
-
-            //A duration of 0 here means permanence 
-            if(proposalStatChanges[i] == "MTF") {
-                //Only checks duration of stat after stat is found
-                if(statDuration == 0) {
-                    //Increase the total MTF number
-                    changePermanentMTF(statAmount);
-                    //Continue resets the loop to prevent extreme nesting when checking stat changes
-                    continue;
-                }
-                //If the duration isn't permanent then this code is run instead
-                changeTempMTF(statAmount, statDuration);
-                continue;
-            }
-
-            if(proposalStatChanges[i] == "Researchers") {
-                if(statDuration == 0) {
-                    changePermanentResearchers(statAmount);
-                    continue;
-                }
-                changeTempResearchers(statAmount, statDuration);
-                continue;
-            }
-
-            if(proposalStatChanges[i] == "DClass") {
-                if(statDuration == 0) {
-                    changePermanentDClass(statAmount);
-                    continue;
-                }
-                changeTempDClass(statAmount, statDuration);
-                continue;
-            }
-
-            if(proposalStatChanges[i] == "Morale") {
-                if(statDuration == 0) {
-                    changePermanentMorale(statAmount);
-                    continue;
-                }
-                changeTempMorale(statAmount, statDuration);
-                continue;
-            }
-
-            //Display stat changes from stat handler, need to pass in statClone from above
-
-            //TODO add rest of stats
-        }
     }
 
     //Listens to the PlayerProposalDecision event system
@@ -138,6 +66,81 @@ public class ProposalHandler : MonoBehaviour
 
         getNextProposal();
 
+    }
+
+        //Might need to be a Coroutine to prevent game from continuing before all stats are changed
+    // TODO make this into a listener function that checks whether accept or deny is ticked
+    //Listens to the PlayerProposalTempDecision event system
+    public void handleStatChanges(Component sender, object data) {
+        List<string> proposalStatChanges = null;
+
+        //Save an instance of the stats prior to changes for comparison purposes
+        //This only really needs to be used when resetting requirements such as the D-Class 
+        HiddenGameVariables statClone = statTabletHandler.storeCurrentStats();
+
+        if (data == "accept") {
+            proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesAccept();
+            isCurrentDecisionAccept = true;
+        } else if (data == "deny") {
+            proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesDeny();
+            isCurrentDecisionAccept = false;
+        }
+
+        // Generic Stat changes are stored in blocks of 3 in the order "stat, amount, duration"
+        // Certain stat changes change enums instead, such as when changing indirect proposal requirements
+        // In this case it is instead "Requirement name (same as enum), num reference to enum value (_DClassMethod, 1, 0);
+
+        // Stores all possible stats
+        for(int i = 0; i < proposalStatChanges.Count; i += 3) {
+            //Convert string from json to int for numerical comparisons
+            int statAmount = Int32.Parse(proposalStatChanges[i+1]);
+            int statDuration = Int32.Parse(proposalStatChanges[i+2]);
+
+            //A duration of 0 here means permanence 
+            if(proposalStatChanges[i] == "MTF") {
+                //Only checks duration of stat after stat is found
+                if(statDuration == 0) {
+                    //Increase the total MTF number
+                    changeTotalMTF(statAmount);
+                    //Continue resets the loop to prevent extreme nesting when checking stat changes
+                    continue;
+                }
+                //If the duration isn't permanent then this code is run instead
+                changeAvailableMTF(statAmount, statDuration);
+                continue;
+            }
+
+            if(proposalStatChanges[i] == "Researchers") {
+                if(statDuration == 0) {
+                    changeTotalResearchers(statAmount);
+                    continue;
+                }
+                changeAvailableResearchers(statAmount, statDuration);
+                continue;
+            }
+
+            if(proposalStatChanges[i] == "DClass") {
+                if(statDuration == 0) {
+                    changeTotalDClass(statAmount);
+                    continue;
+                }
+                changeAvailableDClass(statAmount, statDuration);
+                continue;
+            }
+
+            if(proposalStatChanges[i] == "Morale") {
+                if(statDuration == 0) {
+                    changeTotalMorale(statAmount);
+                    continue;
+                }
+                changeAvailableMorale(statAmount, statDuration);
+                continue;
+            }
+
+            //Display stat changes from stat handler, need to pass in statClone from above for old values
+
+            //TODO add rest of stats
+        }
     }
 
     public void checkInactiveProposals(List<int> proposalPostUnlocks) {
@@ -231,83 +234,127 @@ public class ProposalHandler : MonoBehaviour
 
         //TODO Actually check if this proposal can be accepted with the users current stats (Maybe not here, but somewhere)
 
-        //TODO Raise event for UI to update
+        //TODO Maybe move this to the Decision button as that currently has the coroutine for removing stamps and such
+        //TODO Alternatively raise it here, but also raise it in the decision button and use an AND statement to check both (from each source) have been raised?
         onProposalChanged.Raise();
+    }
+
+    //TODO actually check if all of these need to be public
+    //TODO only activate this at the end of each month
+    public void checkStatBus() {
+
+        // //Need to add stats to remove from stat bus to here, as if removed whilst looping through the list, it will affect the loop count.
+        // List<int> finishedStatChanges = new List<int>();
+
+        for (int i = 0; i < statChangeEventBus.Count; i++) {
+
+            //Updates the number of months left for the stat
+            statChangeEventBus[i].updateStatDuration();
+
+            string changedStat = statChangeEventBus[i].getStatChanged();
+            int statEffect = statChangeEventBus[i].getStatChangedEffect();
+
+            if(statChangeEventBus[i].getStatChangedDuration() == 0) {
+
+                if(changedStat == "MTF") {
+                    //Set the stat back to its normal value (if it went down by 10, this will do +10 (or rather, --10).)
+                    hiddenGameVariables._availableMTF -= statEffect;
+                    //Remove the stat change from the bus as it is finished with
+                    statChangeEventBus.RemoveAt(i);
+                    //As the size of the bus has decreased, decrement i, this is because another stat change will be in the position of the old one.
+                    i--;
+                    continue;
+                }
+                
+                if(changedStat == "Researchers") {
+                    hiddenGameVariables._availableResearchers -= statEffect;
+                    statChangeEventBus.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+                
+                //TODO add rest of stats
+
+
+            }
+
+            //Check if stat is finished and if so, remove and delete it
+        }
     }
 
     // ==============================================================================================================
     // |                                               MTF STAT CODE                                                |
     // ==============================================================================================================
 
-    public void changeTempMTF(int tempMTF, int duration) {
+    public void changeAvailableMTF(int availableMTF, int duration) {
         //Change scriptable object
-        hiddenGameVariables._availableMTF += tempMTF;
+        hiddenGameVariables._availableMTF += availableMTF;
 
         //Create new instance of scriptable object storing the changed stat, amount, and duration
-        ActiveStatChange statChange = ActiveStatChange.CreateInstance("MTF", tempMTF, duration);
+        ActiveStatChange statChange = new ActiveStatChange("MTF", availableMTF, duration);
         //Add that instance to the statChangeEventBus
         statChangeEventBus.Add(statChange);
     }
 
-    public void changePermanentMTF(int permMTF) {
+    public void changeTotalMTF(int totalMTF) {
         //Change scriptable object
-        hiddenGameVariables._totalMTF += permMTF;
+        hiddenGameVariables._totalMTF += totalMTF;
     }
 
     // ==============================================================================================================
     // |                                            RESEARCHER STAT CODE                                            |
     // ==============================================================================================================
 
-    public void changeTempResearchers(int tempResearchers, int duration) {
+    public void changeAvailableResearchers(int availableResearchers, int duration) {
         //Change scriptable object
-        hiddenGameVariables._availableResearchers += tempResearchers;
+        hiddenGameVariables._availableResearchers += availableResearchers;
 
         //Create new instance of scriptable object storing the changed stat, amount, and duration
-        ActiveStatChange statChange = ActiveStatChange.CreateInstance("Researchers", tempResearchers, duration);
+        ActiveStatChange statChange = new ActiveStatChange("Researchers", availableResearchers, duration);
         //Add that instance to the statChangeEventBus
         statChangeEventBus.Add(statChange);
     }
 
-    public void changePermanentResearchers(int permResearchers) {
+    public void changeTotalResearchers(int totalResearchers) {
         //Change scriptable object
-        hiddenGameVariables._totalResearchers += permResearchers;
+        hiddenGameVariables._totalResearchers += totalResearchers;
     }
 
     // ==============================================================================================================
     // |                                               D-CLASS STAT CODE                                            |
     // ==============================================================================================================
 
-    public void changeTempDClass(int tempDClass, int duration) {
+    public void changeAvailableDClass(int availableDClass, int duration) {
         //Change scriptable object
-        hiddenGameVariables._availableDClass += tempDClass;
+        hiddenGameVariables._availableDClass += availableDClass;
 
         //Create new instance of scriptable object storing the changed stat, amount, and duration
-        ActiveStatChange statChange = ActiveStatChange.CreateInstance("DClass", tempDClass, duration);
+        ActiveStatChange statChange = new ActiveStatChange("DClass", availableDClass, duration);
         //Add that instance to the statChangeEventBus
         statChangeEventBus.Add(statChange);
     }
 
-    public void changePermanentDClass(int permDClass) {
+    public void changeTotalDClass(int totalDClass) {
         //Change scriptable object
-        hiddenGameVariables._totalDClass += permDClass;
+        hiddenGameVariables._totalDClass += totalDClass;
     }
 
     // ==============================================================================================================
     // |                                                MORALE STAT CODE                                            |
     // ==============================================================================================================
 
-    public void changeTempMorale(int tempMorale, int duration) {
+    public void changeAvailableMorale(int availableMorale, int duration) {
         //Change scriptable object
-        hiddenGameVariables._currentMorale += tempMorale;
+        hiddenGameVariables._currentMorale += availableMorale;
 
         //Create new instance of scriptable object storing the changed stat, amount, and duration
-        ActiveStatChange statChange = ActiveStatChange.CreateInstance("Morale", tempMorale, duration);
+        ActiveStatChange statChange = new ActiveStatChange("Morale", availableMorale, duration);
         //Add that instance to the statChangeEventBus
         statChangeEventBus.Add(statChange);
     }
 
-    public void changePermanentMorale(int permMorale) {
+    public void changeTotalMorale(int totalMorale) {
         //Change scriptable object
-        hiddenGameVariables._totalMorale += permMorale;
+        hiddenGameVariables._totalMorale += totalMorale;
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 public class SaveExample : MonoBehaviour
 {
+    string proposalTitle; 
     string proposalDescription; 
     int proposalID;
     int requiredMonth;
@@ -25,6 +26,7 @@ public class SaveExample : MonoBehaviour
     // Use this to change the new proposal being entered
     void Start()
     {
+        proposalTitle = "This is proposal 2 title";
         proposalDescription = "This is proposal 2 description"; 
         requiredMonth = 0;
 
@@ -76,7 +78,7 @@ public class SaveExample : MonoBehaviour
         Array.Resize(ref proposalArray, proposalArray.Length + 1);
 
         //Add new proposal to array
-        exampleProposal = new GenericProposal(proposalDescription, (proposalArray.Length - 1), requiredMonth,
+        exampleProposal = new GenericProposal(proposalTitle, proposalDescription, (proposalArray.Length - 1), requiredMonth,
                                               proposalPrerequisites,
                                               proposalPostUnlocksAccept, proposalPostUnlocksDeny, 
                                               proposalStatChangesAccept, proposalStatChangesDeny);

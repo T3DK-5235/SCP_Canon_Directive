@@ -55,7 +55,21 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
             //reset choice to a blank string for next use
             choice = "";
 
-            //TODO Set inactive stamp after configurable delay
+            StartCoroutine(AnimationCoroutine());
+
         }
+    }
+
+    IEnumerator AnimationCoroutine()
+    {
+        //TODO Do animation of sliding clipboard on screen in co-routine (or at least, raise an event for the UIHandler to do)
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(3);
+
+        signature.SetActive(false);
+
+        denyStamp.SetActive(false);
+        acceptStamp.SetActive(false);
     }
 }
