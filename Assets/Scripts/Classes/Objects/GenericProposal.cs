@@ -20,6 +20,8 @@ public class GenericProposal
     [SerializeField] private List<string> proposalStatChangesAccept;
     [SerializeField] private List<string> proposalStatChangesDeny;
 
+    [SerializeField] private int extraInfo;
+
     //ProposalPrereqs are proposals that have to be done to unlock this proposal
     //ProposalRequirements are a set of states that have to be set to unlock this proposal. For example, if a D-Class obtainment scenario is decided
     //
@@ -31,7 +33,8 @@ public class GenericProposal
     public GenericProposal(string proposalTitle, string proposalDescription, int proposalID, int requiredMonth,
                            List<int> proposalPrerequisites,
                            List<int> proposalPostUnlocksAccept, List<int> proposalPostUnlocksDeny, 
-                           List<string> proposalStatChangesAccept, List<string> proposalStatChangesDeny) {
+                           List<string> proposalStatChangesAccept, List<string> proposalStatChangesDeny,
+                           int extraInfo) {
         this.proposalTitle = proposalTitle;
         this.proposalDescription = proposalDescription;
         this.proposalID = proposalID;
@@ -44,6 +47,8 @@ public class GenericProposal
 
         this.proposalStatChangesAccept = proposalStatChangesAccept;
         this.proposalStatChangesDeny = proposalStatChangesDeny;
+
+        this.extraInfo = extraInfo;
     }
 
     // ==============================================================================================================
@@ -117,5 +122,9 @@ public class GenericProposal
 
     public int getProposalID() {
         return proposalID;
+    }
+
+    public int getExtraInfo() {
+        return extraInfo;
     }
 }

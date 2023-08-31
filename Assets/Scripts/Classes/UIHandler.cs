@@ -49,8 +49,6 @@ public class UIHandler : MonoBehaviour
         if(tabletOn == false) {
             StartCoroutine(ITabletOn());
             StartCoroutine(IDisplayLogo());
-            //TODO disable both and display stat screen
-            Debug.Log("Done When?");
             tabletOn = true;
         }
     }
@@ -67,6 +65,7 @@ public class UIHandler : MonoBehaviour
 
     public void updateProposal(Component sender, object data) {
 
+        StartCoroutine(ExtraInfoClipboard());
 
         //TODO Add animation or movement here of the proposal
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
@@ -75,6 +74,15 @@ public class UIHandler : MonoBehaviour
 
     private void ProjectClipboardOverlay() {
         projectClipboardOverlay.SetActive(true);
+    }
+
+    IEnumerator ExtraInfoClipboard() {
+        yield return new WaitForSeconds(0.3f);
+
+        //TODO animation for clipboard appearing
+        hiddenGameVariables._currentProposal.getExtraInfo();
+
+        //TODO display extra info
     }
 
 
@@ -95,8 +103,6 @@ public class UIHandler : MonoBehaviour
             temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
             initialTabletImage.color = temp;
         }
-
-        Debug.Log("Done Tablet");
 
         //Syncs this co-routine with the other co-routine below
         yield return new WaitForSeconds(1f);
@@ -127,9 +133,11 @@ public class UIHandler : MonoBehaviour
             scorpImage.color = temp;
         }
         
+        yield return new WaitForSeconds(0.4f);
+
         activateFoundationStatPage();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
 
         //Resets the image back to being invisible
         temp = scorpImage.color;

@@ -20,6 +20,8 @@ public class SaveExample : MonoBehaviour
     List<string> proposalStatChangesAccept;
     List<string> proposalStatChangesDeny;
 
+    int extraInfo;
+
     [SerializeField] private GenericProposal exampleProposal;
 
     // Start is called before the first frame update
@@ -62,6 +64,8 @@ public class SaveExample : MonoBehaviour
             "-5",
         };
 
+        extraInfo = 1;
+
     }
 
     public void addNewProposalToJSON() {
@@ -81,7 +85,7 @@ public class SaveExample : MonoBehaviour
         exampleProposal = new GenericProposal(proposalTitle, proposalDescription, (proposalArray.Length - 1), requiredMonth,
                                               proposalPrerequisites,
                                               proposalPostUnlocksAccept, proposalPostUnlocksDeny, 
-                                              proposalStatChangesAccept, proposalStatChangesDeny);
+                                              proposalStatChangesAccept, proposalStatChangesDeny, extraInfo);
 
         proposalArray[proposalArray.Length - 1] = exampleProposal;
 
