@@ -19,9 +19,15 @@ public class UIHandler : MonoBehaviour
 
     [SerializeField] GameObject initialTabletScreen;
     [SerializeField] GameObject scorpLogo;
+
+    [SerializeField] GameObject foundationStatScreen;
+
+    [SerializeField] GameObject GoIStatScreen;
     
     private TextMeshProUGUI proposalTitle;
     private TextMeshProUGUI proposalDesc;
+
+    private bool tabletOn = false;
 
     //TODO utilize events to fire the below actions instead of update?
     //TODO update background of window 
@@ -33,8 +39,19 @@ public class UIHandler : MonoBehaviour
         //hardcoded at only proposal 0 for initial experimentation
         if (currentID == 0){
             ProjectClipboardOverlay();
-        } else {
+        } else if (currentID == 1){
             projectClipboardOverlay.SetActive(false);
+            TurnOnTablet();
+        }
+    }
+
+    private void TurnOnTablet() {
+        if(tabletOn == false) {
+            StartCoroutine(ITabletOn());
+            StartCoroutine(IDisplayLogo());
+            //TODO disable both and display stat screen
+            Debug.Log("Done When?");
+            tabletOn = true;
         }
     }
 
@@ -46,8 +63,6 @@ public class UIHandler : MonoBehaviour
         // and set it to the current proposal's description
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
-
-        StartCoroutine(TabletOnCoroutine());
     }
 
     public void updateProposal(Component sender, object data) {
@@ -63,28 +78,73 @@ public class UIHandler : MonoBehaviour
     }
 
 
-    IEnumerator TabletOnCoroutine()
+    IEnumerator ITabletOn()
     {
-        
-        //TODO Lerp opacity of tablet main section
-        //TODO Lerp opacity of logo
-        //TODO disable both and display stat screen
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(3);
+        initialTabletScreen.SetActive(true);
 
         Image initialTabletImage = initialTabletScreen.GetComponent<Image>();
-
-        // Color c = image.color;
-        // c.a = 0;
-        // initialTabletImage.color = c;
         Color temp = initialTabletImage.color;
 
-        while (temp.a != 1) {
-            Debug.Log(temp);
+        float elapsedTime = 0;
+        float duration = 0.1f;
+        while (initialTabletImage.color.a < 0.95f){//elapsedTime < duration) {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
+
             temp = initialTabletImage.color;
-            temp.a = Mathf.Lerp(temp.a, 1, Time.deltaTime);
+            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
             initialTabletImage.color = temp;
         }
 
+        Debug.Log("Done Tablet");
+
+        //Syncs this co-routine with the other co-routine below
+        yield return new WaitForSeconds(1f);
+
+        temp = initialTabletImage.color;
+        temp.a = 0f; //Time.deltaTime
+        initialTabletImage.color = temp;
+        initialTabletScreen.SetActive(false);
+    }
+
+    IEnumerator IDisplayLogo()
+    {
+        yield return new WaitForSeconds(0.5f);
+        scorpLogo.SetActive(true);
+
+        Image scorpImage = scorpLogo.GetComponent<Image>();
+        Color temp = scorpImage.color;
+
+        float elapsedTime = 0;
+        float duration = 0.1f;
+
+        while (scorpImage.color.a < 0.95f){//elapsedTime < duration) {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
+
+            temp = scorpImage.color;
+            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
+            scorpImage.color = temp;
+        }
+        
+        activateFoundationStatPage();
+
+        yield return new WaitForSeconds(0.5f);
+
+        //Resets the image back to being invisible
+        temp = scorpImage.color;
+        temp.a = 0f; //Time.deltaTime
+        scorpImage.color = temp;
+        scorpLogo.SetActive(false);
+    }
+
+    private void activateFoundationStatPage() {
+        foundationStatScreen.SetActive(true);
+        GoIStatScreen.SetActive(false);
+    }
+
+    private void activateGoIStatPage() {
+        GoIStatScreen.SetActive(true);
+        foundationStatScreen.SetActive(false);
     }
 }
