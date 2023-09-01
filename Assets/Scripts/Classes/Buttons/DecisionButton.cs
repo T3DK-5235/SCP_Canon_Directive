@@ -25,14 +25,14 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         if(eventData.pointerPress == decisionButton) {
             if (eventData.button == PointerEventData.InputButton.Left) {
                 choice = "accept";
-                //onDecisionChecked.Raise(choice); //Used to display stat changes
+                onDecisionChecked.Raise(choice); //Used to display stat changes
                 if(denyStamp.activeSelf) {
                     denyStamp.SetActive(false);
                 }
                 acceptStamp.SetActive(true);
             } else if (eventData.button == PointerEventData.InputButton.Right) {
                 choice = "deny";
-                //onDecisionChecked.Raise(choice);
+                onDecisionChecked.Raise(choice);
                 if(acceptStamp.activeSelf) {
                     acceptStamp.SetActive(false);
                 }

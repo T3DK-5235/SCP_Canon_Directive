@@ -9,32 +9,26 @@ public class ProposalHandler : MonoBehaviour
     public List<int> standbyProposalEventBus;
     public List<ActiveStatChange> statChangeEventBus;
 
-    private static StatTabletHandler statTabletHandler;
-    //private SaveHandler saveHandler;
-
     [SerializeField] PublicGameVariables publicGameVariables;
     [SerializeField] HiddenGameVariables hiddenGameVariables;
+
+    private TempStatVariables tempStatVariables;
 
     [SerializeField] ProposalsList proposalsList;
 
     [Header("Events")]
     public GameEvent onProposalChanged;
 
-    private bool isCurrentDecisionAccept;
-
     void Awake() {
         //Stores proposal objects
         activeProposalEventBus = new List<int>();
         standbyProposalEventBus = new List<int>();
 
-        statTabletHandler = new StatTabletHandler();
         // saveHandler = new SaveHandler();
 
         //Stores stat scriptable objects
         //Check every month
         statChangeEventBus = new List<ActiveStatChange>();
-        //Construct all of the proposals and add them to the ProposalList scriptable object
-
 
         //Get the last saved proposal (0 when starting) and set it to the current proposal
         hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
@@ -43,8 +37,10 @@ public class ProposalHandler : MonoBehaviour
     //Listens to the PlayerProposalDecision event system
     public void proposalDecision(Component sender, object data) {
 
-        List<string> proposalStatChanges = null;
+        //TODO send tempStatVariables to UI to update bars with
+        //TODO also update hiddenGameVariables 
 
+        List<string> proposalStatChanges = null;
         List<int> proposalPostUnlocks = null;
 
         //Changes what is unlocked and changed based on player decision
@@ -55,9 +51,7 @@ public class ProposalHandler : MonoBehaviour
         }
 
         //TODO raise a event that the proposal is finished? Allows everything to check if updates are needed
-
-        //TODO make the clipboard slide off screen, then update the contents, then return it. Probably use coroutine
-        
+        //TODO make the clipboard slide off screen, then update the contents, then return it. Probably use coroutine 
         
         checkInactiveProposals(proposalPostUnlocks);
 
@@ -68,22 +62,22 @@ public class ProposalHandler : MonoBehaviour
 
     }
 
-        //Might need to be a Coroutine to prevent game from continuing before all stats are changed
-    // TODO make this into a listener function that checks whether accept or deny is ticked
+    //Might need to be a Coroutine to prevent game from continuing before all stats are changed
     //Listens to the PlayerProposalTempDecision event system
     public void handleStatChanges(Component sender, object data) {
         List<string> proposalStatChanges = null;
+        Debug.Log("Logging stat changes plus choice: " + data);
 
-        //Save an instance of the stats prior to changes for comparison purposes
-        //This only really needs to be used when resetting requirements such as the D-Class 
-        HiddenGameVariables statClone = statTabletHandler.storeCurrentStats();
+        //TODO probably need to remember to delete this when done with
+        //create instance of Temp Stat Variables and add any changes to it.
+        //these changes will be sent to the UI so it can update the stat bars
+        //when the choice is confirmed, pass the current instance to another method to update the hiddenGameVariables
+        tempStatVariables = ScriptableObject.CreateInstance(typeof(TempStatVariables)) as TempStatVariables;
 
         if (data == "accept") {
             proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesAccept();
-            isCurrentDecisionAccept = true;
         } else if (data == "deny") {
             proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesDeny();
-            isCurrentDecisionAccept = false;
         }
 
         // Generic Stat changes are stored in blocks of 3 in the order "stat, amount, duration"
@@ -140,7 +134,11 @@ public class ProposalHandler : MonoBehaviour
             //Display stat changes from stat handler, need to pass in statClone from above for old values
 
             //TODO add rest of stats
+
+            //TODO send tempStatVariables to UI to update bars with
         }
+
+        Debug.Log("Length of temp variable SO's active stat object list: " + tempStatVariables._tempStatsChanged.Count);
     }
 
     public void checkInactiveProposals(List<int> proposalPostUnlocks) {
@@ -288,17 +286,22 @@ public class ProposalHandler : MonoBehaviour
 
     public void changeAvailableMTF(int availableMTF, int duration) {
         //Change scriptable object
-        hiddenGameVariables._availableMTF += availableMTF;
+        tempStatVariables._availableMTF = hiddenGameVariables._availableMTF + availableMTF;
+        //AvailableMTF is stat ID 0. This will be used when updating the UI to figure out what stats actually changed
+        tempStatVariables._statsChanged.Add(0);
 
         //Create new instance of scriptable object storing the changed stat, amount, and duration
         ActiveStatChange statChange = new ActiveStatChange("MTF", availableMTF, duration);
-        //Add that instance to the statChangeEventBus
-        statChangeEventBus.Add(statChange);
+        //Add the stat change to a list in the tempStatVariables. This will be moved to the statChangeEventBus when confirmed
+        tempStatVariables._tempStatsChanged.Add(statChange);
+
+        // //Add that instance to the statChangeEventBus
+        //statChangeEventBus.Add(statChange);
     }
 
     public void changeTotalMTF(int totalMTF) {
-        //Change scriptable object
-        hiddenGameVariables._totalMTF += totalMTF;
+        tempStatVariables._totalMTF = hiddenGameVariables._totalMTF + totalMTF;
+        tempStatVariables._statsChanged.Add(1);
     }
 
     // ==============================================================================================================
@@ -306,18 +309,16 @@ public class ProposalHandler : MonoBehaviour
     // ==============================================================================================================
 
     public void changeAvailableResearchers(int availableResearchers, int duration) {
-        //Change scriptable object
-        hiddenGameVariables._availableResearchers += availableResearchers;
+        tempStatVariables._availableResearchers = hiddenGameVariables._availableResearchers + availableResearchers;
+        tempStatVariables._statsChanged.Add(2);
 
-        //Create new instance of scriptable object storing the changed stat, amount, and duration
         ActiveStatChange statChange = new ActiveStatChange("Researchers", availableResearchers, duration);
-        //Add that instance to the statChangeEventBus
-        statChangeEventBus.Add(statChange);
+        tempStatVariables._tempStatsChanged.Add(statChange);
     }
 
     public void changeTotalResearchers(int totalResearchers) {
-        //Change scriptable object
-        hiddenGameVariables._totalResearchers += totalResearchers;
+        tempStatVariables._totalResearchers = hiddenGameVariables._totalResearchers + totalResearchers;
+        tempStatVariables._statsChanged.Add(3);
     }
 
     // ==============================================================================================================
@@ -325,36 +326,32 @@ public class ProposalHandler : MonoBehaviour
     // ==============================================================================================================
 
     public void changeAvailableDClass(int availableDClass, int duration) {
-        //Change scriptable object
-        hiddenGameVariables._availableDClass += availableDClass;
+        tempStatVariables._availableDClass = hiddenGameVariables._availableDClass + availableDClass;
+        tempStatVariables._statsChanged.Add(4);
 
-        //Create new instance of scriptable object storing the changed stat, amount, and duration
         ActiveStatChange statChange = new ActiveStatChange("DClass", availableDClass, duration);
-        //Add that instance to the statChangeEventBus
-        statChangeEventBus.Add(statChange);
+        tempStatVariables._tempStatsChanged.Add(statChange);
     }
 
     public void changeTotalDClass(int totalDClass) {
-        //Change scriptable object
-        hiddenGameVariables._totalDClass += totalDClass;
+        tempStatVariables._totalDClass = hiddenGameVariables._totalDClass + totalDClass;
+        tempStatVariables._statsChanged.Add(5);
     }
 
     // ==============================================================================================================
     // |                                                MORALE STAT CODE                                            |
     // ==============================================================================================================
 
-    public void changeAvailableMorale(int availableMorale, int duration) {
-        //Change scriptable object
-        hiddenGameVariables._currentMorale += availableMorale;
+    public void changeAvailableMorale(int currentMorale, int duration) {
+        tempStatVariables._currentMorale = hiddenGameVariables._currentMorale + currentMorale;
+        tempStatVariables._statsChanged.Add(6);
 
-        //Create new instance of scriptable object storing the changed stat, amount, and duration
-        ActiveStatChange statChange = new ActiveStatChange("Morale", availableMorale, duration);
-        //Add that instance to the statChangeEventBus
-        statChangeEventBus.Add(statChange);
+        ActiveStatChange statChange = new ActiveStatChange("Morale", currentMorale, duration);
+        tempStatVariables._tempStatsChanged.Add(statChange);
     }
 
     public void changeTotalMorale(int totalMorale) {
-        //Change scriptable object
-        hiddenGameVariables._totalMorale += totalMorale;
+        tempStatVariables._totalMorale = hiddenGameVariables._totalMorale + totalMorale;
+        tempStatVariables._statsChanged.Add(7);;
     }
 }
