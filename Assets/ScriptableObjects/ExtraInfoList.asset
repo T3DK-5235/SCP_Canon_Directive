@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a2d5f517e03144a841bc314d4c60b5, type: 3}
+  m_Name: ExtraInfoList
+  m_EditorClassIdentifier: 
+  _extraInfo:
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Potential Employees
+    infoDescription:
+    - "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.
+      \n\nRecommendation: Containment Specialist."
+    - "Thaddeus A Xyank\n\nA new MIT graduate versed in Mechanical Engineering. \n\nRecommendation:
+      Containment Specialist."
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Potential Employees
+    infoDescription:
+    - "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.
+      \n\nRecommendation: Containment Specialist."
+    - "Thaddeus A Xyank\n\nA new MIT graduate versed in Mechanical Engineering. \n\nRecommendation:
+      Containment Specialist."
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Potential Employees
+    infoDescription:
+    - "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.
+      \n\nRecommendation: Containment Specialist."
+    - "Thaddeus A Xyank\n\nA new MIT graduate versed in Mechanical Engineering. \n\nRecommendation:
+      Containment Specialist."
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Potential Employees
+    infoDescription:
+    - "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.
+      \n\nRecommendation: Containment Specialist."
+    - "Thaddeus A Xyank\n\nA new MIT graduate versed in Mechanical Engineering. \n\nRecommendation:
+      Containment Specialist."
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Potential Employees
+    infoDescription:
+    - "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.
+      \n\nRecommendation: Containment Specialist."
+    - "Thaddeus A Xyank\n\nA new MIT graduate versed in Mechanical Engineering. \n\nRecommendation:
+      Containment Specialist."
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Potential Employees
+    infoDescription:
+    - "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.
+      \n\nRecommendation: Containment Specialist."
+    - "Thaddeus A Xyank\n\nA new MIT graduate versed in Mechanical Engineering. \n\nRecommendation:
+      Containment Specialist."
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Potential Employees
+    infoDescription:
+    - "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.
+      \n\nRecommendation: Containment Specialist."
+    - "Thaddeus A Xyank\n\nA new MIT graduate versed in Mechanical Engineering. \n\nRecommendation:
+      Containment Specialist."
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Potential Employees
+    infoDescription:
+    - "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.
+      \n\nRecommendation: Containment Specialist."
+    - "Thaddeus A Xyank\n\nA new MIT graduate versed in Mechanical Engineering. \n\nRecommendation:
+      Containment Specialist."

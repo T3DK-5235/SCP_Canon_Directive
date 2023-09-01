@@ -10,6 +10,8 @@ public class HiddenGameVariables : ScriptableObject
     public GenericProposal _prevProposal;
     public GenericProposal _currentProposal;
 
+    public GenericExtraInfo _currentExtraInfo;
+
     public int _lastSavedProposal;
 
     [Space(20)]

@@ -17,6 +17,8 @@ public class UIHandler : MonoBehaviour
     
     [SerializeField] GameObject proposalClipboard;
 
+    [SerializeField] GameObject extraInfoClipboard;
+
     [SerializeField] GameObject initialTabletScreen;
     [SerializeField] GameObject scorpLogo;
 
@@ -27,7 +29,17 @@ public class UIHandler : MonoBehaviour
     private TextMeshProUGUI proposalTitle;
     private TextMeshProUGUI proposalDesc;
 
+    [SerializeField] TextMeshProUGUI extraInfoTitle;
+    [SerializeField] TextMeshProUGUI extraInfoDesc;
+
+    [SerializeField] GameObject genericInfoContainer;
+    [SerializeField] GameObject personnelContainer;
+    [SerializeField] GameObject personnelPrefab;
+    List<GameObject> personnelPrefabList;
+
     private bool tabletOn = false;
+
+    private int currentPrefabNum = 0;
 
     //TODO utilize events to fire the below actions instead of update?
     //TODO update background of window 
@@ -58,15 +70,15 @@ public class UIHandler : MonoBehaviour
         // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
         proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+
         // and set it to the current proposal's description
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
+
+        personnelPrefabList = new List<GameObject>();
     }
 
     public void updateProposal(Component sender, object data) {
-
-        StartCoroutine(ExtraInfoClipboard());
-
         //TODO Add animation or movement here of the proposal
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
@@ -74,15 +86,6 @@ public class UIHandler : MonoBehaviour
 
     private void ProjectClipboardOverlay() {
         projectClipboardOverlay.SetActive(true);
-    }
-
-    IEnumerator ExtraInfoClipboard() {
-        yield return new WaitForSeconds(0.3f);
-
-        //TODO animation for clipboard appearing
-        hiddenGameVariables._currentProposal.getExtraInfo();
-
-        //TODO display extra info
     }
 
 
@@ -154,5 +157,73 @@ public class UIHandler : MonoBehaviour
     private void activateGoIStatPage() {
         GoIStatScreen.SetActive(true);
         foundationStatScreen.SetActive(false);
+    }
+
+    public void updateExtraInfo(Component sender, object data) {
+
+        //Sets the number of player checked prefabs back to 0
+        currentPrefabNum = 0;
+
+        extraInfoClipboard.SetActive(true);
+        // StartCoroutine(ExtraInfoClipboard());
+
+        // string extraInfoType = hiddenGameVariables._currentExtraInfo.getExtraInfoType();
+        // if (extraInfoType = "PotentialEmployees") {
+        //     //TODO figure out how to deal with prefab stuff
+        // }
+
+        //TODO Add animation or movement here of the proposal
+
+        string extraInfoType = hiddenGameVariables._currentExtraInfo.getExtraInfoType();
+        int extraInfoNum = hiddenGameVariables._currentExtraInfo.getInfoDescription().Count;
+
+        if(extraInfoType == "PotentialEmployees") {
+            personnelContainer.SetActive(true);
+
+            for(int i = 0; i < extraInfoNum; i++) {
+                GameObject personnelPrefabInstance = Instantiate(personnelPrefab, personnelContainer.transform) as GameObject;
+                
+                TextMeshProUGUI prefabTitle = personnelPrefabInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI prefabDescription = personnelPrefabInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+
+                prefabTitle.text = hiddenGameVariables._currentExtraInfo.getInfoTitle();
+                prefabDescription.text = hiddenGameVariables._currentExtraInfo.getInfoDescription()[i];
+
+                personnelPrefabList.Add(personnelPrefabInstance);
+
+                personnelPrefabInstance.SetActive(false);
+            }
+        } else {
+            extraInfoTitle.text = hiddenGameVariables._currentExtraInfo.getInfoTitle();
+            extraInfoDesc.text = hiddenGameVariables._currentExtraInfo.getInfoDescription()[0];
+        }
+
+        //Set the first prefab to be active
+        personnelPrefabList[currentPrefabNum].SetActive(true);
+    }
+
+    public void getNextPrefab(Component sender, object data) { 
+        int prevPrefabNum = 0;
+
+        // if the current prefab number is less than the possible total prefab number
+        // as currentPrefabNum starts at 0, rather than 1, personnelPrefabList.Count has to be decreased as well
+        if (currentPrefabNum < personnelPrefabList.Count - 1) {
+            Debug.Log("Going up!" + currentPrefabNum);
+            //Set prev prefab to inactive
+            prevPrefabNum = currentPrefabNum;
+            //Increase the current prefab num
+            currentPrefabNum++;
+            //Set next prefab to active (currentPrefabNum starts at 1, whilst lists start at 0)
+            personnelPrefabList[currentPrefabNum].SetActive(true);
+        } else {
+            Debug.Log("Back to start");
+            //reset it back to the start prefab
+            currentPrefabNum = 0;
+            personnelPrefabList[currentPrefabNum].SetActive(true);
+            //Set prev prefab to inactive
+            prevPrefabNum = personnelPrefabList.Count - 1;
+        }
+
+        personnelPrefabList[prevPrefabNum].SetActive(false);
     }
 }
