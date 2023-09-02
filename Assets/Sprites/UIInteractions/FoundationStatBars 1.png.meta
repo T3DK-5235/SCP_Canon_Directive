@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b650669ff1fe3ac4894dbe2a09d671a2
+guid: 6ca17a0fbf6f96241870a3a8752db0ef
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,11 +105,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BarTest_0
+      name: FoundationStatBars 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 12
+        y: 68
         width: 60
         height: 4
       alignment: 0
@@ -119,18 +119,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c58328048498df24898e2c8a8578c2d5
-      internalID: 1261734340
+      spriteID: 945ec5023f7761b40b1ffa321be2bc90
+      internalID: -855365353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BarTest_1
+      name: FoundationStatBars 1_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 8
+        y: 64
         width: 60
         height: 4
       alignment: 0
@@ -140,18 +140,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49d56c955c885ba40a70edb905a91dbe
-      internalID: -1635192743
+      spriteID: 3dc383c1f333935419106a1442f03569
+      internalID: -1828912127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BarTest_2
+      name: FoundationStatBars 1_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 4
+        y: 60
         width: 60
         height: 4
       alignment: 0
@@ -161,18 +161,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 719f2fc0bdffaad4b881cf16f6769113
-      internalID: -1429578736
+      spriteID: e6923c41a74d6c04fa1715ef3d3d6976
+      internalID: 202185316
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BarTest_3
+      name: FoundationStatBars 1_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 56
         width: 60
         height: 4
       alignment: 0
@@ -182,8 +182,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c098a8861e204c4fb6792d8ebf49235
-      internalID: 2097762206
+      spriteID: 43939d3b0a17b6d47849a2bd8e27aa49
+      internalID: 141351295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FoundationStatBars 1_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 52
+        width: 60
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a507dfe8e49a81a47bc94cc256f9c299
+      internalID: -269637574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FoundationStatBars 1_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 60
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2a839ac9f8fe3241bbb0f485fd255a5
+      internalID: 1207811423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FoundationStatBars 1_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 44
+        width: 60
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d7df90f58ec2ab4f874a1f2323d2e6e
+      internalID: 2042644704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FoundationStatBars 1_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 40
+        width: 60
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e5db22b98e9dbd44bbae88510aa4246
+      internalID: 1962422201
       vertices: []
       indices: 
       edges: []
@@ -199,10 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BarTest_2: -1429578736
-      BarTest_1: -1635192743
-      BarTest_0: 1261734340
-      BarTest_3: 2097762206
+      FoundationStatBars 1_7: 1962422201
+      FoundationStatBars 1_3: 141351295
+      FoundationStatBars 1_2: 202185316
+      FoundationStatBars 1_0: -855365353
+      FoundationStatBars 1_5: 1207811423
+      FoundationStatBars 1_6: 2042644704
+      FoundationStatBars 1_1: -1828912127
+      FoundationStatBars 1_4: -269637574
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

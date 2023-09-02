@@ -37,6 +37,12 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject personnelPrefab;
     List<GameObject> personnelPrefabList;
 
+    [SerializeField] Slider totalMTF;
+    [SerializeField] Slider availableMTF;
+
+    [SerializeField] Slider totalResearchers;
+    [SerializeField] Slider availableResearchers;
+
     private bool tabletOn = false;
 
     private int currentPrefabNum = 0;
@@ -44,6 +50,19 @@ public class UIHandler : MonoBehaviour
     //TODO utilize events to fire the below actions instead of update?
     //TODO update background of window 
     //TODO add screen overlays
+
+    void Start() {
+        // Maybe put in try catch
+        // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
+        proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+
+        // and set it to the current proposal's description
+        proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
+        proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
+
+        personnelPrefabList = new List<GameObject>();
+    }
 
     void Update() {
         int currentID = hiddenGameVariables._currentProposal.getProposalID();
@@ -63,19 +82,6 @@ public class UIHandler : MonoBehaviour
             StartCoroutine(IDisplayLogo());
             tabletOn = true;
         }
-    }
-
-    void Start() {
-        // Maybe put in try catch
-        // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
-        proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
-
-        // and set it to the current proposal's description
-        proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
-        proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
-
-        personnelPrefabList = new List<GameObject>();
     }
 
     public void updateProposal(Component sender, object data) {
@@ -225,5 +231,11 @@ public class UIHandler : MonoBehaviour
         }
 
         personnelPrefabList[prevPrefabNum].SetActive(false);
+    }
+
+    //TODO need to call this from proposal manager when a) stats change and b) decision is made
+    public void updateStatUI(Component sender, object data) { 
+        //TODO change sliders for UI based on the data given
+        //TODO data should come in the form of a TempStatVariable instance
     }
 }
