@@ -153,7 +153,7 @@ public class UIHandler : MonoBehaviour
     public void updateFlashingStatUI(Component sender, object data) 
     {
         //TODO change sliders for UI based on the data given
-        currentTempStats = data as tempStatVariables;
+        // currentTempStats = data as tempStatVariables;
 
         startUIFlashing = true;
     }

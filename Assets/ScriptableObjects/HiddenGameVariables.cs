@@ -38,4 +38,42 @@ public class HiddenGameVariables : ScriptableObject
 
     public int _totalMorale = 100;
     public int _currentMorale = 100;
+
+
+    // Create a nested class.
+    [System.Serializable] // This attribute is necessary for the class to show up in the Unity Inspector.
+    public class StatCopy
+    {
+        public List<int> __statsChanged = new List<int>();
+        public List<ActiveStatChange> __tempStatsChanged = new List<ActiveStatChange>();
+
+        [Header("Hidden Stats")]
+
+        public DClassMethodEnum __chosenDClassMethod = DClassMethodEnum.NONE;
+        public MajorCanonEnum __currentMajorCanon = MajorCanonEnum.VANILLA;
+
+        [Header("UI Stats")]
+
+        public int __totalMTF = 100;
+        public int __availableMTF = 100;
+
+        [Space(10)]
+
+        public int __totalResearchers = 100;
+        public int __availableResearchers = 100;
+
+        [Space(10)]
+
+        public int __totalDClass = 100;
+        public int __availableDClass = 100;
+
+        [Space(10)]
+
+        public int __totalMorale = 100;
+        public int __currentMorale = 100;
+    }
+
+    // You can create instances of the nested class within the Scriptable Object.
+    public StatCopy _myStatCopy;
+
 }

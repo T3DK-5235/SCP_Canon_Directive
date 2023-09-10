@@ -12,7 +12,7 @@ public class ProposalHandler : MonoBehaviour
     [SerializeField] PublicGameVariables publicGameVariables;
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
-    private TempStatVariables tempStatVariables;
+    //private TempStatVariables tempStatVariables;
 
     [SerializeField] ProposalsList proposalsList;
 
@@ -74,7 +74,11 @@ public class ProposalHandler : MonoBehaviour
         //create instance of Temp Stat Variables and add any changes to it.
         //these changes will be sent to the UI so it can update the stat bars
         //when the choice is confirmed, pass the current instance to another method to update the hiddenGameVariables
-        tempStatVariables = ScriptableObject.CreateInstance(typeof(TempStatVariables)) as TempStatVariables;
+        //tempStatVariables = ScriptableObject.CreateInstance(typeof(TempStatVariables)) as TempStatVariables;
+
+
+        HiddenGameVariables.StatCopy statCopy = new HiddenGameVariables.StatCopy();
+        hiddenGameVariables.myStatCopy = statCopy;
 
         if (data == "accept") {
             proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesAccept();
@@ -137,11 +141,11 @@ public class ProposalHandler : MonoBehaviour
 
             //TODO add rest of stats
 
-            //Send tempStatVariables to UI to update bars with
-            updateFlashingStats.Raise(tempStatVariables);
+            //Raise event to UI to update bars with
+            updateFlashingStats.Raise();
         }
 
-        Debug.Log("Length of temp variable SO's active stat object list: " + tempStatVariables._tempStatsChanged.Count);
+        Debug.Log("Length of temp variable SO's active stat object list: " + statCopy._tempStatsChanged.Count);
     }
 
     public void checkInactiveProposals(List<int> proposalPostUnlocks) {
@@ -289,22 +293,22 @@ public class ProposalHandler : MonoBehaviour
 
     public void changeAvailableMTF(int availableMTF, int duration) {
         //Change scriptable object
-        tempStatVariables._availableMTF = hiddenGameVariables._availableMTF + availableMTF;
+        hiddenGameVariables._myStatCopy._availableMTF = hiddenGameVariables._availableMTF + availableMTF;
         //AvailableMTF is stat ID 0. This will be used when updating the UI to figure out what stats actually changed
-        tempStatVariables._statsChanged.Add(0);
+        statCopy._statsChanged.Add(0);
 
         //Create new instance of scriptable object storing the changed stat, amount, and duration
         ActiveStatChange statChange = new ActiveStatChange("MTF", availableMTF, duration);
-        //Add the stat change to a list in the tempStatVariables. This will be moved to the statChangeEventBus when confirmed
-        tempStatVariables._tempStatsChanged.Add(statChange);
+        //Add the stat change to a list in the statCopy. This will be moved to the statChangeEventBus when confirmed
+        statCopy._tempStatsChanged.Add(statChange);
 
         // //Add that instance to the statChangeEventBus
         //statChangeEventBus.Add(statChange);
     }
 
     public void changeTotalMTF(int totalMTF) {
-        tempStatVariables._totalMTF = hiddenGameVariables._totalMTF + totalMTF;
-        tempStatVariables._statsChanged.Add(1);
+        statCopy._totalMTF = hiddenGameVariables._totalMTF + totalMTF;
+        statCopy._statsChanged.Add(1);
     }
 
     // ==============================================================================================================
@@ -312,16 +316,16 @@ public class ProposalHandler : MonoBehaviour
     // ==============================================================================================================
 
     public void changeAvailableResearchers(int availableResearchers, int duration) {
-        tempStatVariables._availableResearchers = hiddenGameVariables._availableResearchers + availableResearchers;
-        tempStatVariables._statsChanged.Add(2);
+        statCopy._availableResearchers = hiddenGameVariables._availableResearchers + availableResearchers;
+        statCopy._statsChanged.Add(2);
 
         ActiveStatChange statChange = new ActiveStatChange("Researchers", availableResearchers, duration);
-        tempStatVariables._tempStatsChanged.Add(statChange);
+        statCopy._tempStatsChanged.Add(statChange);
     }
 
     public void changeTotalResearchers(int totalResearchers) {
-        tempStatVariables._totalResearchers = hiddenGameVariables._totalResearchers + totalResearchers;
-        tempStatVariables._statsChanged.Add(3);
+        statCopy._totalResearchers = hiddenGameVariables._totalResearchers + totalResearchers;
+        statCopy._statsChanged.Add(3);
     }
 
     // ==============================================================================================================
@@ -329,16 +333,16 @@ public class ProposalHandler : MonoBehaviour
     // ==============================================================================================================
 
     public void changeAvailableDClass(int availableDClass, int duration) {
-        tempStatVariables._availableDClass = hiddenGameVariables._availableDClass + availableDClass;
-        tempStatVariables._statsChanged.Add(4);
+        statCopy._availableDClass = hiddenGameVariables._availableDClass + availableDClass;
+        statCopy._statsChanged.Add(4);
 
         ActiveStatChange statChange = new ActiveStatChange("DClass", availableDClass, duration);
-        tempStatVariables._tempStatsChanged.Add(statChange);
+        statCopy._tempStatsChanged.Add(statChange);
     }
 
     public void changeTotalDClass(int totalDClass) {
-        tempStatVariables._totalDClass = hiddenGameVariables._totalDClass + totalDClass;
-        tempStatVariables._statsChanged.Add(5);
+        statCopy._totalDClass = hiddenGameVariables._totalDClass + totalDClass;
+        statCopy._statsChanged.Add(5);
     }
 
     // ==============================================================================================================
@@ -346,15 +350,15 @@ public class ProposalHandler : MonoBehaviour
     // ==============================================================================================================
 
     public void changeAvailableMorale(int currentMorale, int duration) {
-        tempStatVariables._currentMorale = hiddenGameVariables._currentMorale + currentMorale;
-        tempStatVariables._statsChanged.Add(6);
+        statCopy._currentMorale = hiddenGameVariables._currentMorale + currentMorale;
+        statCopy._statsChanged.Add(6);
 
         ActiveStatChange statChange = new ActiveStatChange("Morale", currentMorale, duration);
-        tempStatVariables._tempStatsChanged.Add(statChange);
+        statCopy._tempStatsChanged.Add(statChange);
     }
 
     public void changeTotalMorale(int totalMorale) {
-        tempStatVariables._totalMorale = hiddenGameVariables._totalMorale + totalMorale;
-        tempStatVariables._statsChanged.Add(7);;
+        statCopy._totalMorale = hiddenGameVariables._totalMorale + totalMorale;
+        statCopy._statsChanged.Add(7);;
     }
 }
