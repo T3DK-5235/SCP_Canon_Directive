@@ -78,7 +78,7 @@ public class ProposalHandler : MonoBehaviour
 
 
         HiddenGameVariables.StatCopy statCopy = new HiddenGameVariables.StatCopy();
-        hiddenGameVariables.myStatCopy = statCopy;
+        hiddenGameVariables._myStatCopy = statCopy;
 
         if (data == "accept") {
             proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesAccept();
@@ -145,7 +145,7 @@ public class ProposalHandler : MonoBehaviour
             updateFlashingStats.Raise();
         }
 
-        Debug.Log("Length of temp variable SO's active stat object list: " + statCopy._tempStatsChanged.Count);
+        Debug.Log("Length of temp variable SO's active stat object list: " + statCopy.__tempStatsChanged.Count);
     }
 
     public void checkInactiveProposals(List<int> proposalPostUnlocks) {
@@ -293,22 +293,22 @@ public class ProposalHandler : MonoBehaviour
 
     public void changeAvailableMTF(int availableMTF, int duration) {
         //Change scriptable object
-        hiddenGameVariables._myStatCopy._availableMTF = hiddenGameVariables._availableMTF + availableMTF;
+        hiddenGameVariables._myStatCopy.__availableMTF = hiddenGameVariables._availableMTF + availableMTF;
         //AvailableMTF is stat ID 0. This will be used when updating the UI to figure out what stats actually changed
-        statCopy._statsChanged.Add(0);
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(0);
 
         //Create new instance of scriptable object storing the changed stat, amount, and duration
         ActiveStatChange statChange = new ActiveStatChange("MTF", availableMTF, duration);
         //Add the stat change to a list in the statCopy. This will be moved to the statChangeEventBus when confirmed
-        statCopy._tempStatsChanged.Add(statChange);
+        hiddenGameVariables._myStatCopy.__tempStatsChanged.Add(statChange);
 
         // //Add that instance to the statChangeEventBus
         //statChangeEventBus.Add(statChange);
     }
 
     public void changeTotalMTF(int totalMTF) {
-        statCopy._totalMTF = hiddenGameVariables._totalMTF + totalMTF;
-        statCopy._statsChanged.Add(1);
+        hiddenGameVariables._myStatCopy.__totalMTF = hiddenGameVariables._totalMTF + totalMTF;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(1);
     }
 
     // ==============================================================================================================
@@ -316,16 +316,16 @@ public class ProposalHandler : MonoBehaviour
     // ==============================================================================================================
 
     public void changeAvailableResearchers(int availableResearchers, int duration) {
-        statCopy._availableResearchers = hiddenGameVariables._availableResearchers + availableResearchers;
-        statCopy._statsChanged.Add(2);
+        hiddenGameVariables._myStatCopy.__availableResearchers = hiddenGameVariables._availableResearchers + availableResearchers;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(2);
 
         ActiveStatChange statChange = new ActiveStatChange("Researchers", availableResearchers, duration);
-        statCopy._tempStatsChanged.Add(statChange);
+        hiddenGameVariables._myStatCopy.__tempStatsChanged.Add(statChange);
     }
 
     public void changeTotalResearchers(int totalResearchers) {
-        statCopy._totalResearchers = hiddenGameVariables._totalResearchers + totalResearchers;
-        statCopy._statsChanged.Add(3);
+        hiddenGameVariables._myStatCopy.__totalResearchers = hiddenGameVariables._totalResearchers + totalResearchers;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(3);
     }
 
     // ==============================================================================================================
@@ -333,16 +333,16 @@ public class ProposalHandler : MonoBehaviour
     // ==============================================================================================================
 
     public void changeAvailableDClass(int availableDClass, int duration) {
-        statCopy._availableDClass = hiddenGameVariables._availableDClass + availableDClass;
-        statCopy._statsChanged.Add(4);
+        hiddenGameVariables._myStatCopy.__availableDClass = hiddenGameVariables._availableDClass + availableDClass;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(4);
 
         ActiveStatChange statChange = new ActiveStatChange("DClass", availableDClass, duration);
-        statCopy._tempStatsChanged.Add(statChange);
+        hiddenGameVariables._myStatCopy.__tempStatsChanged.Add(statChange);
     }
 
     public void changeTotalDClass(int totalDClass) {
-        statCopy._totalDClass = hiddenGameVariables._totalDClass + totalDClass;
-        statCopy._statsChanged.Add(5);
+        hiddenGameVariables._myStatCopy.__totalDClass = hiddenGameVariables._totalDClass + totalDClass;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(5);
     }
 
     // ==============================================================================================================
@@ -350,15 +350,15 @@ public class ProposalHandler : MonoBehaviour
     // ==============================================================================================================
 
     public void changeAvailableMorale(int currentMorale, int duration) {
-        statCopy._currentMorale = hiddenGameVariables._currentMorale + currentMorale;
-        statCopy._statsChanged.Add(6);
+        hiddenGameVariables._myStatCopy.__currentMorale = hiddenGameVariables._currentMorale + currentMorale;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(6);
 
         ActiveStatChange statChange = new ActiveStatChange("Morale", currentMorale, duration);
-        statCopy._tempStatsChanged.Add(statChange);
+        hiddenGameVariables._myStatCopy.__tempStatsChanged.Add(statChange);
     }
 
     public void changeTotalMorale(int totalMorale) {
-        statCopy._totalMorale = hiddenGameVariables._totalMorale + totalMorale;
-        statCopy._statsChanged.Add(7);;
+        hiddenGameVariables._myStatCopy.__totalMorale = hiddenGameVariables._totalMorale + totalMorale;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(7);;
     }
 }

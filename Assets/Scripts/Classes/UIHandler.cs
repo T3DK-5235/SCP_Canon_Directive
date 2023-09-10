@@ -50,8 +50,7 @@ public class UIHandler : MonoBehaviour
 
     [SerializeField] Slider totalResearcherBar;
     [SerializeField] Slider availableResearcherBar;
-
-    private TempStatVariables currentTempStats = null;
+    
     private int currentPrefabNum = 0;
 
     private bool startUIFlashing;
@@ -152,14 +151,11 @@ public class UIHandler : MonoBehaviour
     //TODO need to call this from proposal manager when stats change during a proposal
     public void updateFlashingStatUI(Component sender, object data) 
     {
-        //TODO change sliders for UI based on the data given
-        // currentTempStats = data as tempStatVariables;
-
         startUIFlashing = true;
     }
 
     //TODO need to call this from proposal manager when stats change at the end of a proposal
-    public void updateStatUI(Component sender, TempStatVariables tempStatVariables) 
+    public void updateStatUI(Component sender, object data) 
     {
         //TODO change sliders for UI based on the data given
         //For every stat changed
@@ -183,8 +179,8 @@ public class UIHandler : MonoBehaviour
         if(startUIFlashing == true) {
             //swap states
             if (flashStatBar == false) {
-                availableMtfBar.value = currentTempStats._availableMTF;
-                availableResearcherBar.value = currentTempStats._availableResearchers;
+                availableMtfBar.value = hiddenGameVariables._myStatCopy.__availableMTF;
+                availableResearcherBar.value = hiddenGameVariables._myStatCopy.__availableResearchers;
 
                 flashStatBar = true;
             } else if (flashStatBar == true) {
