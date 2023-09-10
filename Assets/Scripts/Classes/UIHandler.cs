@@ -43,9 +43,20 @@ public class UIHandler : MonoBehaviour
     [SerializeField] Slider totalResearchers;
     [SerializeField] Slider availableResearchers;
 
-    private bool tabletOn = false;
+    [Header("UI Stat Bars")]
 
+    [SerializeField] Slider totalMtfBar;
+    [SerializeField] Slider availableMtfBar;
+
+    [SerializeField] Slider totalResearcherBar;
+    [SerializeField] Slider availableResearcherBar;
+
+    private TempStatVariables currentTempStats = null;
     private int currentPrefabNum = 0;
+
+    private bool startUIFlashing;
+
+    private bool flashStatBar = false;
 
     //TODO utilize events to fire the below actions instead of update?
     //TODO update background of window 
@@ -63,106 +74,11 @@ public class UIHandler : MonoBehaviour
 
         personnelPrefabList = new List<GameObject>();
     }
-
-    void Update() {
-        int currentID = hiddenGameVariables._currentProposal.getProposalID();
-
-        //hardcoded at only proposal 0 for initial experimentation
-        if (currentID == 0){
-            ProjectClipboardOverlay();
-        } else if (currentID == 1){
-            projectClipboardOverlay.SetActive(false);
-            TurnOnTablet();
-        }
-    }
-
-    private void TurnOnTablet() {
-        if(tabletOn == false) {
-            StartCoroutine(ITabletOn());
-            StartCoroutine(IDisplayLogo());
-            tabletOn = true;
-        }
-    }
-
+        //Is called after decision is made to update proposal
     public void updateProposal(Component sender, object data) {
         //TODO Add animation or movement here of the proposal
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
-    }
-
-    private void ProjectClipboardOverlay() {
-        projectClipboardOverlay.SetActive(true);
-    }
-
-
-    IEnumerator ITabletOn()
-    {
-        initialTabletScreen.SetActive(true);
-
-        Image initialTabletImage = initialTabletScreen.GetComponent<Image>();
-        Color temp = initialTabletImage.color;
-
-        float elapsedTime = 0;
-        float duration = 0.1f;
-        while (initialTabletImage.color.a < 0.95f){//elapsedTime < duration) {
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForSeconds(0.1f);
-
-            temp = initialTabletImage.color;
-            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
-            initialTabletImage.color = temp;
-        }
-
-        //Syncs this co-routine with the other co-routine below
-        yield return new WaitForSeconds(1f);
-
-        temp = initialTabletImage.color;
-        temp.a = 0f; //Time.deltaTime
-        initialTabletImage.color = temp;
-        initialTabletScreen.SetActive(false);
-    }
-
-    IEnumerator IDisplayLogo()
-    {
-        yield return new WaitForSeconds(0.5f);
-        scorpLogo.SetActive(true);
-
-        Image scorpImage = scorpLogo.GetComponent<Image>();
-        Color temp = scorpImage.color;
-
-        float elapsedTime = 0;
-        float duration = 0.1f;
-
-        while (scorpImage.color.a < 0.95f){//elapsedTime < duration) {
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForSeconds(0.1f);
-
-            temp = scorpImage.color;
-            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
-            scorpImage.color = temp;
-        }
-        
-        yield return new WaitForSeconds(0.4f);
-
-        activateFoundationStatPage();
-
-        yield return new WaitForSeconds(0.1f);
-
-        //Resets the image back to being invisible
-        temp = scorpImage.color;
-        temp.a = 0f; //Time.deltaTime
-        scorpImage.color = temp;
-        scorpLogo.SetActive(false);
-    }
-
-    private void activateFoundationStatPage() {
-        foundationStatScreen.SetActive(true);
-        GoIStatScreen.SetActive(false);
-    }
-
-    private void activateGoIStatPage() {
-        GoIStatScreen.SetActive(true);
-        foundationStatScreen.SetActive(false);
     }
 
     public void updateExtraInfo(Component sender, object data) {
@@ -233,9 +149,55 @@ public class UIHandler : MonoBehaviour
         personnelPrefabList[prevPrefabNum].SetActive(false);
     }
 
-    //TODO need to call this from proposal manager when a) stats change and b) decision is made
-    public void updateStatUI(Component sender, object data) { 
+    //TODO need to call this from proposal manager when stats change during a proposal
+    public void updateFlashingStatUI(Component sender, object data) 
+    {
         //TODO change sliders for UI based on the data given
-        //TODO data should come in the form of a TempStatVariable instance
+        currentTempStats = data as tempStatVariables;
+
+        startUIFlashing = true;
+    }
+
+    //TODO need to call this from proposal manager when stats change at the end of a proposal
+    public void updateStatUI(Component sender, TempStatVariables tempStatVariables) 
+    {
+        //TODO change sliders for UI based on the data given
+        //For every stat changed
+
+        // for (int i = 0; i < tempStatVariables._statsChanged.Count; i++) {
+        //     switch () 
+        //     {
+        //         case 0:
+        //             //code
+        //             break;
+        //     }
+        // }
+
+        //TODO actually update hiddenGameVariables with tempStatVariables
+
+        startUIFlashing = false;
+    }
+
+    void Update() {
+        //Used to flash between new and old value 
+        if(startUIFlashing == true) {
+            //swap states
+            if (flashStatBar == false) {
+                availableMtfBar.value = currentTempStats._availableMTF;
+                availableResearcherBar.value = currentTempStats._availableResearchers;
+
+                flashStatBar = true;
+            } else if (flashStatBar == true) {
+                availableMtfBar.value = hiddenGameVariables._availableMTF;
+                availableResearcherBar.value = hiddenGameVariables._availableResearchers;
+
+                flashStatBar = false;
+            }
+        }
+    }
+
+    //TODO make IEnumerator
+    public void dealWithflashingUI() {
+        //Add stat bar values to bus, bus will be cleared when actual update is done
     }
 }

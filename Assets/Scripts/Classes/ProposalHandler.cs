@@ -19,6 +19,8 @@ public class ProposalHandler : MonoBehaviour
     [Header("Events")]
     public GameEvent onProposalChanged;
 
+    public GameEvent updateFlashingStats;
+
     void Awake() {
         //Stores proposal objects
         activeProposalEventBus = new List<int>();
@@ -135,7 +137,8 @@ public class ProposalHandler : MonoBehaviour
 
             //TODO add rest of stats
 
-            //TODO send tempStatVariables to UI to update bars with
+            //Send tempStatVariables to UI to update bars with
+            updateFlashingStats.Raise(tempStatVariables);
         }
 
         Debug.Log("Length of temp variable SO's active stat object list: " + tempStatVariables._tempStatsChanged.Count);
