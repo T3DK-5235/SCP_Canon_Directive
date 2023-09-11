@@ -899,6 +899,8 @@ GameObject:
   - component: {fileID: 271144013}
   - component: {fileID: 271144014}
   - component: {fileID: 271144015}
+  - component: {fileID: 271144016}
+  - component: {fileID: 271144017}
   m_Layer: 0
   m_Name: UIHandler
   m_TagString: Untagged
@@ -919,22 +921,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hiddenGameVariables: {fileID: 11400000, guid: 73ade735c52a89f4aa177ec053eef848, type: 2}
-  projectClipboardOverlay: {fileID: 1623785377}
   proposalClipboard: {fileID: 978522765}
   extraInfoClipboard: {fileID: 1041595818}
-  initialTabletScreen: {fileID: 1701677257}
-  scorpLogo: {fileID: 1976336056}
-  foundationStatScreen: {fileID: 580824987}
-  GoIStatScreen: {fileID: 1572487262}
   extraInfoTitle: {fileID: 1133681373}
   extraInfoDesc: {fileID: 855201938}
   genericInfoContainer: {fileID: 139086731}
   personnelContainer: {fileID: 731926395}
   personnelPrefab: {fileID: 537942862472550964, guid: 631f7285886afb6418aa0106e753623d, type: 3}
-  totalMTF: {fileID: 0}
-  availableMTF: {fileID: 0}
-  totalResearchers: {fileID: 0}
-  availableResearchers: {fileID: 0}
+  totalMtfBar: {fileID: 1731800275}
+  availableMtfBar: {fileID: 407068800}
+  totalResearcherBar: {fileID: 1119892674}
+  availableResearcherBar: {fileID: 242939627}
 --- !u!4 &271144012
 Transform:
   m_ObjectHideFlags: 0
@@ -1025,6 +1022,62 @@ MonoBehaviour:
       - m_Target: {fileID: 271144011}
         m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
         m_MethodName: getNextPrefab
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &271144016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271144010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2da66f438ced04c9b45b05a8b59a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: adf8a0a801aa1fd4cb6a7938fca921f6, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 271144011}
+        m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
+        m_MethodName: updateFlashingStatUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &271144017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271144010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2da66f438ced04c9b45b05a8b59a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 77073bf7a23d1514bb6605153ebf2983, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 271144011}
+        m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
+        m_MethodName: updateStatUI
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1574,6 +1627,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ced4f1703c96aa40aef0c46eba6886f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hiddenGameVariables: {fileID: 11400000, guid: 73ade735c52a89f4aa177ec053eef848, type: 2}
+  projectClipboardOverlay: {fileID: 1623785377}
+  initialTabletScreen: {fileID: 1701677257}
+  scorpLogo: {fileID: 1976336056}
+  foundationStatScreen: {fileID: 580824987}
+  GoIStatScreen: {fileID: 1572487262}
 --- !u!4 &453016572
 Transform:
   m_ObjectHideFlags: 0
@@ -3007,6 +3066,7 @@ MonoBehaviour:
   hiddenGameVariables: {fileID: 11400000, guid: 73ade735c52a89f4aa177ec053eef848, type: 2}
   proposalsList: {fileID: 11400000, guid: 7797be875ef92bb43872c281945cdbed, type: 2}
   onProposalChanged: {fileID: 11400000, guid: d932a605662b8c94099c12e34c864fcf, type: 2}
+  updateFlashingStats: {fileID: 11400000, guid: adf8a0a801aa1fd4cb6a7938fca921f6, type: 2}
 --- !u!4 &1115848885
 Transform:
   m_ObjectHideFlags: 0

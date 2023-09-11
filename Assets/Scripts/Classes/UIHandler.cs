@@ -42,6 +42,8 @@ public class UIHandler : MonoBehaviour
 
     private bool flashStatBar = false;
 
+    private IEnumerator activeBlinkTimer; 
+
     //TODO utilize events to fire the below actions instead of update?
     //TODO update background of window 
     //TODO add screen overlays
@@ -140,11 +142,14 @@ public class UIHandler : MonoBehaviour
     {
         //TODO figure out why prev version isnt stopped
         //Stop any running versions of the blink timer first
-        StopCoroutine(BlinkTimer());
+        //TODO Should check if it is running already before trying to stop it
+        StopCoroutine(activeBlinkTimer);
 
         Debug.Log("UI told to flash");
         startUIFlashing = true;
-        StartCoroutine(BlinkTimer());
+        
+        activeBlinkTimer = BlinkTimer();
+        StartCoroutine(activeBlinkTimer);
     }
 
     //TODO need to call this from proposal manager when stats change at the end of a proposal

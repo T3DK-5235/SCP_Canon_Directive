@@ -28,30 +28,61 @@ MonoBehaviour:
     proposalPostUnlocksDeny: 01000000
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
+    extraInfo: 0
   _currentProposal:
-    proposalDescription: This is proposal 1 description
+    proposalDescription: "Next up is getting some new workers! \n\nAt the end of
+      each year you can gain some more researchers and MTF, this allows you to accept
+      more proposals or do larger activities."
     proposalID: 1
     requiredMonth: 0
-    proposalTitle: This is proposal 1 title
+    proposalTitle: Prospective New Recruits
     proposalPrerequisites: 
-    proposalPostUnlocksAccept: 03000000
-    proposalPostUnlocksDeny: 03000000
+    proposalPostUnlocksAccept: 02000000
+    proposalPostUnlocksDeny: 02000000
     proposalStatChangesAccept:
     - MTF
-    - 5
+    - 50
+    - 2
+    - Researchers
+    - 10
     - 2
     proposalStatChangesDeny:
     - Researchers
     - 5
     - -5
+    extraInfo: 0
+  _currentExtraInfo:
+    extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Potential Employees
+    infoDescription:
+    - "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.
+      \n\nRecommendation: Containment Specialist."
+    - "Some Random Guy\n\nNo idea where he came from. Just appeared one day \n\nRecommendation:
+      Close Observation."
   _lastSavedProposal: 0
   _chosenDClassMethod: 0
   _currentMajorCanon: 0
-  _totalMTF: 100
-  _availableMTF: 100
-  _totalResearchers: 100
-  _availableResearchers: 100
-  _totalDClass: 100
-  _availableDClass: 100
-  _totalMorale: 100
-  _currentMorale: 100
+  _totalMTF: 50
+  _availableMTF: 50
+  _totalResearchers: 50
+  _availableResearchers: 50
+  _totalDClass: 50
+  _availableDClass: 50
+  _totalMorale: 50
+  _currentMorale: 50
+  _myStatCopy:
+    __statsChanged: 0000000002000000
+    __tempStatsChanged:
+    - {fileID: 0}
+    - {fileID: 0}
+    __chosenDClassMethod: 0
+    __currentMajorCanon: 0
+    __totalMTF: 50
+    __availableMTF: 50
+    __totalResearchers: 50
+    __availableResearchers: 50
+    __totalDClass: 50
+    __availableDClass: 50
+    __totalMorale: 50
+    __currentMorale: 50
