@@ -11,20 +11,11 @@ public class UIHandler : MonoBehaviour
 {
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
-    [SerializeField] GameObject projectClipboardOverlay;
-
     //Maybe instead try make a UI scriptable object
     
     [SerializeField] GameObject proposalClipboard;
 
     [SerializeField] GameObject extraInfoClipboard;
-
-    [SerializeField] GameObject initialTabletScreen;
-    [SerializeField] GameObject scorpLogo;
-
-    [SerializeField] GameObject foundationStatScreen;
-
-    [SerializeField] GameObject GoIStatScreen;
     
     private TextMeshProUGUI proposalTitle;
     private TextMeshProUGUI proposalDesc;
@@ -37,12 +28,6 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject personnelPrefab;
     List<GameObject> personnelPrefabList;
 
-    [SerializeField] Slider totalMTF;
-    [SerializeField] Slider availableMTF;
-
-    [SerializeField] Slider totalResearchers;
-    [SerializeField] Slider availableResearchers;
-
     [Header("UI Stat Bars")]
 
     [SerializeField] Slider totalMtfBar;
@@ -50,7 +35,7 @@ public class UIHandler : MonoBehaviour
 
     [SerializeField] Slider totalResearcherBar;
     [SerializeField] Slider availableResearcherBar;
-    
+
     private int currentPrefabNum = 0;
 
     private bool startUIFlashing;
@@ -72,6 +57,8 @@ public class UIHandler : MonoBehaviour
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
 
         personnelPrefabList = new List<GameObject>();
+
+        //TODO set sliders to HiddenGameVariables values
     }
         //Is called after decision is made to update proposal
     public void updateProposal(Component sender, object data) {
@@ -151,7 +138,13 @@ public class UIHandler : MonoBehaviour
     //TODO need to call this from proposal manager when stats change during a proposal
     public void updateFlashingStatUI(Component sender, object data) 
     {
+        //TODO figure out why prev version isnt stopped
+        //Stop any running versions of the blink timer first
+        StopCoroutine(BlinkTimer());
+
+        Debug.Log("UI told to flash");
         startUIFlashing = true;
+        StartCoroutine(BlinkTimer());
     }
 
     //TODO need to call this from proposal manager when stats change at the end of a proposal
@@ -174,26 +167,26 @@ public class UIHandler : MonoBehaviour
         startUIFlashing = false;
     }
 
-    void Update() {
-        //Used to flash between new and old value 
-        if(startUIFlashing == true) {
-            //swap states
+    //TODO make IEnumerator
+    IEnumerator BlinkTimer()
+    {
+        //Used to flash between new and old value
+        while (startUIFlashing) {
             if (flashStatBar == false) {
+                Debug.Log("UI MTF prev value: " + hiddenGameVariables._myStatCopy.__availableMTF);
                 availableMtfBar.value = hiddenGameVariables._myStatCopy.__availableMTF;
                 availableResearcherBar.value = hiddenGameVariables._myStatCopy.__availableResearchers;
 
                 flashStatBar = true;
             } else if (flashStatBar == true) {
+                Debug.Log("UI MTF new value: " + hiddenGameVariables._availableMTF);
                 availableMtfBar.value = hiddenGameVariables._availableMTF;
                 availableResearcherBar.value = hiddenGameVariables._availableResearchers;
 
                 flashStatBar = false;
             }
-        }
-    }
 
-    //TODO make IEnumerator
-    public void dealWithflashingUI() {
-        //Add stat bar values to bus, bus will be cleared when actual update is done
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

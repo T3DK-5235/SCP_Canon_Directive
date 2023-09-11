@@ -34,6 +34,8 @@ public class ProposalHandler : MonoBehaviour
 
         //Get the last saved proposal (0 when starting) and set it to the current proposal
         hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
+
+        //TODO set hiddenGameVariables values
     }
 
     //Listens to the PlayerProposalDecision event system
@@ -76,8 +78,24 @@ public class ProposalHandler : MonoBehaviour
         //when the choice is confirmed, pass the current instance to another method to update the hiddenGameVariables
         //tempStatVariables = ScriptableObject.CreateInstance(typeof(TempStatVariables)) as TempStatVariables;
 
-
+        //TODO fix this as the stat copy doesnt have the original values making it change values when it shouldnt.
         HiddenGameVariables.StatCopy statCopy = new HiddenGameVariables.StatCopy();
+        statCopy.__chosenDClassMethod = DClassMethodEnum.NONE;
+        statCopy.__currentMajorCanon = MajorCanonEnum.VANILLA;
+
+        statCopy.__totalMTF = hiddenGameVariables._currentMorale;
+        statCopy.__availableMTF = hiddenGameVariables._currentMorale;
+
+        statCopy.__totalResearchers = hiddenGameVariables._currentMorale;
+        statCopy.__availableResearchers = hiddenGameVariables._currentMorale;
+
+        statCopy.__totalDClass = hiddenGameVariables._currentMorale;
+        statCopy.__availableDClass = hiddenGameVariables._currentMorale;
+
+        statCopy.__totalMorale = hiddenGameVariables._currentMorale;
+        statCopy.__currentMorale = hiddenGameVariables._currentMorale;        
+
+
         hiddenGameVariables._myStatCopy = statCopy;
 
         if (data == "accept") {
@@ -142,10 +160,12 @@ public class ProposalHandler : MonoBehaviour
             //TODO add rest of stats
 
             //Raise event to UI to update bars with
-            updateFlashingStats.Raise();
         }
 
         Debug.Log("Length of temp variable SO's active stat object list: " + statCopy.__tempStatsChanged.Count);
+        updateFlashingStats.Raise();
+        Debug.Log("updated flashing stats");
+
     }
 
     public void checkInactiveProposals(List<int> proposalPostUnlocks) {
