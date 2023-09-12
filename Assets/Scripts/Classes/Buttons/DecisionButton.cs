@@ -20,7 +20,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //TODO Check that the proposal can be accepted due to the stats
+        //TODO Check that the proposal can be accepted due to the stats (raise event to check this, then set a variable in here if true?)
         //This deals with the button used for accepting or denying the proposal
         if(eventData.pointerPress == decisionButton) {
             if (eventData.button == PointerEventData.InputButton.Left) {
@@ -64,8 +64,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
     {
         //TODO Do animation of sliding clipboard on screen in co-routine (or at least, raise an event for the UIHandler to do)
 
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.2f);
 
         signature.SetActive(false);
         denyStamp.SetActive(false);

@@ -14,22 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hasActiveProposal: 0
   _prevProposal:
-    proposalDescription: 'If you wish to play the tutorial, accept this proposal
-      by stamping the decision button and signing on the line.
-
-
-      if you instead
-      wish to jump in, deny the proposal.'
-    proposalID: 0
-    requiredMonth: 0
-    proposalTitle: welcome to scp administration
-    proposalPrerequisites: 
-    proposalPostUnlocksAccept: 01000000
-    proposalPostUnlocksDeny: 01000000
-    proposalStatChangesAccept: []
-    proposalStatChangesDeny: []
-    extraInfo: 0
-  _currentProposal:
     proposalDescription: "Next up is getting some new workers! \n\nAt the end of
       each year you can gain some more researchers and MTF, this allows you to accept
       more proposals or do larger activities."
@@ -46,6 +30,26 @@ MonoBehaviour:
     - Researchers
     - 10
     - 2
+    proposalStatChangesDeny:
+    - Researchers
+    - 5
+    - -5
+    extraInfo: 0
+  _currentProposal:
+    proposalDescription: Another cool description I swear.
+    proposalID: 2
+    requiredMonth: 0
+    proposalTitle: Another Title
+    proposalPrerequisites: 
+    proposalPostUnlocksAccept: 03000000
+    proposalPostUnlocksDeny: 03000000
+    proposalStatChangesAccept:
+    - MTF
+    - -25
+    - 2
+    - Researchers
+    - -20
+    - 4
     proposalStatChangesDeny:
     - Researchers
     - 5

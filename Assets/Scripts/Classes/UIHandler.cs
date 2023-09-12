@@ -140,12 +140,13 @@ public class UIHandler : MonoBehaviour
     //TODO need to call this from proposal manager when stats change during a proposal
     public void updateFlashingStatUI(Component sender, object data) 
     {
-        //TODO figure out why prev version isnt stopped
         //Stop any running versions of the blink timer first
-        //TODO Should check if it is running already before trying to stop it
-        StopCoroutine(activeBlinkTimer);
+        //check if it is running already before trying to stop it
+        if (activeBlinkTimer != null) {
+            StopCoroutine(activeBlinkTimer);
+        }
 
-        Debug.Log("UI told to flash");
+        //UI told to flash
         startUIFlashing = true;
         
         activeBlinkTimer = BlinkTimer();
@@ -156,41 +157,46 @@ public class UIHandler : MonoBehaviour
     public void updateStatUI(Component sender, object data) 
     {
         //TODO change sliders for UI based on the data given
+
         //For every stat changed
-
-        // for (int i = 0; i < tempStatVariables._statsChanged.Count; i++) {
-        //     switch () 
-        //     {
-        //         case 0:
-        //             //code
-        //             break;
-        //     }
-        // }
-
-        //TODO actually update hiddenGameVariables with tempStatVariables
-
+        if(hiddenGameVariables._myStatCopy.__statsChanged.Count != 0) {
+            for (int i = 0; i < hiddenGameVariables._myStatCopy.__statsChanged.Count; i++) {
+                switch (hiddenGameVariables._myStatCopy.__statsChanged[i]) 
+                {
+                    case 0:
+                        availableMtfBar.value = hiddenGameVariables._availableMTF;
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        availableResearcherBar.value = hiddenGameVariables._availableResearchers;
+                        break;
+                }
+            }
+        }
+        
         startUIFlashing = false;
     }
 
-    //TODO make IEnumerator
     IEnumerator BlinkTimer()
     {
         //Used to flash between new and old value
         while (startUIFlashing) {
             if (flashStatBar == false) {
-                Debug.Log("UI MTF prev value: " + hiddenGameVariables._myStatCopy.__availableMTF);
                 availableMtfBar.value = hiddenGameVariables._myStatCopy.__availableMTF;
                 availableResearcherBar.value = hiddenGameVariables._myStatCopy.__availableResearchers;
 
+                yield return new WaitForSeconds(0.1f);
                 flashStatBar = true;
             } else if (flashStatBar == true) {
-                Debug.Log("UI MTF new value: " + hiddenGameVariables._availableMTF);
                 availableMtfBar.value = hiddenGameVariables._availableMTF;
                 availableResearcherBar.value = hiddenGameVariables._availableResearchers;
 
+                yield return new WaitForSeconds(0.1f);
                 flashStatBar = false;
             }
 
+            //Delay between flashes
             yield return new WaitForSeconds(0.5f);
         }
     }

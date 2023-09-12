@@ -57,6 +57,8 @@ public class ProposalHandler : MonoBehaviour
         //TODO raise a event that the proposal is finished? Allows everything to check if updates are needed
         //TODO make the clipboard slide off screen, then update the contents, then return it. Probably use coroutine 
         
+        updateNewStats();
+
         checkInactiveProposals(proposalPostUnlocks);
 
         //Check Standby bus for any proposals to make active
@@ -70,29 +72,23 @@ public class ProposalHandler : MonoBehaviour
     //Listens to the PlayerProposalTempDecision event system
     public void handleStatChanges(Component sender, object data) {
         List<string> proposalStatChanges = null;
-        Debug.Log("Logging stat changes plus choice: " + data);
 
-        //TODO probably need to remember to delete this when done with
-        //create instance of Temp Stat Variables and add any changes to it.
-        //these changes will be sent to the UI so it can update the stat bars
-        //when the choice is confirmed, pass the current instance to another method to update the hiddenGameVariables
-        //tempStatVariables = ScriptableObject.CreateInstance(typeof(TempStatVariables)) as TempStatVariables;
-
-        //TODO fix this as the stat copy doesnt have the original values making it change values when it shouldnt.
         HiddenGameVariables.StatCopy statCopy = new HiddenGameVariables.StatCopy();
-        statCopy.__chosenDClassMethod = DClassMethodEnum.NONE;
-        statCopy.__currentMajorCanon = MajorCanonEnum.VANILLA;
 
-        statCopy.__totalMTF = hiddenGameVariables._currentMorale;
-        statCopy.__availableMTF = hiddenGameVariables._currentMorale;
+        //Get current values and assign them as base values to be changed in the stat copy
+        statCopy.__chosenDClassMethod = hiddenGameVariables._chosenDClassMethod;
+        statCopy.__currentMajorCanon = hiddenGameVariables._currentMajorCanon;
 
-        statCopy.__totalResearchers = hiddenGameVariables._currentMorale;
-        statCopy.__availableResearchers = hiddenGameVariables._currentMorale;
+        statCopy.__totalMTF = hiddenGameVariables._totalMTF;
+        statCopy.__availableMTF = hiddenGameVariables._availableMTF;
 
-        statCopy.__totalDClass = hiddenGameVariables._currentMorale;
-        statCopy.__availableDClass = hiddenGameVariables._currentMorale;
+        statCopy.__totalResearchers = hiddenGameVariables._totalResearchers;
+        statCopy.__availableResearchers = hiddenGameVariables._availableResearchers;
 
-        statCopy.__totalMorale = hiddenGameVariables._currentMorale;
+        statCopy.__totalDClass = hiddenGameVariables._totalDClass;
+        statCopy.__availableDClass = hiddenGameVariables._availableDClass;
+
+        statCopy.__totalMorale = hiddenGameVariables._totalMorale;
         statCopy.__currentMorale = hiddenGameVariables._currentMorale;        
 
 
@@ -155,17 +151,34 @@ public class ProposalHandler : MonoBehaviour
                 continue;
             }
 
-            //Display stat changes from stat handler, need to pass in statClone from above for old values
-
             //TODO add rest of stats
-
-            //Raise event to UI to update bars with
         }
-
-        Debug.Log("Length of temp variable SO's active stat object list: " + statCopy.__tempStatsChanged.Count);
         updateFlashingStats.Raise();
-        Debug.Log("updated flashing stats");
+    }
 
+    public void updateNewStats() {
+        //set current variables to the variables changed by the current proposal
+
+        hiddenGameVariables._chosenDClassMethod = hiddenGameVariables._myStatCopy.__chosenDClassMethod;
+        hiddenGameVariables._currentMajorCanon = hiddenGameVariables._myStatCopy.__currentMajorCanon;
+
+        hiddenGameVariables._totalMTF = hiddenGameVariables._myStatCopy.__totalMTF;
+        hiddenGameVariables._availableMTF = hiddenGameVariables._myStatCopy.__availableMTF;
+
+        hiddenGameVariables._totalResearchers = hiddenGameVariables._myStatCopy.__totalResearchers;
+        hiddenGameVariables._availableResearchers = hiddenGameVariables._myStatCopy.__availableResearchers;
+
+        hiddenGameVariables._totalDClass = hiddenGameVariables._myStatCopy.__totalDClass;
+        hiddenGameVariables._availableDClass = hiddenGameVariables._myStatCopy.__availableDClass;
+
+        hiddenGameVariables._totalMorale = hiddenGameVariables._myStatCopy.__totalMorale;
+        hiddenGameVariables._currentMorale = hiddenGameVariables._myStatCopy.__currentMorale;
+
+        //loop through all active stat changes
+        for (int i = 0; i < hiddenGameVariables._myStatCopy.__tempStatsChanged.Count; i++) {
+            //Add all temp stat changes to the stat change bus
+            statChangeEventBus.Add(hiddenGameVariables._myStatCopy.__tempStatsChanged[i]);
+        }
     }
 
     public void checkInactiveProposals(List<int> proposalPostUnlocks) {
@@ -266,6 +279,8 @@ public class ProposalHandler : MonoBehaviour
 
     //TODO actually check if all of these need to be public
     //TODO only activate this at the end of each month
+
+    //TODO MAKE SURE TO CALL THIS ONCE MONTH CODE IS IMPLEMENTED
     public void checkStatBus() {
 
         // //Need to add stats to remove from stat bus to here, as if removed whilst looping through the list, it will affect the loop count.
@@ -381,4 +396,6 @@ public class ProposalHandler : MonoBehaviour
         hiddenGameVariables._myStatCopy.__totalMorale = hiddenGameVariables._totalMorale + totalMorale;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(7);;
     }
+
+    //TODO add rest of stats
 }
