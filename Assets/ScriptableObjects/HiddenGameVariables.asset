@@ -36,24 +36,20 @@ MonoBehaviour:
     - -5
     extraInfo: 0
   _currentProposal:
-    proposalDescription: Another cool description I swear.
-    proposalID: 2
+    proposalDescription: 'If you wish to play the tutorial, accept this proposal
+      by stamping the decision button and signing on the line.
+
+
+      if you instead
+      wish to jump in, deny the proposal.'
+    proposalID: 0
     requiredMonth: 0
-    proposalTitle: Another Title
+    proposalTitle: welcome to scp administration
     proposalPrerequisites: 
-    proposalPostUnlocksAccept: 03000000
-    proposalPostUnlocksDeny: 03000000
-    proposalStatChangesAccept:
-    - MTF
-    - -25
-    - 2
-    - Researchers
-    - -20
-    - 4
-    proposalStatChangesDeny:
-    - Researchers
-    - 5
-    - -5
+    proposalPostUnlocksAccept: 01000000
+    proposalPostUnlocksDeny: 01000000
+    proposalStatChangesAccept: []
+    proposalStatChangesDeny: []
     extraInfo: 0
   _currentExtraInfo:
     extraInfoType: PotentialEmployees
@@ -65,6 +61,7 @@ MonoBehaviour:
     - "Some Random Guy\n\nNo idea where he came from. Just appeared one day \n\nRecommendation:
       Close Observation."
   _lastSavedProposal: 0
+  _numMonthlyProposal: 2
   _chosenDClassMethod: 0
   _currentMajorCanon: 0
   _totalMTF: 50
@@ -76,10 +73,8 @@ MonoBehaviour:
   _totalMorale: 50
   _currentMorale: 50
   _myStatCopy:
-    __statsChanged: 0000000002000000
-    __tempStatsChanged:
-    - {fileID: 0}
-    - {fileID: 0}
+    __statsChanged: 
+    __tempStatsChanged: []
     __chosenDClassMethod: 0
     __currentMajorCanon: 0
     __totalMTF: 50

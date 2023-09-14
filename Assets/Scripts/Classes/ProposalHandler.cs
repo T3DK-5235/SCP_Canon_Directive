@@ -17,9 +17,8 @@ public class ProposalHandler : MonoBehaviour
     [SerializeField] ProposalsList proposalsList;
 
     [Header("Events")]
-    public GameEvent onProposalChanged;
-
     public GameEvent updateFlashingStats;
+    public GameEvent ifMonthEnd;
 
     void Awake() {
         //Stores proposal objects
@@ -34,8 +33,7 @@ public class ProposalHandler : MonoBehaviour
 
         //Get the last saved proposal (0 when starting) and set it to the current proposal
         hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
-
-        //TODO set hiddenGameVariables values
+        //TODO write a save manager that'd pop in this "lastSavedProposal" plus the rest of the stats
     }
 
     //Listens to the PlayerProposalDecision event system
@@ -53,19 +51,15 @@ public class ProposalHandler : MonoBehaviour
         } else if (data == "deny") {
             proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksDeny();
         }
-
-        //TODO raise a event that the proposal is finished? Allows everything to check if updates are needed
-        //TODO make the clipboard slide off screen, then update the contents, then return it. Probably use coroutine 
         
         updateNewStats();
 
         checkInactiveProposals(proposalPostUnlocks);
-
-        //Check Standby bus for any proposals to make active
         checkStandbyProposals();
 
-        getNextProposal();
-
+        //Increase the number of proposals recorded as being done that month
+        ifMonthEnd.Raise();
+        // getNextProposal();
     }
 
     //Might need to be a Coroutine to prevent game from continuing before all stats are changed
@@ -255,7 +249,7 @@ public class ProposalHandler : MonoBehaviour
     //     }
     // }
 
-    public void getNextProposal() {
+    public void getNextProposal(Component sender, object data) {
 
         //If there is only 1 proposal possible, choose that, if not then randomly (Make this slightly more deterministic at a later date maybe) choose
         // int nextProposalPos = activeProposalEventBus[0];
@@ -271,16 +265,13 @@ public class ProposalHandler : MonoBehaviour
         activeProposalEventBus.RemoveAt(nextProposalPos);
 
         //TODO Actually check if this proposal can be accepted with the users current stats (Maybe not here, but somewhere)
-
-        //TODO Maybe move this to the Decision button as that currently has the coroutine for removing stamps and such
-        //TODO Alternatively raise it here, but also raise it in the decision button and use an AND statement to check both (from each source) have been raised?
-        onProposalChanged.Raise();
     }
 
     //TODO actually check if all of these need to be public
     //TODO only activate this at the end of each month
 
     //TODO MAKE SURE TO CALL THIS ONCE MONTH CODE IS IMPLEMENTED
+    //TODO maybe move this to gamemanager
     public void checkStatBus() {
 
         // //Need to add stats to remove from stat bus to here, as if removed whilst looping through the list, it will affect the loop count.
