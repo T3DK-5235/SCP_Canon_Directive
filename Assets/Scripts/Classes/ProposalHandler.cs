@@ -7,7 +7,6 @@ public class ProposalHandler : MonoBehaviour
 {
     public List<int> activeProposalEventBus;
     public List<int> standbyProposalEventBus;
-    public List<ActiveStatChange> statChangeEventBus;
 
     [SerializeField] PublicGameVariables publicGameVariables;
     [SerializeField] HiddenGameVariables hiddenGameVariables;
@@ -24,12 +23,6 @@ public class ProposalHandler : MonoBehaviour
         //Stores proposal objects
         activeProposalEventBus = new List<int>();
         standbyProposalEventBus = new List<int>();
-
-        // saveHandler = new SaveHandler();
-
-        //Stores stat scriptable objects
-        //Check every month
-        statChangeEventBus = new List<ActiveStatChange>();
 
         //Get the last saved proposal (0 when starting) and set it to the current proposal
         hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
@@ -171,7 +164,7 @@ public class ProposalHandler : MonoBehaviour
         //loop through all active stat changes
         for (int i = 0; i < hiddenGameVariables._myStatCopy.__tempStatsChanged.Count; i++) {
             //Add all temp stat changes to the stat change bus
-            statChangeEventBus.Add(hiddenGameVariables._myStatCopy.__tempStatsChanged[i]);
+            hiddenGameVariables._statChangeEventBus.Add(hiddenGameVariables._myStatCopy.__tempStatsChanged[i]);
         }
     }
 
@@ -268,50 +261,7 @@ public class ProposalHandler : MonoBehaviour
     }
 
     //TODO actually check if all of these need to be public
-    //TODO only activate this at the end of each month
-
-    //TODO MAKE SURE TO CALL THIS ONCE MONTH CODE IS IMPLEMENTED
-    //TODO maybe move this to gamemanager
-    public void checkStatBus() {
-
-        // //Need to add stats to remove from stat bus to here, as if removed whilst looping through the list, it will affect the loop count.
-        // List<int> finishedStatChanges = new List<int>();
-
-        for (int i = 0; i < statChangeEventBus.Count; i++) {
-
-            //Updates the number of months left for the stat
-            statChangeEventBus[i].updateStatDuration();
-
-            string changedStat = statChangeEventBus[i].getStatChanged();
-            int statEffect = statChangeEventBus[i].getStatChangedEffect();
-
-            if(statChangeEventBus[i].getStatChangedDuration() == 0) {
-
-                if(changedStat == "MTF") {
-                    //Set the stat back to its normal value (if it went down by 10, this will do +10 (or rather, --10).)
-                    hiddenGameVariables._availableMTF -= statEffect;
-                    //Remove the stat change from the bus as it is finished with
-                    statChangeEventBus.RemoveAt(i);
-                    //As the size of the bus has decreased, decrement i, this is because another stat change will be in the position of the old one.
-                    i--;
-                    continue;
-                }
-                
-                if(changedStat == "Researchers") {
-                    hiddenGameVariables._availableResearchers -= statEffect;
-                    statChangeEventBus.RemoveAt(i);
-                    i--;
-                    continue;
-                }
-                
-                //TODO add rest of stats
-
-
-            }
-
-            //Check if stat is finished and if so, remove and delete it
-        }
-    }
+    
 
     // ==============================================================================================================
     // |                                               MTF STAT CODE                                                |
@@ -327,9 +277,6 @@ public class ProposalHandler : MonoBehaviour
         ActiveStatChange statChange = new ActiveStatChange("MTF", availableMTF, duration);
         //Add the stat change to a list in the statCopy. This will be moved to the statChangeEventBus when confirmed
         hiddenGameVariables._myStatCopy.__tempStatsChanged.Add(statChange);
-
-        // //Add that instance to the statChangeEventBus
-        //statChangeEventBus.Add(statChange);
     }
 
     public void changeTotalMTF(int totalMTF) {

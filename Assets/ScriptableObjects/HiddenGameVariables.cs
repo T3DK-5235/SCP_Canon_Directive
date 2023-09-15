@@ -14,6 +14,8 @@ public class HiddenGameVariables : ScriptableObject
 
     public int _lastSavedProposal;
 
+    public List<ActiveStatChange> _statChangeEventBus = new List<ActiveStatChange>();
+
     [Space(20)]
 
     public DClassMethodEnum _chosenDClassMethod = DClassMethodEnum.NONE;

@@ -153,10 +153,9 @@ public class UIHandler : MonoBehaviour
         StartCoroutine(activeBlinkTimer);
     }
 
-    //TODO need to call this from proposal manager when stats change at the end of a proposal
+    //called from proposal manager when stats change at the end of a proposal
     public void updateStatUI(Component sender, object data) 
     {
-        //TODO change sliders for UI based on the data given
 
         //For every stat changed
         if(hiddenGameVariables._myStatCopy.__statsChanged.Count != 0) {
@@ -171,6 +170,8 @@ public class UIHandler : MonoBehaviour
                     case 2:
                         availableResearcherBar.value = hiddenGameVariables._availableResearchers;
                         break;
+
+                        //TODO add rest of stats
                 }
             }
         }
@@ -199,5 +200,5 @@ public class UIHandler : MonoBehaviour
             //Delay between flashes
             yield return new WaitForSeconds(0.5f);
         }
-    }
+    }    
 }
