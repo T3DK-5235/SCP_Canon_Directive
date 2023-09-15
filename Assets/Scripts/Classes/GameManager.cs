@@ -59,39 +59,41 @@ public class GameManager : MonoBehaviour
 
     private void checkStatBus() {
 
-        for (int i = 0; i < hiddenGameVariables._statChangeEventBus.Count; i++) {
+        //TODO figure out why hiddenGameVariables._statChangeEventBus[i].updateStatDuration(); doesnt work
 
-            //Updates the number of months left for the stat
-            hiddenGameVariables._statChangeEventBus[i].updateStatDuration();
+        // for (int i = 0; i < hiddenGameVariables._statChangeEventBus.Count; i++) {
 
-            string changedStat = hiddenGameVariables._statChangeEventBus[i].getStatChanged();
-            int statEffect = hiddenGameVariables._statChangeEventBus[i].getStatChangedEffect();
+        //     //Updates the number of months left for the stat
+        //     hiddenGameVariables._statChangeEventBus[i].updateStatDuration();
 
-            if(hiddenGameVariables._statChangeEventBus[i].getStatChangedDuration() == 0) {
+        //     string changedStat = hiddenGameVariables._statChangeEventBus[i].getStatChanged();
+        //     int statEffect = hiddenGameVariables._statChangeEventBus[i].getStatChangedEffect();
 
-                if(changedStat == "MTF") {
-                    //Set the stat back to its normal value (if it went down by 10, this will do +10 (or rather, --10).)
-                    hiddenGameVariables._availableMTF -= statEffect;
-                    //Remove the stat change from the bus as it is finished with
-                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
-                    //As the size of the bus has decreased, decrement i, this is because another stat change will be in the position of the old one.
-                    i--;
-                    continue;
-                }
+        //     if(hiddenGameVariables._statChangeEventBus[i].getStatChangedDuration() == 0) {
+
+        //         if(changedStat == "MTF") {
+        //             //Set the stat back to its normal value (if it went down by 10, this will do +10 (or rather, --10).)
+        //             hiddenGameVariables._availableMTF -= statEffect;
+        //             //Remove the stat change from the bus as it is finished with
+        //             hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+        //             //As the size of the bus has decreased, decrement i, this is because another stat change will be in the position of the old one.
+        //             i--;
+        //             continue;
+        //         }
                 
-                if(changedStat == "Researchers") {
-                    hiddenGameVariables._availableResearchers -= statEffect;
-                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
-                    i--;
-                    continue;
-                }
+        //         if(changedStat == "Researchers") {
+        //             hiddenGameVariables._availableResearchers -= statEffect;
+        //             hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+        //             i--;
+        //             continue;
+        //         }
                 
-                //TODO add rest of stats
+        //         //TODO add rest of stats
 
 
-            }
+        //     }
 
-            //Check if stat is finished and if so, remove and delete it
-        }
+        //     //Check if stat is finished and if so, remove and delete it
+        // }
     }
 }

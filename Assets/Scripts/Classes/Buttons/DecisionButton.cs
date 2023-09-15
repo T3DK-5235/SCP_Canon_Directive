@@ -16,13 +16,14 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
 
     private static string choice = "";
 
+    private static bool validProposal = false;
+
     [Header("Events")]
     public GameEvent onDecisionMade;
     public GameEvent onDecisionChecked;
 
     PointerEventData eventData;
 
-    private bool validProposal;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -46,27 +47,29 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
                 denyStamp.SetActive(true);
             }
         }
+
+        //TODO remove testing code
+        //Debug.Log(" pointer pressed : " + eventData.pointerPress + " : : : " + validProposal.ToString() + " : : : " + choice);
+
+        //This deals with if the signature button has been clicked and a choice has been made PLUS if the choice can actually be chosen
+        if(validProposal == true && eventData.pointerPress == signatureButton && choice != "") {
+            Debug.Log("We in");
+            finishProposal();
+        }
     }
 
     public void checkInvalidStats(Component sender, object data) 
     {
 
         //Tracks if at least one stat is less than 0
-        validProposal = false;
+        validProposal = true;
 
         //If the values in the stat copy are less than 0, the proposal is invalid
         if (hiddenGameVariables._myStatCopy.__availableMTF < 0) {
             validProposal = false;
-            
-            //TODO FIGURE OUT HOW + WHAT THE FUCK TO DO WHEN SHOWING A STAT CANNOT BE CHOSEN
-            
-            
-            flashInvalidStat.Raise("MTF");
-
-
-
-
-
+            //TODO raise an event to make the UI bar flash red?
+                        
+            // flashInvalidStat.Raise("MTF");
             Debug.Log("MTF fault found");
         }
         if (hiddenGameVariables._myStatCopy.__totalResearchers < 0) { 
@@ -76,33 +79,28 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         //TODO add rest of stats
 
         //Return true if there were no faults
-        if (statFault == false) {
+        if (validProposal == true) {
             Debug.Log("No faults found");
-            validProposal = true;
         }
-
-        finishProposal();
     }
 
     private void finishProposal() {
-    //This deals with if the signature button has been clicked and a choice has been made PLUS if the choice can actually be chosen
-        if(validProposal == true && eventData.pointerPress == signatureButton && choice != "") {
-            signature.SetActive(true);
+    
+        signature.SetActive(true);
 
-            //Disallow users interacting with the buttons at this point
-            //TODO check if this is efficient
-            CanvasGroup canvasGroup = GetComponentInParent<CanvasGroup>(true);
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
+        //Disallow users interacting with the buttons at this point
+        //TODO check if this is efficient
+        CanvasGroup canvasGroup = GetComponentInParent<CanvasGroup>(true);
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
 
-            //Send out event
-            onDecisionMade.Raise(choice);
+        //Send out event
+        onDecisionMade.Raise(choice);
 
-            //reset choice to a blank string for next use
-            choice = "";
+        //reset choice to a blank string for next use
+        choice = "";
 
-            StartCoroutine(AnimationCoroutine(canvasGroup));
-        }
+        StartCoroutine(AnimationCoroutine(canvasGroup));
     }
 
     IEnumerator AnimationCoroutine(CanvasGroup canvasGroup)
