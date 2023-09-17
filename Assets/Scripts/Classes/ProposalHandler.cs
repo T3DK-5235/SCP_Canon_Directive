@@ -283,6 +283,11 @@ public class ProposalHandler : MonoBehaviour
 
     public void changeTotalMTF(int totalMTF) {
         hiddenGameVariables._myStatCopy.__totalMTF = hiddenGameVariables._totalMTF + totalMTF;
+        //Also have to increase available MTF parallel to increasing total MTF
+        hiddenGameVariables._myStatCopy.__availableMTF = hiddenGameVariables._availableMTF + totalMTF;
+
+        //Add the two stat ids to the stat changed list
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(0);
         hiddenGameVariables._myStatCopy.__statsChanged.Add(1);
     }
 
@@ -300,6 +305,9 @@ public class ProposalHandler : MonoBehaviour
 
     public void changeTotalResearchers(int totalResearchers) {
         hiddenGameVariables._myStatCopy.__totalResearchers = hiddenGameVariables._totalResearchers + totalResearchers;
+        hiddenGameVariables._myStatCopy.__availableResearchers = hiddenGameVariables._availableResearchers + totalResearchers;
+
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(2);
         hiddenGameVariables._myStatCopy.__statsChanged.Add(3);
     }
 
@@ -317,6 +325,9 @@ public class ProposalHandler : MonoBehaviour
 
     public void changeTotalDClass(int totalDClass) {
         hiddenGameVariables._myStatCopy.__totalDClass = hiddenGameVariables._totalDClass + totalDClass;
+        hiddenGameVariables._myStatCopy.__availableDClass = hiddenGameVariables._availableDClass + totalDClass;
+
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(4);
         hiddenGameVariables._myStatCopy.__statsChanged.Add(5);
     }
 
@@ -334,7 +345,10 @@ public class ProposalHandler : MonoBehaviour
 
     public void changeTotalMorale(int totalMorale) {
         hiddenGameVariables._myStatCopy.__totalMorale = hiddenGameVariables._totalMorale + totalMorale;
-        hiddenGameVariables._myStatCopy.__statsChanged.Add(7);;
+        hiddenGameVariables._myStatCopy.__currentMorale = hiddenGameVariables._currentMorale + totalMorale;
+
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(6);
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(7);
     }
 
     //TODO add rest of stats

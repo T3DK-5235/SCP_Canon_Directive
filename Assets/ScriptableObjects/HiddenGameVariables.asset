@@ -67,12 +67,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   _chosenDClassMethod: 0
   _currentMajorCanon: 0
   _totalMTF: 50
-  _availableMTF: 150
+  _availableMTF: 50
   _totalResearchers: 50
-  _availableResearchers: 70
+  _availableResearchers: 55
   _totalDClass: 50
   _availableDClass: 50
   _totalMorale: 50
@@ -85,9 +86,9 @@ MonoBehaviour:
     __chosenDClassMethod: 0
     __currentMajorCanon: 0
     __totalMTF: 50
-    __availableMTF: 200
+    __availableMTF: 100
     __totalResearchers: 50
-    __availableResearchers: 80
+    __availableResearchers: 65
     __totalDClass: 50
     __availableDClass: 50
     __totalMorale: 50

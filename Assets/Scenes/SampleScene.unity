@@ -932,6 +932,7 @@ GameObject:
   - component: {fileID: 271144015}
   - component: {fileID: 271144016}
   - component: {fileID: 271144017}
+  - component: {fileID: 271144018}
   m_Layer: 0
   m_Name: UIHandler
   m_TagString: Untagged
@@ -1109,6 +1110,34 @@ MonoBehaviour:
       - m_Target: {fileID: 271144011}
         m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
         m_MethodName: updateStatUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &271144018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271144010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2da66f438ced04c9b45b05a8b59a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 1585f56a5c846ed48b546a2a310d0fc0, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 271144011}
+        m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
+        m_MethodName: updateNewMonthUI
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3117,6 +3146,7 @@ MonoBehaviour:
   monthLength: 4
   numMonthlyProposal: 1
   onProposalChanged: {fileID: 11400000, guid: d932a605662b8c94099c12e34c864fcf, type: 2}
+  onNewMonth: {fileID: 11400000, guid: 1585f56a5c846ed48b546a2a310d0fc0, type: 2}
 --- !u!114 &1102338021
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,11 +15,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Events")]
     public GameEvent onProposalChanged;
+    public GameEvent onNewMonth;
 
     void Awake()
     {
         //TODO gets save data from json save file (may change this to a save scene menu)
-        //TODO create object pool for main proposals, extra info(, and news?)
+        //create object pool for main proposals, extra info(, and news?)
 
         //Initial num of proposals in the first month
         monthLength = UnityEngine.Random.Range(4, 7);
@@ -62,16 +63,10 @@ public class GameManager : MonoBehaviour
 
     private void checkStatBus() {
 
-        //TODO figure out why hiddenGameVariables._statChangeEventBus[i].updateStatDuration(); doesnt work
-
         for (int i = 0; i < hiddenGameVariables._statChangeEventBus.Count; i++) {
-
-
-            if (hiddenGameVariables._statChangeEventBus[i] == null) {
-                Debug.Log("I mean it exists");
-            }
-
-
+            // if (hiddenGameVariables._statChangeEventBus[i] == null) {
+            //     Debug.Log("I mean it doesnt exist");
+            // }
 
             //Updates the number of months left for the stat
             hiddenGameVariables._statChangeEventBus[i].updateStatDuration();
@@ -79,16 +74,20 @@ public class GameManager : MonoBehaviour
             string changedStat = hiddenGameVariables._statChangeEventBus[i].getStatChanged();
             int statEffect = hiddenGameVariables._statChangeEventBus[i].getStatChangedEffect();
 
+            //If the stat effect runs out
             if(hiddenGameVariables._statChangeEventBus[i].getStatChangedDuration() == 0) {
+
+                Debug.Log("Finished Stat Found");
 
                 if(changedStat == "MTF") {
                     //Set the stat back to its normal value (if it went down by 10, this will do +10 (or rather, --10).)
+                    Debug.Log("Old Stat Value: " + hiddenGameVariables._availableMTF + "New Stat Value: " + (hiddenGameVariables._availableMTF - statEffect));
                     hiddenGameVariables._availableMTF -= statEffect;
                     //Remove the stat change from the bus as it is finished with
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
                     //As the size of the bus has decreased, decrement i, this is because another stat change will be in the position of the old one.
-                    //TODO figure out if this i--; should be at end  as right now it wont work
                     i--;
+                    //continue will start again from the top of the loop
                     continue;
                 }
                 
@@ -99,12 +98,12 @@ public class GameManager : MonoBehaviour
                     continue;
                 }
                 
-                //TODO add rest of stats. MAYBE TRY DICTIONARY to fix issues
+                //TODO add rest of stats. MAYBE TRY DICTIONARY to fix issues (after move to godot?)
 
 
             }
-
-            //Check if stat is finished and if so, remove and delete it
         }
+
+        onNewMonth.Raise();
     }
 }

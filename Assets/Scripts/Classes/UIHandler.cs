@@ -200,5 +200,12 @@ public class UIHandler : MonoBehaviour
             //Delay between flashes
             yield return new WaitForSeconds(0.5f);
         }
-    }    
+    }
+
+    public void updateNewMonthUI(Component sender, object data) 
+    {
+        //Set all finished changed values in hiddenGameVariables
+        availableMtfBar.value = hiddenGameVariables._availableMTF;
+        availableResearcherBar.value = hiddenGameVariables._availableResearchers;
+    }
 }
