@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "HiddenGameVariables", menuName = "Runtime Variables/HiddenGameVariables")]
 public class HiddenGameVariables : ScriptableObject 
 {
+    public int _currentMonth = 0;
     public bool _hasActiveProposal = false;
 
     public GenericProposal _prevProposal;

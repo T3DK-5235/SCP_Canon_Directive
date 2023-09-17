@@ -85,7 +85,7 @@ public class GenericProposal
     
     public bool isProposalAvailable(int currentMonth) {
         //If there are no unfulfilled prereqs, reqs, and the current month is correct then the proposal is available
-        if (proposalPrerequisites.Count == 0 && currentMonth <= requiredMonth) {
+        if (proposalPrerequisites.Count == 0 && currentMonth >= requiredMonth) {
             return true;
         } else {
             return false;

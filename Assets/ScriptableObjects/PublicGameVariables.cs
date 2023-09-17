@@ -6,5 +6,4 @@ using UnityEngine;
 public class PublicGameVariables : ScriptableObject 
 {
     //TODO move this to hiddengamevariables and delete this SO, it isnt needed
-    public int _currentMonth;
 }

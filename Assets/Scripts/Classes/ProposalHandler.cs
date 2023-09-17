@@ -188,7 +188,7 @@ public class ProposalHandler : MonoBehaviour
     public void checkStandbyProposals() {
         for(int i = 0; i < standbyProposalEventBus.Count; i++) {
             //Check if the proposal is available to be moved (or at least, its ID) to the active bus
-            if (proposalsList._proposals[standbyProposalEventBus[i]].isProposalAvailable(publicGameVariables._currentMonth)) {
+            if (proposalsList._proposals[standbyProposalEventBus[i]].isProposalAvailable(hiddenGameVariables._currentMonth)) {
                 //add the proposal to the active event bus, then remove it from the standby bus
                 activeProposalEventBus.Add(standbyProposalEventBus[i]);
                 standbyProposalEventBus.RemoveAt(i);
@@ -277,6 +277,8 @@ public class ProposalHandler : MonoBehaviour
         ActiveStatChange statChange = new ActiveStatChange("MTF", availableMTF, duration);
         //Add the stat change to a list in the statCopy. This will be moved to the statChangeEventBus when confirmed
         hiddenGameVariables._myStatCopy.__tempStatsChanged.Add(statChange);
+
+        //Debug.Log("Active Stat change check | MTF-affect: " + hiddenGameVariables._myStatCopy.__tempStatsChanged[0].getStatChangedEffect() + " | MTF-duration: " + hiddenGameVariables._myStatCopy.__tempStatsChanged[0].getStatChangedDuration());
     }
 
     public void changeTotalMTF(int totalMTF) {
