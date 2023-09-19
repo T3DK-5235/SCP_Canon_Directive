@@ -12,25 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e32f20a36a65043bdc5a590055040a, type: 3}
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
-  _currentMonth: 2
+  _currentMonth: 0
   _hasActiveProposal: 0
   _prevProposal:
-    proposalDescription: 'If you wish to play the tutorial, accept this proposal
-      by stamping the decision button and signing on the line.
-
-
-      if you instead
-      wish to jump in, deny the proposal.'
-    proposalID: 0
-    requiredMonth: 0
-    proposalTitle: welcome to scp administration
-    proposalPrerequisites: 
-    proposalPostUnlocksAccept: 01000000
-    proposalPostUnlocksDeny: 01000000
-    proposalStatChangesAccept: []
-    proposalStatChangesDeny: []
-    extraInfo: 0
-  _currentProposal:
     proposalDescription: "Next up is getting some new workers! \n\nAt the end of
       each year you can gain some more researchers and MTF, this allows you to accept
       more proposals or do larger activities."
@@ -47,10 +31,39 @@ MonoBehaviour:
     - Researchers
     - 10
     - 2
+    - DClass
+    - 20
+    - 2
+    - Morale
+    - 20
+    - 2
+    - Nalka
+    - 20
+    - 2
+    - Anderson
+    - 20
+    - 2
     proposalStatChangesDeny:
     - Researchers
     - -5
     - 5
+    extraInfo: 0
+  _currentProposal:
+    proposalDescription: Another cool description I swear.
+    proposalID: 2
+    requiredMonth: 0
+    proposalTitle: Another Title
+    proposalPrerequisites: 
+    proposalPostUnlocksAccept: 00000000
+    proposalPostUnlocksDeny: 00000000
+    proposalStatChangesAccept:
+    - MTF
+    - -40
+    - 3
+    proposalStatChangesDeny:
+    - Researchers
+    - 5
+    - 4
     extraInfo: 0
   _currentExtraInfo:
     extraInfoType: PotentialEmployees
@@ -62,34 +75,43 @@ MonoBehaviour:
     - "Some Random Guy\n\nNo idea where he came from. Just appeared one day \n\nRecommendation:
       Close Observation."
   _lastSavedProposal: 0
-  _statChangeEventBus:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _statChangeEventBus: []
   _chosenDClassMethod: 0
   _currentMajorCanon: 0
   _totalMTF: 50
   _availableMTF: 50
   _totalResearchers: 50
-  _availableResearchers: 55
+  _availableResearchers: 50
   _totalDClass: 50
   _availableDClass: 50
   _totalMorale: 50
   _currentMorale: 50
+  _favourGOC: 50
+  _favourNalka: 50
+  _favourMekanite: 50
+  _favourSerpentsHand: 50
+  _favourFactory: 50
+  _favourAnderson: 50
   _myStatCopy:
-    __statsChanged: 0000000002000000
+    __statsChanged: 00000000020000000400000006000000090000000d000000
     __tempStatsChanged:
+    - {fileID: 0}
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     __chosenDClassMethod: 0
     __currentMajorCanon: 0
     __totalMTF: 50
-    __availableMTF: 100
+    __availableMTF: 50
     __totalResearchers: 50
-    __availableResearchers: 65
+    __availableResearchers: 50
     __totalDClass: 50
     __availableDClass: 50
     __totalMorale: 50
     __currentMorale: 50
+    __favourGOC: 50
+    __favourNalka: 50
+    __favourMekanite: 50
+    __favourSerpentsHand: 50
+    __favourFactory: 50
+    __favourAnderson: 50

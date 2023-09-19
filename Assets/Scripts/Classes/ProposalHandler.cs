@@ -32,9 +32,6 @@ public class ProposalHandler : MonoBehaviour
     //Listens to the PlayerProposalDecision event system
     public void proposalDecision(Component sender, object data) {
 
-        //TODO send tempStatVariables to UI to update bars with
-        //TODO also update hiddenGameVariables 
-
         List<string> proposalStatChanges = null;
         List<int> proposalPostUnlocks = null;
 
@@ -76,7 +73,14 @@ public class ProposalHandler : MonoBehaviour
         statCopy.__availableDClass = hiddenGameVariables._availableDClass;
 
         statCopy.__totalMorale = hiddenGameVariables._totalMorale;
-        statCopy.__currentMorale = hiddenGameVariables._currentMorale;        
+        statCopy.__currentMorale = hiddenGameVariables._currentMorale; 
+
+        statCopy.__favourGOC = hiddenGameVariables._favourGOC;
+        statCopy.__favourNalka = hiddenGameVariables._favourNalka;
+        statCopy.__favourMekanite = hiddenGameVariables._favourMekanite;
+        statCopy.__favourSerpentsHand = hiddenGameVariables._favourSerpentsHand;
+        statCopy.__favourFactory = hiddenGameVariables._favourFactory;
+        statCopy.__favourAnderson = hiddenGameVariables._favourAnderson;  
 
 
         hiddenGameVariables._myStatCopy = statCopy;
@@ -134,11 +138,39 @@ public class ProposalHandler : MonoBehaviour
                     changeTotalMorale(statAmount);
                     continue;
                 }
-                changeAvailableMorale(statAmount, statDuration);
+                changeCurrentMorale(statAmount, statDuration);
                 continue;
             }
 
-            //TODO add rest of stats
+            if(proposalStatChanges[i] == "GOC") {
+                changeGOCFavor(statAmount);
+                continue;
+            }
+
+            if(proposalStatChanges[i] == "Nalka") {
+                changeNalkaFavor(statAmount);
+                continue;
+            }
+
+            if(proposalStatChanges[i] == "Mekanite") {
+                changeMekaniteFavor(statAmount);
+                continue;
+            }
+
+            if(proposalStatChanges[i] == "SerpentsHand") {
+                changeSerpentsHandFavor(statAmount);
+                continue;
+            }
+
+            if(proposalStatChanges[i] == "Factory") {
+                changeFactoryFavor(statAmount);
+                continue;
+            }
+
+            if(proposalStatChanges[i] == "Anderson") {
+                changeAndersonFavor(statAmount);
+                continue;
+            }
         }
         updateFlashingStats.Raise();
     }
@@ -160,6 +192,13 @@ public class ProposalHandler : MonoBehaviour
 
         hiddenGameVariables._totalMorale = hiddenGameVariables._myStatCopy.__totalMorale;
         hiddenGameVariables._currentMorale = hiddenGameVariables._myStatCopy.__currentMorale;
+
+        hiddenGameVariables._favourGOC = hiddenGameVariables._myStatCopy.__favourGOC;
+        hiddenGameVariables._favourNalka = hiddenGameVariables._myStatCopy.__favourNalka;
+        hiddenGameVariables._favourMekanite = hiddenGameVariables._myStatCopy.__favourMekanite;
+        hiddenGameVariables._favourSerpentsHand = hiddenGameVariables._myStatCopy.__favourSerpentsHand;
+        hiddenGameVariables._favourFactory = hiddenGameVariables._myStatCopy.__favourFactory;
+        hiddenGameVariables._favourAnderson = hiddenGameVariables._myStatCopy.__favourAnderson;
 
         //loop through all active stat changes
         for (int i = 0; i < hiddenGameVariables._myStatCopy.__tempStatsChanged.Count; i++) {
@@ -256,8 +295,6 @@ public class ProposalHandler : MonoBehaviour
 
         //Remove Proposal from active event bus
         activeProposalEventBus.RemoveAt(nextProposalPos);
-
-        //TODO Actually check if this proposal can be accepted with the users current stats (Maybe not here, but somewhere)
     }
 
     //TODO actually check if all of these need to be public
@@ -335,7 +372,7 @@ public class ProposalHandler : MonoBehaviour
     // |                                                MORALE STAT CODE                                            |
     // ==============================================================================================================
 
-    public void changeAvailableMorale(int currentMorale, int duration) {
+    public void changeCurrentMorale(int currentMorale, int duration) {
         hiddenGameVariables._myStatCopy.__currentMorale = hiddenGameVariables._currentMorale + currentMorale;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(6);
 
@@ -352,4 +389,36 @@ public class ProposalHandler : MonoBehaviour
     }
 
     //TODO add rest of stats
+
+    //GOI Stats
+
+    public void changeGOCFavor(int additionalGOCFavour) {
+        hiddenGameVariables._myStatCopy.__favourGOC = hiddenGameVariables._favourGOC + additionalGOCFavour;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(8);
+    }
+
+    public void changeNalkaFavor(int additionalNalkaFavour) {
+        hiddenGameVariables._myStatCopy.__favourNalka = hiddenGameVariables._favourNalka + additionalNalkaFavour;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(9);
+    }
+
+    public void changeMekaniteFavor(int additionalMekaniteFavour) {
+        hiddenGameVariables._myStatCopy.__favourMekanite = hiddenGameVariables._favourMekanite + additionalMekaniteFavour;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(10);
+    }
+
+    public void changeSerpentsHandFavor(int additionalSerpentsHandFavour) {
+        hiddenGameVariables._myStatCopy.__favourSerpentsHand = hiddenGameVariables._favourSerpentsHand + additionalSerpentsHandFavour;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(11);
+    }
+
+    public void changeFactoryFavor(int additionalFactoryFavour) {
+        hiddenGameVariables._myStatCopy.__favourFactory = hiddenGameVariables._favourFactory + additionalFactoryFavour;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(12);
+    }
+
+    public void changeAndersonFavor(int additionalAndersonFavour) {
+        hiddenGameVariables._myStatCopy.__favourAnderson = hiddenGameVariables._favourAnderson + additionalAndersonFavour;
+        hiddenGameVariables._myStatCopy.__statsChanged.Add(13);
+    }
 }

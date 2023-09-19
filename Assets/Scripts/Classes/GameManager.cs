@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         //TODO gets save data from json save file (may change this to a save scene menu)
-        //create object pool for main proposals, extra info(, and news?)
+        //create object pool for main proposals, extra info(, and news?)?
 
         //Initial num of proposals in the first month
         monthLength = UnityEngine.Random.Range(4, 7);
@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
             // if (hiddenGameVariables._statChangeEventBus[i] == null) {
             //     Debug.Log("I mean it doesnt exist");
             // }
+            //TODO check that this whole thing finishes before the next proposal
 
             //Updates the number of months left for the stat
             hiddenGameVariables._statChangeEventBus[i].updateStatDuration();
@@ -93,17 +94,72 @@ public class GameManager : MonoBehaviour
                 
                 if(changedStat == "Researchers") {
                     hiddenGameVariables._availableResearchers -= statEffect;
+                    //TODO maybe move the following two lines to a small function to prevent duplicated code
+                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
+                if(changedStat == "DClass") {
+                    hiddenGameVariables._availableDClass -= statEffect;
+                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
+                if(changedStat == "Morale") {
+                    hiddenGameVariables._currentMorale -= statEffect;
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
                     i--;
                     continue;
                 }
                 
-                //TODO add rest of stats. MAYBE TRY DICTIONARY to fix issues (after move to godot?)
+                //GOI Stats
 
+                if(changedStat == "GOC") {
+                    hiddenGameVariables._favourGOC -= statEffect;
+                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    i--;
+                    continue;
+                }
 
+                if(changedStat == "Nalka") {
+                    hiddenGameVariables._favourNalka -= statEffect;
+                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
+                if(changedStat == "Mekanite") {
+                    hiddenGameVariables._favourMekanite -= statEffect;
+                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
+                if(changedStat == "SerpentsHand") {
+                    hiddenGameVariables._favourSerpentsHand -= statEffect;
+                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
+                if(changedStat == "Factory") {
+                    hiddenGameVariables._favourFactory -= statEffect;
+                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
+                if(changedStat == "Anderson") {
+                    hiddenGameVariables._favourAnderson -= statEffect;
+                    hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+                //TODO MAYBE TRY DICTIONARY to fix issues (after move to godot?)
             }
         }
-
         onNewMonth.Raise();
     }
 }

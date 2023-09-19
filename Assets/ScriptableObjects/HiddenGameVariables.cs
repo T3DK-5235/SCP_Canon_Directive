@@ -42,6 +42,14 @@ public class HiddenGameVariables : ScriptableObject
     public int _totalMorale = 50;
     public int _currentMorale = 50;
 
+    [Space(20)]
+
+    public int _favourGOC = 50;
+    public int _favourNalka = 50;
+    public int _favourMekanite = 50;
+    public int _favourSerpentsHand = 50;
+    public int _favourFactory = 50;
+    public int _favourAnderson = 50;
 
     // Create a nested class.
     [System.Serializable] // This attribute is necessary for the class to show up in the Unity Inspector.
@@ -55,7 +63,7 @@ public class HiddenGameVariables : ScriptableObject
         public DClassMethodEnum __chosenDClassMethod = DClassMethodEnum.NONE;
         public MajorCanonEnum __currentMajorCanon = MajorCanonEnum.VANILLA;
 
-        [Header("UI Stats")]
+        [Header("Foundation UI Stats")]
 
         public int __totalMTF = 50;
         public int __availableMTF = 50;
@@ -74,6 +82,14 @@ public class HiddenGameVariables : ScriptableObject
 
         public int __totalMorale = 50;
         public int __currentMorale = 50;
+
+        [Header("GoI UI Stats")]
+        public int __favourGOC = 50;
+        public int __favourNalka = 50;
+        public int __favourMekanite = 50;
+        public int __favourSerpentsHand = 50;
+        public int __favourFactory = 50;
+        public int __favourAnderson = 50;
     }
 
     // You can create instances of the nested class within the Scriptable Object.

@@ -72,7 +72,13 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
             // flashInvalidStat.Raise("MTF");
             Debug.Log("MTF fault found");
         }
-        if (hiddenGameVariables._myStatCopy.__totalResearchers < 0) { 
+        if (hiddenGameVariables._myStatCopy.__availableResearchers < 0) { 
+            validProposal = false;
+        }
+        if (hiddenGameVariables._myStatCopy.__availableDClass < 0) { 
+            validProposal = false;
+        }
+        if (hiddenGameVariables._myStatCopy.__currentMorale < 0) { 
             validProposal = false;
         }
 

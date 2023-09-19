@@ -28,13 +28,28 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject personnelPrefab;
     List<GameObject> personnelPrefabList;
 
-    [Header("UI Stat Bars")]
+    [Header("Foundation UI Stat Bars")]
 
     [SerializeField] Slider totalMtfBar;
     [SerializeField] Slider availableMtfBar;
 
     [SerializeField] Slider totalResearcherBar;
     [SerializeField] Slider availableResearcherBar;
+
+    [SerializeField] Slider totalDClassBar;
+    [SerializeField] Slider availableDClassBar;
+
+    [SerializeField] Slider totalMoraleBar;
+    [SerializeField] Slider currentMoraleBar;
+
+    [Header("GOI UI Stat Bars")]
+
+    [SerializeField] Slider gocBar;
+    [SerializeField] Slider nalkaBar;
+    [SerializeField] Slider mekaniteBar;
+    [SerializeField] Slider serpentsHandBar;
+    [SerializeField] Slider factoryBar;
+    [SerializeField] Slider andersonBar;
 
     private int currentPrefabNum = 0;
 
@@ -166,12 +181,44 @@ public class UIHandler : MonoBehaviour
                         availableMtfBar.value = hiddenGameVariables._availableMTF;
                         break;
                     case 1:
+                        totalMtfBar.value = hiddenGameVariables._totalMTF;
                         break;
                     case 2:
                         availableResearcherBar.value = hiddenGameVariables._availableResearchers;
                         break;
-
-                        //TODO add rest of stats
+                    case 3:
+                        totalResearcherBar.value = hiddenGameVariables._totalResearchers;
+                        break;
+                    case 4:
+                        availableDClassBar.value = hiddenGameVariables._availableDClass;
+                        break;
+                    case 5:
+                        totalDClassBar.value = hiddenGameVariables._totalDClass;
+                        break;
+                    case 6:
+                        currentMoraleBar.value = hiddenGameVariables._currentMorale;
+                        break;
+                    case 7:
+                        totalMoraleBar.value = hiddenGameVariables._totalMorale;
+                        break;
+                    case 8:
+                        gocBar.value = hiddenGameVariables._favourGOC;
+                        break;
+                    case 9:
+                        nalkaBar.value = hiddenGameVariables._favourNalka;
+                        break;
+                    case 10:
+                        mekaniteBar.value = hiddenGameVariables._favourMekanite;
+                        break;
+                    case 11:
+                        serpentsHandBar.value = hiddenGameVariables._favourSerpentsHand;
+                        break;
+                    case 12:
+                        factoryBar.value = hiddenGameVariables._favourFactory;
+                        break;
+                    case 13:
+                        andersonBar.value = hiddenGameVariables._favourAnderson;
+                        break;
                 }
             }
         }
@@ -181,17 +228,53 @@ public class UIHandler : MonoBehaviour
 
     IEnumerator BlinkTimer()
     {
+
+        //TODO fix this so not all stats flash, just the needed ones
+        //TODO may need to use dictionary for this to make it easier
         //Used to flash between new and old value
         while (startUIFlashing) {
             if (flashStatBar == false) {
                 availableMtfBar.value = hiddenGameVariables._myStatCopy.__availableMTF;
+                totalMtfBar.value = hiddenGameVariables._myStatCopy.__totalMTF;
+
                 availableResearcherBar.value = hiddenGameVariables._myStatCopy.__availableResearchers;
+                totalResearcherBar.value = hiddenGameVariables._myStatCopy.__totalResearchers;
+
+                availableDClassBar.value = hiddenGameVariables._myStatCopy.__availableDClass;
+                totalDClassBar.value = hiddenGameVariables._myStatCopy.__totalDClass;
+
+                currentMoraleBar.value = hiddenGameVariables._myStatCopy.__currentMorale;
+                totalMoraleBar.value = hiddenGameVariables._myStatCopy.__totalMorale;
+
+                gocBar.value = hiddenGameVariables._myStatCopy.__favourGOC;
+                nalkaBar.value = hiddenGameVariables._myStatCopy.__favourNalka;
+                mekaniteBar.value = hiddenGameVariables._myStatCopy.__favourMekanite;
+                serpentsHandBar.value = hiddenGameVariables._myStatCopy.__favourSerpentsHand;
+                factoryBar.value = hiddenGameVariables._myStatCopy.__favourFactory;
+                andersonBar.value = hiddenGameVariables._myStatCopy.__favourAnderson;
+
 
                 yield return new WaitForSeconds(0.1f);
                 flashStatBar = true;
             } else if (flashStatBar == true) {
                 availableMtfBar.value = hiddenGameVariables._availableMTF;
+                totalMtfBar.value = hiddenGameVariables._totalMTF;
+
                 availableResearcherBar.value = hiddenGameVariables._availableResearchers;
+                totalResearcherBar.value = hiddenGameVariables._totalResearchers;
+
+                availableDClassBar.value = hiddenGameVariables._availableDClass;
+                totalDClassBar.value = hiddenGameVariables._totalDClass;
+
+                currentMoraleBar.value = hiddenGameVariables._currentMorale;
+                totalMoraleBar.value = hiddenGameVariables._totalMorale;
+
+                gocBar.value = hiddenGameVariables._favourGOC;
+                nalkaBar.value = hiddenGameVariables._favourNalka;
+                mekaniteBar.value = hiddenGameVariables._favourMekanite;
+                serpentsHandBar.value = hiddenGameVariables._favourSerpentsHand;
+                factoryBar.value = hiddenGameVariables._favourFactory;
+                andersonBar.value = hiddenGameVariables._favourAnderson;
 
                 yield return new WaitForSeconds(0.1f);
                 flashStatBar = false;
@@ -206,6 +289,22 @@ public class UIHandler : MonoBehaviour
     {
         //Set all finished changed values in hiddenGameVariables
         availableMtfBar.value = hiddenGameVariables._availableMTF;
+        totalMtfBar.value = hiddenGameVariables._totalMTF;
+
         availableResearcherBar.value = hiddenGameVariables._availableResearchers;
+        totalResearcherBar.value = hiddenGameVariables._totalResearchers;
+
+        availableDClassBar.value = hiddenGameVariables._availableDClass;
+        totalDClassBar.value = hiddenGameVariables._totalDClass;
+
+        currentMoraleBar.value = hiddenGameVariables._currentMorale;
+        totalMoraleBar.value = hiddenGameVariables._totalMorale;
+
+        gocBar.value = hiddenGameVariables._favourGOC;
+        nalkaBar.value = hiddenGameVariables._favourNalka;
+        mekaniteBar.value = hiddenGameVariables._favourMekanite;
+        serpentsHandBar.value = hiddenGameVariables._favourSerpentsHand;
+        factoryBar.value = hiddenGameVariables._favourFactory;
+        andersonBar.value = hiddenGameVariables._favourAnderson;
     }
 }

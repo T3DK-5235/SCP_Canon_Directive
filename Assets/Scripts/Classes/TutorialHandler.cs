@@ -25,6 +25,7 @@ public class TutorialHandler : MonoBehaviour
     //TODO utilize events to fire the below actions instead of update?
     //TODO update background of window 
     //TODO add screen overlays
+    //TODO move this whole thing to gamemanager maybe?
 
     void Update() {
         int currentID = hiddenGameVariables._currentProposal.getProposalID();
