@@ -18,6 +18,7 @@ public class ProposalHandler : MonoBehaviour
     [Header("Events")]
     public GameEvent updateFlashingStats;
     public GameEvent ifMonthEnd;
+    public GameEvent onLoadExtraInfo;
 
     void Awake() {
         //Stores proposal objects
@@ -295,6 +296,8 @@ public class ProposalHandler : MonoBehaviour
 
         //Remove Proposal from active event bus
         activeProposalEventBus.RemoveAt(nextProposalPos);
+
+        onLoadExtraInfo.Raise();
     }
 
     //TODO actually check if all of these need to be public

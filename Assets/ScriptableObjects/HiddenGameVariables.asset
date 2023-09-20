@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e32f20a36a65043bdc5a590055040a, type: 3}
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
-  _currentMonth: 0
+  _currentMonth: 2
   _hasActiveProposal: 0
   _prevProposal:
     proposalDescription: "Next up is getting some new workers! \n\nAt the end of
@@ -75,23 +75,27 @@ MonoBehaviour:
     - "Some Random Guy\n\nNo idea where he came from. Just appeared one day \n\nRecommendation:
       Close Observation."
   _lastSavedProposal: 0
-  _statChangeEventBus: []
+  _statChangeEventBus:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _chosenDClassMethod: 0
   _currentMajorCanon: 0
   _totalMTF: 50
-  _availableMTF: 50
+  _availableMTF: 100
   _totalResearchers: 50
-  _availableResearchers: 50
+  _availableResearchers: 60
   _totalDClass: 50
-  _availableDClass: 50
+  _availableDClass: 70
   _totalMorale: 50
-  _currentMorale: 50
+  _currentMorale: 70
   _favourGOC: 50
-  _favourNalka: 50
+  _favourNalka: 70
   _favourMekanite: 50
   _favourSerpentsHand: 50
   _favourFactory: 50
-  _favourAnderson: 50
+  _favourAnderson: 70
   _myStatCopy:
     __statsChanged: 00000000020000000400000006000000090000000d000000
     __tempStatsChanged:
@@ -102,16 +106,16 @@ MonoBehaviour:
     __chosenDClassMethod: 0
     __currentMajorCanon: 0
     __totalMTF: 50
-    __availableMTF: 50
+    __availableMTF: 100
     __totalResearchers: 50
-    __availableResearchers: 50
+    __availableResearchers: 60
     __totalDClass: 50
-    __availableDClass: 50
+    __availableDClass: 70
     __totalMorale: 50
-    __currentMorale: 50
+    __currentMorale: 70
     __favourGOC: 50
-    __favourNalka: 50
+    __favourNalka: 70
     __favourMekanite: 50
     __favourSerpentsHand: 50
     __favourFactory: 50
-    __favourAnderson: 50
+    __favourAnderson: 70

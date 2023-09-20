@@ -13,12 +13,15 @@ public class UIHandler : MonoBehaviour
 
     //Maybe instead try make a UI scriptable object
     
+    [SerializeField] GameObject currentMonthTextObj;
+
     [SerializeField] GameObject proposalClipboard;
 
     [SerializeField] GameObject extraInfoClipboard;
     
     private TextMeshProUGUI proposalTitle;
     private TextMeshProUGUI proposalDesc;
+    private TextMeshProUGUI currentMonthText;
 
     [SerializeField] TextMeshProUGUI extraInfoTitle;
     [SerializeField] TextMeshProUGUI extraInfoDesc;
@@ -26,6 +29,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject genericInfoContainer;
     [SerializeField] GameObject personnelContainer;
     [SerializeField] GameObject personnelPrefab;
+    
     List<GameObject> personnelPrefabList;
 
     [Header("Foundation UI Stat Bars")]
@@ -57,7 +61,10 @@ public class UIHandler : MonoBehaviour
 
     private bool flashStatBar = false;
 
-    private IEnumerator activeBlinkTimer; 
+    private IEnumerator activeBlinkTimer;
+
+    [Header("Events")]
+    public GameEvent onExtraInfoDisplayed;
 
     //TODO utilize events to fire the below actions instead of update?
     //TODO update background of window 
@@ -72,6 +79,9 @@ public class UIHandler : MonoBehaviour
         // and set it to the current proposal's description
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
+
+        currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
+        currentMonthText.text = "Current Month:  " + hiddenGameVariables._currentMonth;
 
         personnelPrefabList = new List<GameObject>();
 
@@ -125,6 +135,9 @@ public class UIHandler : MonoBehaviour
 
         //Set the first prefab to be active
         personnelPrefabList[currentPrefabNum].SetActive(true);
+
+        // Debug.Log("Raising extra info display event");
+        // onExtraInfoDisplayed.Raise();
     }
 
     public void getNextPrefab(Component sender, object data) { 
@@ -133,7 +146,7 @@ public class UIHandler : MonoBehaviour
         // if the current prefab number is less than the possible total prefab number
         // as currentPrefabNum starts at 0, rather than 1, personnelPrefabList.Count has to be decreased as well
         if (currentPrefabNum < personnelPrefabList.Count - 1) {
-            Debug.Log("Going up!" + currentPrefabNum);
+            // Debug.Log("Going up!" + currentPrefabNum);
             //Set prev prefab to inactive
             prevPrefabNum = currentPrefabNum;
             //Increase the current prefab num
@@ -141,7 +154,7 @@ public class UIHandler : MonoBehaviour
             //Set next prefab to active (currentPrefabNum starts at 1, whilst lists start at 0)
             personnelPrefabList[currentPrefabNum].SetActive(true);
         } else {
-            Debug.Log("Back to start");
+            // Debug.Log("Back to start");
             //reset it back to the start prefab
             currentPrefabNum = 0;
             personnelPrefabList[currentPrefabNum].SetActive(true);
@@ -306,5 +319,8 @@ public class UIHandler : MonoBehaviour
         serpentsHandBar.value = hiddenGameVariables._favourSerpentsHand;
         factoryBar.value = hiddenGameVariables._favourFactory;
         andersonBar.value = hiddenGameVariables._favourAnderson;
+
+        //Sets the new month UI
+        currentMonthText.text = "Current Month:  " + hiddenGameVariables._currentMonth;
     }
 }

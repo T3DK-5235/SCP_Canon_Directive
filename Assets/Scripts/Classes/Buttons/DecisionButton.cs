@@ -70,7 +70,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
             //TODO raise an event to make the UI bar flash red?
                         
             // flashInvalidStat.Raise("MTF");
-            Debug.Log("MTF fault found");
         }
         if (hiddenGameVariables._myStatCopy.__availableResearchers < 0) { 
             validProposal = false;
@@ -82,7 +81,24 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
             validProposal = false;
         }
 
-        //TODO add rest of stats
+        if (hiddenGameVariables._myStatCopy.__favourGOC < 0) { 
+            validProposal = false;
+        }
+        if (hiddenGameVariables._myStatCopy.__favourNalka < 0) { 
+            validProposal = false;
+        }
+        if (hiddenGameVariables._myStatCopy.__favourMekanite < 0) { 
+            validProposal = false;
+        }
+        if (hiddenGameVariables._myStatCopy.__favourSerpentsHand < 0) { 
+            validProposal = false;
+        }
+        if (hiddenGameVariables._myStatCopy.__favourFactory < 0) { 
+            validProposal = false;
+        }
+        if (hiddenGameVariables._myStatCopy.__favourAnderson < 0) { 
+            validProposal = false;
+        }
 
         //Return true if there were no faults
         if (validProposal == true) {
