@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     //How many proposals have been played this month
     [SerializeField] int numMonthlyProposal = 1;
 
+    [SerializeField] GameObject newMonthBlackout;
+
     [Header("Events")]
     public GameEvent onProposalChanged;
     public GameEvent onNewMonth;
@@ -42,6 +44,9 @@ public class GameManager : MonoBehaviour
             Debug.Log("Loading next month");
             animType = "NewMonth";
 
+            //Temp call to do the new month blackout "animation"
+            StartCoroutine(newMonthAnim());
+
             //Increase the current month number
             hiddenGameVariables._currentMonth++;
 
@@ -59,6 +64,14 @@ public class GameManager : MonoBehaviour
 
         //Call animation for when new month/new proposal happens
         onProposalChanged.Raise(animType);
+    }
+
+    IEnumerator newMonthAnim() {
+        newMonthBlackout.SetActive(true);
+
+        yield return new WaitForSeconds(1);
+
+        newMonthBlackout.SetActive(false);
     }
 
     private void checkStatBus() {

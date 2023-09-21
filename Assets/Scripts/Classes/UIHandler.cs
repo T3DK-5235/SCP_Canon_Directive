@@ -184,7 +184,6 @@ public class UIHandler : MonoBehaviour
     //called from proposal manager when stats change at the end of a proposal
     public void updateStatUI(Component sender, object data) 
     {
-
         //For every stat changed
         if(hiddenGameVariables._myStatCopy.__statsChanged.Count != 0) {
             for (int i = 0; i < hiddenGameVariables._myStatCopy.__statsChanged.Count; i++) {
@@ -237,7 +236,7 @@ public class UIHandler : MonoBehaviour
         }
         
         startUIFlashing = false;
-    }
+    }    
 
     IEnumerator BlinkTimer()
     {

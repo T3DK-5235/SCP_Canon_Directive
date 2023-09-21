@@ -67,7 +67,7 @@ MonoBehaviour:
     proposalTitle: Another Title
     proposalPrerequisites: 
     proposalPostUnlocksAccept: 00000000
-    proposalPostUnlocksDeny: 00000000
+    proposalPostUnlocksDeny: 01000000
     proposalStatChangesAccept:
     - MTF
     - -40
@@ -76,4 +76,4 @@ MonoBehaviour:
     - Researchers
     - 5
     - 4
-    extraInfo: 0
+    extraInfo: -1
