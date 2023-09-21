@@ -22,18 +22,25 @@ public class SaveHandler : MonoBehaviour
     //TODO This will include stuff like the basic proposal list
 
     private void InitProposals() {
-        string totalProposalsString = System.IO.File.ReadAllText(Application.persistentDataPath + "/ProposalList.json");
+        //string totalProposalsString = System.IO.File.ReadAllText(Application.persistentDataPath + "/ProposalList.json");
         // Debug.Log(totalProposalsString);
 
+        TextAsset proposalListAsset = Resources.Load("ProposalList") as TextAsset;
+        string proposalsString = proposalListAsset.ToString();
+
         //Check this isnt inefficient
-        GenericProposal[] proposalArray = JsonHelper.FromJson<GenericProposal>(totalProposalsString); 
+        GenericProposal[] proposalArray = JsonHelper.FromJson<GenericProposal>(proposalsString); 
         proposalsList._proposals.AddRange(proposalArray);
     }
 
     private void InitExtraInfo() {
-        string totalExtraInfoString = System.IO.File.ReadAllText(Application.persistentDataPath + "/ExtraInfoList.json");
+        //string totalExtraInfoString = System.IO.File.ReadAllText(Application.persistentDataPath + "/ExtraInfoList.json");
+        TextAsset extraInfoAsset = Resources.Load("ExtraInfoList") as TextAsset;
+        string extraInfoString = extraInfoAsset.ToString();
 
-        GenericExtraInfo[] extraInfoArray = JsonHelper.FromJson<GenericExtraInfo>(totalExtraInfoString); 
+        Debug.Log(extraInfoString);
+
+        GenericExtraInfo[] extraInfoArray = JsonHelper.FromJson<GenericExtraInfo>(extraInfoString); 
         extraInfoList._extraInfo.AddRange(extraInfoArray);
     }
 

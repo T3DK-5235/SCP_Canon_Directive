@@ -1,0 +1,90 @@
+{
+    "Proposals": [
+        {
+	    "proposalTitle": "welcome to scp administration", 
+            "proposalDescription": "If you wish to play the tutorial, accept this proposal by stamping the decision button and signing on the line.\n\nif you instead wish to jump in, deny the proposal.",
+            "proposalID": 0,
+            "requiredMonth": 0,
+            "proposalPrerequisites": [
+            ],
+            "proposalPostUnlocksAccept": [
+                1
+            ],
+            "proposalPostUnlocksDeny": [
+                1
+            ],
+            "proposalStatChangesAccept": [
+            ],
+            "proposalStatChangesDeny": [
+            ],
+	    "extraInfo": -1
+        },
+        {
+	    "proposalTitle": "Prospective New Recruits",
+            "proposalDescription": "Next up is getting some new workers! \n\nAt the end of each year you can gain some more researchers and MTF, this allows you to accept more proposals or do larger activities.",
+            "proposalID": 1,
+            "requiredMonth": 0,
+            "proposalPrerequisites": [
+                0
+            ],
+            "proposalPostUnlocksAccept": [
+                2
+            ],
+            "proposalPostUnlocksDeny": [
+                2
+            ],
+            "proposalStatChangesAccept": [
+                "MTF",
+                "50",
+                "2",
+                "Researchers",
+                "10",
+                "2",
+		"DClass",
+                "20",
+                "2",
+		"Morale",
+                "20",
+                "2",
+		"Nalka",
+                "20",
+                "2",
+		"Anderson",
+                "20",
+                "2"
+            ],
+            "proposalStatChangesDeny": [
+                "Researchers",
+                "-5",
+                "5"
+            ],
+	    "extraInfo": 0
+        },
+        {
+	    "proposalTitle": "Another Title",
+            "proposalDescription": "Another cool description I swear.",
+            "proposalID": 2,
+            "requiredMonth": 0,
+            "proposalPrerequisites": [
+                1
+            ],
+            "proposalPostUnlocksAccept": [
+                0
+            ],
+            "proposalPostUnlocksDeny": [
+                1
+            ],
+            "proposalStatChangesAccept": [
+                "MTF",
+                "-40",
+                "3"
+            ],
+            "proposalStatChangesDeny": [
+                "Researchers",
+                "5",
+                "4"
+            ],
+	    "extraInfo": -1
+        }
+    ]
+}

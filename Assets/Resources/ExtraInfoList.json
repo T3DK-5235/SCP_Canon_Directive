@@ -1,0 +1,13 @@
+{
+    "Proposals": [
+        {
+	    "extraInfoType": "PotentialEmployees",
+            "infoID": 0,
+            "infoTitle": "Potential Employees",
+            "infoDescription": [
+                 "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA. \n\nRecommendation: Containment Specialist.",
+                 "Some Random Guy\n\nNo idea where he came from. Just appeared one day \n\nRecommendation: Close Observation."
+            ]
+        }
+    ]
+}
