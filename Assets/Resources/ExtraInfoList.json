@@ -3,10 +3,13 @@
         {
 	    "extraInfoType": "PotentialEmployees",
             "infoID": 0,
-            "infoTitle": "Potential Employees",
+            "infoTitle": "Prominent Potential Employees",
             "infoDescription": [
-                 "Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA. \n\nRecommendation: Containment Specialist.",
-                 "Some Random Guy\n\nNo idea where he came from. Just appeared one day \n\nRecommendation: Close Observation."
+                 "<line-height=90%>Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate with a 3.7 GPA.\n\nRecommendation: Containment Specialist.",
+                 "<line-height=90%>Jacob Conwell\n\nAn expert Bioanalyst with one year professional experience.\n\nRecommendation: Anomalous Materials Analyst.",
+                 "<line-height=90%>Dr. Chelsea Elliott\n\nA new graduate with a double degree in Botany and Plant Science.\n\nRecommendation: Anomalous Botany Assistant.",
+                 "<line-height=90%>[NAME REDACTED]\n\nAgent Green is a former GOC operative specializing in disposing of Reality Benders.\n\nRecommendation: MTF lead.",
+                 "<line-height=90%>Tony Marquez\n\nA petty criminal who got involved in an anomalous heist. Exceptional survival Instinct.\n\nRecommendation: D-Class."
             ]
         }
     ]

@@ -12,4 +12,130 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a2d5f517e03144a841bc314d4c60b5, type: 3}
   m_Name: ExtraInfoList
   m_EditorClassIdentifier: 
-  _extraInfo: []
+  _extraInfo:
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Prominent Potential Employees
+    infoDescription:
+    - "<line-height=90%>Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate
+      with a 3.7 GPA. \n\nRecommendation: Containment Specialist."
+    - "<line-height=90%>Jacob Conwell\n\nAn expert Bioanalyst with one year professional
+      experience. \n\nRecommendation: Anomalous Materials Analyst."
+    - '<line-height=90%>Dr. Chelsea Elliott
+
+
+      A new graduate with a double
+      degree in Botany and Plant Science.
+
+
+      Recommendation: Anomalous Botany
+      Assistant.'
+    - '<line-height=90%>[NAME REDACTED]
+
+
+      Agent Green is a former GOC operative
+      specializing in disposing of Reality Benders.
+
+
+      Recommendation: MTF lead.'
+    - '<line-height=90%>Tony Marquez
+
+
+      A petty criminal who got involved in
+      an anomalous heist. Exceptional survival Instinct.
+
+
+      Recommendation:
+      D-Class.'
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Prominent Potential Employees
+    infoDescription:
+    - '<line-height=90%>Thaddeus R Xyank
+
+
+      A new Mechanical Engineering MIT
+      graduate with a 3.7 GPA.
+
+
+      Recommendation: Containment Specialist.'
+    - '<line-height=90%>Jacob Conwell
+
+
+      An expert Bioanalyst with one year
+      professional experience.
+
+
+      Recommendation: Anomalous Materials Analyst.'
+    - '<line-height=90%>Dr. Chelsea Elliott
+
+
+      A new graduate with a double
+      degree in Botany and Plant Science.
+
+
+      Recommendation: Anomalous Botany
+      Assistant.'
+    - '<line-height=90%>[NAME REDACTED]
+
+
+      Agent Green is a former GOC operative
+      specializing in disposing of Reality Benders.
+
+
+      Recommendation: MTF lead.'
+    - '<line-height=90%>Tony Marquez
+
+
+      A petty criminal who got involved in
+      an anomalous heist. Exceptional survival Instinct.
+
+
+      Recommendation:
+      D-Class.'
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Prominent Potential Employees
+    infoDescription:
+    - '<line-height=90%>Thaddeus R Xyank
+
+
+      A new Mechanical Engineering MIT
+      graduate with a 3.7 GPA.
+
+
+      Recommendation: Containment Specialist.'
+    - '<line-height=90%>Jacob Conwell
+
+
+      An expert Bioanalyst with one year
+      professional experience.
+
+
+      Recommendation: Anomalous Materials Analyst.'
+    - '<line-height=90%>Dr. Chelsea Elliott
+
+
+      A new graduate with a double
+      degree in Botany and Plant Science.
+
+
+      Recommendation: Anomalous Botany
+      Assistant.'
+    - '<line-height=90%>[NAME REDACTED]
+
+
+      Agent Green is a former GOC operative
+      specializing in disposing of Reality Benders.
+
+
+      Recommendation: MTF lead.'
+    - '<line-height=90%>Tony Marquez
+
+
+      A petty criminal who got involved in
+      an anomalous heist. Exceptional survival Instinct.
+
+
+      Recommendation:
+      D-Class.'

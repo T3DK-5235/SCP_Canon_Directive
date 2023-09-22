@@ -2,7 +2,7 @@
     "Proposals": [
         {
 	    "proposalTitle": "welcome to scp administration", 
-            "proposalDescription": "If you wish to play the tutorial, accept this proposal by stamping the decision button and signing on the line.\n\nif you instead wish to jump in, deny the proposal.",
+            "proposalDescription": "<line-height=90%>If you wish to play the tutorial, accept this proposal by stamping the decision button and signing on the line.\n\nif you instead wish to jump in, deny the proposal.",
             "proposalID": 0,
             "requiredMonth": 0,
             "proposalPrerequisites": [
@@ -21,7 +21,7 @@
         },
         {
 	    "proposalTitle": "Prospective New Recruits",
-            "proposalDescription": "Next up is getting some new workers! \n\nAt the end of each year you can gain some more researchers and MTF, this allows you to accept more proposals or do larger activities.",
+            "proposalDescription": "<line-height=90%>Next up is getting some new workers! \n\nAt the end of each year you can employ more researchers and MTF, this allows you to accept more proposals or do larger activities.\n\nClick on the left clipboard clip for more.",
             "proposalID": 1,
             "requiredMonth": 0,
             "proposalPrerequisites": [
@@ -35,34 +35,22 @@
             ],
             "proposalStatChangesAccept": [
                 "MTF",
-                "50",
-                "2",
+                "10",
+                "0",
                 "Researchers",
                 "10",
-                "2",
-		"DClass",
-                "20",
-                "2",
-		"Morale",
-                "20",
-                "2",
-		"Nalka",
-                "20",
-                "2",
-		"Anderson",
-                "20",
-                "2"
+                "0",
+		        "DClass",
+                "10",
+                "0"
             ],
             "proposalStatChangesDeny": [
-                "Researchers",
-                "-5",
-                "5"
             ],
 	    "extraInfo": 0
         },
         {
 	    "proposalTitle": "Another Title",
-            "proposalDescription": "Another cool description I swear.",
+            "proposalDescription": "<line-height=90%>Another cool description I swear.",
             "proposalID": 2,
             "requiredMonth": 0,
             "proposalPrerequisites": [
