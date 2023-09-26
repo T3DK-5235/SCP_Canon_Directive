@@ -114,6 +114,7 @@ public class UIHandler : MonoBehaviour
 
         if(extraInfoType == "PotentialEmployees") {
             personnelContainer.SetActive(true);
+            genericInfoContainer.SetActive(false);
 
             for(int i = 0; i < extraInfoNum; i++) {
                 GameObject personnelPrefabInstance = Instantiate(personnelPrefab, personnelContainer.transform) as GameObject;
@@ -127,8 +128,13 @@ public class UIHandler : MonoBehaviour
                 personnelPrefabList.Add(personnelPrefabInstance);
 
                 personnelPrefabInstance.SetActive(false);
+
+                //TODO delete all clones after use
             }
         } else {
+            genericInfoContainer.SetActive(true);
+            personnelContainer.SetActive(false);
+
             extraInfoTitle.text = hiddenGameVariables._currentExtraInfo.getInfoTitle();
             //If it isn't Employees there will only be one element in the list at position 0
             extraInfoDesc.text = hiddenGameVariables._currentExtraInfo.getInfoDescription()[0];
