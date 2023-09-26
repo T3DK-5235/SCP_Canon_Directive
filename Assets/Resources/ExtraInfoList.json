@@ -11,6 +11,25 @@
                  "<line-height=90%>[NAME REDACTED]\n\nAgent Green is a former GOC operative specializing in disposing of Reality Benders.\n\nRecommendation: MTF lead.",
                  "<line-height=90%>Tony Marquez\n\nA petty criminal who got involved in an anomalous heist. Exceptional survival Instinct.\n\nRecommendation: D-Class."
             ]
+        },
+        {
+        "extraInfoType": "Information",
+            "infoID": 1,
+            "infoTitle": "Handling and Researching Anomalies",
+            "infoDescription": [
+                    "<line-height=90%>Basic anomalies like the Red Ice (SCP-009) will only require some researchers.\n\nDangerous anomalies may require MTF units to contain and DClass to test safely."
+            ]
+        },
+        {
+        "extraInfoType": "Information",
+            "infoID": 2,
+            "infoTitle": "Groups of Interest",
+            "infoDescription": [
+                    "<line-height=90%>Other groups aside from the Foundation exist behind the veil. The Sarkic cults are a group of fleshcrafters who revere disease.\n\nThis group is typically Hostile to the Foundation."
+            ]
         }
+
+
+        
     ]
 }

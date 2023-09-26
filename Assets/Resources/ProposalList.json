@@ -21,7 +21,7 @@
         },
         {
 	    "proposalTitle": "Prospective New Recruits",
-            "proposalDescription": "<line-height=90%>Next up is getting some new workers! \n\nAt the end of each year you can employ more researchers and MTF, this allows you to accept more proposals or do larger activities.\n\nClick on the left clipboard clip for more.",
+            "proposalDescription": "<line-height=90%>Next up is getting some new workers! \n\nAt the start of each year you can employ more researchers and MTF, this allows you to accept more proposals or do larger activities.\n\nClick on the left clipboard clip for more.",
             "proposalID": 1,
             "requiredMonth": 0,
             "proposalPrerequisites": [
@@ -49,12 +49,35 @@
 	    "extraInfo": 0
         },
         {
-	    "proposalTitle": "Another Title",
-            "proposalDescription": "<line-height=90%>Another cool description I swear.",
+	    "proposalTitle": "The Red Ice",
+            "proposalDescription": "<line-height=90%>A strange red ice has been discovered by civilian researchers in the arctic. Following containment as SCP-009, this anomaly has been transferred to Site 44 for testing.\n\nRequires: Researchers for two months",
             "proposalID": 2,
             "requiredMonth": 0,
             "proposalPrerequisites": [
                 1
+            ],
+            "proposalPostUnlocksAccept": [
+                3
+            ],
+            "proposalPostUnlocksDeny": [
+                3
+            ],
+            "proposalStatChangesAccept": [
+                "Researchers",
+                "-10",
+                "2"
+            ],
+            "proposalStatChangesDeny": [
+            ],
+	    "extraInfo": 1
+        },
+        {
+	    "proposalTitle": "Threat groups behind the Veil",
+            "proposalDescription": "<line-height=90%>Several Sarkic cultists have been spotted attempting to transport a sample of SCP-610 into Mongolia. Neutralization and containment is required immediately.\n\nRequires: MTF for one month",
+            "proposalID": 3,
+            "requiredMonth": 0,
+            "proposalPrerequisites": [
+                2
             ],
             "proposalPostUnlocksAccept": [
                 0
@@ -64,15 +87,12 @@
             ],
             "proposalStatChangesAccept": [
                 "MTF",
-                "-40",
-                "3"
+                "20",
+                "1"
             ],
             "proposalStatChangesDeny": [
-                "Researchers",
-                "5",
-                "4"
             ],
-	    "extraInfo": -1
+	    "extraInfo": 2
         }
     ]
 }

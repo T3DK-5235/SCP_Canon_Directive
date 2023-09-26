@@ -130,6 +130,7 @@ public class UIHandler : MonoBehaviour
             }
         } else {
             extraInfoTitle.text = hiddenGameVariables._currentExtraInfo.getInfoTitle();
+            //If it isn't Employees there will only be one element in the list at position 0
             extraInfoDesc.text = hiddenGameVariables._currentExtraInfo.getInfoDescription()[0];
         }
 

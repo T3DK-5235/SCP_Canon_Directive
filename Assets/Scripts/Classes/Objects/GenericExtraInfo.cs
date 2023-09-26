@@ -8,8 +8,8 @@ using UnityEngine;
 public class GenericExtraInfo
 {
     //For employing people, this type is "PotentialEmployees"
-    //For information on a group, this is "Information"
-    //For information on an SCP/tale, this is "Background"
+    //For information on a group, this is "Background"
+    //For information on an SCP/tale, this is "Information"
     [SerializeField] private string extraInfoType;
 
     [SerializeField] private int infoID;

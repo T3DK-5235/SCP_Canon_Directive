@@ -91,7 +91,8 @@ public class GameManager : MonoBehaviour
             //If the stat effect runs out
             if(hiddenGameVariables._statChangeEventBus[i].getStatChangedDuration() == 0) {
 
-                Debug.Log("Finished Stat Found");
+                //TODO figure out if this can be sped up with dictionary
+                //TODO if it can, look into using alternative json library that can serialize dictionaries
 
                 if(changedStat == "MTF") {
                     //Set the stat back to its normal value (if it went down by 10, this will do +10 (or rather, --10).)
@@ -170,7 +171,6 @@ public class GameManager : MonoBehaviour
                     i--;
                     continue;
                 }
-                //TODO MAYBE TRY DICTIONARY to fix issues (after move to godot?)
             }
         }
         onNewMonth.Raise();
