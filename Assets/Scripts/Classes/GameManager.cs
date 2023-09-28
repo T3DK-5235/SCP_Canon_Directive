@@ -56,11 +56,11 @@ public class GameManager : MonoBehaviour
         if (currentID == 0){
             ProjectClipboardOverlay();
             //Stops month from progressing during tutorial
-            numMonthlyProposal--;
+            numMonthlyProposal = 0;
         } else if (currentID == 1){
             projectClipboardOverlay.SetActive(false);
             TurnOnTablet();
-            numMonthlyProposal--;
+            numMonthlyProposal = 0;
         }
     }
 
