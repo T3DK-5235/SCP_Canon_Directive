@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+//using UnityEngine.UIElements;
+
+using TMPro;
+
 public class GameManager : MonoBehaviour
 {
 
@@ -14,6 +19,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] int numMonthlyProposal = 1;
 
     [SerializeField] GameObject newMonthBlackout;
+
+    [SerializeField] GameObject projectClipboardOverlay;
+
+    [SerializeField] GameObject initialTabletScreen;
+    [SerializeField] GameObject scorpLogo;
+
+    [SerializeField] GameObject foundationStatScreen;
+
+    [SerializeField] GameObject GoIStatScreen;
+
+    private bool tabletOn = false;
 
     [Header("Events")]
     public GameEvent onProposalChanged;
@@ -28,10 +44,24 @@ public class GameManager : MonoBehaviour
         monthLength = UnityEngine.Random.Range(4, 7);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //TODO move tutorialHandler to here instead
+
+    //TODO utilize events to fire the below actions instead of update?
+    //TODO update background of window 
+    //TODO add screen overlays
+
+    void Update() {
+        int currentID = hiddenGameVariables._currentProposal.getProposalID();
+
+        //hardcoded at only proposal 0 for initial experimentation
+        if (currentID == 0){
+            ProjectClipboardOverlay();
+            //Stops month from progressing during tutorial
+            numMonthlyProposal--;
+        } else if (currentID == 1){
+            projectClipboardOverlay.SetActive(false);
+            TurnOnTablet();
+            numMonthlyProposal--;
+        }
     }
 
     public void checkMonth(Component sender, object data) {
@@ -174,5 +204,79 @@ public class GameManager : MonoBehaviour
             }
         }
         onNewMonth.Raise();
+    }
+
+    private void TurnOnTablet() {
+        if(tabletOn == false) {
+            StartCoroutine(ITabletOn());
+            StartCoroutine(IDisplayLogo());
+            tabletOn = true;
+        }
+    }
+
+    private void ProjectClipboardOverlay() {
+        projectClipboardOverlay.SetActive(true);
+    }
+
+
+    IEnumerator ITabletOn()
+    {
+        initialTabletScreen.SetActive(true);
+
+        Image initialTabletImage = initialTabletScreen.GetComponent<Image>();
+        Color temp = initialTabletImage.color;
+
+        float elapsedTime = 0;
+        float duration = 0.1f;
+        while (initialTabletImage.color.a < 0.95f){//elapsedTime < duration) {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
+
+            temp = initialTabletImage.color;
+            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
+            initialTabletImage.color = temp;
+        }
+
+        //Syncs this co-routine with the other co-routine below
+        yield return new WaitForSeconds(1f);
+
+        temp = initialTabletImage.color;
+        temp.a = 0f; //Time.deltaTime
+        initialTabletImage.color = temp;
+        initialTabletScreen.SetActive(false);
+    }
+
+    IEnumerator IDisplayLogo()
+    {
+        yield return new WaitForSeconds(0.5f);
+        scorpLogo.SetActive(true);
+
+        Image scorpImage = scorpLogo.GetComponent<Image>();
+        Color temp = scorpImage.color;
+
+        float elapsedTime = 0;
+        float duration = 0.1f;
+
+        while (scorpImage.color.a < 0.95f){//elapsedTime < duration) {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
+
+            temp = scorpImage.color;
+            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
+            scorpImage.color = temp;
+        }
+        
+        yield return new WaitForSeconds(0.4f);
+
+        foundationStatScreen.SetActive(true);
+        GoIStatScreen.SetActive(false);
+
+        yield return new WaitForSeconds(0.1f);
+
+        //Resets the image back to being invisible
+        temp = scorpImage.color;
+        temp.a = 0f; //Time.deltaTime
+        scorpImage.color = temp;
+        scorpLogo.SetActive(false);
     }
 }

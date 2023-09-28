@@ -12,15 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e32f20a36a65043bdc5a590055040a, type: 3}
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
-  _currentMonth: 0
+  _currentMonth: 1
   _hasActiveProposal: 0
   _prevProposal:
-    proposalDescription: 'If you wish to play the tutorial, accept this proposal
-      by stamping the decision button and signing on the line.
+    proposalDescription: '<line-height=90%>Several Sarkic cultists have been spotted
+      attempting to transport a sample of SCP-610 into Mongolia. Neutralization and
+      containment is required immediately.
 
 
-      if you instead
-      wish to jump in, deny the proposal.'
+      Requires: MTF for one month'
+    proposalID: 3
+    requiredMonth: 0
+    proposalTitle: Threat groups behind the Veil
+    proposalPrerequisites: 
+    proposalPostUnlocksAccept: 00000000
+    proposalPostUnlocksDeny: 01000000
+    proposalStatChangesAccept:
+    - MTF
+    - 20
+    - 1
+    proposalStatChangesDeny: []
+    extraInfo: 2
+  _currentProposal:
+    proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
+      this proposal by stamping the decision button and signing on the line.
+
+
+      if
+      you instead wish to jump in, deny the proposal.'
     proposalID: 0
     requiredMonth: 0
     proposalTitle: welcome to scp administration
@@ -30,64 +49,11 @@ MonoBehaviour:
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
-  _currentProposal:
-    proposalDescription: "Next up is getting some new workers! \n\nAt the end of
-      each year you can gain some more researchers and MTF, this allows you to accept
-      more proposals or do larger activities.\n\n Click on the left clipboard clip
-      to see more"
-    proposalID: 1
-    requiredMonth: 0
-    proposalTitle: Prospective New Recruits
-    proposalPrerequisites: 
-    proposalPostUnlocksAccept: 02000000
-    proposalPostUnlocksDeny: 02000000
-    proposalStatChangesAccept:
-    - MTF
-    - 10
-    - 0
-    - Researchers
-    - 10
-    - 0
-    - DClass
-    - 10
-    - 0
-    proposalStatChangesDeny: []
-    extraInfo: 0
   _currentExtraInfo:
-    extraInfoType: PotentialEmployees
+    extraInfoType: 
     infoID: 0
-    infoTitle: Prominent Potential Employees
-    infoDescription:
-    - "<line-height=90%>Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate
-      with a 3.7 GPA. \n\nRecommendation: Containment Specialist."
-    - "<line-height=90%>Jacob Conwell\n\nAn expert Bioanalyst with one year professional
-      experience. \n\nRecommendation: Anomalous Materials Analyst."
-    - '<line-height=90%>Dr. Chelsea Elliott
-
-
-      A new graduate with a double
-      degree in Botany and Plant Science.
-
-
-      Recommendation: Anomalous Botany
-      Assistant.'
-    - '<line-height=90%>[NAME REDACTED]
-
-
-      Agent Green is a former GOC operative
-      specializing in disposing of Reality Benders.
-
-
-      Recommendation: MTF lead.'
-    - '<line-height=90%>Tony Marquez
-
-
-      A petty criminal who got involved in
-      an anomalous heist. Exceptional survival Instinct.
-
-
-      Recommendation:
-      D-Class.'
+    infoTitle: 
+    infoDescription: []
   _lastSavedProposal: 0
   _statChangeEventBus: []
   _chosenDClassMethod: 0
@@ -107,8 +73,9 @@ MonoBehaviour:
   _favourFactory: 50
   _favourAnderson: 50
   _myStatCopy:
-    __statsChanged: 
-    __tempStatsChanged: []
+    __statsChanged: 00000000
+    __tempStatsChanged:
+    - {fileID: 0}
     __chosenDClassMethod: 0
     __currentMajorCanon: 0
     __totalMTF: 50

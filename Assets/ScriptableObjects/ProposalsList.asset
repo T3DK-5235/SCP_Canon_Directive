@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ProposalsList
   m_EditorClassIdentifier: 
   _proposals:
-  - proposalDescription: 'If you wish to play the tutorial, accept this proposal
-      by stamping the decision button and signing on the line.
+  - proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
+      this proposal by stamping the decision button and signing on the line.
 
 
-      if you instead
-      wish to jump in, deny the proposal.'
+      if
+      you instead wish to jump in, deny the proposal.'
     proposalID: 0
     requiredMonth: 0
     proposalTitle: welcome to scp administration
@@ -28,10 +28,10 @@ MonoBehaviour:
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
-  - proposalDescription: "Next up is getting some new workers! \n\nAt the end of
-      each year you can gain some more researchers and MTF, this allows you to accept
-      more proposals or do larger activities.\n\n Click on the left clipboard clip
-      to see more"
+  - proposalDescription: "<line-height=90%>Next up is getting some new workers! \n\nAt
+      the start of each year you can employ more researchers and MTF, this allows
+      you to accept more proposals or do larger activities.\n\nClick on the left
+      clipboard clip for more."
     proposalID: 1
     requiredMonth: 0
     proposalTitle: Prospective New Recruits
@@ -50,22 +50,43 @@ MonoBehaviour:
     - 0
     proposalStatChangesDeny: []
     extraInfo: 0
-  - proposalDescription: Another cool description I swear.
+  - proposalDescription: '<line-height=90%>A strange red ice has been discovered
+      by civilian researchers in the arctic. Following containment as SCP-009, this
+      anomaly has been transferred to Site 44 for testing.
+
+
+      Requires: Researchers
+      for two months'
     proposalID: 2
     requiredMonth: 0
-    proposalTitle: Another Title
+    proposalTitle: The Red Ice
+    proposalPrerequisites: 
+    proposalPostUnlocksAccept: 03000000
+    proposalPostUnlocksDeny: 03000000
+    proposalStatChangesAccept:
+    - Researchers
+    - -10
+    - 2
+    proposalStatChangesDeny: []
+    extraInfo: 1
+  - proposalDescription: '<line-height=90%>Several Sarkic cultists have been spotted
+      attempting to transport a sample of SCP-610 into Mongolia. Neutralization and
+      containment is required immediately.
+
+
+      Requires: MTF for one month'
+    proposalID: 3
+    requiredMonth: 0
+    proposalTitle: Threat groups behind the Veil
     proposalPrerequisites: 
     proposalPostUnlocksAccept: 00000000
     proposalPostUnlocksDeny: 01000000
     proposalStatChangesAccept:
     - MTF
-    - -40
-    - 3
-    proposalStatChangesDeny:
-    - Researchers
-    - 5
-    - 4
-    extraInfo: -1
+    - 20
+    - 1
+    proposalStatChangesDeny: []
+    extraInfo: 2
   - proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
       this proposal by stamping the decision button and signing on the line.
 
@@ -82,9 +103,9 @@ MonoBehaviour:
     proposalStatChangesDeny: []
     extraInfo: -1
   - proposalDescription: "<line-height=90%>Next up is getting some new workers! \n\nAt
-      the end of each year you can gain some more researchers and MTF, this allows
+      the start of each year you can employ more researchers and MTF, this allows
       you to accept more proposals or do larger activities.\n\nClick on the left
-      clipboard clip to see more"
+      clipboard clip for more."
     proposalID: 1
     requiredMonth: 0
     proposalTitle: Prospective New Recruits
@@ -103,22 +124,43 @@ MonoBehaviour:
     - 0
     proposalStatChangesDeny: []
     extraInfo: 0
-  - proposalDescription: <line-height=90%>Another cool description I swear.
+  - proposalDescription: '<line-height=90%>A strange red ice has been discovered
+      by civilian researchers in the arctic. Following containment as SCP-009, this
+      anomaly has been transferred to Site 44 for testing.
+
+
+      Requires: Researchers
+      for two months'
     proposalID: 2
     requiredMonth: 0
-    proposalTitle: Another Title
+    proposalTitle: The Red Ice
     proposalPrerequisites: 01000000
+    proposalPostUnlocksAccept: 03000000
+    proposalPostUnlocksDeny: 03000000
+    proposalStatChangesAccept:
+    - Researchers
+    - -10
+    - 2
+    proposalStatChangesDeny: []
+    extraInfo: 1
+  - proposalDescription: '<line-height=90%>Several Sarkic cultists have been spotted
+      attempting to transport a sample of SCP-610 into Mongolia. Neutralization and
+      containment is required immediately.
+
+
+      Requires: MTF for one month'
+    proposalID: 3
+    requiredMonth: 0
+    proposalTitle: Threat groups behind the Veil
+    proposalPrerequisites: 02000000
     proposalPostUnlocksAccept: 00000000
     proposalPostUnlocksDeny: 01000000
     proposalStatChangesAccept:
     - MTF
-    - -40
-    - 3
-    proposalStatChangesDeny:
-    - Researchers
-    - 5
-    - 4
-    extraInfo: -1
+    - 20
+    - 1
+    proposalStatChangesDeny: []
+    extraInfo: 2
   - proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
       this proposal by stamping the decision button and signing on the line.
 
@@ -135,9 +177,9 @@ MonoBehaviour:
     proposalStatChangesDeny: []
     extraInfo: -1
   - proposalDescription: "<line-height=90%>Next up is getting some new workers! \n\nAt
-      the end of each year you can gain some more researchers and MTF, this allows
+      the start of each year you can employ more researchers and MTF, this allows
       you to accept more proposals or do larger activities.\n\nClick on the left
-      clipboard clip to see more"
+      clipboard clip for more."
     proposalID: 1
     requiredMonth: 0
     proposalTitle: Prospective New Recruits
@@ -156,22 +198,43 @@ MonoBehaviour:
     - 0
     proposalStatChangesDeny: []
     extraInfo: 0
-  - proposalDescription: <line-height=90%>Another cool description I swear.
+  - proposalDescription: '<line-height=90%>A strange red ice has been discovered
+      by civilian researchers in the arctic. Following containment as SCP-009, this
+      anomaly has been transferred to Site 44 for testing.
+
+
+      Requires: Researchers
+      for two months'
     proposalID: 2
     requiredMonth: 0
-    proposalTitle: Another Title
+    proposalTitle: The Red Ice
     proposalPrerequisites: 01000000
+    proposalPostUnlocksAccept: 03000000
+    proposalPostUnlocksDeny: 03000000
+    proposalStatChangesAccept:
+    - Researchers
+    - -10
+    - 2
+    proposalStatChangesDeny: []
+    extraInfo: 1
+  - proposalDescription: '<line-height=90%>Several Sarkic cultists have been spotted
+      attempting to transport a sample of SCP-610 into Mongolia. Neutralization and
+      containment is required immediately.
+
+
+      Requires: MTF for one month'
+    proposalID: 3
+    requiredMonth: 0
+    proposalTitle: Threat groups behind the Veil
+    proposalPrerequisites: 02000000
     proposalPostUnlocksAccept: 00000000
     proposalPostUnlocksDeny: 01000000
     proposalStatChangesAccept:
     - MTF
-    - -40
-    - 3
-    proposalStatChangesDeny:
-    - Researchers
-    - 5
-    - 4
-    extraInfo: -1
+    - 20
+    - 1
+    proposalStatChangesDeny: []
+    extraInfo: 2
   - proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
       this proposal by stamping the decision button and signing on the line.
 
@@ -188,9 +251,9 @@ MonoBehaviour:
     proposalStatChangesDeny: []
     extraInfo: -1
   - proposalDescription: "<line-height=90%>Next up is getting some new workers! \n\nAt
-      the end of each year you can gain some more researchers and MTF, this allows
+      the start of each year you can employ more researchers and MTF, this allows
       you to accept more proposals or do larger activities.\n\nClick on the left
-      clipboard clip to see more"
+      clipboard clip for more."
     proposalID: 1
     requiredMonth: 0
     proposalTitle: Prospective New Recruits
@@ -209,72 +272,40 @@ MonoBehaviour:
     - 0
     proposalStatChangesDeny: []
     extraInfo: 0
-  - proposalDescription: <line-height=90%>Another cool description I swear.
+  - proposalDescription: '<line-height=90%>A strange red ice has been discovered
+      by civilian researchers in the arctic. Following containment as SCP-009, this
+      anomaly has been transferred to Site 44 for testing.
+
+
+      Requires: Researchers
+      for two months'
     proposalID: 2
     requiredMonth: 0
-    proposalTitle: Another Title
+    proposalTitle: The Red Ice
     proposalPrerequisites: 01000000
+    proposalPostUnlocksAccept: 03000000
+    proposalPostUnlocksDeny: 03000000
+    proposalStatChangesAccept:
+    - Researchers
+    - -10
+    - 2
+    proposalStatChangesDeny: []
+    extraInfo: 1
+  - proposalDescription: '<line-height=90%>Several Sarkic cultists have been spotted
+      attempting to transport a sample of SCP-610 into Mongolia. Neutralization and
+      containment is required immediately.
+
+
+      Requires: MTF for one month'
+    proposalID: 3
+    requiredMonth: 0
+    proposalTitle: Threat groups behind the Veil
+    proposalPrerequisites: 02000000
     proposalPostUnlocksAccept: 00000000
     proposalPostUnlocksDeny: 01000000
     proposalStatChangesAccept:
     - MTF
-    - -40
-    - 3
-    proposalStatChangesDeny:
-    - Researchers
-    - 5
-    - 4
-    extraInfo: -1
-  - proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
-      this proposal by stamping the decision button and signing on the line.
-
-
-      if
-      you instead wish to jump in, deny the proposal.'
-    proposalID: 0
-    requiredMonth: 0
-    proposalTitle: welcome to scp administration
-    proposalPrerequisites: 
-    proposalPostUnlocksAccept: 01000000
-    proposalPostUnlocksDeny: 01000000
-    proposalStatChangesAccept: []
+    - 20
+    - 1
     proposalStatChangesDeny: []
-    extraInfo: -1
-  - proposalDescription: "<line-height=90%>Next up is getting some new workers! \n\nAt
-      the end of each year you can gain some more researchers and MTF, this allows
-      you to accept more proposals or do larger activities.\n\nClick on the left
-      clipboard clip to see more"
-    proposalID: 1
-    requiredMonth: 0
-    proposalTitle: Prospective New Recruits
-    proposalPrerequisites: 00000000
-    proposalPostUnlocksAccept: 02000000
-    proposalPostUnlocksDeny: 02000000
-    proposalStatChangesAccept:
-    - MTF
-    - 10
-    - 0
-    - Researchers
-    - 10
-    - 0
-    - DClass
-    - 10
-    - 0
-    proposalStatChangesDeny: []
-    extraInfo: 0
-  - proposalDescription: <line-height=90%>Another cool description I swear.
-    proposalID: 2
-    requiredMonth: 0
-    proposalTitle: Another Title
-    proposalPrerequisites: 01000000
-    proposalPostUnlocksAccept: 00000000
-    proposalPostUnlocksDeny: 01000000
-    proposalStatChangesAccept:
-    - MTF
-    - -40
-    - 3
-    proposalStatChangesDeny:
-    - Researchers
-    - 5
-    - 4
-    extraInfo: -1
+    extraInfo: 2

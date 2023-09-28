@@ -17,10 +17,22 @@ MonoBehaviour:
     infoID: 0
     infoTitle: Prominent Potential Employees
     infoDescription:
-    - "<line-height=90%>Thaddeus R Xyank\n\nA new Mechanical Engineering MIT graduate
-      with a 3.7 GPA. \n\nRecommendation: Containment Specialist."
-    - "<line-height=90%>Jacob Conwell\n\nAn expert Bioanalyst with one year professional
-      experience. \n\nRecommendation: Anomalous Materials Analyst."
+    - '<line-height=90%>Thaddeus R Xyank
+
+
+      A new Mechanical Engineering MIT
+      graduate with a 3.7 GPA.
+
+
+      Recommendation: Containment Specialist.'
+    - '<line-height=90%>Jacob Conwell
+
+
+      An expert Bioanalyst with one year
+      professional experience.
+
+
+      Recommendation: Anomalous Materials Analyst.'
     - '<line-height=90%>Dr. Chelsea Elliott
 
 
@@ -47,6 +59,26 @@ MonoBehaviour:
 
       Recommendation:
       D-Class.'
+  - extraInfoType: Information
+    infoID: 1
+    infoTitle: Handling and Researching Anomalies
+    infoDescription:
+    - '<line-height=90%>Basic anomalies like the Red Ice (SCP-009) will only require
+      some researchers.
+
+
+      Dangerous anomalies may require MTF units to contain
+      and DClass to test safely.'
+  - extraInfoType: Information
+    infoID: 2
+    infoTitle: Groups of Interest
+    infoDescription:
+    - '<line-height=90%>Other groups aside from the Foundation exist behind the veil.
+      The Sarkic cults are a group of fleshcrafters who revere disease.
+
+
+      This
+      group is typically Hostile to the Foundation.'
   - extraInfoType: PotentialEmployees
     infoID: 0
     infoTitle: Prominent Potential Employees
@@ -93,6 +125,26 @@ MonoBehaviour:
 
       Recommendation:
       D-Class.'
+  - extraInfoType: Information
+    infoID: 1
+    infoTitle: Handling and Researching Anomalies
+    infoDescription:
+    - '<line-height=90%>Basic anomalies like the Red Ice (SCP-009) will only require
+      some researchers.
+
+
+      Dangerous anomalies may require MTF units to contain
+      and DClass to test safely.'
+  - extraInfoType: Information
+    infoID: 2
+    infoTitle: Groups of Interest
+    infoDescription:
+    - '<line-height=90%>Other groups aside from the Foundation exist behind the veil.
+      The Sarkic cults are a group of fleshcrafters who revere disease.
+
+
+      This
+      group is typically Hostile to the Foundation.'
   - extraInfoType: PotentialEmployees
     infoID: 0
     infoTitle: Prominent Potential Employees
@@ -139,3 +191,89 @@ MonoBehaviour:
 
       Recommendation:
       D-Class.'
+  - extraInfoType: Information
+    infoID: 1
+    infoTitle: Handling and Researching Anomalies
+    infoDescription:
+    - '<line-height=90%>Basic anomalies like the Red Ice (SCP-009) will only require
+      some researchers.
+
+
+      Dangerous anomalies may require MTF units to contain
+      and DClass to test safely.'
+  - extraInfoType: Information
+    infoID: 2
+    infoTitle: Groups of Interest
+    infoDescription:
+    - '<line-height=90%>Other groups aside from the Foundation exist behind the veil.
+      The Sarkic cults are a group of fleshcrafters who revere disease.
+
+
+      This
+      group is typically Hostile to the Foundation.'
+  - extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Prominent Potential Employees
+    infoDescription:
+    - '<line-height=90%>Thaddeus R Xyank
+
+
+      A new Mechanical Engineering MIT
+      graduate with a 3.7 GPA.
+
+
+      Recommendation: Containment Specialist.'
+    - '<line-height=90%>Jacob Conwell
+
+
+      An expert Bioanalyst with one year
+      professional experience.
+
+
+      Recommendation: Anomalous Materials Analyst.'
+    - '<line-height=90%>Dr. Chelsea Elliott
+
+
+      A new graduate with a double
+      degree in Botany and Plant Science.
+
+
+      Recommendation: Anomalous Botany
+      Assistant.'
+    - '<line-height=90%>[NAME REDACTED]
+
+
+      Agent Green is a former GOC operative
+      specializing in disposing of Reality Benders.
+
+
+      Recommendation: MTF lead.'
+    - '<line-height=90%>Tony Marquez
+
+
+      A petty criminal who got involved in
+      an anomalous heist. Exceptional survival Instinct.
+
+
+      Recommendation:
+      D-Class.'
+  - extraInfoType: Information
+    infoID: 1
+    infoTitle: Handling and Researching Anomalies
+    infoDescription:
+    - '<line-height=90%>Basic anomalies like the Red Ice (SCP-009) will only require
+      some researchers.
+
+
+      Dangerous anomalies may require MTF units to contain
+      and DClass to test safely.'
+  - extraInfoType: Information
+    infoID: 2
+    infoTitle: Groups of Interest
+    infoDescription:
+    - '<line-height=90%>Other groups aside from the Foundation exist behind the veil.
+      The Sarkic cults are a group of fleshcrafters who revere disease.
+
+
+      This
+      group is typically Hostile to the Foundation.'
