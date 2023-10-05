@@ -8,7 +8,6 @@ public class ProposalHandler : MonoBehaviour
     public List<int> activeProposalEventBus;
     public List<int> standbyProposalEventBus;
 
-    [SerializeField] PublicGameVariables publicGameVariables;
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
     //private TempStatVariables tempStatVariables;

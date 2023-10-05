@@ -5,7 +5,6 @@ using System.IO;
 
 public class SaveHandler : MonoBehaviour
 {
-    [SerializeField] PublicGameVariables publicGameVariables;
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
     [SerializeField] ProposalsList proposalsList;

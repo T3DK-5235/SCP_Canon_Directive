@@ -80,10 +80,10 @@
                 2
             ],
             "proposalPostUnlocksAccept": [
-                0
+                4
             ],
             "proposalPostUnlocksDeny": [
-                1
+                4
             ],
             "proposalStatChangesAccept": [
                 "MTF",
@@ -93,6 +93,29 @@
             "proposalStatChangesDeny": [
             ],
 	    "extraInfo": 2
+        },
+        {
+	    "proposalTitle": "The Enemy of My Enemy...",
+            "proposalDescription": "<line-height=90%>Correspondence from a high ranking individual in the Church of the Broken God has proposed a research initiative to protect against hostile Sarkic forces and reinforce SCP-2309's defences.\n\nRequires: Researchers for three months",
+            "proposalID": 4,
+            "requiredMonth": 0,
+            "proposalPrerequisites": [
+                3
+            ],
+            "proposalPostUnlocksAccept": [
+                5
+            ],
+            "proposalPostUnlocksDeny": [
+                5
+            ],
+            "proposalStatChangesAccept": [
+                "Researchers",
+                "-20",
+                "2"
+            ],
+            "proposalStatChangesDeny": [
+            ],
+	    "extraInfo": 3
         }
     ]
 }

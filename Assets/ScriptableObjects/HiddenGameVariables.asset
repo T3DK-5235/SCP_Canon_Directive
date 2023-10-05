@@ -12,27 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e32f20a36a65043bdc5a590055040a, type: 3}
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
-  _currentMonth: 1
+  _currentMonth: 0
   _hasActiveProposal: 0
   _prevProposal:
-    proposalDescription: '<line-height=90%>Several Sarkic cultists have been spotted
-      attempting to transport a sample of SCP-610 into Mongolia. Neutralization and
-      containment is required immediately.
+    proposalDescription: '<line-height=90%>Correspondence from a high ranking individual
+      in the Church of the Broken God has proposed a research initiative to protect
+      against hostile Sarkic forces and reinforce SCP-2309''s defences.
 
 
-      Requires: MTF for one month'
-    proposalID: 3
+      Requires:
+      Researchers for three months'
+    proposalID: 4
     requiredMonth: 0
-    proposalTitle: Threat groups behind the Veil
+    proposalTitle: Groups of Interest Relations
     proposalPrerequisites: 
-    proposalPostUnlocksAccept: 00000000
-    proposalPostUnlocksDeny: 01000000
+    proposalPostUnlocksAccept: 05000000
+    proposalPostUnlocksDeny: 05000000
     proposalStatChangesAccept:
-    - MTF
-    - 20
-    - 1
+    - Researchers
+    - -20
+    - 2
     proposalStatChangesDeny: []
-    extraInfo: 2
+    extraInfo: 3
   _currentProposal:
     proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
       this proposal by stamping the decision button and signing on the line.
@@ -73,9 +74,8 @@ MonoBehaviour:
   _favourFactory: 50
   _favourAnderson: 50
   _myStatCopy:
-    __statsChanged: 00000000
-    __tempStatsChanged:
-    - {fileID: 0}
+    __statsChanged: 
+    __tempStatsChanged: []
     __chosenDClassMethod: 0
     __currentMajorCanon: 0
     __totalMTF: 50

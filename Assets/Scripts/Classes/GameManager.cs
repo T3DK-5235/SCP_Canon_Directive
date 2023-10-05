@@ -56,11 +56,9 @@ public class GameManager : MonoBehaviour
         if (currentID == 0){
             ProjectClipboardOverlay();
             //Stops month from progressing during tutorial
-            numMonthlyProposal = 0;
         } else if (currentID == 1){
             projectClipboardOverlay.SetActive(false);
             TurnOnTablet();
-            numMonthlyProposal = 0;
         }
     }
 
@@ -68,8 +66,8 @@ public class GameManager : MonoBehaviour
         //Increment the number of proposals done this month
         string animType;
         numMonthlyProposal++;
-        //If the month should end and the gamestate has moved to checking if it is the month end
-        if(numMonthlyProposal == monthLength) {
+        //If the month should end and the game isnt in the tutorial section (proposals 0-6)
+        if(numMonthlyProposal >= monthLength && hiddenGameVariables._currentProposal.getProposalID() > 6) {
             //Change to loading the month
             Debug.Log("Loading next month");
             animType = "NewMonth";
@@ -86,6 +84,7 @@ public class GameManager : MonoBehaviour
             monthLength = UnityEngine.Random.Range(5, 8);
             numMonthlyProposal = 1;
 
+        //This section runs if it isnt time for a new month or if the tutorial is ongoing
         } else {
             Debug.Log("Load next proposal");
 
@@ -97,11 +96,11 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator newMonthAnim() {
-        newMonthBlackout.SetActive(true);
+        newMonthBlackout.SetActive(false);
 
         yield return new WaitForSeconds(1);
 
-        newMonthBlackout.SetActive(false);
+        newMonthBlackout.SetActive(true);
     }
 
     private void checkStatBus() {
