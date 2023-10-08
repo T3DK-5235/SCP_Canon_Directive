@@ -116,6 +116,66 @@
             "proposalStatChangesDeny": [
             ],
 	    "extraInfo": 3
+        },
+        {
+	    "proposalTitle": "Branching paths",
+            "proposalDescription": "<line-height=90%>Whilst clicking both Accept or Deny has lead to the same proposal in this tutorial, this won't always be the case.\n\nCertain proposal choices along the way will start particular story threads and may lead towards a specific ending or event.",
+            "proposalID": 5,
+            "requiredMonth": 0,
+            "proposalPrerequisites": [
+                4
+            ],
+            "proposalPostUnlocksAccept": [
+                6
+            ],
+            "proposalPostUnlocksDeny": [
+                6
+            ],
+            "proposalStatChangesAccept": [
+            ],
+            "proposalStatChangesDeny": [
+            ],
+	    "extraInfo": -1
+        },
+        {
+	    "proposalTitle": "Check the calendar",
+            "proposalDescription": "<line-height=90%>Every 4-6 proposals (At least, to start) there will be a new month. This is mainly an opportunity to recover some of your spent assets. Also, a report about the consequences of your choices will be prepared for you to mull over!",
+            "proposalID": 6,
+            "requiredMonth": 0,
+            "proposalPrerequisites": [
+                5
+            ],
+            "proposalPostUnlocksAccept": [
+                7
+            ],
+            "proposalPostUnlocksDeny": [
+                7
+            ],
+            "proposalStatChangesAccept": [
+            ],
+            "proposalStatChangesDeny": [
+            ],
+	    "extraInfo": -1
+        },
+        {
+	    "proposalTitle": "New Month!",
+            "proposalDescription": "<line-height=90%>Uh",
+            "proposalID": 7,
+            "requiredMonth": 0,
+            "proposalPrerequisites": [
+                6
+            ],
+            "proposalPostUnlocksAccept": [
+                1
+            ],
+            "proposalPostUnlocksDeny": [
+                1
+            ],
+            "proposalStatChangesAccept": [
+            ],
+            "proposalStatChangesDeny": [
+            ],
+	    "extraInfo": -1
         }
     ]
 }

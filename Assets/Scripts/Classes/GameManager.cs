@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         string animType;
         numMonthlyProposal++;
         //If the month should end and the game isnt in the tutorial section (proposals 0-6)
-        if(numMonthlyProposal >= monthLength && hiddenGameVariables._currentProposal.getProposalID() > 6) {
+        if(numMonthlyProposal >= monthLength && hiddenGameVariables._currentProposal.getProposalID() >= 6) {
             //Change to loading the month
             Debug.Log("Loading next month");
             animType = "NewMonth";
