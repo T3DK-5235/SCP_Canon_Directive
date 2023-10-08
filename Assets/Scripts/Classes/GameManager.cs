@@ -10,8 +10,6 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
 
-    //BRANCH CHECK LINE
-
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
     //Default length of a month
