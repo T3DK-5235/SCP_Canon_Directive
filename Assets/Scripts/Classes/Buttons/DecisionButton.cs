@@ -44,10 +44,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
             DecideNextAction.Raise();
         }
 
-        //TODO remove testing code
-        Debug.Log(" pointer pressed : " + eventData.pointerPress);
-        Debug.Log("Checking proposal validity" + validProposal);
-
         //This deals with if the signature button has been clicked and a choice has been made PLUS if the choice can actually be chosen
         if(validProposal == true && eventData.pointerPress == signatureButton && hiddenGameVariables._proposalDecision != ProposalChoiceEnum.NONE) {
             Debug.Log("Proposal can be accepted");
@@ -112,9 +108,11 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         canvasGroup.blocksRaycasts = false;
 
         //Send out event
+        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_FULL_DECISION;
         DecideNextAction.Raise();
 
         //reset choice to a blank string for next use
+        //TODO check this doesnt fire too early
         hiddenGameVariables._proposalDecision = ProposalChoiceEnum.NONE;
 
         StartCoroutine(AnimationCoroutine(canvasGroup));
