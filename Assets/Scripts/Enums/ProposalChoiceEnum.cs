@@ -1,4 +1,4 @@
-public enum DecisionChoiceEnum
+public enum ProposalChoiceEnum
 {
     NONE,
     ACCEPT,

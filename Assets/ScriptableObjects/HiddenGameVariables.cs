@@ -19,7 +19,7 @@ public class HiddenGameVariables : ScriptableObject
 
     public GenericProposal _prevProposal;
     public int _lastSavedProposal;
-    public DecisionChoiceEnum _hasActiveProposal = DecisionChoiceEnum.NONE;
+    public bool _hasActiveProposal = false;
 
     //====================================================================
     //                   CURRENT PROPOSAL INFO SECTION                   |
@@ -29,9 +29,7 @@ public class HiddenGameVariables : ScriptableObject
     public GenericProposal _currentProposal;
     public GenericExtraInfo _currentExtraInfo;
     //Will be true for accepted and false for denied
-    public bool _proposalDecision;
-
-    
+    public ProposalChoiceEnum _proposalDecision = ProposalChoiceEnum.NONE;
 
     //====================================================================
     //                         STAT CHANGE SECTION                       |

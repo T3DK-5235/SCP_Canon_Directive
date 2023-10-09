@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public GameEvent onUpdateFlashingStatUI;
     public GameEvent onProposalFullDecision;
     public GameEvent onUpdateStatUI;
+    public GameEvent onCheckInvalidStats;
 
     void Awake()
     {
@@ -71,6 +72,8 @@ public class GameManager : MonoBehaviour
             onUpdateProposalUI.Raise();
 
             //If extra info actually exists
+
+            Debug.Log(hiddenGameVariables._currentProposal.getExtraInfo());
             if(hiddenGameVariables._currentProposal.getExtraInfo() != -1) {
                 onUpdateExtraInfo.Raise();
             }
@@ -91,9 +94,12 @@ public class GameManager : MonoBehaviour
 
             //Raises an event to make a stat copy - ProposalHandler "HandleStatChanges"
             onHandleStatChanges.Raise();
+            
             while(hiddenGameVariables._myStatCopy == null) {
                 Debug.Log("Creating stat copy");
             }
+            onCheckInvalidStats.Raise();
+
             //Raises an event to flash the UI stat bars to show changes - 
             onUpdateFlashingStatUI.Raise();
 

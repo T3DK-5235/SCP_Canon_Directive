@@ -105,9 +105,9 @@ public class ProposalHandler : MonoBehaviour
 
         hiddenGameVariables._myStatCopy = statCopy;
 
-        if (hiddenGameVariables._proposalDecision == DecisonChoiceEnum.ACCEPT) {
+        if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.ACCEPT) {
             proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesAccept();
-        } else if (hiddenGameVariables._proposalDecision == false) {
+        } else if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.DENY) {
             proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesDeny();
         }
 
@@ -204,10 +204,10 @@ public class ProposalHandler : MonoBehaviour
         List<int> proposalPostUnlocks = null;
 
         //Changes what is unlocked and changed based on player decision
-        if (hiddenGameVariables._proposalDecision == true) {
+        if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.ACCEPT) {
             //TODO figure out if its worth caching this bit as its also used above
             proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksAccept();
-        } else if (hiddenGameVariables._proposalDecision == false) {
+        } else if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.DENY) {
             proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksDeny();
         }
         

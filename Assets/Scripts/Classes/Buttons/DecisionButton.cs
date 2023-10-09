@@ -14,8 +14,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
     [SerializeField] GameObject denyStamp;
     [SerializeField] GameObject signature; 
 
-    private static string choice = "";
-
     private static bool validProposal = false;
 
     [Header("Events")]
@@ -30,13 +28,13 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         //This deals with the button used for accepting or denying the proposal
         if(eventData.pointerPress == decisionButton) {
             if (eventData.button == PointerEventData.InputButton.Left) {
-                choice = "accept";
+                hiddenGameVariables._proposalDecision = ProposalChoiceEnum.ACCEPT;
                 if(denyStamp.activeSelf) {
                     denyStamp.SetActive(false);
                 }
                 acceptStamp.SetActive(true);
             } else if (eventData.button == PointerEventData.InputButton.Right) {
-                choice = "deny";
+                hiddenGameVariables._proposalDecision = ProposalChoiceEnum.DENY;
                 if(acceptStamp.activeSelf) {
                     acceptStamp.SetActive(false);
                 }
@@ -47,18 +45,19 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         }
 
         //TODO remove testing code
-        //Debug.Log(" pointer pressed : " + eventData.pointerPress + " : : : " + validProposal.ToString() + " : : : " + choice);
+        Debug.Log(" pointer pressed : " + eventData.pointerPress);
+        Debug.Log("Checking proposal validity" + validProposal);
 
         //This deals with if the signature button has been clicked and a choice has been made PLUS if the choice can actually be chosen
-        if(validProposal == true && eventData.pointerPress == signatureButton && choice != "") {
-            // Debug.Log("Proposal can be accepted");
+        if(validProposal == true && eventData.pointerPress == signatureButton && hiddenGameVariables._proposalDecision != ProposalChoiceEnum.NONE) {
+            Debug.Log("Proposal can be accepted");
             finishProposal();
         }
     }
 
-    public void checkInvalidStats(Component sender, object data) 
+    //TODO figure out where this needs to be called from
+    public void CheckInvalidStats(Component sender, object data) 
     {
-
         //Tracks if at least one stat is less than 0
         validProposal = true;
 
@@ -66,8 +65,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         if (hiddenGameVariables._myStatCopy.__availableMTF < 0) {
             validProposal = false;
             //TODO raise an event to make the UI bar flash red?
-                        
-            // flashInvalidStat.Raise("MTF");
         }
         if (hiddenGameVariables._myStatCopy.__availableResearchers < 0) { 
             validProposal = false;
@@ -118,7 +115,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         DecideNextAction.Raise();
 
         //reset choice to a blank string for next use
-        choice = "";
+        hiddenGameVariables._proposalDecision = ProposalChoiceEnum.NONE;
 
         StartCoroutine(AnimationCoroutine(canvasGroup));
     }
