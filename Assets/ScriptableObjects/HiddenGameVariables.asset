@@ -12,49 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e32f20a36a65043bdc5a590055040a, type: 3}
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
-  _currentGameState: 0
+  _currentGameState: 2
   _currentMonth: 0
   _currentMonthProposals: 0
-  _numMonthlyProposals: 0
+  _numMonthlyProposals: 3
   _prevProposal:
-    proposalDescription: 
-    proposalID: 0
+    proposalDescription: '<line-height=90%>A strange red ice has been discovered
+      by civilian researchers in the arctic. Following containment as SCP-009, this
+      anomaly has been transferred to Site 44 for testing.
+
+
+      Requires: Researchers
+      for two months'
+    proposalID: 2
     requiredMonth: 0
-    proposalTitle: 
+    proposalTitle: The Red Ice
     proposalPrerequisites: 
-    proposalPostUnlocksAccept: 
-    proposalPostUnlocksDeny: 
-    proposalStatChangesAccept: []
+    proposalPostUnlocksAccept: 03000000
+    proposalPostUnlocksDeny: 03000000
+    proposalStatChangesAccept:
+    - Researchers
+    - -10
+    - 2
     proposalStatChangesDeny: []
-    extraInfo: 0
+    extraInfo: 1
   _lastSavedProposal: 0
   _hasActiveProposal: 0
   _currentProposal:
-    proposalDescription: 
+    proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
+      this proposal by stamping the decision button and signing on the line.
+
+
+      if
+      you instead wish to jump in, deny the proposal.'
     proposalID: 0
     requiredMonth: 0
-    proposalTitle: 
+    proposalTitle: welcome to scp administration
     proposalPrerequisites: 
-    proposalPostUnlocksAccept: 
-    proposalPostUnlocksDeny: 
+    proposalPostUnlocksAccept: 01000000
+    proposalPostUnlocksDeny: 01000000
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
-    extraInfo: 0
+    extraInfo: -1
   _currentExtraInfo:
-    extraInfoType: 
-    infoID: 0
-    infoTitle: 
-    infoDescription: []
+    extraInfoType: Information
+    infoID: 2
+    infoTitle: Groups of Interest
+    infoDescription:
+    - '<line-height=90%>Other groups aside from the Foundation exist behind the veil.
+      The Sarkic cults consist of divided fleshcrafter communities who revere disease
+      and eschew morality in favour of acting on base desires.
+
+
+      This group
+      is typically Hostile to the Foundation and most of humanity.'
   _proposalDecision: 0
   _statChangeEventBus: []
   _chosenDClassMethod: 0
   _currentMajorCanon: 0
-  _totalMTF: 50
-  _availableMTF: 50
-  _totalResearchers: 50
-  _availableResearchers: 50
-  _totalDClass: 50
-  _availableDClass: 50
+  _totalMTF: 90
+  _availableMTF: 130
+  _totalResearchers: 90
+  _availableResearchers: 10
+  _totalDClass: 90
+  _availableDClass: 90
   _totalMorale: 50
   _currentMorale: 50
   _favourGOC: 50
@@ -64,16 +85,17 @@ MonoBehaviour:
   _favourFactory: 50
   _favourAnderson: 50
   _myStatCopy:
-    __statsChanged: 
-    __tempStatsChanged: []
+    __statsChanged: 02000000
+    __tempStatsChanged:
+    - {fileID: 0}
     __chosenDClassMethod: 0
     __currentMajorCanon: 0
-    __totalMTF: 50
-    __availableMTF: 50
-    __totalResearchers: 50
-    __availableResearchers: 50
-    __totalDClass: 50
-    __availableDClass: 50
+    __totalMTF: 90
+    __availableMTF: 130
+    __totalResearchers: 90
+    __availableResearchers: 10
+    __totalDClass: 90
+    __availableDClass: 90
     __totalMorale: 50
     __currentMorale: 50
     __favourGOC: 50

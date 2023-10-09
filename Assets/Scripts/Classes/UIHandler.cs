@@ -136,7 +136,7 @@ public class UIHandler : MonoBehaviour
     }
 
     //Called from ClipButton
-    public void GetNextPrefab() { 
+    public void GetNextPrefab(Component sender, object data) { 
         int prevPrefabNum = 0;
 
         // if the current prefab number is less than the possible total prefab number
