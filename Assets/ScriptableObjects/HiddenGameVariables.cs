@@ -5,15 +5,38 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "HiddenGameVariables", menuName = "Runtime Variables/HiddenGameVariables")]
 public class HiddenGameVariables : ScriptableObject 
 {
+
+    [Header("Game State Handling")]
+    public GameStateEnum _currentGameState;
     public int _currentMonth = 0;
-    public bool _hasActiveProposal = false;
+    public int _currentMonthProposals = 0;
+    public int _numMonthlyProposals;
+
+    //====================================================================
+    //                       PROPOSAL INFO SECTION                       |
+    //====================================================================
+    [Header("Overall Proposal Handling")]
 
     public GenericProposal _prevProposal;
-    public GenericProposal _currentProposal;
-
-    public GenericExtraInfo _currentExtraInfo;
-
     public int _lastSavedProposal;
+    public DecisionChoiceEnum _hasActiveProposal = DecisionChoiceEnum.NONE;
+
+    //====================================================================
+    //                   CURRENT PROPOSAL INFO SECTION                   |
+    //====================================================================
+    [Header("Current Proposal Handling")]
+
+    public GenericProposal _currentProposal;
+    public GenericExtraInfo _currentExtraInfo;
+    //Will be true for accepted and false for denied
+    public bool _proposalDecision;
+
+    
+
+    //====================================================================
+    //                         STAT CHANGE SECTION                       |
+    //====================================================================
+    [Header("Stat Change Handling")]
 
     public List<ActiveStatChange> _statChangeEventBus = new List<ActiveStatChange>();
 
@@ -94,4 +117,6 @@ public class HiddenGameVariables : ScriptableObject
 
     // You can create instances of the nested class within the Scriptable Object.
     public StatCopy _myStatCopy;
+
+    public static object DecisionChoiceEnum { get; private set; }
 }

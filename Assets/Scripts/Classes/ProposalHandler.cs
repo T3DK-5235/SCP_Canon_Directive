@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class ProposalHandler : MonoBehaviour
 {
-    public List<int> activeProposalEventBus;
-    public List<int> standbyProposalEventBus;
-
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
-    //private TempStatVariables tempStatVariables;
-
+    public List<int> activeProposalEventBus;
+    public List<int> standbyProposalEventBus;
     [SerializeField] ProposalsList proposalsList;
 
+    [Header("Related Extra Info")]
+    GenericExtraInfo relevantInfoObject;
+    [SerializeField] ExtraInfoList extraInfoList;
+    [SerializeField] GameObject extraInfoClipboard;
+
     [Header("Events")]
-    public GameEvent updateFlashingStats;
-    public GameEvent ifMonthEnd;
-    public GameEvent onLoadExtraInfo;
+    public GameEvent DecideNextAction;
 
     void Awake() {
         //Stores proposal objects
@@ -29,32 +29,52 @@ public class ProposalHandler : MonoBehaviour
         //TODO write a save manager that'd pop in this "lastSavedProposal" plus the rest of the stats
     }
 
-    //Listens to the PlayerProposalDecision event system
-    public void proposalDecision(Component sender, object data) {
+    //====================================================================
+    //                         NEXT PROPOSAL SECTION                     |
+    //====================================================================
 
-        List<string> proposalStatChanges = null;
-        List<int> proposalPostUnlocks = null;
+    public void GetNextProposal(Component sender, object data) {
+        int nextProposalPos = UnityEngine.Random.Range(0, activeProposalEventBus.Count - 1);
 
-        //Changes what is unlocked and changed based on player decision
-        if (data == "accept") {
-            proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksAccept();
-        } else if (data == "deny") {
-            proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksDeny();
-        }
-        
-        updateNewStats();
+        //Add Proposal to currentProposal variable
+        hiddenGameVariables._prevProposal = hiddenGameVariables._currentProposal;
 
-        checkInactiveProposals(proposalPostUnlocks);
-        checkStandbyProposals();
 
-        //Increase the number of proposals recorded as being done that month
-        ifMonthEnd.Raise();
-        // getNextProposal();
+        hiddenGameVariables._currentProposal = proposalsList._proposals[activeProposalEventBus[nextProposalPos]];
+
+        //Remove Proposal from active event bus
+        activeProposalEventBus.RemoveAt(nextProposalPos);
+
+        HandleExtraInfo();
+
+        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_ONGOING;
+        DecideNextAction.Raise();
     }
+
+    public void HandleExtraInfo() {  
+
+        //Proposals with an extra info of -1 have no related extra info
+        if(hiddenGameVariables._currentProposal.getExtraInfo() < 0) {
+            hiddenGameVariables._currentExtraInfo = null;
+            //TODO animation of removing clipboard (Not here but somewhere in UI class after finished proposal)
+            extraInfoClipboard.SetActive(false);
+
+            return;
+            //Exit from the function if there is no extra info to get
+        }
+
+        relevantInfoObject = extraInfoList._extraInfo[hiddenGameVariables._currentProposal.getExtraInfo()];
+        hiddenGameVariables._currentExtraInfo = relevantInfoObject;
+    }
+
+
+    //====================================================================
+    //                      TEMP STAT CHANGE SECTION                     |
+    //====================================================================
 
     //Might need to be a Coroutine to prevent game from continuing before all stats are changed
     //Listens to the PlayerProposalTempDecision event system
-    public void handleStatChanges(Component sender, object data) {
+    public void HandleStatChanges(Component sender, object data) {
         List<string> proposalStatChanges = null;
 
         HiddenGameVariables.StatCopy statCopy = new HiddenGameVariables.StatCopy();
@@ -85,9 +105,9 @@ public class ProposalHandler : MonoBehaviour
 
         hiddenGameVariables._myStatCopy = statCopy;
 
-        if (data == "accept") {
+        if (hiddenGameVariables._proposalDecision == DecisonChoiceEnum.ACCEPT) {
             proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesAccept();
-        } else if (data == "deny") {
+        } else if (hiddenGameVariables._proposalDecision == false) {
             proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesDeny();
         }
 
@@ -172,10 +192,32 @@ public class ProposalHandler : MonoBehaviour
                 continue;
             }
         }
-        updateFlashingStats.Raise();
     }
 
-    public void updateNewStats() {
+
+    //====================================================================
+    //                      PERM STAT CHANGE SECTION                     |
+    //====================================================================
+
+    public void ProposalDecision(Component sender, object data) {
+        List<string> proposalStatChanges = null;
+        List<int> proposalPostUnlocks = null;
+
+        //Changes what is unlocked and changed based on player decision
+        if (hiddenGameVariables._proposalDecision == true) {
+            //TODO figure out if its worth caching this bit as its also used above
+            proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksAccept();
+        } else if (hiddenGameVariables._proposalDecision == false) {
+            proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksDeny();
+        }
+        
+        UpdateNewStats();
+
+        CheckInactiveProposals(proposalPostUnlocks);
+        CheckStandbyProposals();
+    }
+
+    private void UpdateNewStats() {
         //set current variables to the variables changed by the current proposal
 
         hiddenGameVariables._chosenDClassMethod = hiddenGameVariables._myStatCopy.__chosenDClassMethod;
@@ -205,9 +247,12 @@ public class ProposalHandler : MonoBehaviour
             //Add all temp stat changes to the stat change bus
             hiddenGameVariables._statChangeEventBus.Add(hiddenGameVariables._myStatCopy.__tempStatsChanged[i]);
         }
+
+        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_STATS_UPDATED;
+        DecideNextAction.Raise();
     }
 
-    public void checkInactiveProposals(List<int> proposalPostUnlocks) {
+    private void CheckInactiveProposals(List<int> proposalPostUnlocks) {
         //If the proposal has any PostUnlocks (proposals that can be added to the standby list)
         if (proposalPostUnlocks.Count > 0) {
             //Loops through the PostUnlocks
@@ -224,7 +269,7 @@ public class ProposalHandler : MonoBehaviour
         }
     }
 
-    public void checkStandbyProposals() {
+    private void CheckStandbyProposals() {
         for(int i = 0; i < standbyProposalEventBus.Count; i++) {
             //Check if the proposal is available to be moved (or at least, its ID) to the active bus
             if (proposalsList._proposals[standbyProposalEventBus[i]].isProposalAvailable(hiddenGameVariables._currentMonth)) {
@@ -235,78 +280,11 @@ public class ProposalHandler : MonoBehaviour
         }
     }
 
-    // public void handleRequirementChanges() {   
-    //     string requirementChange = hiddenGameVariables._currentProposal.getRequirementChange();
-
-    //     //If the string is empty, then just return from the function
-    //     //Fix this later as this'd add extra frame to stack which isnt efficient
-    //     if(requirementChange == "") { return; }
-
-    //     //requirementChange is stored as Requirement#Choice
-    //     //For Example DClassMethod#1 which would be the PRISON choice for DClass
-    //     string[] requirements = requirementChange.Split("#");
-    //     int chosenPath = Int32.Parse(requirements[1]);
-
-    //     //If the requirement is to change the DClassMethod and it hasnt already been set
-    //     if (requirements[0] == "DClassMethod" && hiddenGameVariables._chosenDClassMethod != DClassMethodEnum.NONE) {
-    //         switch(chosenPath) 
-    //         {
-    //             case 1:
-    //                 hiddenGameVariables._chosenDClassMethod = DClassMethodEnum.PRISON;
-    //                 break;
-    //             case 2:
-    //                 hiddenGameVariables._chosenDClassMethod = DClassMethodEnum.PARTIALVOLUNTEER;
-    //                 break;
-    //             case 3:
-    //                 hiddenGameVariables._chosenDClassMethod = DClassMethodEnum.CLONING;
-    //                 break;
-    //             default:
-    //                 break;
-    //         } 
-    //     } else if (requirements[0] == "MajorCanon" && hiddenGameVariables._currentMajorCanon != MajorCanonEnum.VANILLA) {
-    //         switch(chosenPath) 
-    //         {
-    //             case 1:
-    //                 hiddenGameVariables._currentMajorCanon = MajorCanonEnum.BROKENMASQ;
-    //                 break;
-    //             case 2:
-    //                 hiddenGameVariables._currentMajorCanon = MajorCanonEnum.BELLEVERSE;
-    //                 break;
-    //             case 3:
-    //                 hiddenGameVariables._currentMajorCanon = MajorCanonEnum.RATSNEST;
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     }
-    // }
-
-    public void getNextProposal(Component sender, object data) {
-
-        //If there is only 1 proposal possible, choose that, if not then randomly (Make this slightly more deterministic at a later date maybe) choose
-        // int nextProposalPos = activeProposalEventBus[0];
-        // if(activeProposalEventBus.Count != 1) {
-        int nextProposalPos = UnityEngine.Random.Range(0, activeProposalEventBus.Count - 1);
-        // }
-
-        //Add Proposal to currentProposal variable
-        hiddenGameVariables._prevProposal = hiddenGameVariables._currentProposal;
-        hiddenGameVariables._currentProposal = proposalsList._proposals[activeProposalEventBus[nextProposalPos]];
-
-        //Remove Proposal from active event bus
-        activeProposalEventBus.RemoveAt(nextProposalPos);
-
-        onLoadExtraInfo.Raise();
-    }
-
-    //TODO actually check if all of these need to be public
-    
-
     // ==============================================================================================================
     // |                                               MTF STAT CODE                                                |
     // ==============================================================================================================
 
-    public void changeAvailableMTF(int availableMTF, int duration) {
+    private void changeAvailableMTF(int availableMTF, int duration) {
         //Change scriptable object
         hiddenGameVariables._myStatCopy.__availableMTF = hiddenGameVariables._availableMTF + availableMTF;
         //AvailableMTF is stat ID 0. This will be used when updating the UI to figure out what stats actually changed
@@ -320,7 +298,7 @@ public class ProposalHandler : MonoBehaviour
         //Debug.Log("Active Stat change check | MTF-affect: " + hiddenGameVariables._myStatCopy.__tempStatsChanged[0].getStatChangedEffect() + " | MTF-duration: " + hiddenGameVariables._myStatCopy.__tempStatsChanged[0].getStatChangedDuration());
     }
 
-    public void changeTotalMTF(int totalMTF) {
+    private void changeTotalMTF(int totalMTF) {
         hiddenGameVariables._myStatCopy.__totalMTF = hiddenGameVariables._totalMTF + totalMTF;
         //Also have to increase available MTF parallel to increasing total MTF
         hiddenGameVariables._myStatCopy.__availableMTF = hiddenGameVariables._availableMTF + totalMTF;
@@ -334,7 +312,7 @@ public class ProposalHandler : MonoBehaviour
     // |                                            RESEARCHER STAT CODE                                            |
     // ==============================================================================================================
 
-    public void changeAvailableResearchers(int availableResearchers, int duration) {
+    private void changeAvailableResearchers(int availableResearchers, int duration) {
         hiddenGameVariables._myStatCopy.__availableResearchers = hiddenGameVariables._availableResearchers + availableResearchers;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(2);
 
@@ -354,7 +332,7 @@ public class ProposalHandler : MonoBehaviour
     // |                                               D-CLASS STAT CODE                                            |
     // ==============================================================================================================
 
-    public void changeAvailableDClass(int availableDClass, int duration) {
+    private void changeAvailableDClass(int availableDClass, int duration) {
         hiddenGameVariables._myStatCopy.__availableDClass = hiddenGameVariables._availableDClass + availableDClass;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(4);
 
@@ -362,7 +340,7 @@ public class ProposalHandler : MonoBehaviour
         hiddenGameVariables._myStatCopy.__tempStatsChanged.Add(statChange);
     }
 
-    public void changeTotalDClass(int totalDClass) {
+    private void changeTotalDClass(int totalDClass) {
         hiddenGameVariables._myStatCopy.__totalDClass = hiddenGameVariables._totalDClass + totalDClass;
         hiddenGameVariables._myStatCopy.__availableDClass = hiddenGameVariables._availableDClass + totalDClass;
 
@@ -374,7 +352,7 @@ public class ProposalHandler : MonoBehaviour
     // |                                                MORALE STAT CODE                                            |
     // ==============================================================================================================
 
-    public void changeCurrentMorale(int currentMorale, int duration) {
+    private void changeCurrentMorale(int currentMorale, int duration) {
         hiddenGameVariables._myStatCopy.__currentMorale = hiddenGameVariables._currentMorale + currentMorale;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(6);
 
@@ -382,7 +360,7 @@ public class ProposalHandler : MonoBehaviour
         hiddenGameVariables._myStatCopy.__tempStatsChanged.Add(statChange);
     }
 
-    public void changeTotalMorale(int totalMorale) {
+    private void changeTotalMorale(int totalMorale) {
         hiddenGameVariables._myStatCopy.__totalMorale = hiddenGameVariables._totalMorale + totalMorale;
         hiddenGameVariables._myStatCopy.__currentMorale = hiddenGameVariables._currentMorale + totalMorale;
 
@@ -394,32 +372,32 @@ public class ProposalHandler : MonoBehaviour
 
     //GOI Stats
 
-    public void changeGOCFavor(int additionalGOCFavour) {
+    private void changeGOCFavor(int additionalGOCFavour) {
         hiddenGameVariables._myStatCopy.__favourGOC = hiddenGameVariables._favourGOC + additionalGOCFavour;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(8);
     }
 
-    public void changeNalkaFavor(int additionalNalkaFavour) {
+    private void changeNalkaFavor(int additionalNalkaFavour) {
         hiddenGameVariables._myStatCopy.__favourNalka = hiddenGameVariables._favourNalka + additionalNalkaFavour;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(9);
     }
 
-    public void changeMekaniteFavor(int additionalMekaniteFavour) {
+    private void changeMekaniteFavor(int additionalMekaniteFavour) {
         hiddenGameVariables._myStatCopy.__favourMekanite = hiddenGameVariables._favourMekanite + additionalMekaniteFavour;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(10);
     }
 
-    public void changeSerpentsHandFavor(int additionalSerpentsHandFavour) {
+    private void changeSerpentsHandFavor(int additionalSerpentsHandFavour) {
         hiddenGameVariables._myStatCopy.__favourSerpentsHand = hiddenGameVariables._favourSerpentsHand + additionalSerpentsHandFavour;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(11);
     }
 
-    public void changeFactoryFavor(int additionalFactoryFavour) {
+    private void changeFactoryFavor(int additionalFactoryFavour) {
         hiddenGameVariables._myStatCopy.__favourFactory = hiddenGameVariables._favourFactory + additionalFactoryFavour;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(12);
     }
 
-    public void changeAndersonFavor(int additionalAndersonFavour) {
+    private void changeAndersonFavor(int additionalAndersonFavour) {
         hiddenGameVariables._myStatCopy.__favourAnderson = hiddenGameVariables._favourAnderson + additionalAndersonFavour;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(13);
     }

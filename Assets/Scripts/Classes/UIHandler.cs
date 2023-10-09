@@ -11,17 +11,20 @@ public class UIHandler : MonoBehaviour
 {
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
-    //Maybe instead try make a UI scriptable object
-    
+    private TextMeshProUGUI currentMonthText;
+
+    [SerializeField] GameObject newMonthBlackout;
     [SerializeField] GameObject currentMonthTextObj;
 
-    [SerializeField] GameObject proposalClipboard;
-
-    [SerializeField] GameObject extraInfoClipboard;
-    
+    [Header("Proposal UI")]
     private TextMeshProUGUI proposalTitle;
     private TextMeshProUGUI proposalDesc;
-    private TextMeshProUGUI currentMonthText;
+
+    [SerializeField] GameObject proposalClipboard;
+    
+    [Header("Extra Info UI")]
+    
+    [SerializeField] GameObject extraInfoClipboard;
 
     [SerializeField] TextMeshProUGUI extraInfoTitle;
     [SerializeField] TextMeshProUGUI extraInfoDesc;
@@ -64,50 +67,38 @@ public class UIHandler : MonoBehaviour
     private IEnumerator activeBlinkTimer;
 
     [Header("Events")]
-    public GameEvent onExtraInfoDisplayed;
-
-    //TODO utilize events to fire the below actions instead of update?
-    //TODO update background of window 
-    //TODO add screen overlays
-
-    void Start() {
-        // Maybe put in try catch
+    public GameEvent DecideNextAction;
+    void Awake() {
         // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
         proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
 
-        // and set it to the current proposal's description
-        proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
-        proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
-
         currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
-        currentMonthText.text = "Current Month:  " + hiddenGameVariables._currentMonth;
 
         personnelPrefabList = new List<GameObject>();
 
-        //TODO set sliders to HiddenGameVariables values
+        UpdateProposalUI(null, null);
+        UpdateMonthUI();
     }
-        //Is called after decision is made to update proposal
-    public void updateProposal(Component sender, object data) {
-        //TODO Add animation or movement here of the proposal
+
+    //====================================================================
+    //                        PROPOSAL UI SECTION                        |
+    //====================================================================
+
+    public void UpdateProposalUI(Component sender, object data) {
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
     }
+    //====================================================================
+    //                         EXTRA INFO SECTION                        |
+    //====================================================================
 
-    public void updateExtraInfo(Component sender, object data) {
-
+    public void UpdateExtraInfo(Component sender, object data) {
         //Sets the number of player checked prefabs back to 0
         currentPrefabNum = 0;
-
         extraInfoClipboard.SetActive(true);
-        // StartCoroutine(ExtraInfoClipboard());
 
-        // string extraInfoType = hiddenGameVariables._currentExtraInfo.getExtraInfoType();
-        // if (extraInfoType = "PotentialEmployees") {
-        //     //TODO figure out how to deal with prefab stuff
-        // }
-
-        //TODO Add animation or movement here of the proposal
+        //TODO figure out how to deal with prefab stuff
 
         string extraInfoType = hiddenGameVariables._currentExtraInfo.getExtraInfoType();
         int extraInfoNum = hiddenGameVariables._currentExtraInfo.getInfoDescription().Count;
@@ -142,12 +133,10 @@ public class UIHandler : MonoBehaviour
 
         //Set the first prefab to be active
         personnelPrefabList[currentPrefabNum].SetActive(true);
-
-        // Debug.Log("Raising extra info display event");
-        // onExtraInfoDisplayed.Raise();
     }
 
-    public void getNextPrefab(Component sender, object data) { 
+    //Called from ClipButton
+    public void GetNextPrefab() { 
         int prevPrefabNum = 0;
 
         // if the current prefab number is less than the possible total prefab number
@@ -172,8 +161,13 @@ public class UIHandler : MonoBehaviour
         personnelPrefabList[prevPrefabNum].SetActive(false);
     }
 
-    //TODO need to call this from proposal manager when stats change during a proposal
-    public void updateFlashingStatUI(Component sender, object data) 
+
+    //====================================================================
+    //                      UPDATING STAT UI SECTION                     |
+    //====================================================================
+
+    //Called by GameManager
+    public void UpdateFlashingStatUI(Component sender, object data) 
     {
         //Stop any running versions of the blink timer first
         //check if it is running already before trying to stop it
@@ -187,63 +181,6 @@ public class UIHandler : MonoBehaviour
         activeBlinkTimer = BlinkTimer();
         StartCoroutine(activeBlinkTimer);
     }
-
-    //called from proposal manager when stats change at the end of a proposal
-    public void updateStatUI(Component sender, object data) 
-    {
-        //For every stat changed
-        if(hiddenGameVariables._myStatCopy.__statsChanged.Count != 0) {
-            for (int i = 0; i < hiddenGameVariables._myStatCopy.__statsChanged.Count; i++) {
-                switch (hiddenGameVariables._myStatCopy.__statsChanged[i]) 
-                {
-                    case 0:
-                        availableMtfBar.value = hiddenGameVariables._availableMTF;
-                        break;
-                    case 1:
-                        totalMtfBar.value = hiddenGameVariables._totalMTF;
-                        break;
-                    case 2:
-                        availableResearcherBar.value = hiddenGameVariables._availableResearchers;
-                        break;
-                    case 3:
-                        totalResearcherBar.value = hiddenGameVariables._totalResearchers;
-                        break;
-                    case 4:
-                        availableDClassBar.value = hiddenGameVariables._availableDClass;
-                        break;
-                    case 5:
-                        totalDClassBar.value = hiddenGameVariables._totalDClass;
-                        break;
-                    case 6:
-                        currentMoraleBar.value = hiddenGameVariables._currentMorale;
-                        break;
-                    case 7:
-                        totalMoraleBar.value = hiddenGameVariables._totalMorale;
-                        break;
-                    case 8:
-                        gocBar.value = hiddenGameVariables._favourGOC;
-                        break;
-                    case 9:
-                        nalkaBar.value = hiddenGameVariables._favourNalka;
-                        break;
-                    case 10:
-                        mekaniteBar.value = hiddenGameVariables._favourMekanite;
-                        break;
-                    case 11:
-                        serpentsHandBar.value = hiddenGameVariables._favourSerpentsHand;
-                        break;
-                    case 12:
-                        factoryBar.value = hiddenGameVariables._favourFactory;
-                        break;
-                    case 13:
-                        andersonBar.value = hiddenGameVariables._favourAnderson;
-                        break;
-                }
-            }
-        }
-        
-        startUIFlashing = false;
-    }    
 
     IEnumerator BlinkTimer()
     {
@@ -304,29 +241,102 @@ public class UIHandler : MonoBehaviour
         }
     }
 
-    public void updateNewMonthUI(Component sender, object data) 
+    
+    public void UpdateStatUI(Component sender, object data) 
     {
-        //Set all finished changed values in hiddenGameVariables
-        availableMtfBar.value = hiddenGameVariables._availableMTF;
-        totalMtfBar.value = hiddenGameVariables._totalMTF;
+        //For every stat changed
+        if(hiddenGameVariables._myStatCopy.__statsChanged.Count != 0) {
+            for (int i = 0; i < hiddenGameVariables._myStatCopy.__statsChanged.Count; i++) {
+                switch (hiddenGameVariables._myStatCopy.__statsChanged[i]) 
+                {
+                    case 0:
+                        availableMtfBar.value = hiddenGameVariables._availableMTF;
+                        break;
+                    case 1:
+                        totalMtfBar.value = hiddenGameVariables._totalMTF;
+                        break;
+                    case 2:
+                        availableResearcherBar.value = hiddenGameVariables._availableResearchers;
+                        break;
+                    case 3:
+                        totalResearcherBar.value = hiddenGameVariables._totalResearchers;
+                        break;
+                    case 4:
+                        availableDClassBar.value = hiddenGameVariables._availableDClass;
+                        break;
+                    case 5:
+                        totalDClassBar.value = hiddenGameVariables._totalDClass;
+                        break;
+                    case 6:
+                        currentMoraleBar.value = hiddenGameVariables._currentMorale;
+                        break;
+                    case 7:
+                        totalMoraleBar.value = hiddenGameVariables._totalMorale;
+                        break;
+                    case 8:
+                        gocBar.value = hiddenGameVariables._favourGOC;
+                        break;
+                    case 9:
+                        nalkaBar.value = hiddenGameVariables._favourNalka;
+                        break;
+                    case 10:
+                        mekaniteBar.value = hiddenGameVariables._favourMekanite;
+                        break;
+                    case 11:
+                        serpentsHandBar.value = hiddenGameVariables._favourSerpentsHand;
+                        break;
+                    case 12:
+                        factoryBar.value = hiddenGameVariables._favourFactory;
+                        break;
+                    case 13:
+                        andersonBar.value = hiddenGameVariables._favourAnderson;
+                        break;
+                }
+            }
+        }
+        
+        startUIFlashing = false;
+    }
 
-        availableResearcherBar.value = hiddenGameVariables._availableResearchers;
-        totalResearcherBar.value = hiddenGameVariables._totalResearchers;
-
-        availableDClassBar.value = hiddenGameVariables._availableDClass;
-        totalDClassBar.value = hiddenGameVariables._totalDClass;
-
-        currentMoraleBar.value = hiddenGameVariables._currentMorale;
-        totalMoraleBar.value = hiddenGameVariables._totalMorale;
-
-        gocBar.value = hiddenGameVariables._favourGOC;
-        nalkaBar.value = hiddenGameVariables._favourNalka;
-        mekaniteBar.value = hiddenGameVariables._favourMekanite;
-        serpentsHandBar.value = hiddenGameVariables._favourSerpentsHand;
-        factoryBar.value = hiddenGameVariables._favourFactory;
-        andersonBar.value = hiddenGameVariables._favourAnderson;
-
-        //Sets the new month UI
+    public void UpdateMonthUI() {
         currentMonthText.text = "Current Month:  " + hiddenGameVariables._currentMonth;
     }
+
+    //====================================================================
+    //                     NEW MONTH CHECKING SECTION                    |
+    //====================================================================
+
+    public void CheckNextAnim(Component sender, object data) {
+        //If the month should end and the game isnt in the tutorial section (proposals 0-6)
+        if (data == "newMonth") {
+            UpdateMonthUI();
+            StartCoroutine(INewMonth());
+        } else if (data == "newProposal") {
+            //Animation of person walking over and giving files? Or just other stuff
+            StartCoroutine(INewProposal());
+        }
+    }
+
+    IEnumerator INewMonth() {
+        newMonthBlackout.SetActive(false);
+
+        yield return new WaitForSeconds(1);
+
+        newMonthBlackout.SetActive(true);
+
+        LoadNextProposal();
+    }
+
+    IEnumerator INewProposal() {
+        yield return new WaitForSeconds(0.1f);
+
+        LoadNextProposal();
+    }
+
+    private void LoadNextProposal() {
+        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_LOADING;
+        DecideNextAction.Raise();
+    }
+
+
 }

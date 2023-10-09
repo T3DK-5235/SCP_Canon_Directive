@@ -9,108 +9,156 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
-    //Default length of a month
-    [SerializeField] int monthLength = 4;
+    [SerializeField] ProposalsList proposalsList;
+
+    [Header("Months")]
+    [SerializeField] int monthLength;
 
     //How many proposals have been played this month
-    [SerializeField] int numMonthlyProposal = 1;
+    [SerializeField] int numMonthlyProposal;
 
-    [SerializeField] GameObject newMonthBlackout;
-
-    [SerializeField] GameObject projectClipboardOverlay;
+    [Header("Tablet")]
 
     [SerializeField] GameObject initialTabletScreen;
     [SerializeField] GameObject scorpLogo;
-
     [SerializeField] GameObject foundationStatScreen;
-
     [SerializeField] GameObject GoIStatScreen;
 
     private bool tabletOn = false;
 
     [Header("Events")]
-    public GameEvent onProposalChanged;
-    public GameEvent onNewMonth;
+    public GameEvent onGetNextProposal;
+    public GameEvent onUpdateExtraInfo;
+    public GameEvent onUpdateProposalUI;
+    public GameEvent onHandleStatChanges;
+    public GameEvent onUpdateFlashingStatUI;
+    public GameEvent onProposalFullDecision;
+    public GameEvent onUpdateStatUI;
 
     void Awake()
     {
         //TODO gets save data from json save file (may change this to a save scene menu)
-        //create object pool for main proposals, extra info(, and news?)?
 
-        //Initial num of proposals in the first month
-        monthLength = UnityEngine.Random.Range(4, 7);
+        //Initialize basic values
+        monthLength = 4;
+        numMonthlyProposal = 0;
+
+        getNewMonthLength();
+
+        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_ONGOING;
+
+        
+        DecideNextAction(null, null);
     }
 
+    public void DecideNextAction(Component sender, object data) {
+        if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_LOADING) {
+            //The above GameState will be caused by UIHandler "LoadNextProposal"
+            
+            onGetNextProposal.Raise();
 
-    //TODO utilize events to fire the below actions instead of update?
-    //TODO update background of window 
-    //TODO add screen overlays
+            //
 
-    void Update() {
-        int currentID = hiddenGameVariables._currentProposal.getProposalID();
+            //
 
-        //hardcoded at only proposal 0 for initial experimentation
-        if (currentID == 0){
-            ProjectClipboardOverlay();
-            //Stops month from progressing during tutorial
-        } else if (currentID == 1){
-            projectClipboardOverlay.SetActive(false);
-            TurnOnTablet();
+            //
+            
+        } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_ONGOING) {
+            //The above GameState will be caused by ProposalHandler "GetNextProposal"
+
+            onUpdateProposalUI.Raise();
+
+            //If extra info actually exists
+            if(hiddenGameVariables._currentProposal.getExtraInfo() != -1) {
+                onUpdateExtraInfo.Raise();
+            }
+            //TODO call to slide clipboard and extra info board onscreen
+
+            int currentProposalID = hiddenGameVariables._currentProposal.getProposalID();
+            if (currentProposalID <= 6) {
+                TutorialCheck(currentProposalID);
+            }
+            //
+
+            //
+
+            //
+            
+        } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_TEMP_DECISION) {
+            //The above gamestate will be caused by DecisionButton
+
+            //Raises an event to make a stat copy - ProposalHandler "HandleStatChanges"
+            onHandleStatChanges.Raise();
+            while(hiddenGameVariables._myStatCopy == null) {
+                Debug.Log("Creating stat copy");
+            }
+            //Raises an event to flash the UI stat bars to show changes - 
+            onUpdateFlashingStatUI.Raise();
+
+            //
+
+            //
+
+            //
+
+        } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_FULL_DECISION) {
+            //The above gamestate will be caused by DecisionButton
+
+            //TODO slide clipboard and extra info board offscreen
+
+            hiddenGameVariables._numMonthlyProposals++;
+
+            string newAnimType = "";
+            //If there has been the max number of proposals this month and it isn't the tutorial month
+            if (hiddenGameVariables._numMonthlyProposals >= monthLength && hiddenGameVariables._currentProposal.getProposalID() >= 6) {
+                newMonth();
+                newAnimType = "newMonth";
+            } else {
+                newAnimType = "newProposal";
+            }
+
+            //Raises an event to finalize the current stats and run animations if needed - ProposalHandler "ProposalDecision" + UIHandler "CheckNextAnim"
+            onProposalFullDecision.Raise(newAnimType);
+            //
+
+            //
+
+            //
+
+        } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_STATS_UPDATED) {
+            //The above gamestate will be caused by ProposalHandler "UpdateNewStats" - Is used to check stats are applied before changing UI
+        
+            onUpdateStatUI.Raise();
         }
     }
 
-    public void checkMonth(Component sender, object data) {
-        //Increment the number of proposals done this month
-        string animType;
-        numMonthlyProposal++;
-        //If the month should end and the game isnt in the tutorial section (proposals 0-6)
-        if(numMonthlyProposal >= monthLength && hiddenGameVariables._currentProposal.getProposalID() >= 6) {
-            //Change to loading the month
-            Debug.Log("Loading next month");
-            animType = "NewMonth";
+    //====================================================================
+    //                          NEW MONTH SECTION                        |
+    //====================================================================
 
-            //Temp call to do the new month blackout "animation"
-            StartCoroutine(newMonthAnim());
-
-            //Increase the current month number
-            hiddenGameVariables._currentMonth++;
-
-            checkStatBus();
-
-            //Get new month length
-            monthLength = UnityEngine.Random.Range(5, 8);
-            numMonthlyProposal = 1;
-
-        //This section runs if it isnt time for a new month or if the tutorial is ongoing
-        } else {
-            Debug.Log("Load next proposal");
-
-            animType = "NewProposal";
-        }
-
-        //Call animation for when new month/new proposal happens
-        onProposalChanged.Raise(animType);
+    private void newMonth() {
+        //Increase the current month number
+        hiddenGameVariables._currentMonth++;
+        getNewMonthLength();
+        //Reset number of proposals done that month to 0
+        hiddenGameVariables._numMonthlyProposals = 0;
+        
+        CheckStatBus();
     }
 
-    IEnumerator newMonthAnim() {
-        newMonthBlackout.SetActive(false);
-
-        yield return new WaitForSeconds(1);
-
-        newMonthBlackout.SetActive(true);
+    private void getNewMonthLength() {
+        monthLength = UnityEngine.Random.Range(5, 8);
     }
 
-    private void checkStatBus() {
+    //====================================================================
+    //                     STAT BUS CHECKING SECTION                     |
+    //====================================================================
+
+    private void CheckStatBus() {
 
         for (int i = 0; i < hiddenGameVariables._statChangeEventBus.Count; i++) {
-            // if (hiddenGameVariables._statChangeEventBus[i] == null) {
-            //     Debug.Log("I mean it doesnt exist");
-            // }
-            //TODO check that this whole thing finishes before the next proposal
-
             //Updates the number of months left for the stat
             hiddenGameVariables._statChangeEventBus[i].updateStatDuration();
 
@@ -202,7 +250,16 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        onNewMonth.Raise();
+    }
+
+    //====================================================================
+    //                       UNIQUE EVENTS SECTION                       |
+    //====================================================================
+ 
+    private void TutorialCheck(int currentID) {
+        if (currentID == 0){
+            TurnOnTablet();   
+        }
     }
 
     private void TurnOnTablet() {
@@ -212,11 +269,6 @@ public class GameManager : MonoBehaviour
             tabletOn = true;
         }
     }
-
-    private void ProjectClipboardOverlay() {
-        projectClipboardOverlay.SetActive(true);
-    }
-
 
     IEnumerator ITabletOn()
     {

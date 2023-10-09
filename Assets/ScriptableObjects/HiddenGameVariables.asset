@@ -12,50 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e32f20a36a65043bdc5a590055040a, type: 3}
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
+  _currentGameState: 0
   _currentMonth: 0
-  _hasActiveProposal: 0
+  _currentMonthProposals: 0
+  _numMonthlyProposals: 0
   _prevProposal:
-    proposalDescription: '<line-height=90%>Correspondence from a high ranking individual
-      in the Church of the Broken God has proposed a research initiative to protect
-      against hostile Sarkic forces and reinforce SCP-2309''s defences.
-
-
-      Requires:
-      Researchers for three months'
-    proposalID: 4
-    requiredMonth: 0
-    proposalTitle: Groups of Interest Relations
-    proposalPrerequisites: 
-    proposalPostUnlocksAccept: 05000000
-    proposalPostUnlocksDeny: 05000000
-    proposalStatChangesAccept:
-    - Researchers
-    - -20
-    - 2
-    proposalStatChangesDeny: []
-    extraInfo: 3
-  _currentProposal:
-    proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
-      this proposal by stamping the decision button and signing on the line.
-
-
-      if
-      you instead wish to jump in, deny the proposal.'
+    proposalDescription: 
     proposalID: 0
     requiredMonth: 0
-    proposalTitle: welcome to scp administration
+    proposalTitle: 
     proposalPrerequisites: 
-    proposalPostUnlocksAccept: 01000000
-    proposalPostUnlocksDeny: 01000000
+    proposalPostUnlocksAccept: 
+    proposalPostUnlocksDeny: 
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
-    extraInfo: -1
+    extraInfo: 0
+  _lastSavedProposal: 0
+  _hasActiveProposal: 0
+  _currentProposal:
+    proposalDescription: 
+    proposalID: 0
+    requiredMonth: 0
+    proposalTitle: 
+    proposalPrerequisites: 
+    proposalPostUnlocksAccept: 
+    proposalPostUnlocksDeny: 
+    proposalStatChangesAccept: []
+    proposalStatChangesDeny: []
+    extraInfo: 0
   _currentExtraInfo:
     extraInfoType: 
     infoID: 0
     infoTitle: 
     infoDescription: []
-  _lastSavedProposal: 0
+  _proposalDecision: 0
   _statChangeEventBus: []
   _chosenDClassMethod: 0
   _currentMajorCanon: 0

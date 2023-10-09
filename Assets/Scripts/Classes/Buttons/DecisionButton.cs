@@ -19,11 +19,9 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
     private static bool validProposal = false;
 
     [Header("Events")]
-    public GameEvent onDecisionMade;
-    public GameEvent onDecisionChecked;
+    public GameEvent DecideNextAction;
 
     PointerEventData eventData;
-
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -33,19 +31,19 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         if(eventData.pointerPress == decisionButton) {
             if (eventData.button == PointerEventData.InputButton.Left) {
                 choice = "accept";
-                onDecisionChecked.Raise(choice); //Used to display stat changes
                 if(denyStamp.activeSelf) {
                     denyStamp.SetActive(false);
                 }
                 acceptStamp.SetActive(true);
             } else if (eventData.button == PointerEventData.InputButton.Right) {
                 choice = "deny";
-                onDecisionChecked.Raise(choice);
                 if(acceptStamp.activeSelf) {
                     acceptStamp.SetActive(false);
                 }
                 denyStamp.SetActive(true);
             }
+            hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_TEMP_DECISION;
+            DecideNextAction.Raise();
         }
 
         //TODO remove testing code
@@ -117,7 +115,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         canvasGroup.blocksRaycasts = false;
 
         //Send out event
-        onDecisionMade.Raise(choice);
+        DecideNextAction.Raise();
 
         //reset choice to a blank string for next use
         choice = "";
