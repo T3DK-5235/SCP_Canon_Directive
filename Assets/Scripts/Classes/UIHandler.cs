@@ -102,6 +102,10 @@ public class UIHandler : MonoBehaviour
         //Sets the number of player checked prefabs back to 0
         currentPrefabNum = 0;
         extraInfoClipboard.SetActive(true);
+        //Empty list from last usage
+        for(int i = 0; i < personnelPrefabList.Count; i++) {
+            Destroy(personnelPrefabList[i]);
+        }
 
         //TODO figure out how to deal with prefab stuff
 
@@ -125,7 +129,8 @@ public class UIHandler : MonoBehaviour
 
                 personnelPrefabInstance.SetActive(false);
 
-                //TODO delete all clones after use
+                //Set the first prefab to be active
+                personnelPrefabList[currentPrefabNum].SetActive(true);
             }
         } else {
             genericInfoContainer.SetActive(true);
@@ -135,9 +140,6 @@ public class UIHandler : MonoBehaviour
             //If it isn't Employees there will only be one element in the list at position 0
             extraInfoDesc.text = hiddenGameVariables._currentExtraInfo.getInfoDescription()[0];
         }
-
-        //Set the first prefab to be active
-        personnelPrefabList[currentPrefabNum].SetActive(true);
     }
 
     //Called from ClipButton
