@@ -59,12 +59,6 @@ public class GameManager : MonoBehaviour
             //The above GameState will be caused by UIHandler "LoadNextProposal"
             
             onGetNextProposal.Raise();
-
-            //
-
-            //
-
-            //
             
         } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_ONGOING) {
             //The above GameState will be caused by ProposalHandler "GetNextProposal"
@@ -73,7 +67,7 @@ public class GameManager : MonoBehaviour
 
             //If extra info actually exists
 
-            Debug.Log(hiddenGameVariables._currentProposal.getExtraInfo());
+            // Debug.Log(hiddenGameVariables._currentProposal.getExtraInfo());
             if(hiddenGameVariables._currentProposal.getExtraInfo() != -1) {
                 onUpdateExtraInfo.Raise();
             }
@@ -83,11 +77,6 @@ public class GameManager : MonoBehaviour
             if (currentProposalID <= 6) {
                 TutorialCheck(currentProposalID);
             }
-            //
-
-            //
-
-            //
             
         } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_TEMP_DECISION) {
             //The above gamestate will be caused by DecisionButton
@@ -102,12 +91,6 @@ public class GameManager : MonoBehaviour
 
             //Raises an event to flash the UI stat bars to show changes - 
             onUpdateFlashingStatUI.Raise();
-
-            //
-
-            //
-
-            //
 
         } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_FULL_DECISION) {
             //The above gamestate will be caused by DecisionButton
@@ -127,11 +110,6 @@ public class GameManager : MonoBehaviour
 
             //Raises an event to finalize the current stats and run animations if needed - ProposalHandler "ProposalDecision" + UIHandler "CheckNextAnim"
             onProposalFullDecision.Raise(newAnimType);
-            //
-
-            //
-
-            //
 
         } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_STATS_UPDATED) {
             //The above gamestate will be caused by ProposalHandler "UpdateNewStats" - Is used to check stats are applied before changing UI

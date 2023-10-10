@@ -14,6 +14,11 @@ public class UIHandler : MonoBehaviour
     private TextMeshProUGUI currentMonthText;
 
     [SerializeField] GameObject newMonthBlackout;
+
+    [SerializeField] GameObject MainRoomLights;
+    [SerializeField] GameObject HallLights;
+    [SerializeField] GameObject DeskLights;
+
     [SerializeField] GameObject currentMonthTextObj;
 
     [Header("Proposal UI")]
@@ -318,11 +323,49 @@ public class UIHandler : MonoBehaviour
     }
 
     IEnumerator INewMonth() {
-        newMonthBlackout.SetActive(false);
+        // newMonthBlackout.SetActive(false);
 
-        yield return new WaitForSeconds(1);
+        // yield return new WaitForSeconds(1);
 
-        newMonthBlackout.SetActive(true);
+        // newMonthBlackout.SetActive(true);
+
+        //TODO figure out if this is better defined at the start
+        int MainRoomLightCount = MainRoomLights.transform.childCount;
+        int HallLightCount = HallLights.transform.childCount;
+
+        for(int i = MainRoomLightCount; i > 0; i--) {
+            MainRoomLights.transform.GetChild(i-1).gameObject.SetActive(false);
+
+            if ((i - 1) == 4) {
+                DeskLights.transform.GetChild(0).gameObject.SetActive(false);
+            } else if ((i - 1) == 3) {
+                DeskLights.transform.GetChild(1).gameObject.SetActive(false);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+        for(int i = HallLightCount; i > 0; i--) {
+            HallLights.transform.GetChild(i-1).gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        for(int i = 0; i < HallLightCount; i++) {
+            HallLights.transform.GetChild(i).gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+        }
+        for(int i = 0; i < MainRoomLightCount; i++) {
+            MainRoomLights.transform.GetChild(i).gameObject.SetActive(true);
+
+            if ((i - 1) == 1) {
+                DeskLights.transform.GetChild(1).gameObject.SetActive(true);
+            } else if ((i - 1) == 2) {
+                DeskLights.transform.GetChild(0).gameObject.SetActive(true);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
 
         LoadNextProposal();
     }
