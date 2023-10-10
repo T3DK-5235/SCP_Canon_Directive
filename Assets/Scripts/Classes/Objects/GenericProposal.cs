@@ -13,6 +13,7 @@ public class GenericProposal
     [SerializeField] private string proposalTitle;
                            
     [SerializeField] private List<int> proposalPrerequisites;
+    [SerializeField] private List<List<int>> proposalChoiceRequirements;
 
     [SerializeField] private List<int> proposalPostUnlocksAccept; 
     [SerializeField] private List<int> proposalPostUnlocksDeny; 
@@ -22,8 +23,8 @@ public class GenericProposal
 
     [SerializeField] private int extraInfo;
 
-    //ProposalPrereqs are proposals that have to be done to unlock this proposal
-    //ProposalRequirements are a set of states that have to be set to unlock this proposal. For example, if a D-Class obtainment scenario is decided
+    //ProposalPrereqs are proposals that have to be done to contribute to unlocking this proposal
+    //proposalChoiceRequirements are a list of proposals that only one has to be done to contribute to unlocking this proposal
     //
     // Description | ID | Month needed
     // Direct Proceeding Proposal
@@ -31,7 +32,7 @@ public class GenericProposal
     // Stats changed by proposal (eg MTF, 60, 0 for increase MTF by 60 permanently. OR BrokeMasq 60 0 which increases the progression for a canon by 60)
     // In addition, stats can store if a requirement is fulfilled, like if a d class choice is made eg: "Requirement name (same as enum), num reference to enum value (_DClassMethod, 1, 0);
     public GenericProposal(string proposalTitle, string proposalDescription, int proposalID, int requiredMonth,
-                           List<int> proposalPrerequisites,
+                           List<int> proposalPrerequisites, List<List<int>> proposalChoiceRequirements,
                            List<int> proposalPostUnlocksAccept, List<int> proposalPostUnlocksDeny, 
                            List<string> proposalStatChangesAccept, List<string> proposalStatChangesDeny,
                            int extraInfo) {
@@ -41,6 +42,7 @@ public class GenericProposal
         this.requiredMonth = requiredMonth;
 
         this.proposalPrerequisites = proposalPrerequisites;
+        this.proposalChoiceRequirements = proposalChoiceRequirements;
 
         this.proposalPostUnlocksAccept = proposalPostUnlocksAccept;
         this.proposalPostUnlocksDeny = proposalPostUnlocksDeny;
@@ -68,9 +70,25 @@ public class GenericProposal
         }
     }
     
+    //Checks which choice requirements the current proposal needs to have fulfilled. Eg: if a choice of dclass is made
+    //Each Requirement is stored as a list of proposalIDs
+    public void UpdateChoiceRequirements(int choiceRequirementFilled) {
+        //Loops through all requirement lists (groups of proposalIDs where ONE must be completed)
+        for (int i = 0; i < proposalChoiceRequirements.Count; i++) {
+            //For each requirement list loop through it
+            for (int j = 0; j < proposalChoiceRequirements[i].Count; j++) {
+                //If one of the values stored in proposalChoiceRequirements[i] matches the filled requirement
+                if (proposalChoiceRequirements[i][j] == choiceRequirementFilled) {
+                    //Remove the whole list (As unlike Prereqs, which use AND logic, req lists use OR logic)
+                    proposalChoiceRequirements[i].RemoveAt(i);
+                }
+            }
+        }
+    }
+
     public bool IsProposalAvailable(int currentMonth) {
         //If there are no unfulfilled prereqs, reqs, and the current month is correct then the proposal is available
-        if (proposalPrerequisites.Count == 0 && currentMonth >= requiredMonth) {
+        if (proposalPrerequisites.Count == 0 && proposalChoiceRequirements.Count == 0 && currentMonth >= requiredMonth) {
             return true;
         } else {
             return false;

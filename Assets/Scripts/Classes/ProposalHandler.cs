@@ -261,11 +261,20 @@ public class ProposalHandler : MonoBehaviour
     private void CheckInactiveProposals(List<int> proposalPostUnlocks) {
         //Loops through the PostUnlocks and updates each mentioned proposal's prereq list and adds it to standby bus if needed
         for (int i = 0; i < proposalPostUnlocks.Count; i++) {
-            //[1] Get the proposal uuid from proposalPostUnlocks
-            //[2] Find the Proposal Object at the location of the uuid in the proposal list from the scriptable object
-            //[3] Update the prereq of the proposal by removing the ID of the current proposal from the prereq list
-            //[         2          ][          1           ][                                    3                                    ]
-            proposalsList._proposals[proposalPostUnlocks[i]].UpdatePrerequisites(hiddenGameVariables._currentProposal.getProposalID());
+            
+            //If the unlock is a prereq it is 0 or greater
+            //If the value is a negative, then the unlock is a requirement
+            //E.g: 1 means update a prereq of proposal 1 WHEREAS -1 means update a requirement of proposal 1
+            if (proposalPostUnlocks[i] >= 0) {
+                //[1] Get the proposal uuid from proposalPostUnlocks
+                //[2] Find the Proposal Object at the location of the uuid in the proposal list from the scriptable object
+                //[3] Update the prereq of the proposal by removing the ID of the current proposal from the prereq list
+                //[         2          ][          1           ][                                    3                                    ]
+                proposalsList._proposals[proposalPostUnlocks[i]].UpdatePrerequisites(hiddenGameVariables._currentProposal.getProposalID());
+            } else {
+                //Math.Abs makes i positive as the negative section is no longer needed
+                proposalsList._proposals[proposalPostUnlocks[Math.Abs(i)]].UpdateChoiceRequirements(hiddenGameVariables._currentProposal.getProposalID());
+            }
             
             //Loop through standby event bus to check that proposal isnt already in bus
             bool addToBus = true;

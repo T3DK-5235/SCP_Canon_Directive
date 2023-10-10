@@ -28,6 +28,8 @@ public class SaveHandler : MonoBehaviour
         TextAsset proposalListAsset = Resources.Load("ProposalList") as TextAsset;
         string proposalsString = proposalListAsset.ToString();
 
+        Debug.Log(proposalsString);
+
         //Check this isnt inefficient
         GenericProposal[] proposalArray = JsonHelper.FromJson<GenericProposal>(proposalsString); 
         proposalsList._proposals.AddRange(proposalArray);

@@ -7,6 +7,8 @@
             "requiredMonth": 0,
             "proposalPrerequisites": [
             ],
+            "proposalChoiceRequirements": [
+            ],
             "proposalPostUnlocksAccept": [
                 1
             ],
@@ -26,6 +28,8 @@
             "requiredMonth": 0,
             "proposalPrerequisites": [
                 0
+            ],
+            "proposalChoiceRequirements": [
             ],
             "proposalPostUnlocksAccept": [
                 2
@@ -56,6 +60,8 @@
             "proposalPrerequisites": [
                 1
             ],
+            "proposalChoiceRequirements": [
+            ],
             "proposalPostUnlocksAccept": [
                 3
             ],
@@ -78,6 +84,8 @@
             "requiredMonth": 0,
             "proposalPrerequisites": [
                 2
+            ],
+            "proposalChoiceRequirements": [
             ],
             "proposalPostUnlocksAccept": [
                 4
@@ -102,6 +110,8 @@
             "proposalPrerequisites": [
                 3
             ],
+            "proposalChoiceRequirements": [
+            ],
             "proposalPostUnlocksAccept": [
                 5
             ],
@@ -125,6 +135,8 @@
             "proposalPrerequisites": [
                 4
             ],
+            "proposalChoiceRequirements": [
+            ],
             "proposalPostUnlocksAccept": [
                 6
             ],
@@ -145,6 +157,8 @@
             "proposalPrerequisites": [
                 5
             ],
+            "proposalChoiceRequirements": [
+            ],
             "proposalPostUnlocksAccept": [
                 7
             ],
@@ -163,7 +177,12 @@
             "proposalID": 7,
             "requiredMonth": 0,
             "proposalPrerequisites": [
-                6
+            ],
+            "proposalChoiceRequirements": [
+                [
+                    0,
+                    6
+                ]
             ],
             "proposalPostUnlocksAccept": [
                 1

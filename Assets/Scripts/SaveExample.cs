@@ -13,6 +13,7 @@ public class SaveExample : MonoBehaviour
     int requiredMonth;
                            
     List<int> proposalPrerequisites;
+    List<List<int>> proposalChoiceRequirements;
 
     List<int> proposalPostUnlocksAccept; 
     List<int> proposalPostUnlocksDeny; 
@@ -37,6 +38,8 @@ public class SaveExample : MonoBehaviour
             1,
             2
         };
+
+        proposalChoiceRequirements = null;
 
         proposalPostUnlocksAccept = new List<int>() 
         {
@@ -83,7 +86,7 @@ public class SaveExample : MonoBehaviour
 
         //Add new proposal to array
         exampleProposal = new GenericProposal(proposalTitle, proposalDescription, (proposalArray.Length - 1), requiredMonth,
-                                              proposalPrerequisites,
+                                              proposalPrerequisites, proposalChoiceRequirements,
                                               proposalPostUnlocksAccept, proposalPostUnlocksDeny, 
                                               proposalStatChangesAccept, proposalStatChangesDeny, extraInfo);
 
