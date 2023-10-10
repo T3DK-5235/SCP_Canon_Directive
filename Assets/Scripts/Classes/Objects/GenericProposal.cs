@@ -56,7 +56,7 @@ public class GenericProposal
     // ==============================================================================================================
 
     //Pass in the previous proposal uuid that was a prerequisite
-    public void updatePrerequisites(int prerequisiteFilled) {
+    public void UpdatePrerequisites(int prerequisiteFilled) {
         //Loop through all prerequisites and when the filled prereq is found, remove it from the list
         //The prereq will be found, as the previous proposal will have stored this proposal as a PostUnlock thus we know when to check
         for (int i = 0; i < proposalPrerequisites.Count; i++) {
@@ -67,23 +67,8 @@ public class GenericProposal
             }
         }
     }
-
-    //Checks which requirements the current proposal needs and if they're fulfilled
-    // public void updateRequirements() {
-    //     //Loops through all requirements to check what they are
-    //     for (int i = 0; i < proposalRequirements.Count; i++) {
-    //         //Enums are compared first as they are faster than strings
-    //         //If one of the requirements is for the DClassDecision and the DClassDecision has been made...
-    //         if (hiddenGameVariables._chosenDClassMethod != DClassMethodEnum.NONE && proposalRequirements[i] == "_chosenDClassMethod") {
-    //             //...Remove the req from the List
-    //             proposalRequirements.RemoveAt(i);
-    //         } else if (hiddenGameVariables._currentMajorCanon != MajorCanonEnum.VANILLA && proposalRequirements[i] == "_currentMajorCanon") {
-    //             proposalRequirements.RemoveAt(i);
-    //         }
-    //     }
-    // }
     
-    public bool isProposalAvailable(int currentMonth) {
+    public bool IsProposalAvailable(int currentMonth) {
         //If there are no unfulfilled prereqs, reqs, and the current month is correct then the proposal is available
         if (proposalPrerequisites.Count == 0 && currentMonth >= requiredMonth) {
             return true;

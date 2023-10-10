@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Syncs this co-routine with the other co-routine below
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         temp = initialTabletImage.color;
         temp.a = 0f; //Time.deltaTime
@@ -306,7 +306,7 @@ public class GameManager : MonoBehaviour
         foundationStatScreen.SetActive(true);
         GoIStatScreen.SetActive(false);
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.6f);
 
         //Resets the image back to being invisible
         temp = scorpImage.color;

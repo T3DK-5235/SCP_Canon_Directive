@@ -257,27 +257,39 @@ public class ProposalHandler : MonoBehaviour
         DecideNextAction.Raise();
     }
 
+    // Updates proposal's prereqs and adds them to the standby bus if they aren't already
     private void CheckInactiveProposals(List<int> proposalPostUnlocks) {
-        //If the proposal has any PostUnlocks (proposals that can be added to the standby list)
-        if (proposalPostUnlocks.Count > 0) {
-            //Loops through the PostUnlocks
-            for (int i = 0; i < proposalPostUnlocks.Count; i++) {
-                //Get the proposal uuid from proposalPostUnlocks
-                //Find the Proposal Object at the location of the uuid in the proposal list from the scriptable object
-                GenericProposal proposalToUpdate = proposalsList._proposals[proposalPostUnlocks[i]];
-                //Update the prereq of the newly unlocked proposal
-                proposalToUpdate.updatePrerequisites(hiddenGameVariables._currentProposal.getProposalID());
-                
-                //Add that Proposal ID to the standby bus
+        //Loops through the PostUnlocks and updates each mentioned proposal's prereq list and adds it to standby bus if needed
+        for (int i = 0; i < proposalPostUnlocks.Count; i++) {
+            //[1] Get the proposal uuid from proposalPostUnlocks
+            //[2] Find the Proposal Object at the location of the uuid in the proposal list from the scriptable object
+            //[3] Update the prereq of the proposal by removing the ID of the current proposal from the prereq list
+            //[         2          ][          1           ][                                    3                                    ]
+            proposalsList._proposals[proposalPostUnlocks[i]].UpdatePrerequisites(hiddenGameVariables._currentProposal.getProposalID());
+            
+            //Loop through standby event bus to check that proposal isnt already in bus
+            bool addToBus = true;
+            for (int j = 0; j < standbyProposalEventBus.Count; j++) {
+                /*
+                If a j proposalID in standbyBus equals i proposalID going to be added then don't add, 
+                as it'll be duplicated, instead update existing proposal
+                */
+                if(standbyProposalEventBus[j] == proposalPostUnlocks[i]) {
+                    addToBus = false;
+                }
+            }
+            if (addToBus == true) {
                 standbyProposalEventBus.Add(proposalPostUnlocks[i]);
             }
         }
-    }
+    } 
 
+    // Checks for Standby -> Active proposal possibilities
+    // DOES NOT UPDATE EXISTING STANDBY PROPOSALS
     private void CheckStandbyProposals() {
         for(int i = 0; i < standbyProposalEventBus.Count; i++) {
             //Check if the proposal is available to be moved (or at least, its ID) to the active bus
-            if (proposalsList._proposals[standbyProposalEventBus[i]].isProposalAvailable(hiddenGameVariables._currentMonth)) {
+            if (proposalsList._proposals[standbyProposalEventBus[i]].IsProposalAvailable(hiddenGameVariables._currentMonth)) {
                 //add the proposal to the active event bus, then remove it from the standby bus
                 activeProposalEventBus.Add(standbyProposalEventBus[i]);
                 standbyProposalEventBus.RemoveAt(i);

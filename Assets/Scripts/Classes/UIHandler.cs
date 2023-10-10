@@ -18,6 +18,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject MainRoomLights;
     [SerializeField] GameObject HallLights;
     [SerializeField] GameObject DeskLights;
+    [SerializeField] GameObject TopStatLight;
 
     [SerializeField] GameObject currentMonthTextObj;
 
@@ -348,6 +349,11 @@ public class UIHandler : MonoBehaviour
         }
         for(int i = HallLightCount; i > 0; i--) {
             HallLights.transform.GetChild(i-1).gameObject.SetActive(false);
+
+            if ((i - 1) == 0) {
+                TopStatLight.SetActive(false);
+            }
+
             yield return new WaitForSeconds(0.5f);
         }
 
@@ -355,14 +361,19 @@ public class UIHandler : MonoBehaviour
 
         for(int i = 0; i < HallLightCount; i++) {
             HallLights.transform.GetChild(i).gameObject.SetActive(true);
+
+            if (i == 0) {
+                TopStatLight.SetActive(true);
+            }
+
             yield return new WaitForSeconds(0.5f);
         }
         for(int i = 0; i < MainRoomLightCount; i++) {
             MainRoomLights.transform.GetChild(i).gameObject.SetActive(true);
 
-            if ((i - 1) == 1) {
+            if (i == 0) {
                 DeskLights.transform.GetChild(1).gameObject.SetActive(true);
-            } else if ((i - 1) == 2) {
+            } else if (i == 1) {
                 DeskLights.transform.GetChild(0).gameObject.SetActive(true);
             }
 
