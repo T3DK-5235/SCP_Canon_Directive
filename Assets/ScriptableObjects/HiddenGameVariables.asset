@@ -13,32 +13,10 @@ MonoBehaviour:
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
   _currentGameState: 2
-  _currentMonth: 0
+  _currentMonth: 1
   _currentMonthProposals: 0
-  _numMonthlyProposals: 3
+  _numMonthlyProposals: 7
   _prevProposal:
-    proposalDescription: '<line-height=90%>A strange red ice has been discovered
-      by civilian researchers in the arctic. Following containment as SCP-009, this
-      anomaly has been transferred to Site 44 for testing.
-
-
-      Requires: Researchers
-      for two months'
-    proposalID: 2
-    requiredMonth: 0
-    proposalTitle: The Red Ice
-    proposalPrerequisites: 
-    proposalPostUnlocksAccept: 03000000
-    proposalPostUnlocksDeny: 03000000
-    proposalStatChangesAccept:
-    - Researchers
-    - -10
-    - 2
-    proposalStatChangesDeny: []
-    extraInfo: 1
-  _lastSavedProposal: 0
-  _hasActiveProposal: 0
-  _currentProposal:
     proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
       this proposal by stamping the decision button and signing on the line.
 
@@ -54,28 +32,89 @@ MonoBehaviour:
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
+  _lastSavedProposal: 0
+  _hasActiveProposal: 0
+  _currentProposal:
+    proposalDescription: "<line-height=90%>Next up is getting some new workers! \n\nAt
+      the start of each year you can employ more researchers and MTF, this allows
+      you to accept more proposals or do larger activities.\n\nClick on the left
+      clipboard clip for more."
+    proposalID: 1
+    requiredMonth: 0
+    proposalTitle: Prospective New Recruits
+    proposalPrerequisites: 
+    proposalPostUnlocksAccept: 02000000
+    proposalPostUnlocksDeny: 02000000
+    proposalStatChangesAccept:
+    - MTF
+    - 10
+    - 0
+    - Researchers
+    - 10
+    - 0
+    - DClass
+    - 10
+    - 0
+    proposalStatChangesDeny: []
+    extraInfo: 0
   _currentExtraInfo:
-    extraInfoType: Information
-    infoID: 2
-    infoTitle: Groups of Interest
+    extraInfoType: PotentialEmployees
+    infoID: 0
+    infoTitle: Prominent Potential Employees
     infoDescription:
-    - '<line-height=90%>Other groups aside from the Foundation exist behind the veil.
-      The Sarkic cults consist of divided fleshcrafter communities who revere disease
-      and eschew morality in favour of acting on base desires.
+    - '<line-height=90%>Thaddeus R Xyank
 
 
-      This group
-      is typically Hostile to the Foundation and most of humanity.'
+      A new Mechanical Engineering MIT
+      graduate with a 3.7 GPA.
+
+
+      Recommendation: Containment Specialist.'
+    - '<line-height=90%>Jacob Conwell
+
+
+      An expert Bioanalyst with one year
+      professional experience.
+
+
+      Recommendation: Anomalous Materials Analyst.'
+    - '<line-height=90%>Dr. Chelsea Elliott
+
+
+      A new graduate with a double
+      degree in Botany and Plant Science.
+
+
+      Recommendation: Anomalous Botany
+      Assistant.'
+    - '<line-height=90%>[NAME REDACTED]
+
+
+      Agent Green is a former GOC operative
+      specializing in disposing of Reality Benders.
+
+
+      Recommendation: MTF lead.'
+    - '<line-height=90%>Tony Marquez
+
+
+      A petty criminal who got involved in
+      an anomalous heist. Exceptional survival Instinct.
+
+
+      Recommendation:
+      D-Class.'
   _proposalDecision: 0
-  _statChangeEventBus: []
+  _statChangeEventBus:
+  - {fileID: 0}
   _chosenDClassMethod: 0
   _currentMajorCanon: 0
-  _totalMTF: 90
-  _availableMTF: 130
-  _totalResearchers: 90
-  _availableResearchers: 10
-  _totalDClass: 90
-  _availableDClass: 90
+  _totalMTF: 70
+  _availableMTF: 70
+  _totalResearchers: 70
+  _availableResearchers: 60
+  _totalDClass: 70
+  _availableDClass: 70
   _totalMorale: 50
   _currentMorale: 50
   _favourGOC: 50
@@ -85,17 +124,16 @@ MonoBehaviour:
   _favourFactory: 50
   _favourAnderson: 50
   _myStatCopy:
-    __statsChanged: 02000000
-    __tempStatsChanged:
-    - {fileID: 0}
+    __statsChanged: 
+    __tempStatsChanged: []
     __chosenDClassMethod: 0
     __currentMajorCanon: 0
-    __totalMTF: 90
-    __availableMTF: 130
-    __totalResearchers: 90
-    __availableResearchers: 10
-    __totalDClass: 90
-    __availableDClass: 90
+    __totalMTF: 70
+    __availableMTF: 70
+    __totalResearchers: 70
+    __availableResearchers: 60
+    __totalDClass: 70
+    __availableDClass: 70
     __totalMorale: 50
     __currentMorale: 50
     __favourGOC: 50

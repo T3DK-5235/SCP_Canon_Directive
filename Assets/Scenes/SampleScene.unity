@@ -2125,6 +2125,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hiddenGameVariables: {fileID: 11400000, guid: 73ade735c52a89f4aa177ec053eef848, type: 2}
   newMonthBlackout: {fileID: 1459269147}
+  MainRoomLights: {fileID: 1463770231}
+  HallLights: {fileID: 1895196485}
+  DeskLights: {fileID: 784095564}
   currentMonthTextObj: {fileID: 805483474}
   proposalClipboard: {fileID: 978522765}
   extraInfoClipboard: {fileID: 1041595818}

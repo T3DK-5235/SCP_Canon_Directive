@@ -35,7 +35,7 @@ MonoBehaviour:
     proposalID: 1
     requiredMonth: 0
     proposalTitle: Prospective New Recruits
-    proposalPrerequisites: 00000000
+    proposalPrerequisites: 
     proposalPostUnlocksAccept: 02000000
     proposalPostUnlocksDeny: 02000000
     proposalStatChangesAccept:
