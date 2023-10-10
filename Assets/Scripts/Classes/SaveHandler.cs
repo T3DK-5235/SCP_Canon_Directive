@@ -21,8 +21,9 @@ public class SaveHandler : MonoBehaviour
     //TODO This will include stuff like the basic proposal list
 
     private void InitProposals() {
-        //string totalProposalsString = System.IO.File.ReadAllText(Application.persistentDataPath + "/ProposalList.json");
-        // Debug.Log(totalProposalsString);
+        //Empties list on startup
+        proposalsList._proposals.Clear();
+        extraInfoList._extraInfo.Clear();
 
         TextAsset proposalListAsset = Resources.Load("ProposalList") as TextAsset;
         string proposalsString = proposalListAsset.ToString();
@@ -33,7 +34,6 @@ public class SaveHandler : MonoBehaviour
     }
 
     private void InitExtraInfo() {
-        //string totalExtraInfoString = System.IO.File.ReadAllText(Application.persistentDataPath + "/ExtraInfoList.json");
         TextAsset extraInfoAsset = Resources.Load("ExtraInfoList") as TextAsset;
         string extraInfoString = extraInfoAsset.ToString();
 
