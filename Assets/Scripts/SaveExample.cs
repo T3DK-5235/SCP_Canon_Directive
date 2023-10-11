@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Collections.Generic;
 
 public class SaveExample : MonoBehaviour
 {

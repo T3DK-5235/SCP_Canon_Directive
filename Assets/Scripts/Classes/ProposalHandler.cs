@@ -205,7 +205,6 @@ public class ProposalHandler : MonoBehaviour
     //====================================================================
 
     public void ProposalDecision(Component sender, object data) {
-        List<string> proposalStatChanges = null;
         List<int> proposalPostUnlocks = null;
 
         //Changes what is unlocked and changed based on player decision

@@ -81,8 +81,8 @@ public class GenericProposal
                 if (proposalChoiceRequirements[i].getChoiceProposalIDs()[j] == choiceRequirementFilled) {
                     //Remove the whole list (As unlike Prereqs, which use AND logic, req lists use OR logic)
                     proposalChoiceRequirements.RemoveAt(i);
-                    //If it is found, then this list will be deleted, so need to exit out from the current for loop iteration
-                    continue;
+                    //If it is found, then this list will be deleted, so need to exit out from the current for loop
+                    return;
                 }
             }
         }
