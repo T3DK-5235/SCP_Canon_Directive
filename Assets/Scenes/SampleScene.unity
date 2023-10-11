@@ -2128,6 +2128,7 @@ MonoBehaviour:
   MainRoomLights: {fileID: 1463770231}
   HallLights: {fileID: 1895196485}
   DeskLights: {fileID: 784095564}
+  TopStatLight: {fileID: 51001237}
   currentMonthTextObj: {fileID: 805483474}
   proposalClipboard: {fileID: 978522765}
   extraInfoClipboard: {fileID: 1041595818}

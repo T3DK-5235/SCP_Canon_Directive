@@ -139,7 +139,7 @@ MonoBehaviour:
     proposalID: 7
     requiredMonth: 0
     proposalTitle: New Month!
-    proposalPrerequisites: 06000000
+    proposalPrerequisites: 
     proposalPostUnlocksAccept: 01000000
     proposalPostUnlocksDeny: 01000000
     proposalStatChangesAccept: []

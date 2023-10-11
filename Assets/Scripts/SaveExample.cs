@@ -13,7 +13,7 @@ public class SaveExample : MonoBehaviour
     int requiredMonth;
                            
     List<int> proposalPrerequisites;
-    List<List<int>> proposalChoiceRequirements;
+    List<ChoiceRequirementList> proposalChoiceRequirements;
 
     List<int> proposalPostUnlocksAccept; 
     List<int> proposalPostUnlocksDeny; 
@@ -35,11 +35,22 @@ public class SaveExample : MonoBehaviour
 
         proposalPrerequisites = new List<int>() 
         {
-            1,
-            2
+
         };
 
-        proposalChoiceRequirements = null;
+        proposalChoiceRequirements = new List<ChoiceRequirementList>();
+        List<int> proposalTestRequirements = new List<int>() 
+        {
+            0,
+            6
+        };
+        List<int> proposalTestRequirements2 = new List<int>() 
+        {
+        };
+        ChoiceRequirementList DClass = new ChoiceRequirementList(proposalTestRequirements);
+        ChoiceRequirementList CanonClass = new ChoiceRequirementList(proposalTestRequirements2);
+        proposalChoiceRequirements.Add(DClass);
+        proposalChoiceRequirements.Add(CanonClass);
 
         proposalPostUnlocksAccept = new List<int>() 
         {
@@ -93,6 +104,9 @@ public class SaveExample : MonoBehaviour
         proposalArray[proposalArray.Length - 1] = exampleProposal;
 
         Debug.Log("created basic proposal");
+        Debug.Log(proposalChoiceRequirements[0].getChoiceProposalIDs()[0]);
+        Debug.Log(proposalChoiceRequirements[0].getChoiceProposalIDs()[1]);
+        Debug.Log("EEEEEEEEEEEEEEE");
 
         // List<GenericProposal> proposalList = new List<GenericProposal>() 
         // {

@@ -13,7 +13,7 @@ public class GenericProposal
     [SerializeField] private string proposalTitle;
                            
     [SerializeField] private List<int> proposalPrerequisites;
-    [SerializeField] private List<List<int>> proposalChoiceRequirements;
+    [SerializeField] private List<ChoiceRequirementList> proposalChoiceRequirements;
 
     [SerializeField] private List<int> proposalPostUnlocksAccept; 
     [SerializeField] private List<int> proposalPostUnlocksDeny; 
@@ -32,7 +32,7 @@ public class GenericProposal
     // Stats changed by proposal (eg MTF, 60, 0 for increase MTF by 60 permanently. OR BrokeMasq 60 0 which increases the progression for a canon by 60)
     // In addition, stats can store if a requirement is fulfilled, like if a d class choice is made eg: "Requirement name (same as enum), num reference to enum value (_DClassMethod, 1, 0);
     public GenericProposal(string proposalTitle, string proposalDescription, int proposalID, int requiredMonth,
-                           List<int> proposalPrerequisites, List<List<int>> proposalChoiceRequirements,
+                           List<int> proposalPrerequisites, List<ChoiceRequirementList> proposalChoiceRequirements,
                            List<int> proposalPostUnlocksAccept, List<int> proposalPostUnlocksDeny, 
                            List<string> proposalStatChangesAccept, List<string> proposalStatChangesDeny,
                            int extraInfo) {
@@ -76,11 +76,13 @@ public class GenericProposal
         //Loops through all requirement lists (groups of proposalIDs where ONE must be completed)
         for (int i = 0; i < proposalChoiceRequirements.Count; i++) {
             //For each requirement list loop through it
-            for (int j = 0; j < proposalChoiceRequirements[i].Count; j++) {
+            for (int j = 0; j < proposalChoiceRequirements[i].getChoiceProposalIDs().Count; j++) {
                 //If one of the values stored in proposalChoiceRequirements[i] matches the filled requirement
-                if (proposalChoiceRequirements[i][j] == choiceRequirementFilled) {
+                if (proposalChoiceRequirements[i].getChoiceProposalIDs()[j] == choiceRequirementFilled) {
                     //Remove the whole list (As unlike Prereqs, which use AND logic, req lists use OR logic)
-                    proposalChoiceRequirements[i].RemoveAt(i);
+                    proposalChoiceRequirements.RemoveAt(i);
+                    //If it is found, then this list will be deleted, so need to exit out from the current for loop iteration
+                    continue;
                 }
             }
         }
@@ -88,6 +90,7 @@ public class GenericProposal
 
     public bool IsProposalAvailable(int currentMonth) {
         //If there are no unfulfilled prereqs, reqs, and the current month is correct then the proposal is available
+        // Debug.Log("Proposal to Check: " + proposalID + " ---- Prereqs: " + proposalPrerequisites.Count + " ---- Reqs: " + proposalChoiceRequirements.Count);
         if (proposalPrerequisites.Count == 0 && proposalChoiceRequirements.Count == 0 && currentMonth >= requiredMonth) {
             return true;
         } else {

@@ -273,7 +273,7 @@ public class ProposalHandler : MonoBehaviour
                 proposalsList._proposals[proposalPostUnlocks[i]].UpdatePrerequisites(hiddenGameVariables._currentProposal.getProposalID());
             } else {
                 //Math.Abs makes i positive as the negative section is no longer needed
-                proposalsList._proposals[proposalPostUnlocks[Math.Abs(i)]].UpdateChoiceRequirements(hiddenGameVariables._currentProposal.getProposalID());
+                proposalsList._proposals[Math.Abs(proposalPostUnlocks[i])].UpdateChoiceRequirements(hiddenGameVariables._currentProposal.getProposalID());
             }
             
             //Loop through standby event bus to check that proposal isnt already in bus
@@ -288,7 +288,7 @@ public class ProposalHandler : MonoBehaviour
                 }
             }
             if (addToBus == true) {
-                standbyProposalEventBus.Add(proposalPostUnlocks[i]);
+                standbyProposalEventBus.Add(Math.Abs(proposalPostUnlocks[i]));
             }
         }
     } 

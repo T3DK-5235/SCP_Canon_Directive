@@ -13,7 +13,7 @@
                 1
             ],
             "proposalPostUnlocksDeny": [
-                1
+                -7
             ],
             "proposalStatChangesAccept": [
             ],
@@ -160,10 +160,10 @@
             "proposalChoiceRequirements": [
             ],
             "proposalPostUnlocksAccept": [
-                7
+                -7
             ],
             "proposalPostUnlocksDeny": [
-                7
+                -7
             ],
             "proposalStatChangesAccept": [
             ],
@@ -179,10 +179,12 @@
             "proposalPrerequisites": [
             ],
             "proposalChoiceRequirements": [
-                [
-                    0,
-                    6
-                ]
+                {
+                    "ChoiceProposalIDs": [
+                        0,
+                        6
+                    ]
+                }
             ],
             "proposalPostUnlocksAccept": [
                 1
