@@ -19,15 +19,6 @@ public class GameManager : MonoBehaviour
     //How many proposals have been played this month
     [SerializeField] int numMonthlyProposal;
 
-    [Header("Tablet")]
-
-    [SerializeField] GameObject initialTabletScreen;
-    [SerializeField] GameObject scorpLogo;
-    [SerializeField] GameObject foundationStatScreen;
-    [SerializeField] GameObject GoIStatScreen;
-
-    private bool tabletOn = false;
-
     [Header("Events")]
     public GameEvent onGetNextProposal;
     public GameEvent onUpdateExtraInfo;
@@ -37,6 +28,8 @@ public class GameManager : MonoBehaviour
     public GameEvent onProposalFullDecision;
     public GameEvent onUpdateStatUI;
     public GameEvent onCheckInvalidStats;
+
+    public GameEvent onSwitchTabletState;
 
     void Awake()
     {
@@ -242,76 +235,7 @@ public class GameManager : MonoBehaviour
  
     private void TutorialCheck(int currentID) {
         if (currentID == 0){
-            TurnOnTablet();   
+            onSwitchTabletState.Raise();   
         }
-    }
-
-    private void TurnOnTablet() {
-        if(tabletOn == false) {
-            StartCoroutine(ITabletOn());
-            StartCoroutine(IDisplayLogo());
-            tabletOn = true;
-        }
-    }
-
-    IEnumerator ITabletOn()
-    {
-        initialTabletScreen.SetActive(true);
-
-        Image initialTabletImage = initialTabletScreen.GetComponent<Image>();
-        Color temp = initialTabletImage.color;
-
-        float elapsedTime = 0;
-        float duration = 0.1f;
-        while (initialTabletImage.color.a < 0.95f){//elapsedTime < duration) {
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForSeconds(0.1f);
-
-            temp = initialTabletImage.color;
-            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
-            initialTabletImage.color = temp;
-        }
-
-        //Syncs this co-routine with the other co-routine below
-        yield return new WaitForSeconds(1.5f);
-
-        temp = initialTabletImage.color;
-        temp.a = 0f; //Time.deltaTime
-        initialTabletImage.color = temp;
-        initialTabletScreen.SetActive(false);
-    }
-
-    IEnumerator IDisplayLogo()
-    {
-        yield return new WaitForSeconds(0.5f);
-        scorpLogo.SetActive(true);
-
-        Image scorpImage = scorpLogo.GetComponent<Image>();
-        Color temp = scorpImage.color;
-
-        float elapsedTime = 0;
-        float duration = 0.1f;
-
-        while (scorpImage.color.a < 0.95f){//elapsedTime < duration) {
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForSeconds(0.1f);
-
-            temp = scorpImage.color;
-            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
-            scorpImage.color = temp;
-        }
-        
-        yield return new WaitForSeconds(0.4f);
-
-        foundationStatScreen.SetActive(true);
-        GoIStatScreen.SetActive(false);
-
-        yield return new WaitForSeconds(0.6f);
-
-        //Resets the image back to being invisible
-        temp = scorpImage.color;
-        temp.a = 0f; //Time.deltaTime
-        scorpImage.color = temp;
-        scorpLogo.SetActive(false);
     }
 }

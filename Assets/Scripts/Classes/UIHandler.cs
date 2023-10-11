@@ -41,6 +41,13 @@ public class UIHandler : MonoBehaviour
     
     List<GameObject> personnelPrefabList;
 
+    [Header("Tablet")]
+    private bool tabletOn = false;
+    [SerializeField] GameObject initialTabletScreen;
+    [SerializeField] GameObject scorpLogo;
+    [SerializeField] GameObject foundationStatScreen;
+    [SerializeField] GameObject GoIStatScreen;
+
     [Header("Foundation UI Stat Bars")]
 
     [SerializeField] Slider totalMtfBar;
@@ -336,6 +343,8 @@ public class UIHandler : MonoBehaviour
         int MainRoomLightCount = MainRoomLights.transform.childCount;
         int HallLightCount = HallLights.transform.childCount;
 
+        SwitchTabletState(null, null);
+
         for(int i = MainRoomLightCount; i > 0; i--) {
             MainRoomLights.transform.GetChild(i-1).gameObject.SetActive(false);
 
@@ -380,6 +389,8 @@ public class UIHandler : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
+        SwitchTabletState(null, null);
+
         LoadNextProposal();
     }
 
@@ -394,5 +405,111 @@ public class UIHandler : MonoBehaviour
         DecideNextAction.Raise();
     }
 
+    //====================================================================
+    //                     TABLET STATUS SECTION                    |
+    //====================================================================
+    public void SwitchTabletState(Component sender, object data) {
+        if(tabletOn == false) {
+            StartCoroutine(ITabletOn());
+            StartCoroutine(IDisplayLogo());
+            tabletOn = true;
+        } else if (tabletOn == true) {
+            StartCoroutine(ITabletOff());
+            tabletOn = false;
+        }
+    }
 
+    IEnumerator ITabletOn()
+    {
+        initialTabletScreen.SetActive(true);
+
+        Image initialTabletImage = initialTabletScreen.GetComponent<Image>();
+        Color temp = initialTabletImage.color;
+
+        float elapsedTime = 0;
+        float duration = 0.1f;
+        while (initialTabletImage.color.a < 0.95f){//elapsedTime < duration) {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
+
+            temp = initialTabletImage.color;
+            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
+            initialTabletImage.color = temp;
+        }
+
+        //Syncs this co-routine with the other co-routine below
+        yield return new WaitForSeconds(1.5f);
+
+        temp = initialTabletImage.color;
+        temp.a = 0f; //Time.deltaTime
+        initialTabletImage.color = temp;
+        initialTabletScreen.SetActive(false);
+    }
+
+    IEnumerator ITabletOff()
+    {
+        initialTabletScreen.SetActive(true);
+        scorpLogo.SetActive(true);
+
+        Image scorpImage = scorpLogo.GetComponent<Image>();
+        Color temp = scorpImage.color;
+
+        float elapsedTime = 0;
+        float duration = 1f;
+        Debug.Log("scorpImage.color.a: " + scorpImage.color.a);
+        while (scorpImage.color.a < 0.95f){//elapsedTime < duration) {
+            Debug.Log("scorpImage.color.a: " + scorpImage.color.a);
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
+
+            temp = scorpImage.color;
+            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
+            scorpImage.color = temp;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        foundationStatScreen.SetActive(false);
+        GoIStatScreen.SetActive(false);
+
+        yield return new WaitForSeconds(0.1f);
+
+        //Resets the image back to being invisible
+        temp = scorpImage.color;
+        temp.a = 0f; //Time.deltaTime
+        scorpImage.color = temp;
+        scorpLogo.SetActive(false);
+    }
+
+    IEnumerator IDisplayLogo()
+    {
+        yield return new WaitForSeconds(0.5f);
+        scorpLogo.SetActive(true);
+
+        Image scorpImage = scorpLogo.GetComponent<Image>();
+        Color temp = scorpImage.color;
+
+        float elapsedTime = 0;
+        float duration = 0.1f;
+
+        while (scorpImage.color.a < 0.95f){//elapsedTime < duration) {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.1f);
+
+            temp = scorpImage.color;
+            temp.a = Mathf.Lerp(temp.a, 1, elapsedTime / duration); //Time.deltaTime
+            scorpImage.color = temp;
+        }
+        
+        yield return new WaitForSeconds(0.5f);
+
+        foundationStatScreen.SetActive(true);
+        GoIStatScreen.SetActive(false);
+
+        //Resets the image back to being invisible
+        temp = scorpImage.color;
+        temp.a = 0f; //Time.deltaTime
+        scorpImage.color = temp;
+        scorpLogo.SetActive(false);
+    }
 }

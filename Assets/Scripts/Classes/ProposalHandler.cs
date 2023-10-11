@@ -24,14 +24,14 @@ public class ProposalHandler : MonoBehaviour
         activeProposalEventBus = new List<int>();
         standbyProposalEventBus = new List<int>();
 
+        //Get the last saved proposal (0 when starting) and set it to the current proposal
+        hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
+        //TODO write a save manager that'd pop in this "lastSavedProposal" plus the rest of the stats
+
         //Clears on startup. Might only be needed for in engine testing?
         hiddenGameVariables._statChangeEventBus.Clear();
         //Hardcoded whilst in engine. This will need to be set to whatever the user's last saved month is
         hiddenGameVariables._currentMonth = 0;
-
-        //Get the last saved proposal (0 when starting) and set it to the current proposal
-        hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
-        //TODO write a save manager that'd pop in this "lastSavedProposal" plus the rest of the stats
     }
 
     //====================================================================

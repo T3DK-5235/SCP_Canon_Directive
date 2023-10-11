@@ -23,8 +23,9 @@ MonoBehaviour:
     requiredMonth: 0
     proposalTitle: welcome to scp administration
     proposalPrerequisites: 
+    proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 01000000
-    proposalPostUnlocksDeny: 01000000
+    proposalPostUnlocksDeny: f9ffffff
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
@@ -35,7 +36,8 @@ MonoBehaviour:
     proposalID: 1
     requiredMonth: 0
     proposalTitle: Prospective New Recruits
-    proposalPrerequisites: 
+    proposalPrerequisites: 00000000
+    proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 02000000
     proposalPostUnlocksDeny: 02000000
     proposalStatChangesAccept:
@@ -61,6 +63,7 @@ MonoBehaviour:
     requiredMonth: 0
     proposalTitle: The Red Ice
     proposalPrerequisites: 01000000
+    proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 03000000
     proposalPostUnlocksDeny: 03000000
     proposalStatChangesAccept:
@@ -79,6 +82,7 @@ MonoBehaviour:
     requiredMonth: 0
     proposalTitle: Threat groups behind the Veil
     proposalPrerequisites: 02000000
+    proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 04000000
     proposalPostUnlocksDeny: 04000000
     proposalStatChangesAccept:
@@ -98,6 +102,7 @@ MonoBehaviour:
     requiredMonth: 0
     proposalTitle: The Enemy of My Enemy...
     proposalPrerequisites: 03000000
+    proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 05000000
     proposalPostUnlocksDeny: 05000000
     proposalStatChangesAccept:
@@ -117,6 +122,7 @@ MonoBehaviour:
     requiredMonth: 0
     proposalTitle: Branching paths
     proposalPrerequisites: 04000000
+    proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 06000000
     proposalPostUnlocksDeny: 06000000
     proposalStatChangesAccept: []
@@ -130,8 +136,9 @@ MonoBehaviour:
     requiredMonth: 0
     proposalTitle: Check the calendar
     proposalPrerequisites: 05000000
-    proposalPostUnlocksAccept: 07000000
-    proposalPostUnlocksDeny: 07000000
+    proposalChoiceRequirements: []
+    proposalPostUnlocksAccept: f9ffffff
+    proposalPostUnlocksDeny: f9ffffff
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
@@ -140,6 +147,8 @@ MonoBehaviour:
     requiredMonth: 0
     proposalTitle: New Month!
     proposalPrerequisites: 
+    proposalChoiceRequirements:
+    - ChoiceProposalIDs: 0000000006000000
     proposalPostUnlocksAccept: 01000000
     proposalPostUnlocksDeny: 01000000
     proposalStatChangesAccept: []
