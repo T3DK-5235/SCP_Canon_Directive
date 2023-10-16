@@ -52,7 +52,6 @@ public class ProposalHandler : MonoBehaviour
 
         HandleExtraInfo();
 
-        
         hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_ONGOING;
         DecideNextAction.Raise();
     }

@@ -19,6 +19,9 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject HallLights;
     [SerializeField] GameObject DeskLights;
     [SerializeField] GameObject TopStatLight;
+    [SerializeField] GameObject ambientWindowLight;
+    [SerializeField] GameObject creditUILight;
+    [SerializeField] GameObject achieveUILight;
 
     [SerializeField] GameObject currentMonthTextObj;
 
@@ -47,6 +50,15 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject scorpLogo;
     [SerializeField] GameObject foundationStatScreen;
     [SerializeField] GameObject GoIStatScreen;
+
+    [Header("Central UI")]
+
+    private bool centralUIOpen = false;
+    [SerializeField] GameObject SCPCredit;
+    [SerializeField] GameObject SCPAchieve;
+    private RectTransform SCPCreditRT;
+    private RectTransform SCPAchieveRT;
+
 
     [Header("Foundation UI Stat Bars")]
 
@@ -85,6 +97,9 @@ public class UIHandler : MonoBehaviour
         // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
         proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+
+        SCPCreditRT = SCPCredit.GetComponent<RectTransform>();
+        SCPAchieveRT = SCPAchieve.GetComponent<RectTransform>();
 
         currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
 
@@ -512,4 +527,52 @@ public class UIHandler : MonoBehaviour
         scorpImage.color = temp;
         scorpLogo.SetActive(false);
     }
+
+    //====================================================================
+    //                      UPDATING STAT UI SECTION                     |
+    //====================================================================
+
+    public void SwitchCentralUIState(Component sender, object data) {
+        if(centralUIOpen == false) {
+            StartCoroutine(IOpenCentralUI());
+            centralUIOpen = true;
+        } else if (centralUIOpen == true) {
+            StartCoroutine(ICloseCentralUI());
+            centralUIOpen = false;
+        }
+    }
+
+    IEnumerator IOpenCentralUI()
+    {
+        //TODO turn off ambient window light cause of lighting issues (might not need this actually?)
+        //ambientWindowLight.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f);
+        creditUILight.SetActive(true);
+        achieveUILight.SetActive(true);
+
+        SCPCreditRT.anchoredPosition = new Vector2(SCPCreditRT.anchoredPosition.x, SCPCreditRT.anchoredPosition.y+0.5245f);
+        SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y+0.5245f);
+
+        yield return new WaitForSeconds(1.5f);
+
+        SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y+0.256246f);
+
+    }
+
+    IEnumerator ICloseCentralUI()
+    {
+        yield return new WaitForSeconds(0.5f);
+        
+        SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y-0.256246f);
+
+        yield return new WaitForSeconds(1.5f);
+        
+        SCPCreditRT.anchoredPosition = new Vector2(SCPCreditRT.anchoredPosition.x, SCPCreditRT.anchoredPosition.y-0.5245f);
+        SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y-0.5245f);
+
+        creditUILight.SetActive(false);
+        achieveUILight.SetActive(false);
+    }
+
 }
