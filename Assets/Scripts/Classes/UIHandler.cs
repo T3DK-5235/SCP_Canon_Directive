@@ -6,6 +6,7 @@ using UnityEngine.UI;
 //using UnityEngine.UIElements;
 
 using TMPro;
+using System;
 
 public class UIHandler : MonoBehaviour
 {
@@ -56,8 +57,11 @@ public class UIHandler : MonoBehaviour
     private bool centralUIOpen = false;
     [SerializeField] GameObject SCPCredit;
     [SerializeField] GameObject SCPAchieve;
+    [SerializeField] GameObject CentralUI;
     private RectTransform SCPCreditRT;
     private RectTransform SCPAchieveRT;
+
+    private RectTransform CentralUIRT;
 
 
     [Header("Foundation UI Stat Bars")]
@@ -100,6 +104,7 @@ public class UIHandler : MonoBehaviour
 
         SCPCreditRT = SCPCredit.GetComponent<RectTransform>();
         SCPAchieveRT = SCPAchieve.GetComponent<RectTransform>();
+        CentralUIRT = CentralUI.GetComponent<RectTransform>();
 
         currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
 
@@ -551,12 +556,18 @@ public class UIHandler : MonoBehaviour
         creditUILight.SetActive(true);
         achieveUILight.SetActive(true);
 
-        SCPCreditRT.anchoredPosition = new Vector2(SCPCreditRT.anchoredPosition.x, SCPCreditRT.anchoredPosition.y+0.5245f);
-        SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y+0.5245f);
+        // SCPCreditRT.anchoredPosition = new Vector2(SCPCreditRT.anchoredPosition.x, SCPCreditRT.anchoredPosition.y+0.5245f);
+        // SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y+0.5245f);
 
-        yield return new WaitForSeconds(1.5f);
+        // yield return new WaitForSeconds(1.5f);
 
-        SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y+0.256246f);
+        // SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y+0.256246f);
+
+        LeanTween.moveY(CentralUIRT, 66.55f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
+
+        yield return new WaitForSeconds(3f);
+
+        LeanTween.moveY(SCPAchieveRT, 10007f, 0.75f).setEase(LeanTweenType.easeOutBounce).setDelay(0.5f);
 
     }
 
