@@ -12,6 +12,8 @@ public class UIHandler : MonoBehaviour
 {
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
+    [SerializeField] AchievementsList achievementsList;
+
     private TextMeshProUGUI currentMonthText;
 
     [SerializeField] GameObject newMonthBlackout;
@@ -62,6 +64,9 @@ public class UIHandler : MonoBehaviour
     private RectTransform SCPAchieveRT;
 
     private RectTransform CentralUIRT;
+
+    [SerializeField] GameObject achievementPrefab;
+    [SerializeField] GameObject achievementContainer;
 
 
     [Header("Foundation UI Stat Bars")]
@@ -549,23 +554,36 @@ public class UIHandler : MonoBehaviour
 
     IEnumerator IOpenCentralUI()
     {
-        //TODO turn off ambient window light cause of lighting issues (might not need this actually?)
-        //ambientWindowLight.SetActive(false);
+        //TODO create a list to store achievement prefabs, then delete prefabs and empty that list when closing UI (And when switching to next 3 section)
 
+        //Show first 3 achievements
+        for(int i = 0; i < 3; i++) {
+            //Instantiate new achievementPrefab with achievementContainer as the parent
+            GameObject achievementInstance = Instantiate(achievementPrefab, achievementContainer.transform) as GameObject;
+            achievementsList._displayedAchievements.Add(achievementInstance);
+            //TODO populate achievement with info
+
+            Image prefabIcon = achievementInstance.transform.GetChild(0).GetComponent<Image>();
+            TextMeshProUGUI prefabText = achievementInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+            //TODO remove repeated calls to achievement list byy caching "achievementsList._achievements[i]"
+            if (achievementsList._achievements[i].getAchievementCompletion() == true) {
+                prefabText.text = achievementsList._achievements[i].getAchievementName() + achievementsList._achievements[i].getAchievementDescription();
+            } else {
+                prefabText.text = achievementsList._achievements[i].getAchievementHint();
+            }
+            
+            //TODO add icon logic (later)
+        }
+        
         yield return new WaitForSeconds(0.5f);
+
         creditUILight.SetActive(true);
         achieveUILight.SetActive(true);
 
-        // SCPCreditRT.anchoredPosition = new Vector2(SCPCreditRT.anchoredPosition.x, SCPCreditRT.anchoredPosition.y+0.5245f);
-        // SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y+0.5245f);
-
-        // yield return new WaitForSeconds(1.5f);
-
-        // SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y+0.256246f);
-
         LeanTween.moveY(CentralUIRT, 66.55f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
 
         LeanTween.moveY(SCPAchieveRT, 10007f, 0.75f).setEase(LeanTweenType.easeOutBounce).setDelay(0.5f);
 
@@ -575,15 +593,25 @@ public class UIHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         
-        SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y-0.256246f);
+        // SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y-0.256246f);
+        LeanTween.moveY(SCPAchieveRT, 3450f, 0.75f).setEase(LeanTweenType.easeOutQuad).setDelay(0.5f);
 
         yield return new WaitForSeconds(1.5f);
         
-        SCPCreditRT.anchoredPosition = new Vector2(SCPCreditRT.anchoredPosition.x, SCPCreditRT.anchoredPosition.y-0.5245f);
-        SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y-0.5245f);
+        LeanTween.moveY(CentralUIRT, -17.5f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
+
+        //Lets animation finish before removing lights
+        yield return new WaitForSeconds(2f);
 
         creditUILight.SetActive(false);
         achieveUILight.SetActive(false);
+
+        for (int i = 0; i < 3; i++) {
+            GameObject.Destroy(achievementsList._displayedAchievements[i]);
+        }
+
+        //TODO check if this is needed
+        achievementsList._displayedAchievements.Clear();
     }
 
 }

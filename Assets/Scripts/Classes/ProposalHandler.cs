@@ -16,6 +16,9 @@ public class ProposalHandler : MonoBehaviour
     [SerializeField] ExtraInfoList extraInfoList;
     [SerializeField] GameObject extraInfoClipboard;
 
+    [Header("Related Achievement")]
+    [SerializeField] AchievementsList achievementsList;
+
     [Header("Events")]
     public GameEvent DecideNextAction;
 
@@ -218,6 +221,11 @@ public class ProposalHandler : MonoBehaviour
         UpdateNewStats();
 
         CheckInactiveProposals(proposalPostUnlocks);
+
+        CheckAchievements();
+
+        //TODO CheckRelatedArticles
+        //TODO CheckFollowUpInfo (If there is follow up info add it to a (2D with months delay?) list that will be checked at the start of next month)
         CheckStandbyProposals();
     }
 
@@ -291,6 +299,15 @@ public class ProposalHandler : MonoBehaviour
             }
         }
     } 
+
+    private void CheckAchievements() {
+        int relatedAchievement = hiddenGameVariables._currentProposal.getAchievement();
+        //If there is actually an achievement
+        if (relatedAchievement != -1) {
+            //Set the related achievement to being true
+            achievementsList._achievements[relatedAchievement].setAchievementCompletion(true);
+        }
+    }
 
     // Checks for Standby -> Active proposal possibilities
     // DOES NOT UPDATE EXISTING STANDBY PROPOSALS

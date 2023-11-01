@@ -2,15 +2,27 @@
     "Proposals": [
         {
 	    "achievementID": 0,
-	    "achievementName": "", 
-            "achievementDescription": "<line-height=90%>",
-            "achievementIcon": ""
+	    "achievementName": "<size=120%>Test Achievement:", 
+        "achievementDescription": "<size=100%><line-height=90%> with a description",
+        "achievementHint": "This is a hint for a non unlocked achievement",
+        "achievementIcon": "",
+        "completed": false
         },
         {
-	    "achievementID": 0,
+	    "achievementID": 1,
 	    "achievementName": "", 
-            "achievementDescription": "<line-height=90%>",
-            "achievementIcon": ""
+        "achievementDescription": "<line-height=90%>",
+        "achievementHint": "This is another hint for a non unlocked achievement",
+        "achievementIcon": "",
+        "completed": false
+        },
+        {
+	    "achievementID": 2,
+	    "achievementName": "", 
+        "achievementDescription": "<line-height=90%>",
+        "achievementHint": "This is another hint for a non unlocked achievement",
+        "achievementIcon": "",
+        "completed": false
         }
     ]
 }

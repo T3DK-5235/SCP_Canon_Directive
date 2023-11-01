@@ -22,6 +22,9 @@ public class GenericProposal
     [SerializeField] private List<string> proposalStatChangesDeny;
 
     [SerializeField] private int extraInfo;
+    [SerializeField] private int followUpInfo;
+    [SerializeField] private int achievement;
+    [SerializeField] private List<string> relatedArticles;
 
     //ProposalPrereqs are proposals that have to be done to contribute to unlocking this proposal
     //proposalChoiceRequirements are a list of proposals that only one has to be done to contribute to unlocking this proposal
@@ -35,7 +38,7 @@ public class GenericProposal
                            List<int> proposalPrerequisites, List<ChoiceRequirementList> proposalChoiceRequirements,
                            List<int> proposalPostUnlocksAccept, List<int> proposalPostUnlocksDeny, 
                            List<string> proposalStatChangesAccept, List<string> proposalStatChangesDeny,
-                           int extraInfo) {
+                           int extraInfo, int followUpInfo, int achievement, List<string> relatedArticles) {
         this.proposalTitle = proposalTitle;
         this.proposalDescription = proposalDescription;
         this.proposalID = proposalID;
@@ -51,6 +54,9 @@ public class GenericProposal
         this.proposalStatChangesDeny = proposalStatChangesDeny;
 
         this.extraInfo = extraInfo;
+        this.followUpInfo = followUpInfo;
+        this.achievement = achievement;
+        this.relatedArticles = relatedArticles;
     }
 
     // ==============================================================================================================
@@ -132,5 +138,17 @@ public class GenericProposal
 
     public int getExtraInfo() {
         return extraInfo;
+    }
+
+    public int getFollowUpInfo() {
+        return followUpInfo;
+    }
+
+    public int getAchievement() {
+        return achievement;
+    }
+
+    public List<string> getRelatedArticles() {
+        return relatedArticles;
     }
 }

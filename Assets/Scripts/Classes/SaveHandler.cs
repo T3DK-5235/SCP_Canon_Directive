@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class SaveHandler : MonoBehaviour
 {
@@ -10,10 +11,17 @@ public class SaveHandler : MonoBehaviour
     [SerializeField] ProposalsList proposalsList;
 
     [SerializeField] ExtraInfoList extraInfoList;
+    [SerializeField] AchievementsList achievementsList;
 
     void Awake() {
+        //Empties lists on startup
+        proposalsList._proposals.Clear();
+        extraInfoList._extraInfo.Clear();
+        achievementsList._achievements.Clear();
+
         InitProposals();
         InitExtraInfo();
+        InitAchievements();
         GetSaves();
     }
 
@@ -21,10 +29,6 @@ public class SaveHandler : MonoBehaviour
     //TODO This will include stuff like the basic proposal list
 
     private void InitProposals() {
-        //Empties list on startup
-        proposalsList._proposals.Clear();
-        extraInfoList._extraInfo.Clear();
-
         TextAsset proposalListAsset = Resources.Load("ProposalList") as TextAsset;
         string proposalsString = proposalListAsset.ToString();
 
@@ -33,6 +37,16 @@ public class SaveHandler : MonoBehaviour
         //Check this isnt inefficient
         GenericProposal[] proposalArray = JsonHelper.FromJson<GenericProposal>(proposalsString); 
         proposalsList._proposals.AddRange(proposalArray);
+    }
+
+    private void InitAchievements() {
+        TextAsset achievementListAsset = Resources.Load("AchievementList") as TextAsset;
+        string achievementsString = achievementListAsset.ToString();
+
+        Debug.Log(achievementsString);
+
+        GenericAchievement[] achievementArray = JsonHelper.FromJson<GenericAchievement>(achievementsString); 
+        achievementsList._achievements.AddRange(achievementArray);
     }
 
     private void InitExtraInfo() {

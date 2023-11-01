@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] HiddenGameVariables hiddenGameVariables;
 
     [SerializeField] ProposalsList proposalsList;
+    [SerializeField] AchievementsList achievementsList;
 
     [Header("Months")]
     [SerializeField] int monthLength;
@@ -110,6 +111,18 @@ public class GameManager : MonoBehaviour
             onUpdateStatUI.Raise();
         }
     }
+
+    //====================================================================
+    //                         ACHIEVEMENT SECTION                       |
+    //====================================================================
+
+    //Called by proposal Handler
+    //Listens to event onAchievementDone
+    // public void updateAchievementList(Component sender, object data) {
+    //     int completedAchievement = (int)data;
+    //     //Add int pointer of achievement that got completed to completed achievement list
+    //     achievementsList._completedAchievements.Add(completedAchievement);
+    // }
 
     //====================================================================
     //                          NEW MONTH SECTION                        |
