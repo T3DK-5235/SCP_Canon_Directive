@@ -16,6 +16,16 @@ public class StatsButton : MonoBehaviour, IPointerClickHandler {
     //[Header("Events")]
     //public GameEvent onStatScreenChanged;
 
+    [SerializeField] Texture2D objectCursor;
+
+    public void OnMouseEnter() {
+        Cursor.SetCursor(objectCursor, Vector2.zero, CursorMode.Auto);
+    }
+
+    public void OnMouseExit() {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         //TODO Check that the proposal can be accepted due to the stats

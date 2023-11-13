@@ -12,7 +12,7 @@
 	    "achievementID": 1,
 	    "achievementName": "", 
         "achievementDescription": "<line-height=90%>",
-        "achievementHint": "This is another hint for a non unlocked achievement",
+        "achievementHint": "1 This is another hint for a non unlocked achievement",
         "achievementIcon": "",
         "completed": false
         },
@@ -20,7 +20,15 @@
 	    "achievementID": 2,
 	    "achievementName": "", 
         "achievementDescription": "<line-height=90%>",
-        "achievementHint": "This is another hint for a non unlocked achievement",
+        "achievementHint": "2 This is another hint for a non unlocked achievement",
+        "achievementIcon": "",
+        "completed": false
+        },
+        {
+	    "achievementID": 3,
+	    "achievementName": "", 
+        "achievementDescription": "<line-height=90%>",
+        "achievementHint": "3 This is another hint for a non unlocked achievement",
         "achievementIcon": "",
         "completed": false
         }

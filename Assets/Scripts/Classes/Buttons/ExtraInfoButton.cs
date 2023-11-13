@@ -11,6 +11,16 @@ public class ExtraInfoButton : MonoBehaviour, IPointerClickHandler {
     [Header("Events")]
     public GameEvent onGetNextPrefab;
 
+    [SerializeField] Texture2D objectCursor;
+
+    public void OnMouseEnter() {
+        Cursor.SetCursor(objectCursor, Vector2.zero, CursorMode.Auto);
+    }
+
+    public void OnMouseExit() {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         onGetNextPrefab.Raise(eventData);

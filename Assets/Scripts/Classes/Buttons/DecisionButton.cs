@@ -21,6 +21,16 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
 
     PointerEventData eventData;
 
+    [SerializeField] Texture2D objectCursor;
+
+    public void OnMouseEnter() {
+        Cursor.SetCursor(objectCursor, Vector2.zero, CursorMode.Auto);
+    }
+
+    public void OnMouseExit() {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         this.eventData = eventData;

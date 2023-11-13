@@ -10,6 +10,7 @@ public class ProposalHandler : MonoBehaviour
     public List<int> activeProposalEventBus;
     public List<int> standbyProposalEventBus;
     [SerializeField] ProposalsList proposalsList;
+    [SerializeField] DetailsList detailsList;
 
     [Header("Related Extra Info")]
     GenericExtraInfo relevantInfoObject;
@@ -222,7 +223,10 @@ public class ProposalHandler : MonoBehaviour
 
         CheckInactiveProposals(proposalPostUnlocks);
 
+        //TODO maybe pass hiddenGameVariables._currentProposal in, to avoid extra calls?
         CheckAchievements();
+
+        CheckDetails();
 
         //TODO CheckRelatedArticles
         //TODO CheckFollowUpInfo (If there is follow up info add it to a (2D with months delay?) list that will be checked at the start of next month)
@@ -306,6 +310,16 @@ public class ProposalHandler : MonoBehaviour
         if (relatedAchievement != -1) {
             //Set the related achievement to being true
             achievementsList._achievements[relatedAchievement].setAchievementCompletion(true);
+        }
+    }
+
+    private void CheckDetails() {
+        //If there are any details
+        List<int> proposalDetails = hiddenGameVariables._currentProposal.getRelatedArticles();
+        if(proposalDetails.Count > 0) {
+            for(int i = 0; i < proposalDetails.Count; i++) {
+                detailsList._discoveredDetails.Add(proposalDetails[i]);
+            }
         }
     }
 

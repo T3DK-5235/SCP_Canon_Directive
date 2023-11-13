@@ -16,6 +16,10 @@ public class UIHandler : MonoBehaviour
 
     private TextMeshProUGUI currentMonthText;
 
+    [SerializeField] GameObject O5Elements;
+
+    [SerializeField] GameObject achievementMask;
+
     [SerializeField] GameObject newMonthBlackout;
 
     [SerializeField] GameObject MainRoomLights;
@@ -99,6 +103,15 @@ public class UIHandler : MonoBehaviour
     private bool flashStatBar = false;
 
     private IEnumerator activeBlinkTimer;
+
+    [Header("Details Containers")]
+
+    [SerializeField] GameObject SCPsContainer;
+    [SerializeField] GameObject TalesContainer;
+    [SerializeField] GameObject CanonsContainer;
+    [SerializeField] GameObject SeriesContainer;
+    [SerializeField] GameObject GroupsContainer;
+    private GameObject currentlyActiveContainer;
 
     [Header("Events")]
     public GameEvent DecideNextAction;
@@ -554,10 +567,12 @@ public class UIHandler : MonoBehaviour
 
     IEnumerator IOpenCentralUI()
     {
-        //TODO create a list to store achievement prefabs, then delete prefabs and empty that list when closing UI (And when switching to next 3 section)
+        achievementMask.GetComponent<Mask>().enabled = false;
+        currentlyActiveContainer = SCPsContainer;
+        SCPsContainer.SetActive(true);
 
-        //Show first 3 achievements
-        for(int i = 0; i < 3; i++) {
+        //Show first 4 achievements
+        for(int i = 0; i < 4; i++) {
             //Instantiate new achievementPrefab with achievementContainer as the parent
             GameObject achievementInstance = Instantiate(achievementPrefab, achievementContainer.transform) as GameObject;
             achievementsList._displayedAchievements.Add(achievementInstance);
@@ -572,6 +587,8 @@ public class UIHandler : MonoBehaviour
             } else {
                 prefabText.text = achievementsList._achievements[i].getAchievementHint();
             }
+
+            achievementInstance.SetActive(true);
             
             //TODO add icon logic (later)
         }
@@ -585,18 +602,25 @@ public class UIHandler : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
+        O5Elements.SetActive(false);
+        achievementMask.GetComponent<Mask>().enabled = true;
+
         LeanTween.moveY(SCPAchieveRT, 10007f, 0.75f).setEase(LeanTweenType.easeOutBounce).setDelay(0.5f);
 
     }
 
+    //TODO depending on how far the scrollbar moves, instantiate new achievement prefabs
+
     IEnumerator ICloseCentralUI()
     {
         yield return new WaitForSeconds(0.5f);
-        
-        // SCPAchieveRT.anchoredPosition = new Vector2(SCPAchieveRT.anchoredPosition.x, SCPAchieveRT.anchoredPosition.y-0.256246f);
+
         LeanTween.moveY(SCPAchieveRT, 3450f, 0.75f).setEase(LeanTweenType.easeOutQuad).setDelay(0.5f);
 
         yield return new WaitForSeconds(1.5f);
+
+        achievementMask.GetComponent<Mask>().enabled = false;
+        O5Elements.SetActive(true);
         
         LeanTween.moveY(CentralUIRT, -17.5f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
 
@@ -612,6 +636,37 @@ public class UIHandler : MonoBehaviour
 
         //TODO check if this is needed
         achievementsList._displayedAchievements.Clear();
+    }
+
+    //====================================================================
+    //                 SWITCHING SHOWN DETAILS SECTION                   |
+    //====================================================================
+
+    public void SwitchDetailsContainer(Component sender, object data) {
+        if (data == "SCPs") {
+            //Set the previously active container to false
+            currentlyActiveContainer.SetActive(false);
+            //Set the active container to the new container
+            currentlyActiveContainer = SCPsContainer;
+            //Set the new container to active
+            SCPsContainer.SetActive(true);
+        } else if (data == "Tales") {
+            currentlyActiveContainer.SetActive(false);
+            currentlyActiveContainer = TalesContainer;
+            TalesContainer.SetActive(true);
+        } else if (data == "Canons") {
+            currentlyActiveContainer.SetActive(false);
+            currentlyActiveContainer = CanonsContainer;
+            CanonsContainer.SetActive(true);
+        } else if (data == "Series") {
+            currentlyActiveContainer.SetActive(false);
+            currentlyActiveContainer = SeriesContainer;
+            SeriesContainer.SetActive(true);
+        } else if (data == "Groups") {
+            currentlyActiveContainer.SetActive(false);
+            currentlyActiveContainer = GroupsContainer;
+            GroupsContainer.SetActive(true);
+        }
     }
 
 }

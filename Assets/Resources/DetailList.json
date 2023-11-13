@@ -1,17 +1,19 @@
 {
     "Proposals": [
         {
-	    "detailID": 0,
-	    "articleName": "", 
+	        "detailID": 0,
+            "detailCategory":"",
+	        "articleName": "", 
             "articleDescription": "<line-height=90%>",
-	    "articleAuthors": "", 
+	        "articleAuthors": "", 
             "articleLink": ""
         },
         {
-	    "detailID": 1,
-	    "articleName": "", 
+	        "detailID": 1,
+            "detailCategory":"",
+	        "articleName": "", 
             "articleDescription": "<line-height=90%>",
-	    "articleAuthors": "", 
+	        "articleAuthors": "", 
             "articleLink": ""
         }
     ]
