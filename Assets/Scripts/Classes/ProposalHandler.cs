@@ -318,7 +318,20 @@ public class ProposalHandler : MonoBehaviour
         List<int> proposalDetails = hiddenGameVariables._currentProposal.getRelatedArticles();
         if(proposalDetails.Count > 0) {
             for(int i = 0; i < proposalDetails.Count; i++) {
-                detailsList._discoveredDetails.Add(proposalDetails[i]);
+                //Gets the category of detail at position [relatedArticle] 
+                string currentDetailCategory = detailsList._details[proposalDetails[i]].getDetailCategory();
+                //If the related article is an SCP
+                if (currentDetailCategory == "SCP") {
+                    detailsList._discoveredSCPs.Add(proposalDetails[i]);
+                } else if (currentDetailCategory == "Tale") {
+                    detailsList._discoveredTales.Add(proposalDetails[i]);
+                } else if (currentDetailCategory == "Canon") {
+                    detailsList._discoveredCanons.Add(proposalDetails[i]);
+                } else if (currentDetailCategory == "Series") {
+                    detailsList._discoveredSeries.Add(proposalDetails[i]);
+                } else if (currentDetailCategory == "Group") {
+                    detailsList._discoveredGroups.Add(proposalDetails[i]);
+                }
             }
         }
     }

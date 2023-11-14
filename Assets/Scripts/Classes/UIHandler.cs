@@ -104,14 +104,11 @@ public class UIHandler : MonoBehaviour
 
     private IEnumerator activeBlinkTimer;
 
-    [Header("Details Containers")]
-
-    [SerializeField] GameObject SCPsContainer;
-    [SerializeField] GameObject TalesContainer;
-    [SerializeField] GameObject CanonsContainer;
-    [SerializeField] GameObject SeriesContainer;
-    [SerializeField] GameObject GroupsContainer;
-    private GameObject currentlyActiveContainer;
+    [Header("Details UI")]
+    [SerializeField] DetailsList detailsList;
+    [SerializeField] GameObject detailsPrefab;
+    [SerializeField] GameObject detailsContainer;
+    List<GameObject> detailsPrefabList;
 
     [Header("Events")]
     public GameEvent DecideNextAction;
@@ -127,6 +124,7 @@ public class UIHandler : MonoBehaviour
         currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
 
         personnelPrefabList = new List<GameObject>();
+        detailsPrefabList = new List<GameObject>();
 
         UpdateProposalUI(null, null);
         UpdateMonthUI();
@@ -567,9 +565,10 @@ public class UIHandler : MonoBehaviour
 
     IEnumerator IOpenCentralUI()
     {
+        //Activate SCP section of details list
+        SwitchDetails(null, "SCPs");
+
         achievementMask.GetComponent<Mask>().enabled = false;
-        currentlyActiveContainer = SCPsContainer;
-        SCPsContainer.SetActive(true);
 
         //Show first 4 achievements
         for(int i = 0; i < 4; i++) {
@@ -642,30 +641,45 @@ public class UIHandler : MonoBehaviour
     //                 SWITCHING SHOWN DETAILS SECTION                   |
     //====================================================================
 
-    public void SwitchDetailsContainer(Component sender, object data) {
+    public void SwitchDetails(Component sender, object data) {
+        List<int> infoToDisplay = new List<int>();
+
+        for(int i = 0; i < detailsPrefabList.Count; i++) {
+            Destroy(detailsPrefabList[i]);
+        }
+        detailsPrefabList.Clear();
+
         if (data == "SCPs") {
-            //Set the previously active container to false
-            currentlyActiveContainer.SetActive(false);
-            //Set the active container to the new container
-            currentlyActiveContainer = SCPsContainer;
-            //Set the new container to active
-            SCPsContainer.SetActive(true);
+            infoToDisplay = detailsList._discoveredSCPs;
         } else if (data == "Tales") {
-            currentlyActiveContainer.SetActive(false);
-            currentlyActiveContainer = TalesContainer;
-            TalesContainer.SetActive(true);
+            infoToDisplay = detailsList._discoveredTales;
         } else if (data == "Canons") {
-            currentlyActiveContainer.SetActive(false);
-            currentlyActiveContainer = CanonsContainer;
-            CanonsContainer.SetActive(true);
+            infoToDisplay = detailsList._discoveredCanons;
         } else if (data == "Series") {
-            currentlyActiveContainer.SetActive(false);
-            currentlyActiveContainer = SeriesContainer;
-            SeriesContainer.SetActive(true);
+            infoToDisplay = detailsList._discoveredSeries;
         } else if (data == "Groups") {
-            currentlyActiveContainer.SetActive(false);
-            currentlyActiveContainer = GroupsContainer;
-            GroupsContainer.SetActive(true);
+            infoToDisplay = detailsList._discoveredGroups;
+        }
+
+        for(int i = 0; i < infoToDisplay.Count; i++) {
+            //Get the actual Details object from the list
+            GenericDetails detailsToDisplay = detailsList._details[infoToDisplay[i]];  
+            //Instantiate a Details prefab
+            GameObject detailsPrefabInstance = Instantiate(detailsPrefab, detailsContainer.transform) as GameObject;
+            
+            TextMeshProUGUI prefabTitle = detailsPrefabInstance.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI prefabDescription = detailsPrefabInstance.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI prefabAuthors = detailsPrefabInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+            prefabTitle.text = detailsToDisplay.getArticleName();
+            prefabDescription.text = detailsToDisplay.getArticleDescription();
+            prefabAuthors.text = detailsToDisplay.getArticleAuthors();
+
+            detailsPrefabList.Add(detailsPrefabInstance);
+
+            detailsPrefabInstance.transform.GetChild(0).GetChild(0).transform.localScale = new Vector3(1, 1, 1);
+
+            detailsPrefabInstance.SetActive(true);
         }
     }
 

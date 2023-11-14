@@ -2,10 +2,10 @@
     "Proposals": [
         {
 	        "detailID": 0,
-            "detailCategory":"",
-	        "articleName": "", 
-            "articleDescription": "<line-height=90%>",
-	        "articleAuthors": "", 
+            "detailCategory":"SCP",
+	        "articleName": "Item#: SCP-6125<space=5em><color=#00000000>.</color>", 
+            "articleDescription": "Description: An SCP about our universe and the one that came before it<space=5em><color=#00000000>.</color>",
+	        "articleAuthors": "Author: Dr Moned", 
             "articleLink": ""
         },
         {

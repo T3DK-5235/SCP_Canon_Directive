@@ -30,6 +30,8 @@ public class DetailsMenuButton : MonoBehaviour, IPointerClickHandler {
             buttonClicked = "Groups";
         }
 
+        //Debug.Log(buttonClicked);
+
         onSwitchDetailsMenu.Raise(buttonClicked);
     }
 }
