@@ -15,10 +15,10 @@ MonoBehaviour:
   _details:
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -28,10 +28,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -41,10 +41,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -54,10 +54,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -67,10 +67,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -80,10 +80,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -93,10 +93,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -106,10 +106,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -119,10 +119,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -132,10 +132,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -145,10 +145,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -158,10 +158,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -171,10 +171,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -184,10 +184,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -197,10 +197,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -210,10 +210,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -223,10 +223,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -236,10 +236,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -249,10 +249,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -262,10 +262,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -275,10 +275,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -288,10 +288,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -301,10 +301,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -314,10 +314,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -327,10 +327,10 @@ MonoBehaviour:
     articleLink: 
   - detailID: 0
     detailCategory: SCP
-    articleName: 'Item#: SCP-6125<space=5em><color=#00000000>.</color>'
-    articleDescription: 'Description: An SCP about our universe and the one that
-      came before it<space=5em><color=#00000000>.</color>'
-    articleAuthors: 'Author: Dr Moned'
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
     articleLink: 
   - detailID: 1
     detailCategory: 
@@ -338,7 +338,33 @@ MonoBehaviour:
     articleDescription: <line-height=90%>
     articleAuthors: 
     articleLink: 
-  _discoveredSCPs: 00000000
+  - detailID: 0
+    detailCategory: SCP
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
+    articleLink: 
+  - detailID: 1
+    detailCategory: 
+    articleName: 
+    articleDescription: <line-height=90%>
+    articleAuthors: 
+    articleLink: 
+  - detailID: 0
+    detailCategory: SCP
+    articleName: 'Item#: SCP-009<space=5em><color=#00000000>.</color>'
+    articleDescription: 'Description: Red Ice that upon contact slowly transmutes
+      all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Chameleon X'
+    articleLink: 
+  - detailID: 1
+    detailCategory: 
+    articleName: 
+    articleDescription: <line-height=90%>
+    articleAuthors: 
+    articleLink: 
+  _discoveredSCPs: 
   _discoveredTales: 
   _discoveredCanons: 
   _discoveredSeries: 

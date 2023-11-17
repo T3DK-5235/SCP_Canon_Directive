@@ -20,8 +20,14 @@ public class ProposalHandler : MonoBehaviour
     [Header("Related Achievement")]
     [SerializeField] AchievementsList achievementsList;
 
+    [Header("Related Follow Up Info")]
+
+     [SerializeField] FollowUpInfoList followUpInfoList;
+
     [Header("Events")]
     public GameEvent DecideNextAction;
+    //Used to update details UI 
+    public GameEvent onSwitchDetailsMenu;
 
     void Awake() {
         //Stores proposal objects
@@ -228,6 +234,8 @@ public class ProposalHandler : MonoBehaviour
 
         CheckDetails();
 
+        CheckFollowUp();
+
         //TODO CheckRelatedArticles
         //TODO CheckFollowUpInfo (If there is follow up info add it to a (2D with months delay?) list that will be checked at the start of next month)
         CheckStandbyProposals();
@@ -305,6 +313,7 @@ public class ProposalHandler : MonoBehaviour
     } 
 
     private void CheckAchievements() {
+        //TODO remove all the hiddenGameVariables._currentProposal calls and pass it in to avoid unneeded calls
         int relatedAchievement = hiddenGameVariables._currentProposal.getAchievement();
         //If there is actually an achievement
         if (relatedAchievement != -1) {
@@ -333,7 +342,16 @@ public class ProposalHandler : MonoBehaviour
                     detailsList._discoveredGroups.Add(proposalDetails[i]);
                 }
             }
+
+            Debug.Log("Raising even to update the details menu");
+            onSwitchDetailsMenu.Raise();
         }
+    }
+
+    private void CheckFollowUp() {
+        int followUpID = hiddenGameVariables._currentProposal.getFollowUpInfo();
+        followUpInfoList._currentFollowUpInfo.Add(followUpID);
+
     }
 
     // Checks for Standby -> Active proposal possibilities

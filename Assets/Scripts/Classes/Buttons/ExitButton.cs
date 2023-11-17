@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CentralUIButton : MonoBehaviour, IPointerClickHandler {
+public class ExitButton : MonoBehaviour, IPointerClickHandler {
 
     [Header("Buttons")]
-    [SerializeField] GameObject centralUIButton;
-
-    [Header("Events")]
-    public GameEvent onSwitchCentralUIState;
+    [SerializeField] GameObject exitButton;
 
     [SerializeField] Texture2D objectCursor;
 
@@ -23,6 +20,6 @@ public class CentralUIButton : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        onSwitchCentralUIState.Raise();
+        Application.Quit();
     }
 }

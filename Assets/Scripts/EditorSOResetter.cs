@@ -10,6 +10,7 @@ using TMPro;
 public class EditorSOResetter : MonoBehaviour
 {
     [SerializeField] HiddenGameVariables hiddenGameVariables;
+    [SerializeField] DetailsList detailsList;
 
     void Awake()
     {
@@ -32,5 +33,11 @@ public class EditorSOResetter : MonoBehaviour
         hiddenGameVariables._favourSerpentsHand = 50;
         hiddenGameVariables._favourFactory = 50;
         hiddenGameVariables._favourAnderson = 50;
+
+        detailsList._discoveredSCPs = new List<int>();
+        detailsList._discoveredTales = new List<int>();
+        detailsList._discoveredCanons = new List<int>();
+        detailsList._discoveredSeries = new List<int>();
+        detailsList._discoveredGroups = new List<int>();
     }
 }

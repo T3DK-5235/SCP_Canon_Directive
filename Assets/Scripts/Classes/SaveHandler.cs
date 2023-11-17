@@ -13,6 +13,7 @@ public class SaveHandler : MonoBehaviour
     [SerializeField] ExtraInfoList extraInfoList;
     [SerializeField] AchievementsList achievementsList;
     [SerializeField] DetailsList detailsList;
+    [SerializeField] FollowUpInfoList followUpList;
 
     void Awake() {
         //Empties lists on startup
@@ -24,6 +25,7 @@ public class SaveHandler : MonoBehaviour
         InitExtraInfo();
         InitAchievements();
         InitDetails();
+        InitFollowUpInfo();
         GetSaves();
     }
 
@@ -69,6 +71,16 @@ public class SaveHandler : MonoBehaviour
 
         GenericDetails[] detailArray = JsonHelper.FromJson<GenericDetails>(detailsString); 
         detailsList._details.AddRange(detailArray);
+    }
+
+    private void InitFollowUpInfo() {
+        TextAsset followUpAsset = Resources.Load("FollowUpInfoList") as TextAsset;
+        string followUpString = followUpAsset.ToString();
+
+        Debug.Log(followUpString);
+
+        GenericFollowUpInfo[] followUpArray = JsonHelper.FromJson<GenericFollowUpInfo>(followUpString); 
+        followUpList._followUpInfo.AddRange(followUpArray);
     }
 
     public void GetSaves() {

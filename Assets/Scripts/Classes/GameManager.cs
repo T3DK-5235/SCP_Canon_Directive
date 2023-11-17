@@ -89,8 +89,6 @@ public class GameManager : MonoBehaviour
         } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_FULL_DECISION) {
             //The above gamestate will be caused by DecisionButton
 
-            //TODO slide clipboard and extra info board offscreen
-
             hiddenGameVariables._numMonthlyProposals++;
 
             string newAnimType = "";

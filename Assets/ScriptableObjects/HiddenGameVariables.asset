@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e32f20a36a65043bdc5a590055040a, type: 3}
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
-  _currentGameState: 5
+  _currentGameState: 2
   _currentMonth: 0
   _currentMonthProposals: 0
-  _numMonthlyProposals: 2
+  _numMonthlyProposals: 0
   _prevProposal:
     proposalDescription: <line-height=90%>Every 4-6 proposals (At least, to start)
       there will be a new month. This is mainly an opportunity to recover some of
@@ -25,11 +25,15 @@ MonoBehaviour:
     requiredMonth: 0
     proposalTitle: Check the calendar
     proposalPrerequisites: 
-    proposalPostUnlocksAccept: 07000000
-    proposalPostUnlocksDeny: 07000000
+    proposalChoiceRequirements: []
+    proposalPostUnlocksAccept: f9ffffff
+    proposalPostUnlocksDeny: f9ffffff
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
+    followUpInfo: -1
+    achievement: 0
+    relatedArticles: 
   _lastSavedProposal: 0
   _hasActiveProposal: 0
   _currentProposal:
@@ -43,26 +47,30 @@ MonoBehaviour:
     requiredMonth: 0
     proposalTitle: welcome to scp administration
     proposalPrerequisites: 
+    proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 01000000
-    proposalPostUnlocksDeny: 01000000
+    proposalPostUnlocksDeny: f9ffffff
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
+    followUpInfo: -1
+    achievement: -1
+    relatedArticles: 
   _currentExtraInfo:
     extraInfoType: 
     infoID: 0
     infoTitle: 
     infoDescription: []
-  _proposalDecision: 1
+  _proposalDecision: 0
   _statChangeEventBus: []
   _chosenDClassMethod: 0
   _currentMajorCanon: 0
-  _totalMTF: 70
-  _availableMTF: 90
-  _totalResearchers: 70
-  _availableResearchers: 40
-  _totalDClass: 70
-  _availableDClass: 70
+  _totalMTF: 50
+  _availableMTF: 50
+  _totalResearchers: 50
+  _availableResearchers: 50
+  _totalDClass: 50
+  _availableDClass: 50
   _totalMorale: 50
   _currentMorale: 50
   _favourGOC: 50
@@ -76,12 +84,12 @@ MonoBehaviour:
     __tempStatsChanged: []
     __chosenDClassMethod: 0
     __currentMajorCanon: 0
-    __totalMTF: 70
-    __availableMTF: 90
-    __totalResearchers: 70
-    __availableResearchers: 40
-    __totalDClass: 70
-    __availableDClass: 70
+    __totalMTF: 60
+    __availableMTF: 80
+    __totalResearchers: 60
+    __availableResearchers: 30
+    __totalDClass: 60
+    __availableDClass: 60
     __totalMorale: 50
     __currentMorale: 50
     __favourGOC: 50

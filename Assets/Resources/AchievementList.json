@@ -2,33 +2,9 @@
     "Proposals": [
         {
 	    "achievementID": 0,
-	    "achievementName": "<size=120%>Test Achievement:", 
-        "achievementDescription": "<size=100%><line-height=90%> with a description",
-        "achievementHint": "This is a hint for a non unlocked achievement",
-        "achievementIcon": "",
-        "completed": false
-        },
-        {
-	    "achievementID": 1,
-	    "achievementName": "", 
-        "achievementDescription": "<line-height=90%>",
-        "achievementHint": "1 This is another hint for a non unlocked achievement",
-        "achievementIcon": "",
-        "completed": false
-        },
-        {
-	    "achievementID": 2,
-	    "achievementName": "", 
-        "achievementDescription": "<line-height=90%>",
-        "achievementHint": "2 This is another hint for a non unlocked achievement",
-        "achievementIcon": "",
-        "completed": false
-        },
-        {
-	    "achievementID": 3,
-	    "achievementName": "", 
-        "achievementDescription": "<line-height=90%>",
-        "achievementHint": "3 This is another hint for a non unlocked achievement",
+	    "achievementName": "<size=120%>Get Settled In:", 
+        "achievementDescription": "<size=100%><line-height=90%> Finish the tutorial and get settled into your Overseer position",
+        "achievementHint": "Get Your Bearings",
         "achievementIcon": "",
         "completed": false
         }

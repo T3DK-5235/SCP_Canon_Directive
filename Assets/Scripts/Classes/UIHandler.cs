@@ -11,17 +11,13 @@ using System;
 public class UIHandler : MonoBehaviour
 {
     [SerializeField] HiddenGameVariables hiddenGameVariables;
-
+    [SerializeField] ProposalsList proposalsList;
     [SerializeField] AchievementsList achievementsList;
 
     private TextMeshProUGUI currentMonthText;
 
     [SerializeField] GameObject O5Elements;
-
     [SerializeField] GameObject achievementMask;
-
-    [SerializeField] GameObject newMonthBlackout;
-
     [SerializeField] GameObject MainRoomLights;
     [SerializeField] GameObject HallLights;
     [SerializeField] GameObject DeskLights;
@@ -108,8 +104,16 @@ public class UIHandler : MonoBehaviour
     [SerializeField] DetailsList detailsList;
     [SerializeField] GameObject detailsPrefab;
     [SerializeField] GameObject detailsContainer;
-    List<GameObject> detailsPrefabList;
+    private List<GameObject> detailsPrefabList;
+    private string activeDetailsContainer;
 
+    [Header("Follow Up Info UI")]
+    [SerializeField] FollowUpInfoList followUpInfoList;
+    [SerializeField] GameObject followUpInfoPrefab;
+    [SerializeField] GameObject followUpInfoContainer;
+    private List<GameObject> followUpInfoPrefabList;
+    [SerializeField] GameObject followUpInfoClipboard;
+    
     [Header("Events")]
     public GameEvent DecideNextAction;
     void Awake() {
@@ -126,7 +130,13 @@ public class UIHandler : MonoBehaviour
         personnelPrefabList = new List<GameObject>();
         detailsPrefabList = new List<GameObject>();
 
-        UpdateProposalUI(null, null);
+        // UpdateProposalUI(null, null);
+
+        //TODO change this to be default of proposal 0 (unless save data exists)
+        proposalTitle.text = proposalsList._proposals[0].getProposalTitle();
+        proposalDesc.text = proposalsList._proposals[0].getProposalDescription();
+        //TODO fix other related bugs like extra info appearing when it shouldnt(probably all of Current Proposal Handling section of HiddenGameVariables)
+
         UpdateMonthUI();
     }
 
@@ -135,6 +145,7 @@ public class UIHandler : MonoBehaviour
     //====================================================================
 
     public void UpdateProposalUI(Component sender, object data) {
+        //TODO change this to be default of proposal 0 (unless save data exists)
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
     }
@@ -369,12 +380,6 @@ public class UIHandler : MonoBehaviour
     }
 
     IEnumerator INewMonth() {
-        // newMonthBlackout.SetActive(false);
-
-        // yield return new WaitForSeconds(1);
-
-        // newMonthBlackout.SetActive(true);
-
         //TODO figure out if this is better defined at the start
         int MainRoomLightCount = MainRoomLights.transform.childCount;
         int HallLightCount = HallLights.transform.childCount;
@@ -402,6 +407,8 @@ public class UIHandler : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
+        RemoveOldFollowUpInfo();
+
         yield return new WaitForSeconds(2f);
 
         for(int i = 0; i < HallLightCount; i++) {
@@ -428,17 +435,46 @@ public class UIHandler : MonoBehaviour
         SwitchTabletState(null, null);
 
         LoadNextProposal();
+
+        ShowNewFollowUpInfo();
     }
 
     IEnumerator INewProposal() {
+        //TODO fully implement proposal coming offscroon
+        //TODO check if extra info board is active and slide off too
+        // LeanTween.moveY(proposalClipboard, -160f, 30f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
+        // yield return new WaitForSeconds(30f);
         yield return new WaitForSeconds(0.1f);
-
         LoadNextProposal();
     }
 
     private void LoadNextProposal() {
         hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_LOADING;
         DecideNextAction.Raise();
+    }
+
+    private void RemoveOldFollowUpInfo() {
+        followUpInfoClipboard.SetActive(false);
+        for(int i = 0; i < followUpInfoPrefabList.Count; i++) {
+            Destroy(followUpInfoPrefabList[i]);
+        }
+        followUpInfoList._currentFollowUpInfo.Clear();
+    }
+
+    private void ShowNewFollowUpInfo(){
+        for(int i = 0; i < followUpInfoList._currentFollowUpInfo.Count; i++) {
+            GameObject followUpInfoInstance = Instantiate(followUpInfoPrefab, followUpInfoContainer.transform) as GameObject;
+            followUpInfoPrefabList.Add(followUpInfoInstance);
+
+            TextMeshProUGUI prefabText = followUpInfoInstance.transform.GetComponent<TextMeshProUGUI>();
+
+            GenericFollowUpInfo followUpInfo = followUpInfoList._followUpInfo[followUpInfoList._currentFollowUpInfo[i]];
+
+            prefabText.text = followUpInfo.getInfo();
+            
+            followUpInfoInstance.SetActive(true);
+        }
+        followUpInfoClipboard.SetActive(true);
     }
 
     //====================================================================
@@ -570,26 +606,26 @@ public class UIHandler : MonoBehaviour
 
         achievementMask.GetComponent<Mask>().enabled = false;
 
-        //Show first 4 achievements
-        for(int i = 0; i < 4; i++) {
+        //TODO move this to separate function to allow later reuse (if needed)
+        for(int i = 0; i < achievementsList._achievements.Count; i++) {
             //Instantiate new achievementPrefab with achievementContainer as the parent
             GameObject achievementInstance = Instantiate(achievementPrefab, achievementContainer.transform) as GameObject;
             achievementsList._displayedAchievements.Add(achievementInstance);
-            //TODO populate achievement with info
 
             Image prefabIcon = achievementInstance.transform.GetChild(0).GetComponent<Image>();
             TextMeshProUGUI prefabText = achievementInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
-            //TODO remove repeated calls to achievement list byy caching "achievementsList._achievements[i]"
-            if (achievementsList._achievements[i].getAchievementCompletion() == true) {
-                prefabText.text = achievementsList._achievements[i].getAchievementName() + achievementsList._achievements[i].getAchievementDescription();
+            GenericAchievement achievement = achievementsList._achievements[i];
+
+            if (achievement.getAchievementCompletion() == true) {
+                prefabText.text = achievement.getAchievementName() + achievement.getAchievementDescription();
             } else {
-                prefabText.text = achievementsList._achievements[i].getAchievementHint();
+                prefabText.text = achievement.getAchievementHint();
             }
 
             achievementInstance.SetActive(true);
             
-            //TODO add icon logic (later)
+            //TODO add icon logic
         }
         
         yield return new WaitForSeconds(0.5f);
@@ -597,9 +633,9 @@ public class UIHandler : MonoBehaviour
         creditUILight.SetActive(true);
         achieveUILight.SetActive(true);
 
-        LeanTween.moveY(CentralUIRT, 66.55f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
+        LeanTween.moveY(CentralUIRT, 66.55f, 0.75f).setEase(LeanTweenType.easeInOutQuad);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.25f);
 
         O5Elements.SetActive(false);
         achievementMask.GetComponent<Mask>().enabled = true;
@@ -612,16 +648,14 @@ public class UIHandler : MonoBehaviour
 
     IEnumerator ICloseCentralUI()
     {
-        yield return new WaitForSeconds(0.5f);
-
         LeanTween.moveY(SCPAchieveRT, 3450f, 0.75f).setEase(LeanTweenType.easeOutQuad).setDelay(0.5f);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
         achievementMask.GetComponent<Mask>().enabled = false;
         O5Elements.SetActive(true);
         
-        LeanTween.moveY(CentralUIRT, -17.5f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
+        LeanTween.moveY(CentralUIRT, -17.5f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(0.5f);
 
         //Lets animation finish before removing lights
         yield return new WaitForSeconds(2f);
@@ -629,7 +663,7 @@ public class UIHandler : MonoBehaviour
         creditUILight.SetActive(false);
         achieveUILight.SetActive(false);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < achievementsList._displayedAchievements.Count; i++) {
             GameObject.Destroy(achievementsList._displayedAchievements[i]);
         }
 
@@ -649,16 +683,25 @@ public class UIHandler : MonoBehaviour
         }
         detailsPrefabList.Clear();
 
+        if (data == null) { //This statement is run if the code is called by Proposal handler, in which the data just needs to be updated, not switched
+            data = activeDetailsContainer;
+        }
+
         if (data == "SCPs") {
             infoToDisplay = detailsList._discoveredSCPs;
+            activeDetailsContainer = "SCPs";
         } else if (data == "Tales") {
             infoToDisplay = detailsList._discoveredTales;
+            activeDetailsContainer = "Tales";
         } else if (data == "Canons") {
             infoToDisplay = detailsList._discoveredCanons;
+            activeDetailsContainer = "Canons";
         } else if (data == "Series") {
             infoToDisplay = detailsList._discoveredSeries;
+            activeDetailsContainer = "Series";
         } else if (data == "Groups") {
             infoToDisplay = detailsList._discoveredGroups;
+            activeDetailsContainer = "Groups";
         }
 
         for(int i = 0; i < infoToDisplay.Count; i++) {

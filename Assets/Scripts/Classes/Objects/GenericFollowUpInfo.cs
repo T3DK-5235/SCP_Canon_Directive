@@ -8,15 +8,13 @@ using UnityEngine;
 public class GenericFollowUpInfo
 {
     [SerializeField] private int infoID;
-    [SerializeField] private string infoTitle;
-    [SerializeField] private List<string> infoDescription;
+    [SerializeField] private string followUpInfo;
 
     //Ctrl Shift P then search generate set and get methods
 
-    public GenericFollowUpInfo(int infoID, string infoTitle, List<string> infoDescription) {
+    public GenericFollowUpInfo(int infoID, string followUpInfo) {
         this.infoID = infoID;
-        this.infoTitle = infoTitle;
-        this.infoDescription = infoDescription;
+        this.followUpInfo = followUpInfo;
     }
 
     // ==============================================================================================================
@@ -28,13 +26,8 @@ public class GenericFollowUpInfo
         return this.infoID;
     }
 
-    public string getInfoTitle()
+    public string getInfo()
     {
-        return this.infoTitle;
-    }
-
-    public List<string> getInfoDescription()
-    {
-        return this.infoDescription;
+        return this.followUpInfo;
     }
 }

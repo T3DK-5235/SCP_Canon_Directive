@@ -1,0 +1,12 @@
+{
+    "Proposals": [
+        {
+	        "FollowUpID": 0,
+	        "FollowUpText": "This is follow up text."
+        },
+        {
+	        "FollowUpID": 1,
+	        "FollowUpText": "This is more follow up text."
+        }
+    ]
+}
