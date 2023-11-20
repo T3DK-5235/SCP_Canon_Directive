@@ -1,2 +1,2 @@
-# SCP_Administration
-Development the SCP game
+# SCP_Canon_Directive
+Development of the SCP game
