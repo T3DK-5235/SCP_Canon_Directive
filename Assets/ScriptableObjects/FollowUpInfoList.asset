@@ -12,5 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a85cfe357d8b2e429c69e5f897bf795, type: 3}
   m_Name: FollowUpInfoList
   m_EditorClassIdentifier: 
-  _followUpInfo: []
+  _followUpInfo:
+  - followUpID: 0
+    followUpInfo: SCP-009 is found to spread through any aqueous solution, not just
+      pure water.
+  - followUpID: 1
+    followUpInfo: Several Sarkic camps in north western mongolia destroyed by MTF
+      forces, minimal casualties sustained.
+  - followUpID: 2
+    followUpInfo: GOC criticize Foundation for large SCP-610 outbreak in central
+      Mongolia, call for internal investigation.
+  - followUpID: 3
+    followUpInfo: Talks for a formal alliance between the Foundation and the Church
+      of the Broken god are ongoing.
   _currentFollowUpInfo: 

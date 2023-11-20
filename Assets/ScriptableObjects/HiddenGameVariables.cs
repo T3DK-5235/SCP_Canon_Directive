@@ -117,4 +117,32 @@ public class HiddenGameVariables : ScriptableObject
     public StatCopy _myStatCopy;
 
     public static object DecisionChoiceEnum { get; private set; }
+
+    public void ResetToBase() {
+        _currentMonth = 0;
+        _currentMonthProposals = 0;
+
+        _lastSavedProposal = 0;
+
+        _currentGameState = GameStateEnum.PROPOSAL_ONGOING;
+
+        _totalMTF = 50;
+        _availableMTF = 50;
+
+        _totalResearchers = 50;
+        _availableResearchers = 50;
+
+        _totalDClass = 50;
+        _availableDClass = 50;
+
+        _totalMorale = 50;
+        _currentMorale = 50;
+
+        _favourGOC = 50;
+        _favourNalka = 50;
+        _favourMekanite = 50;
+        _favourSerpentsHand = 50;
+        _favourFactory = 50;
+        _favourAnderson = 50;
+    }
 }

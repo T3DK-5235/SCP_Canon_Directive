@@ -39,7 +39,9 @@ public class SaveHandler : MonoBehaviour
         Debug.Log(proposalsString);
 
         //Check this isnt inefficient
-        GenericProposal[] proposalArray = JsonHelper.FromJson<GenericProposal>(proposalsString); 
+        GenericProposal[] proposalArray = JsonHelper.FromJson<GenericProposal>(proposalsString);
+
+        proposalsList._proposals.Clear();
         proposalsList._proposals.AddRange(proposalArray);
     }
 
@@ -49,7 +51,10 @@ public class SaveHandler : MonoBehaviour
 
         Debug.Log(achievementsString);
 
-        GenericAchievement[] achievementArray = JsonHelper.FromJson<GenericAchievement>(achievementsString); 
+        GenericAchievement[] achievementArray = JsonHelper.FromJson<GenericAchievement>(achievementsString);
+
+        achievementsList._achievements.Clear();
+        achievementsList._displayedAchievements.Clear();
         achievementsList._achievements.AddRange(achievementArray);
     }
 
@@ -59,7 +64,9 @@ public class SaveHandler : MonoBehaviour
 
         Debug.Log(extraInfoString);
 
-        GenericExtraInfo[] extraInfoArray = JsonHelper.FromJson<GenericExtraInfo>(extraInfoString); 
+        GenericExtraInfo[] extraInfoArray = JsonHelper.FromJson<GenericExtraInfo>(extraInfoString);
+
+        extraInfoList._extraInfo.Clear();
         extraInfoList._extraInfo.AddRange(extraInfoArray);
     }
 
@@ -69,7 +76,14 @@ public class SaveHandler : MonoBehaviour
 
         Debug.Log(detailsString);
 
-        GenericDetails[] detailArray = JsonHelper.FromJson<GenericDetails>(detailsString); 
+        GenericDetails[] detailArray = JsonHelper.FromJson<GenericDetails>(detailsString);
+
+        detailsList._details.Clear();
+        detailsList._discoveredSCPs.Clear();
+        detailsList._discoveredTales.Clear();
+        detailsList._discoveredCanons.Clear();
+        detailsList._discoveredSeries.Clear();
+        detailsList._discoveredGroups.Clear();
         detailsList._details.AddRange(detailArray);
     }
 
@@ -79,14 +93,14 @@ public class SaveHandler : MonoBehaviour
 
         Debug.Log(followUpString);
 
-        GenericFollowUpInfo[] followUpArray = JsonHelper.FromJson<GenericFollowUpInfo>(followUpString); 
+        GenericFollowUpInfo[] followUpArray = JsonHelper.FromJson<GenericFollowUpInfo>(followUpString);
+
+        followUpList._followUpInfo.Clear();
+        followUpList._currentFollowUpInfo.Clear();
         followUpList._followUpInfo.AddRange(followUpArray);
     }
 
     public void GetSaves() {
-        //There is always 3 saves. Sometimes they are just empty
-        //Wrapper used to store saves?
 
-        hiddenGameVariables._lastSavedProposal = 0;
     }
 }

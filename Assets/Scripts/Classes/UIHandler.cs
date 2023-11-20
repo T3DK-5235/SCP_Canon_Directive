@@ -129,7 +129,7 @@ public class UIHandler : MonoBehaviour
 
         personnelPrefabList = new List<GameObject>();
         detailsPrefabList = new List<GameObject>();
-
+        followUpInfoPrefabList = new List<GameObject>();
         // UpdateProposalUI(null, null);
 
         //TODO change this to be default of proposal 0 (unless save data exists)
@@ -395,7 +395,7 @@ public class UIHandler : MonoBehaviour
                 DeskLights.transform.GetChild(1).gameObject.SetActive(false);
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.35f);
         }
         for(int i = HallLightCount; i > 0; i--) {
             HallLights.transform.GetChild(i-1).gameObject.SetActive(false);
@@ -404,7 +404,7 @@ public class UIHandler : MonoBehaviour
                 TopStatLight.SetActive(false);
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.35f);
         }
 
         RemoveOldFollowUpInfo();
@@ -418,7 +418,7 @@ public class UIHandler : MonoBehaviour
                 TopStatLight.SetActive(true);
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.35f);
         }
         for(int i = 0; i < MainRoomLightCount; i++) {
             MainRoomLights.transform.GetChild(i).gameObject.SetActive(true);
@@ -429,7 +429,7 @@ public class UIHandler : MonoBehaviour
                 DeskLights.transform.GetChild(0).gameObject.SetActive(true);
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.35f);
         }
 
         SwitchTabletState(null, null);
@@ -458,7 +458,6 @@ public class UIHandler : MonoBehaviour
         for(int i = 0; i < followUpInfoPrefabList.Count; i++) {
             Destroy(followUpInfoPrefabList[i]);
         }
-        followUpInfoList._currentFollowUpInfo.Clear();
     }
 
     private void ShowNewFollowUpInfo(){
@@ -475,12 +474,14 @@ public class UIHandler : MonoBehaviour
             followUpInfoInstance.SetActive(true);
         }
         followUpInfoClipboard.SetActive(true);
+        followUpInfoList._currentFollowUpInfo.Clear();
     }
 
     //====================================================================
     //                     TABLET STATUS SECTION                    |
     //====================================================================
     public void SwitchTabletState(Component sender, object data) {
+        Debug.Log(tabletOn);
         if(tabletOn == false) {
             StartCoroutine(ITabletOn());
             StartCoroutine(IDisplayLogo());
@@ -528,9 +529,7 @@ public class UIHandler : MonoBehaviour
 
         float elapsedTime = 0;
         float duration = 1f;
-        Debug.Log("scorpImage.color.a: " + scorpImage.color.a);
         while (scorpImage.color.a < 0.95f){//elapsedTime < duration) {
-            Debug.Log("scorpImage.color.a: " + scorpImage.color.a);
             elapsedTime += Time.deltaTime;
             yield return new WaitForSeconds(0.1f);
 

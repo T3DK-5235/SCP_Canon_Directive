@@ -24,17 +24,16 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
     [SerializeField] Texture2D objectCursor;
 
     public void OnMouseEnter() {
-        Cursor.SetCursor(objectCursor, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(objectCursor, new Vector2(12, 10), CursorMode.Auto);
     }
 
     public void OnMouseExit() {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(null, new Vector2(12, 10), CursorMode.Auto);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         this.eventData = eventData;
-        //TODO Check that the proposal can be accepted due to the stats (raise event to check this, then set a variable in here if true?)
         //This deals with the button used for accepting or denying the proposal
         if(eventData.pointerPress == decisionButton) {
             if (eventData.button == PointerEventData.InputButton.Left) {
@@ -61,7 +60,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         }
     }
 
-    //TODO figure out where this needs to be called from
     public void CheckInvalidStats(Component sender, object data) 
     {
         //Tracks if at least one stat is less than 0
@@ -101,10 +99,10 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
             validProposal = false;
         }
 
-        //Return true if there were no faults
-        if (validProposal == true) {
-            Debug.Log("No faults found");
-        }
+        //Is true if there were no faults
+        // if (validProposal == true) {
+        //     Debug.Log("No faults found");
+        // }
     }
 
     private void finishProposal() {
@@ -112,7 +110,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         signature.SetActive(true);
 
         //Disallow users interacting with the buttons at this point
-        //TODO check if this is efficient
         CanvasGroup canvasGroup = GetComponentInParent<CanvasGroup>(true);
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
@@ -122,7 +119,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         DecideNextAction.Raise();
 
         //reset choice to a blank string for next use
-        //TODO check this doesnt fire too early
         hiddenGameVariables._proposalDecision = ProposalChoiceEnum.NONE;
 
         StartCoroutine(AnimationCoroutine(canvasGroup));
@@ -130,8 +126,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
 
     IEnumerator AnimationCoroutine(CanvasGroup canvasGroup)
     {
-        //TODO Do animation of sliding clipboard on screen in co-routine (or at least, raise an event for the UIHandler to do)
-
         yield return new WaitForSeconds(0.2f);
 
         signature.SetActive(false);

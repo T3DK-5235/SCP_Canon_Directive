@@ -40,8 +40,6 @@ public class ProposalHandler : MonoBehaviour
 
         //Clears on startup. Might only be needed for in engine testing?
         hiddenGameVariables._statChangeEventBus.Clear();
-        //Hardcoded whilst in engine. This will need to be set to whatever the user's last saved month is
-        hiddenGameVariables._currentMonth = 0;
     }
 
     //====================================================================
@@ -216,13 +214,16 @@ public class ProposalHandler : MonoBehaviour
 
     public void ProposalDecision(Component sender, object data) {
         List<int> proposalPostUnlocks = null;
+        int proposalFollowUpUnlocks = -1;
 
         //Changes what is unlocked and changed based on player decision
         if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.ACCEPT) {
             //TODO figure out if its worth caching this bit as its also used above
             proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksAccept();
+            proposalFollowUpUnlocks = hiddenGameVariables._currentProposal.getFollowUpInfoAccept();
         } else if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.DENY) {
             proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksDeny();
+            proposalFollowUpUnlocks = hiddenGameVariables._currentProposal.getFollowUpInfoDeny();
         }
         
         UpdateNewStats();
@@ -234,7 +235,7 @@ public class ProposalHandler : MonoBehaviour
 
         CheckDetails();
 
-        CheckFollowUp();
+        CheckFollowUp(proposalFollowUpUnlocks);
 
         //TODO CheckRelatedArticles
         //TODO CheckFollowUpInfo (If there is follow up info add it to a (2D with months delay?) list that will be checked at the start of next month)
@@ -343,15 +344,15 @@ public class ProposalHandler : MonoBehaviour
                 }
             }
 
-            Debug.Log("Raising even to update the details menu");
+            // Debug.Log("Raising even to update the details menu");
             onSwitchDetailsMenu.Raise();
         }
     }
 
-    private void CheckFollowUp() {
-        int followUpID = hiddenGameVariables._currentProposal.getFollowUpInfo();
-        followUpInfoList._currentFollowUpInfo.Add(followUpID);
-
+    private void CheckFollowUp(int proposalFollowUpUnlocks) {
+        if(proposalFollowUpUnlocks != -1) {
+            followUpInfoList._currentFollowUpInfo.Add(proposalFollowUpUnlocks);
+        }
     }
 
     // Checks for Standby -> Active proposal possibilities

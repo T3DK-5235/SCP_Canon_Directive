@@ -11,11 +11,11 @@ public class ExitButton : MonoBehaviour, IPointerClickHandler {
     [SerializeField] Texture2D objectCursor;
 
     public void OnMouseEnter() {
-        Cursor.SetCursor(objectCursor, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(objectCursor, new Vector2(12, 10), CursorMode.Auto);
     }
 
     public void OnMouseExit() {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(null, new Vector2(12, 10), CursorMode.Auto);
     }
 
     public void OnPointerClick(PointerEventData eventData)

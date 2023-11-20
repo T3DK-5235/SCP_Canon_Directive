@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,11 +20,11 @@ public class StatsButton : MonoBehaviour, IPointerClickHandler {
     [SerializeField] Texture2D objectCursor;
 
     public void OnMouseEnter() {
-        Cursor.SetCursor(objectCursor, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(objectCursor, new Vector2(12, 10), CursorMode.Auto);
     }
 
     public void OnMouseExit() {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(null, new Vector2(12, 10), CursorMode.Auto);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -38,11 +39,6 @@ public class StatsButton : MonoBehaviour, IPointerClickHandler {
             goiStatScreen.SetActive(true);
             foundationStatScreen.SetActive(false);
         }
-        //StartCoroutine(AnimationCoroutine(canvasGroup));
+        Cursor.SetCursor(null, new Vector2(12, 10), CursorMode.Auto);
     }
-
-    // IEnumerator AnimationCoroutine(CanvasGroup canvasGroup)
-    // {
-    //     yield return new WaitForSeconds(3);
-    // }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,16 +35,24 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        //TODO gets save data from json save file (may change this to a save scene menu)
-
         //Initialize basic values
         monthLength = 4;
         numMonthlyProposal = 0;
 
+        hiddenGameVariables.ResetToBase();
+        //Call all 
+        
+        //Set the current proposal to a base proposal. This can be altered if save data is found
+        // try {
+            hiddenGameVariables._currentProposal = proposalsList._proposals[0];
+        // }
+        // catch (Exception e) {
+        //     print("error");
+        // }
+
+        //TODO gets save data from json save file (may change this to a save scene menu)
+
         getNewMonthLength();
-
-        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_ONGOING;
-
         
         DecideNextAction(null, null);
     }
@@ -132,7 +141,6 @@ public class GameManager : MonoBehaviour
         getNewMonthLength();
         //Reset number of proposals done that month to 0
         hiddenGameVariables._numMonthlyProposals = 0;
-        
         CheckStatBus();
     }
 
@@ -245,7 +253,7 @@ public class GameManager : MonoBehaviour
     //====================================================================
  
     private void TutorialCheck(int currentID) {
-        if (currentID == 0){
+        if (currentID == 1){
             onSwitchTabletState.Raise();   
         }
     }

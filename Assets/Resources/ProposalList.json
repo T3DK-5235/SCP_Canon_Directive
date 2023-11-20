@@ -20,7 +20,8 @@
         "proposalStatChangesDeny": [
         ],
 	    "extraInfo": -1,
-        "followUpInfo": -1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
         "achievement": -1,
         "relatedArticles": [            
         ]
@@ -55,9 +56,11 @@
         "proposalStatChangesDeny": [
         ],
 	    "extraInfo": 0,
-        "followUpInfo": -1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
         "achievement": -1,
-        "relatedArticles": [            
+        "relatedArticles": [
+            0           
         ]
         },
         {
@@ -84,10 +87,11 @@
         "proposalStatChangesDeny": [
         ],
 	    "extraInfo": 1,
-        "followUpInfo": -1,
+        "followUpInfoAccept": 0,
+        "followUpInfoDeny": -1,
         "achievement": -1,
         "relatedArticles": [  
-            0          
+            1         
         ]
         },
         {
@@ -114,9 +118,12 @@
         "proposalStatChangesDeny": [
         ],
 	    "extraInfo": 2,
-        "followUpInfo": -1,
+        "followUpInfoAccept": 1,
+        "followUpInfoDeny": 2,
         "achievement": -1,
-        "relatedArticles": [            
+        "relatedArticles": [
+            2,
+            3          
         ]
         },
         {
@@ -143,9 +150,11 @@
         "proposalStatChangesDeny": [
         ],
 	    "extraInfo": 3,
-        "followUpInfo": -1,
+        "followUpInfoAccept": 3,
+        "followUpInfoDeny": -1,
         "achievement": -1,
-        "relatedArticles": [            
+        "relatedArticles": [ 
+            4           
         ]
         },
         {
@@ -169,7 +178,8 @@
         "proposalStatChangesDeny": [
         ],
 	    "extraInfo": -1,
-        "followUpInfo": -1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
         "achievement": -1,
         "relatedArticles": [            
         ]
@@ -195,14 +205,15 @@
         "proposalStatChangesDeny": [
         ],
 	    "extraInfo": -1,
-        "followUpInfo": -1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
         "achievement": 0,
         "relatedArticles": [            
         ]
         },
         {
-	    "proposalTitle": "New Month!",
-        "proposalDescription": "<line-height=90%>Uh",
+        "proposalTitle": "The Red Ice",
+        "proposalDescription": "<line-height=90%>A strange red ice has been discovered by civilian researchers in the arctic. Following containment as SCP-009, this anomaly has been transferred to Site 44 for testing.\n\nRequires: Researchers for two months",
         "proposalID": 7,
         "requiredMonth": 0,
         "proposalPrerequisites": [
@@ -225,8 +236,9 @@
         ],
         "proposalStatChangesDeny": [
         ],
-	    "extraInfo": -1,
-        "followUpInfo": -1,
+	    "extraInfo": 1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
         "achievement": -1,
         "relatedArticles": [            
         ]

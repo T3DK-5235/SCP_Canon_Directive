@@ -7,13 +7,13 @@ using UnityEngine;
 [Serializable]
 public class GenericFollowUpInfo
 {
-    [SerializeField] private int infoID;
+    [SerializeField] private int followUpID;
     [SerializeField] private string followUpInfo;
 
     //Ctrl Shift P then search generate set and get methods
 
-    public GenericFollowUpInfo(int infoID, string followUpInfo) {
-        this.infoID = infoID;
+    public GenericFollowUpInfo(int followUpID, string followUpInfo) {
+        this.followUpID = followUpID;
         this.followUpInfo = followUpInfo;
     }
 
@@ -23,7 +23,7 @@ public class GenericFollowUpInfo
 
     public int getInfoID()
     {
-        return this.infoID;
+        return this.followUpID;
     }
 
     public string getInfo()

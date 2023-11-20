@@ -29,6 +29,10 @@ MonoBehaviour:
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
+    followUpInfoAccept: -1
+    followUpInfoDeny: -1
+    achievement: -1
+    relatedArticles: 
   - proposalDescription: "<line-height=90%>Next up is getting some new workers! \n\nAt
       the start of each year you can employ more researchers and MTF, this allows
       you to accept more proposals or do larger activities.\n\nClick on the left
@@ -36,7 +40,7 @@ MonoBehaviour:
     proposalID: 1
     requiredMonth: 0
     proposalTitle: Prospective New Recruits
-    proposalPrerequisites: 00000000
+    proposalPrerequisites: 
     proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 02000000
     proposalPostUnlocksDeny: 02000000
@@ -52,6 +56,10 @@ MonoBehaviour:
     - 0
     proposalStatChangesDeny: []
     extraInfo: 0
+    followUpInfoAccept: -1
+    followUpInfoDeny: -1
+    achievement: -1
+    relatedArticles: 00000000
   - proposalDescription: '<line-height=90%>A strange red ice has been discovered
       by civilian researchers in the arctic. Following containment as SCP-009, this
       anomaly has been transferred to Site 44 for testing.
@@ -62,7 +70,7 @@ MonoBehaviour:
     proposalID: 2
     requiredMonth: 0
     proposalTitle: The Red Ice
-    proposalPrerequisites: 01000000
+    proposalPrerequisites: 
     proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 03000000
     proposalPostUnlocksDeny: 03000000
@@ -72,6 +80,10 @@ MonoBehaviour:
     - 2
     proposalStatChangesDeny: []
     extraInfo: 1
+    followUpInfoAccept: 0
+    followUpInfoDeny: -1
+    achievement: -1
+    relatedArticles: 01000000
   - proposalDescription: '<line-height=90%>Several Sarkic cultists have been spotted
       attempting to transport a sample of SCP-610 into Mongolia. Neutralization and
       containment is required immediately.
@@ -81,7 +93,7 @@ MonoBehaviour:
     proposalID: 3
     requiredMonth: 0
     proposalTitle: Threat groups behind the Veil
-    proposalPrerequisites: 02000000
+    proposalPrerequisites: 
     proposalChoiceRequirements: []
     proposalPostUnlocksAccept: 04000000
     proposalPostUnlocksDeny: 04000000
@@ -91,6 +103,10 @@ MonoBehaviour:
     - 1
     proposalStatChangesDeny: []
     extraInfo: 2
+    followUpInfoAccept: -1
+    followUpInfoDeny: 1
+    achievement: -1
+    relatedArticles: 
   - proposalDescription: '<line-height=90%>Correspondence from a high ranking individual
       in the Church of the Broken God has proposed a research initiative to protect
       against hostile Sarkic forces and reinforce SCP-2309''s defences.
@@ -111,6 +127,10 @@ MonoBehaviour:
     - 2
     proposalStatChangesDeny: []
     extraInfo: 3
+    followUpInfoAccept: -1
+    followUpInfoDeny: -1
+    achievement: -1
+    relatedArticles: 
   - proposalDescription: '<line-height=90%>Whilst clicking both Accept or Deny has
       lead to the same proposal in this tutorial, this won''t always be the case.
 
@@ -128,6 +148,10 @@ MonoBehaviour:
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
+    followUpInfoAccept: -1
+    followUpInfoDeny: -1
+    achievement: -1
+    relatedArticles: 
   - proposalDescription: <line-height=90%>Every 4-6 proposals (At least, to start)
       there will be a new month. This is mainly an opportunity to recover some of
       your spent assets. Also, a report about the consequences of your choices will
@@ -142,6 +166,10 @@ MonoBehaviour:
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
+    followUpInfoAccept: -1
+    followUpInfoDeny: -1
+    achievement: 0
+    relatedArticles: 
   - proposalDescription: <line-height=90%>Uh
     proposalID: 7
     requiredMonth: 0
@@ -154,3 +182,7 @@ MonoBehaviour:
     proposalStatChangesAccept: []
     proposalStatChangesDeny: []
     extraInfo: -1
+    followUpInfoAccept: -1
+    followUpInfoDeny: -1
+    achievement: -1
+    relatedArticles: 

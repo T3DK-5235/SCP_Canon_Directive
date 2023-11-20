@@ -22,7 +22,8 @@ public class GenericProposal
     [SerializeField] private List<string> proposalStatChangesDeny;
 
     [SerializeField] private int extraInfo;
-    [SerializeField] private int followUpInfo;
+    [SerializeField] private int followUpInfoAccept;
+    [SerializeField] private int followUpInfoDeny;
     [SerializeField] private int achievement;
     [SerializeField] private List<int> relatedArticles;
 
@@ -38,7 +39,7 @@ public class GenericProposal
                            List<int> proposalPrerequisites, List<ChoiceRequirementList> proposalChoiceRequirements,
                            List<int> proposalPostUnlocksAccept, List<int> proposalPostUnlocksDeny, 
                            List<string> proposalStatChangesAccept, List<string> proposalStatChangesDeny,
-                           int extraInfo, int followUpInfo, int achievement, List<int> relatedArticles) {
+                           int extraInfo, int followUpInfoAccept, int followUpInfoDeny, int achievement, List<int> relatedArticles) {
         this.proposalTitle = proposalTitle;
         this.proposalDescription = proposalDescription;
         this.proposalID = proposalID;
@@ -54,7 +55,8 @@ public class GenericProposal
         this.proposalStatChangesDeny = proposalStatChangesDeny;
 
         this.extraInfo = extraInfo;
-        this.followUpInfo = followUpInfo;
+        this.followUpInfoAccept = followUpInfoAccept;
+        this.followUpInfoDeny = followUpInfoDeny;
         this.achievement = achievement;
         this.relatedArticles = relatedArticles;
     }
@@ -140,8 +142,11 @@ public class GenericProposal
         return extraInfo;
     }
 
-    public int getFollowUpInfo() {
-        return followUpInfo;
+    public int getFollowUpInfoAccept() {
+        return followUpInfoAccept;
+    }
+    public int getFollowUpInfoDeny() {
+        return followUpInfoDeny;
     }
 
     public int getAchievement() {
