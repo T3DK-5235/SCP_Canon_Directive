@@ -308,14 +308,13 @@ public class UIHandler : MonoBehaviour
     
     public void UpdateStatUI(Component sender, object data) 
     {
-        Debug.Log("Updating Stats");
+        // Debug.Log("Updating Stats");
         //For every stat changed
         if(hiddenGameVariables._myStatCopy.__statsChanged.Count != 0) {
             for (int i = 0; i < hiddenGameVariables._myStatCopy.__statsChanged.Count; i++) {
                 switch (hiddenGameVariables._myStatCopy.__statsChanged[i]) 
                 {
                     case 0:
-                        Debug.Log("Should get here");
                         availableMtfBar.value = hiddenGameVariables._availableMTF;
                         break;
                     case 1:
