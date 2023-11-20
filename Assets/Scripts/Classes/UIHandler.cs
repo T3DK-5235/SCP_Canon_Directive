@@ -116,7 +116,32 @@ public class UIHandler : MonoBehaviour
     
     [Header("Events")]
     public GameEvent DecideNextAction;
-    void Awake() {
+
+    // void Awake() {
+    //     // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
+    //     proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+    //     proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+
+    //     SCPCreditRT = SCPCredit.GetComponent<RectTransform>();
+    //     SCPAchieveRT = SCPAchieve.GetComponent<RectTransform>();
+    //     CentralUIRT = CentralUI.GetComponent<RectTransform>();
+
+    //     currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
+
+    //     personnelPrefabList = new List<GameObject>();
+    //     detailsPrefabList = new List<GameObject>();
+    //     followUpInfoPrefabList = new List<GameObject>();
+    //     // UpdateProposalUI(null, null);
+
+    //     //TODO change this to be default of proposal 0 (unless save data exists)
+    //     proposalTitle.text = proposalsList._proposals[0].getProposalTitle();
+    //     proposalDesc.text = proposalsList._proposals[0].getProposalDescription();
+    //     //TODO fix other related bugs like extra info appearing when it shouldnt(probably all of Current Proposal Handling section of HiddenGameVariables)
+
+    //     UpdateMonthUI();
+    // }
+
+    public void InitUI(Component sender, object data) {
         // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
         proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();

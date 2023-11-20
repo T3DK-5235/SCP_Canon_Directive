@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] int numMonthlyProposal;
 
     [Header("Events")]
+    
+    public GameEvent onInitUI;
+    public GameEvent onInitProposals;
+
     public GameEvent onGetNextProposal;
     public GameEvent onUpdateExtraInfo;
     public GameEvent onUpdateProposalUI;
@@ -40,8 +44,11 @@ public class GameManager : MonoBehaviour
         numMonthlyProposal = 0;
 
         hiddenGameVariables.ResetToBase();
-        //Call all 
         
+        onInitProposals.Raise();
+        onInitUI.Raise();
+
+
         //Set the current proposal to a base proposal. This can be altered if save data is found
         // try {
             hiddenGameVariables._currentProposal = proposalsList._proposals[0];
