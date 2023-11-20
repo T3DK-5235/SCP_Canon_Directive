@@ -680,7 +680,6 @@ public class UIHandler : MonoBehaviour
             GameObject.Destroy(achievementsList._displayedAchievements[i]);
         }
 
-        //TODO check if this is needed
         achievementsList._displayedAchievements.Clear();
     }
 
@@ -700,19 +699,19 @@ public class UIHandler : MonoBehaviour
             data = activeDetailsContainer;
         }
 
-        if (data == "SCPs") {
+        if ((String)data == "SCPs") {
             infoToDisplay = detailsList._discoveredSCPs;
             activeDetailsContainer = "SCPs";
-        } else if (data == "Tales") {
+        } else if ((String)data == "Tales") {
             infoToDisplay = detailsList._discoveredTales;
             activeDetailsContainer = "Tales";
-        } else if (data == "Canons") {
+        } else if ((String)data == "Canons") {
             infoToDisplay = detailsList._discoveredCanons;
             activeDetailsContainer = "Canons";
-        } else if (data == "Series") {
+        } else if ((String)data == "Series") {
             infoToDisplay = detailsList._discoveredSeries;
             activeDetailsContainer = "Series";
-        } else if (data == "Groups") {
+        } else if ((String)data == "Groups") {
             infoToDisplay = detailsList._discoveredGroups;
             activeDetailsContainer = "Groups";
         }
