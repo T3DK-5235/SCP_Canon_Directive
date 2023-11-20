@@ -55,7 +55,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
 
         //This deals with if the signature button has been clicked and a choice has been made PLUS if the choice can actually be chosen
         if(validProposal == true && eventData.pointerPress == signatureButton && hiddenGameVariables._proposalDecision != ProposalChoiceEnum.NONE) {
-            Debug.Log("Proposal can be accepted");
+            // Debug.Log("Proposal can be accepted");
             finishProposal();
         }
     }

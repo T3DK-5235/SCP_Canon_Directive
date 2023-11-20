@@ -29,19 +29,6 @@ public class ProposalHandler : MonoBehaviour
     //Used to update details UI 
     public GameEvent onSwitchDetailsMenu;
 
-    // void Awake() {
-    //     //Stores proposal objects
-    //     activeProposalEventBus = new List<int>();
-    //     standbyProposalEventBus = new List<int>();
-
-    //     //Get the last saved proposal (0 when starting) and set it to the current proposal
-    //     hiddenGameVariables._currentProposal = proposalsList._proposals[hiddenGameVariables._lastSavedProposal];
-    //     //TODO write a save manager that'd pop in this "lastSavedProposal" plus the rest of the stats
-
-    //     //Clears on startup. Might only be needed for in engine testing?
-    //     hiddenGameVariables._statChangeEventBus.Clear();
-    // }
-
     public void InitProposals(Component sender, object data) {
         //Stores proposal objects
         activeProposalEventBus = new List<int>();

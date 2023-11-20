@@ -112,7 +112,10 @@
         ],
         "proposalStatChangesAccept": [
             "MTF",
-            "20",
+            "-20",
+            "1",
+            "Nalka",
+            "-5",
             "1"
         ],
         "proposalStatChangesDeny": [
@@ -145,7 +148,10 @@
         "proposalStatChangesAccept": [
             "Researchers",
             "-20",
-            "2"
+            "2",
+            "Mekanite",
+            "5",
+            "1"
         ],
         "proposalStatChangesDeny": [
         ],

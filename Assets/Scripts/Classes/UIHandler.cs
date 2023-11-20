@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 using TMPro;
 using System;
+using Unity.VisualScripting;
 
 public class UIHandler : MonoBehaviour
 {
@@ -116,30 +117,6 @@ public class UIHandler : MonoBehaviour
     
     [Header("Events")]
     public GameEvent DecideNextAction;
-
-    // void Awake() {
-    //     // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
-    //     proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-    //     proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
-
-    //     SCPCreditRT = SCPCredit.GetComponent<RectTransform>();
-    //     SCPAchieveRT = SCPAchieve.GetComponent<RectTransform>();
-    //     CentralUIRT = CentralUI.GetComponent<RectTransform>();
-
-    //     currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
-
-    //     personnelPrefabList = new List<GameObject>();
-    //     detailsPrefabList = new List<GameObject>();
-    //     followUpInfoPrefabList = new List<GameObject>();
-    //     // UpdateProposalUI(null, null);
-
-    //     //TODO change this to be default of proposal 0 (unless save data exists)
-    //     proposalTitle.text = proposalsList._proposals[0].getProposalTitle();
-    //     proposalDesc.text = proposalsList._proposals[0].getProposalDescription();
-    //     //TODO fix other related bugs like extra info appearing when it shouldnt(probably all of Current Proposal Handling section of HiddenGameVariables)
-
-    //     UpdateMonthUI();
-    // }
 
     public void InitUI(Component sender, object data) {
         // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
@@ -331,12 +308,14 @@ public class UIHandler : MonoBehaviour
     
     public void UpdateStatUI(Component sender, object data) 
     {
+        Debug.Log("Updating Stats");
         //For every stat changed
         if(hiddenGameVariables._myStatCopy.__statsChanged.Count != 0) {
             for (int i = 0; i < hiddenGameVariables._myStatCopy.__statsChanged.Count; i++) {
                 switch (hiddenGameVariables._myStatCopy.__statsChanged[i]) 
                 {
                     case 0:
+                        Debug.Log("Should get here");
                         availableMtfBar.value = hiddenGameVariables._availableMTF;
                         break;
                     case 1:
@@ -409,7 +388,15 @@ public class UIHandler : MonoBehaviour
         int MainRoomLightCount = MainRoomLights.transform.childCount;
         int HallLightCount = HallLights.transform.childCount;
 
+        //Turn off tablet
         SwitchTabletState(null, null);
+        //Close central UI
+
+        if(centralUIOpen == true) {
+            SwitchCentralUIState(null, null);
+        }
+        creditUILight.SetActive(false);
+        achieveUILight.SetActive(false);
 
         for(int i = MainRoomLightCount; i > 0; i--) {
             MainRoomLights.transform.GetChild(i-1).gameObject.SetActive(false);
@@ -457,10 +444,13 @@ public class UIHandler : MonoBehaviour
             yield return new WaitForSeconds(0.35f);
         }
 
+        UpdateStatUI(null, null);
         SwitchTabletState(null, null);
 
-        LoadNextProposal();
+        creditUILight.SetActive(true);
+        achieveUILight.SetActive(true);
 
+        LoadNextProposal();
         ShowNewFollowUpInfo();
     }
 
@@ -506,7 +496,6 @@ public class UIHandler : MonoBehaviour
     //                     TABLET STATUS SECTION                    |
     //====================================================================
     public void SwitchTabletState(Component sender, object data) {
-        Debug.Log(tabletOn);
         if(tabletOn == false) {
             StartCoroutine(ITabletOn());
             StartCoroutine(IDisplayLogo());

@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
         getNewMonthLength();
         //Reset number of proposals done that month to 0
         hiddenGameVariables._numMonthlyProposals = 0;
-        CheckStatBus();
+        StartCoroutine(IWaitForAnim());
     }
 
     private void getNewMonthLength() {
@@ -158,6 +158,11 @@ public class GameManager : MonoBehaviour
     //====================================================================
     //                     STAT BUS CHECKING SECTION                     |
     //====================================================================
+
+    IEnumerator IWaitForAnim() {
+        yield return new WaitForSeconds(1f);
+        CheckStatBus();
+    }
 
     private void CheckStatBus() {
 
@@ -176,10 +181,12 @@ public class GameManager : MonoBehaviour
 
                 if(changedStat == "MTF") {
                     //Set the stat back to its normal value (if it went down by 10, this will do +10 (or rather, --10).)
-                    Debug.Log("Old Stat Value: " + hiddenGameVariables._availableMTF + "New Stat Value: " + (hiddenGameVariables._availableMTF - statEffect));
+                    // Debug.Log("Old Stat Value: " + hiddenGameVariables._availableMTF + "New Stat Value: " + (hiddenGameVariables._availableMTF - statEffect));
                     hiddenGameVariables._availableMTF -= statEffect;
                     //Remove the stat change from the bus as it is finished with
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    //Use this to tell the UI which stat has been changed and needs to be updated visually
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(0);
                     //As the size of the bus has decreased, decrement i, this is because another stat change will be in the position of the old one.
                     i--;
                     //continue will start again from the top of the loop
@@ -190,6 +197,7 @@ public class GameManager : MonoBehaviour
                     hiddenGameVariables._availableResearchers -= statEffect;
                     //TODO maybe move the following two lines to a small function to prevent duplicated code
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(2);
                     i--;
                     continue;
                 }
@@ -197,6 +205,7 @@ public class GameManager : MonoBehaviour
                 if(changedStat == "DClass") {
                     hiddenGameVariables._availableDClass -= statEffect;
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(4);
                     i--;
                     continue;
                 }
@@ -204,6 +213,7 @@ public class GameManager : MonoBehaviour
                 if(changedStat == "Morale") {
                     hiddenGameVariables._currentMorale -= statEffect;
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(6);
                     i--;
                     continue;
                 }
@@ -213,6 +223,7 @@ public class GameManager : MonoBehaviour
                 if(changedStat == "GOC") {
                     hiddenGameVariables._favourGOC -= statEffect;
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(8);
                     i--;
                     continue;
                 }
@@ -220,6 +231,7 @@ public class GameManager : MonoBehaviour
                 if(changedStat == "Nalka") {
                     hiddenGameVariables._favourNalka -= statEffect;
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(9);
                     i--;
                     continue;
                 }
@@ -227,6 +239,7 @@ public class GameManager : MonoBehaviour
                 if(changedStat == "Mekanite") {
                     hiddenGameVariables._favourMekanite -= statEffect;
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(10);
                     i--;
                     continue;
                 }
@@ -234,6 +247,7 @@ public class GameManager : MonoBehaviour
                 if(changedStat == "SerpentsHand") {
                     hiddenGameVariables._favourSerpentsHand -= statEffect;
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(11);
                     i--;
                     continue;
                 }
@@ -241,6 +255,7 @@ public class GameManager : MonoBehaviour
                 if(changedStat == "Factory") {
                     hiddenGameVariables._favourFactory -= statEffect;
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(12);
                     i--;
                     continue;
                 }
@@ -248,6 +263,7 @@ public class GameManager : MonoBehaviour
                 if(changedStat == "Anderson") {
                     hiddenGameVariables._favourAnderson -= statEffect;
                     hiddenGameVariables._statChangeEventBus.RemoveAt(i);
+                    hiddenGameVariables._myStatCopy.__statsChanged.Add(13);
                     i--;
                     continue;
                 }

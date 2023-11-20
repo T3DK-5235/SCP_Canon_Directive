@@ -2345,6 +2345,7 @@ GameObject:
   - component: {fileID: 271144019}
   - component: {fileID: 271144020}
   - component: {fileID: 271144021}
+  - component: {fileID: 271144022}
   m_Layer: 0
   m_Name: UIHandler
   m_TagString: Untagged
@@ -2673,6 +2674,34 @@ MonoBehaviour:
       - m_Target: {fileID: 271144011}
         m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
         m_MethodName: SwitchDetails
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &271144022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271144010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2da66f438ced04c9b45b05a8b59a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 96bf2880b71afd24392903e43cb4a246, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 271144011}
+        m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
+        m_MethodName: InitUI
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8940,6 +8969,8 @@ MonoBehaviour:
   achievementsList: {fileID: 0}
   monthLength: 4
   numMonthlyProposal: 1
+  onInitUI: {fileID: 11400000, guid: 96bf2880b71afd24392903e43cb4a246, type: 2}
+  onInitProposals: {fileID: 11400000, guid: 691db61cc46acc04aab6d8552d1133a0, type: 2}
   onGetNextProposal: {fileID: 11400000, guid: a3492527794f16c4b9e34c9ecd89a080, type: 2}
   onUpdateExtraInfo: {fileID: 11400000, guid: 9d25131103d53d5438e869af2577206e, type: 2}
   onUpdateProposalUI: {fileID: 11400000, guid: ac48725f95ad6ff4eb9442b9da673158, type: 2}
@@ -8990,6 +9021,7 @@ GameObject:
   - component: {fileID: 1115848888}
   - component: {fileID: 1115848887}
   - component: {fileID: 1115848886}
+  - component: {fileID: 1115848889}
   m_Layer: 0
   m_Name: ProposalHandler
   m_TagString: Untagged
@@ -9110,6 +9142,34 @@ MonoBehaviour:
       - m_Target: {fileID: 1115848884}
         m_TargetAssemblyTypeName: ProposalHandler, Assembly-CSharp
         m_MethodName: GetNextProposal
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1115848889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115848883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2da66f438ced04c9b45b05a8b59a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 691db61cc46acc04aab6d8552d1133a0, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1115848884}
+        m_TargetAssemblyTypeName: ProposalHandler, Assembly-CSharp
+        m_MethodName: InitProposals
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
