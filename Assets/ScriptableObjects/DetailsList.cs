@@ -11,4 +11,6 @@ public class DetailsList : ScriptableObject
     public List<int> _discoveredCanons = new List<int>();
     public List<int> _discoveredSeries = new List<int>();
     public List<int> _discoveredGroups = new List<int>();
+
+    public int _newlyDiscoveredDetails = 0;
 }

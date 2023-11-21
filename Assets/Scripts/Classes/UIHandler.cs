@@ -16,6 +16,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] AchievementsList achievementsList;
 
     private TextMeshProUGUI currentMonthText;
+    private TextMeshProUGUI uncheckedDetailsText;
 
     [SerializeField] GameObject O5Elements;
     [SerializeField] GameObject achievementMask;
@@ -28,6 +29,8 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject achieveUILight;
 
     [SerializeField] GameObject currentMonthTextObj;
+    [SerializeField] GameObject uncheckedDetailsObj;
+    [SerializeField] GameObject alertLight;
 
     [Header("Proposal UI")]
     private TextMeshProUGUI proposalTitle;
@@ -128,6 +131,7 @@ public class UIHandler : MonoBehaviour
         CentralUIRT = CentralUI.GetComponent<RectTransform>();
 
         currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
+        uncheckedDetailsText = uncheckedDetailsObj.transform.GetComponent<TextMeshProUGUI>();
 
         personnelPrefabList = new List<GameObject>();
         detailsPrefabList = new List<GameObject>();
@@ -654,6 +658,11 @@ public class UIHandler : MonoBehaviour
 
         LeanTween.moveY(SCPAchieveRT, 10007f, 0.75f).setEase(LeanTweenType.easeOutBounce).setDelay(0.5f);
 
+        //Reset the total number of discovered details that the user hasnt checked out
+        detailsList._newlyDiscoveredDetails = 0;
+        uncheckedDetailsText.text = "";
+        alertLight.SetActive(false);
+
     }
 
     //TODO depending on how far the scrollbar moves, instantiate new achievement prefabs
@@ -694,6 +703,16 @@ public class UIHandler : MonoBehaviour
         }
         detailsPrefabList.Clear();
 
+        //If the central UI is open
+        if(centralUIOpen == true) {
+            detailsList._newlyDiscoveredDetails = 0;
+        } else if (centralUIOpen == false && data == null) {
+            //TODO probably a better way of coding this
+            uncheckedDetailsText.text = "" + detailsList._newlyDiscoveredDetails;
+            alertLight.SetActive(true);
+        }
+
+        //TODO change this to check the sender instead of using a null check to avoid confusion (and in the bit above)
         if (data == null) { //This statement is run if the code is called by Proposal handler, in which the data just needs to be updated, not switched
             data = activeDetailsContainer;
         }

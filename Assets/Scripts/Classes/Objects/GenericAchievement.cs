@@ -14,7 +14,8 @@ public class GenericAchievement
     [SerializeField] private string achievementIcon;
     [SerializeField] private bool completion;
 
-    public GenericAchievement() {
+    public GenericAchievement(int achievementID, string achievementName, string achievementDescription, 
+                              string achievementHint, string achievementIcon, bool completion) {
         this.achievementID = achievementID;
         this.achievementName = achievementName;
         this.achievementDescription = achievementDescription;

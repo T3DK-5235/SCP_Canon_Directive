@@ -333,14 +333,19 @@ public class ProposalHandler : MonoBehaviour
                 //If the related article is an SCP
                 if (currentDetailCategory == "SCP") {
                     detailsList._discoveredSCPs.Add(proposalDetails[i]);
+                    detailsList._newlyDiscoveredDetails++;
                 } else if (currentDetailCategory == "Tale") {
                     detailsList._discoveredTales.Add(proposalDetails[i]);
+                    detailsList._newlyDiscoveredDetails++;
                 } else if (currentDetailCategory == "Canon") {
                     detailsList._discoveredCanons.Add(proposalDetails[i]);
+                    detailsList._newlyDiscoveredDetails++;
                 } else if (currentDetailCategory == "Series") {
                     detailsList._discoveredSeries.Add(proposalDetails[i]);
+                    detailsList._newlyDiscoveredDetails++;
                 } else if (currentDetailCategory == "Group") {
                     detailsList._discoveredGroups.Add(proposalDetails[i]);
+                    detailsList._newlyDiscoveredDetails++;
                 }
             }
 

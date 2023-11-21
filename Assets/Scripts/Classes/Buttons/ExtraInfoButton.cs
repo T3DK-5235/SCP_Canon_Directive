@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class ExtraInfoButton : MonoBehaviour, IPointerClickHandler {
 
+    [Header("Animation")]
+    [SerializeField] Animator clipAnimator;
+
     [Header("Buttons")]
     [SerializeField] GameObject nextPrefabButton;
 
@@ -15,10 +18,12 @@ public class ExtraInfoButton : MonoBehaviour, IPointerClickHandler {
 
     public void OnMouseEnter() {
         Cursor.SetCursor(objectCursor, new Vector2(12, 10), CursorMode.Auto);
+        clipAnimator.SetBool("ClipHover", true);
     }
 
     public void OnMouseExit() {
         Cursor.SetCursor(null, new Vector2(12, 10), CursorMode.Auto);
+        clipAnimator.SetBool("ClipHover", false);
     }
 
     public void OnPointerClick(PointerEventData eventData)

@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999f2ea83d699774bbfd4ec7dba1dc27, type: 3}
   m_Name: AchievementsList
   m_EditorClassIdentifier: 
-  _achievements: []
+  _achievements:
+  - achievementID: 0
+    achievementName: '<size=120%>Get Settled In:'
+    achievementDescription: <size=100%><line-height=90%> Finish the tutorial and
+      get settled into your Overseer position
+    achievementHint: Get Your Bearings
+    achievementIcon: 
+    completion: 0
   _displayedAchievements: []
