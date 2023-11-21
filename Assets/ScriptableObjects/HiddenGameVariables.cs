@@ -118,7 +118,7 @@ public class HiddenGameVariables : ScriptableObject
 
     public static object DecisionChoiceEnum { get; private set; }
 
-    public void ResetToBase() {
+    public void ResetToBase(GenericProposal initialProposal) {
         _currentMonth = 0;
         _currentMonthProposals = 0;
 
@@ -144,5 +144,9 @@ public class HiddenGameVariables : ScriptableObject
         _favourSerpentsHand = 50;
         _favourFactory = 50;
         _favourAnderson = 50;
+
+        _currentProposal = initialProposal;
+
+        _statChangeEventBus = new List<ActiveStatChange>();
     }
 }

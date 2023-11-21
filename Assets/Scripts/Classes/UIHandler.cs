@@ -373,10 +373,10 @@ public class UIHandler : MonoBehaviour
 
     public void CheckNextAnim(Component sender, object data) {
         //If the month should end and the game isnt in the tutorial section (proposals 0-6)
-        if (data == "newMonth") {
+        if ((string)data == "newMonth") {
             UpdateMonthUI();
             StartCoroutine(INewMonth());
-        } else if (data == "newProposal") {
+        } else if ((string)data == "newProposal") {
             //Animation of person walking over and giving files? Or just other stuff
             StartCoroutine(INewProposal());
         }

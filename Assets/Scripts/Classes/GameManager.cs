@@ -43,21 +43,12 @@ public class GameManager : MonoBehaviour
         monthLength = 4;
         numMonthlyProposal = 0;
 
-        hiddenGameVariables.ResetToBase();
+        //TODO gets save data from json save file (may change this to a save scene menu)
+        //TODO saved proposal is put here instead of default one
+        hiddenGameVariables.ResetToBase(proposalsList._proposals[0]);
         
         onInitProposals.Raise();
         onInitUI.Raise();
-
-
-        //Set the current proposal to a base proposal. This can be altered if save data is found
-        // try {
-            hiddenGameVariables._currentProposal = proposalsList._proposals[0];
-        // }
-        // catch (Exception e) {
-        //     print("error");
-        // }
-
-        //TODO gets save data from json save file (may change this to a save scene menu)
 
         getNewMonthLength();
         
@@ -65,6 +56,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void DecideNextAction(Component sender, object data) {
+        // hiddenGameVariables._currentProposal = proposalsList._proposals[0];
+
         if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_LOADING) {
             //The above GameState will be caused by UIHandler "LoadNextProposal"
             
