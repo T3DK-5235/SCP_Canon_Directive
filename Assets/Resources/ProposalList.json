@@ -123,7 +123,7 @@
 	    "extraInfo": 2,
         "followUpInfoAccept": 1,
         "followUpInfoDeny": 2,
-        "achievement": -1,
+        "achievement": 1,
         "relatedArticles": [
             2,
             3          

@@ -7,6 +7,14 @@
         "achievementHint": "Get Your Bearings",
         "achievementIcon": "",
         "completed": false
+        },
+        {
+	    "achievementID": 1,
+	    "achievementName": "<size=120%>New Achievement:", 
+        "achievementDescription": "<size=100%><line-height=90%> This is a new achievement to unlock",
+        "achievementHint": "Strange Achievement",
+        "achievementIcon": "",
+        "completed": false
         }
     ]
 }

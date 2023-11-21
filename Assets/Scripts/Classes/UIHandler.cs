@@ -15,6 +15,8 @@ public class UIHandler : MonoBehaviour
     [SerializeField] ProposalsList proposalsList;
     [SerializeField] AchievementsList achievementsList;
 
+    [SerializeField] Canvas gameCanvas;
+
     private TextMeshProUGUI currentMonthText;
     private TextMeshProUGUI uncheckedDetailsText;
 
@@ -49,7 +51,9 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject personnelContainer;
     [SerializeField] GameObject personnelPrefab;
     
-    List<GameObject> personnelPrefabList;
+    private List<GameObject> personnelPrefabList;
+    private BoxCollider2D extraInfoClipCollider;
+    private Image extraInfoClipImageCollider;
 
     [Header("Tablet")]
     private bool tabletOn = false;
@@ -59,15 +63,17 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject GoIStatScreen;
 
     [Header("Central UI")]
-
     private bool centralUIOpen = false;
     [SerializeField] GameObject SCPCredit;
     [SerializeField] GameObject SCPAchieve;
     [SerializeField] GameObject CentralUI;
     private RectTransform SCPCreditRT;
     private RectTransform SCPAchieveRT;
-
     private RectTransform CentralUIRT;
+
+    [SerializeField] GameObject CentralUIButton;
+    private BoxCollider2D centralUIButtonCollider;
+    private Image centralUIButtonImageCollider;
 
     [SerializeField] GameObject achievementPrefab;
     [SerializeField] GameObject achievementContainer;
@@ -132,6 +138,8 @@ public class UIHandler : MonoBehaviour
 
         currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
         uncheckedDetailsText = uncheckedDetailsObj.transform.GetComponent<TextMeshProUGUI>();
+        //TODO once saving is implemented then remove this line as the save file will have it in
+        detailsList._newlyDiscoveredDetails = 0;
 
         personnelPrefabList = new List<GameObject>();
         detailsPrefabList = new List<GameObject>();
@@ -143,7 +151,39 @@ public class UIHandler : MonoBehaviour
         proposalDesc.text = proposalsList._proposals[0].getProposalDescription();
         //TODO fix other related bugs like extra info appearing when it shouldnt(probably all of Current Proposal Handling section of HiddenGameVariables)
 
+        extraInfoClipCollider = extraInfoClipboard.transform.GetChild(0).GetChild(2).GetComponent<BoxCollider2D>();
+        extraInfoClipImageCollider = extraInfoClipboard.transform.GetChild(0).GetChild(2).GetComponent<Image>();
+
+        centralUIButtonCollider = CentralUIButton.GetComponent<BoxCollider2D>();
+        centralUIButtonImageCollider = CentralUIButton.GetComponent<Image>();
+
+        InitAchievements();
+
         UpdateMonthUI();
+    }
+
+    private void InitAchievements() {
+        for(int i = 0; i < achievementsList._achievements.Count; i++) {
+            //Instantiate new achievementPrefab with achievementContainer as the parent
+            GameObject achievementInstance = Instantiate(achievementPrefab, achievementContainer.transform) as GameObject;
+            achievementsList._displayedAchievements.Add(achievementInstance);
+
+            Image prefabIcon = achievementInstance.transform.GetChild(0).GetComponent<Image>();
+            TextMeshProUGUI prefabText = achievementInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+            GenericAchievement achievement = achievementsList._achievements[i];
+
+            if (achievement.getAchievementCompletion() == true) {
+                prefabText.text = achievement.getAchievementName() + achievement.getAchievementDescription();
+            } else {
+                prefabText.text = achievement.getAchievementHint();
+            }
+
+            achievementInstance.SetActive(false);
+            
+            //TODO add icon logic
+            //TODO depending on how far the scrollbar moves, instantiate new achievement prefabs
+        }
     }
 
     //====================================================================
@@ -167,11 +207,12 @@ public class UIHandler : MonoBehaviour
         for(int i = 0; i < personnelPrefabList.Count; i++) {
             Destroy(personnelPrefabList[i]);
         }
-
-        //TODO figure out how to deal with prefab stuff
+        personnelPrefabList.Clear();
 
         string extraInfoType = hiddenGameVariables._currentExtraInfo.getExtraInfoType();
         int extraInfoNum = hiddenGameVariables._currentExtraInfo.getInfoDescription().Count;
+
+        //TODO rewrite this section to allow any info type to have multiple prefabs
 
         if(extraInfoType == "PotentialEmployees") {
             personnelContainer.SetActive(true);
@@ -186,6 +227,7 @@ public class UIHandler : MonoBehaviour
                 prefabTitle.text = hiddenGameVariables._currentExtraInfo.getInfoTitle();
                 prefabDescription.text = hiddenGameVariables._currentExtraInfo.getInfoDescription()[i];
 
+                //TODO change this list to be general not just for personnel prefabs
                 personnelPrefabList.Add(personnelPrefabInstance);
 
                 personnelPrefabInstance.SetActive(false);
@@ -200,6 +242,15 @@ public class UIHandler : MonoBehaviour
             extraInfoTitle.text = hiddenGameVariables._currentExtraInfo.getInfoTitle();
             //If it isn't Employees there will only be one element in the list at position 0
             extraInfoDesc.text = hiddenGameVariables._currentExtraInfo.getInfoDescription()[0];
+        }
+
+        //If these is more than 1 prefab, enable visual indicators of a user being able to switch prefabs
+        if (personnelPrefabList.Count > 1) {
+            extraInfoClipCollider.enabled = true;
+            extraInfoClipImageCollider.enabled = true;
+        } else {
+            extraInfoClipCollider.enabled = false;
+            extraInfoClipImageCollider.enabled = false;
         }
     }
 
@@ -391,6 +442,8 @@ public class UIHandler : MonoBehaviour
         int MainRoomLightCount = MainRoomLights.transform.childCount;
         int HallLightCount = HallLights.transform.childCount;
 
+        gameCanvas.transform.GetComponent<GraphicRaycaster>().blockingObjects = GraphicRaycaster.BlockingObjects.All;
+
         //Turn off tablet
         SwitchTabletState(null, null);
         //Close central UI
@@ -438,9 +491,9 @@ public class UIHandler : MonoBehaviour
         for(int i = 0; i < MainRoomLightCount; i++) {
             MainRoomLights.transform.GetChild(i).gameObject.SetActive(true);
 
-            if (i == 0) {
+            if (i == 2) {
                 DeskLights.transform.GetChild(1).gameObject.SetActive(true);
-            } else if (i == 1) {
+            } else if (i == 3) {
                 DeskLights.transform.GetChild(0).gameObject.SetActive(true);
             }
 
@@ -455,6 +508,8 @@ public class UIHandler : MonoBehaviour
 
         LoadNextProposal();
         ShowNewFollowUpInfo();
+
+        gameCanvas.transform.GetComponent<GraphicRaycaster>().blockingObjects = GraphicRaycaster.BlockingObjects.None;
     }
 
     IEnumerator INewProposal() {
@@ -622,26 +677,11 @@ public class UIHandler : MonoBehaviour
 
         achievementMask.GetComponent<Mask>().enabled = false;
 
-        //TODO move this to separate function to allow later reuse (if needed)
-        for(int i = 0; i < achievementsList._achievements.Count; i++) {
-            //Instantiate new achievementPrefab with achievementContainer as the parent
-            GameObject achievementInstance = Instantiate(achievementPrefab, achievementContainer.transform) as GameObject;
-            achievementsList._displayedAchievements.Add(achievementInstance);
+        centralUIButtonCollider.enabled = false;
+        centralUIButtonImageCollider.enabled = false;
 
-            Image prefabIcon = achievementInstance.transform.GetChild(0).GetComponent<Image>();
-            TextMeshProUGUI prefabText = achievementInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-            GenericAchievement achievement = achievementsList._achievements[i];
-
-            if (achievement.getAchievementCompletion() == true) {
-                prefabText.text = achievement.getAchievementName() + achievement.getAchievementDescription();
-            } else {
-                prefabText.text = achievement.getAchievementHint();
-            }
-
-            achievementInstance.SetActive(true);
-            
-            //TODO add icon logic
+        for (int i = 0; i < achievementsList._displayedAchievements.Count; i++) {
+            achievementsList._displayedAchievements[i].SetActive(true);
         }
         
         yield return new WaitForSeconds(0.5f);
@@ -663,12 +703,28 @@ public class UIHandler : MonoBehaviour
         uncheckedDetailsText.text = "";
         alertLight.SetActive(false);
 
+        centralUIButtonCollider.enabled = true;
+        centralUIButtonImageCollider.enabled = true;
+
     }
 
-    //TODO depending on how far the scrollbar moves, instantiate new achievement prefabs
+    public void UpdateAchievements(Component sender, object data) {
+        int unlockedAchievement = (int)data;
+
+        GameObject achievementPrefabToUpdate = achievementsList._displayedAchievements[unlockedAchievement];
+        TextMeshProUGUI achievementText = achievementPrefabToUpdate.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        GenericAchievement achievementToUpdate = achievementsList._achievements[unlockedAchievement];
+
+        achievementText.text = achievementToUpdate.getAchievementName() + achievementToUpdate.getAchievementDescription();
+    }
 
     IEnumerator ICloseCentralUI()
     {
+
+        centralUIButtonCollider.enabled = false;
+        centralUIButtonImageCollider.enabled = false;
+
         LeanTween.moveY(SCPAchieveRT, 3450f, 0.75f).setEase(LeanTweenType.easeOutQuad).setDelay(0.5f);
 
         yield return new WaitForSeconds(1f);
@@ -685,16 +741,18 @@ public class UIHandler : MonoBehaviour
         achieveUILight.SetActive(false);
 
         for (int i = 0; i < achievementsList._displayedAchievements.Count; i++) {
-            GameObject.Destroy(achievementsList._displayedAchievements[i]);
+            achievementsList._displayedAchievements[i].SetActive(false);
         }
 
-        achievementsList._displayedAchievements.Clear();
+        centralUIButtonCollider.enabled = true;
+        centralUIButtonImageCollider.enabled = true;
     }
 
     //====================================================================
     //                 SWITCHING SHOWN DETAILS SECTION                   |
     //====================================================================
 
+    //Called by the switch details buttons and by proposal manager
     public void SwitchDetails(Component sender, object data) {
         List<int> infoToDisplay = new List<int>();
 

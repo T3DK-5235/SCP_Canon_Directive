@@ -28,6 +28,7 @@ public class ProposalHandler : MonoBehaviour
     public GameEvent DecideNextAction;
     //Used to update details UI 
     public GameEvent onSwitchDetailsMenu;
+    public GameEvent onAchievementCompleted;
 
     public void InitProposals(Component sender, object data) {
         //Stores proposal objects
@@ -320,6 +321,7 @@ public class ProposalHandler : MonoBehaviour
         if (relatedAchievement != -1) {
             //Set the related achievement to being true
             achievementsList._achievements[relatedAchievement].setAchievementCompletion(true);
+            onAchievementCompleted.Raise(relatedAchievement);
         }
     }
 
