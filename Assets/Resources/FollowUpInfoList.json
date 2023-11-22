@@ -15,6 +15,10 @@
         {
 	        "followUpID": 3,
 	        "followUpInfo": "Talks for a formal alliance between the Foundation and the Church of the Broken god are ongoing."
+        },
+        {
+	        "followUpID": 4,
+	        "followUpInfo": "An unfortunate accident with SCP-140 during testing revealed that blood is considered a suitable writing fluid."
         }
     ]
 }

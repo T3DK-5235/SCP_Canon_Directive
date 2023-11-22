@@ -558,7 +558,7 @@ public class UIHandler : MonoBehaviour
             StartCoroutine(ITabletOn());
             StartCoroutine(IDisplayLogo());
             tabletOn = true;
-        } else if (tabletOn == true) {
+        } else if (tabletOn == true && (string)data != "Initial Activation") {
             StartCoroutine(ITabletOff());
             tabletOn = false;
         }

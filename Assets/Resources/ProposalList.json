@@ -9,6 +9,8 @@
         ],
         "proposalChoiceRequirements": [
         ],
+        "proposalStatRequirements": [
+        ],
         "proposalPostUnlocksAccept": [
             1
         ],
@@ -35,6 +37,8 @@
             0
         ],
         "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
         ],
         "proposalPostUnlocksAccept": [
             2
@@ -73,6 +77,8 @@
         ],
         "proposalChoiceRequirements": [
         ],
+        "proposalStatRequirements": [
+        ],
         "proposalPostUnlocksAccept": [
             3
         ],
@@ -103,6 +109,8 @@
             2
         ],
         "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
         ],
         "proposalPostUnlocksAccept": [
             4
@@ -139,6 +147,8 @@
         ],
         "proposalChoiceRequirements": [
         ],
+        "proposalStatRequirements": [
+        ],
         "proposalPostUnlocksAccept": [
             5
         ],
@@ -173,6 +183,8 @@
         ],
         "proposalChoiceRequirements": [
         ],
+        "proposalStatRequirements": [
+        ],
         "proposalPostUnlocksAccept": [
             6
         ],
@@ -200,6 +212,8 @@
         ],
         "proposalChoiceRequirements": [
         ],
+        "proposalStatRequirements": [
+        ],
         "proposalPostUnlocksAccept": [
             -7
         ],
@@ -218,8 +232,8 @@
         ]
         },
         {
-        "proposalTitle": "The Red Ice",
-        "proposalDescription": "<line-height=90%>A strange red ice has been discovered by civilian researchers in the arctic. Following containment as SCP-009, this anomaly has been transferred to Site 44 for testing.\n\nRequires: Researchers for two months",
+        "proposalTitle": "A Chronicle of the Daeva",
+        "proposalDescription": "<line-height=90%>Whilst initially believed to be a basic anomalous items that changes when introduced to fluids, recent archeological findings linked to an unknown civilization suggest that SCP-140 may be able to rewrite history.\n\nRequires: Researchers for a month",
         "proposalID": 7,
         "requiredMonth": 0,
         "proposalPrerequisites": [
@@ -232,21 +246,57 @@
                 ]
             }
         ],
+        "proposalStatRequirements": [
+        ],
         "proposalPostUnlocksAccept": [
-            1
+            8
         ],
         "proposalPostUnlocksDeny": [
-            1
+            8
+        ],
+        "proposalStatChangesAccept": [
+            "Researchers",
+            "-5",
+            "1"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": 4,
+        "followUpInfoAccept": 4,
+        "followUpInfoDeny": 4,
+        "achievement": -1,
+        "relatedArticles": [
+            5,
+            6        
+        ]
+        },
+        {
+        "proposalTitle": "A Chronicle of the Daeva",
+        "proposalDescription": "<line-height=90%>Whilst initially believed to be a basic anomalous items that changes when introduced to fluids, recent archeological findings linked to an unknown civilization suggest that SCP-140 may be able to rewrite history.\n\nRequires: Researchers for a month",
+        "proposalID": 8,
+        "requiredMonth": 1,
+        "proposalPrerequisites": [
+            7
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            7
+        ],
+        "proposalPostUnlocksDeny": [
+            7
         ],
         "proposalStatChangesAccept": [
         ],
         "proposalStatChangesDeny": [
         ],
-	    "extraInfo": 1,
+	    "extraInfo": -1,
         "followUpInfoAccept": -1,
         "followUpInfoDeny": -1,
         "achievement": -1,
-        "relatedArticles": [            
+        "relatedArticles": [    
         ]
         }
     ]

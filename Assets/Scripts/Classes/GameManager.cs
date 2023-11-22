@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
             //TODO call to slide clipboard and extra info board onscreen
 
             int currentProposalID = hiddenGameVariables._currentProposal.getProposalID();
-            if (currentProposalID <= 6) {
+            if (currentProposalID <= 7) {
                 TutorialCheck(currentProposalID);
             }
             
@@ -269,8 +269,8 @@ public class GameManager : MonoBehaviour
     //====================================================================
  
     private void TutorialCheck(int currentID) {
-        if (currentID == 1){
-            onSwitchTabletState.Raise();   
+        if (currentID == 1 || currentID == 7){
+            onSwitchTabletState.Raise("Initial Activation");   
         }
     }
 }

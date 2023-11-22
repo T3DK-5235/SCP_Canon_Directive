@@ -121,10 +121,13 @@ public class HiddenGameVariables : ScriptableObject
     public void ResetToBase(GenericProposal initialProposal) {
         _currentMonth = 0;
         _currentMonthProposals = 0;
+        _numMonthlyProposals = 0;
 
         _lastSavedProposal = 0;
 
         _currentGameState = GameStateEnum.PROPOSAL_ONGOING;
+
+        _chosenDClassMethod = DClassMethodEnum.NONE;
 
         _totalMTF = 50;
         _availableMTF = 50;

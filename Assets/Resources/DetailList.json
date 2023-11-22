@@ -39,6 +39,22 @@
             "articleDescription": "Description: A religious group who worship mechanization and eshew flesh, focusing on rebuilding their mechanical god.<space=5em><color=#00000000>.</color>",
 	        "articleAuthors": "", 
             "articleLink": ""
+        },
+        {
+	        "detailID": 5,
+            "detailCategory":"SCP",
+	        "articleName": "SCP#: 140<space=2em><color=#00000000>.</color>", 
+            "articleDescription": "Description: A book describing the Daevite history. Any suitable writing fluid added to the book expands the history of the Daeva, rewriting our timeline. <space=5em><color=#00000000>.</color>",
+	        "articleAuthors": "Author: AssertiveRoland", 
+            "articleLink": ""
+        },
+        {
+	        "detailID": 4,
+            "detailCategory":"Group",
+	        "articleName": "Group#: The Daeva<space=2em><color=#00000000>.</color>", 
+            "articleDescription": "Description: The Daeva were a civilization known for practicing both Chlorokinesis and human sacrifice, whilst currently in the past SCP-140 keeps them creeping closer to the present.<space=5em><color=#00000000>.</color>",
+	        "articleAuthors": "", 
+            "articleLink": ""
         }
     ]
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,12 +49,9 @@ public class ProposalHandler : MonoBehaviour
     //====================================================================
 
     public void GetNextProposal(Component sender, object data) {
-        int nextProposalPos = UnityEngine.Random.Range(0, activeProposalEventBus.Count - 1);
-
         //Add Proposal to currentProposal variable
         hiddenGameVariables._prevProposal = hiddenGameVariables._currentProposal;
-
-
+        int nextProposalPos = PickNextProposalInt();
         hiddenGameVariables._currentProposal = proposalsList._proposals[activeProposalEventBus[nextProposalPos]];
 
         //Remove Proposal from active event bus
@@ -63,6 +61,30 @@ public class ProposalHandler : MonoBehaviour
 
         hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_ONGOING;
         DecideNextAction.Raise();
+    }
+
+    private int PickNextProposalInt() {
+        int nextProposalPos = 0;
+        bool foundNextProposal = false;
+        //Loop is used to check that stat requirements are still correct after waiting in activeProposalEventBus
+        do {
+            //Gets a random value less than the size of the activeProposalEventBus
+            nextProposalPos = UnityEngine.Random.Range(0, activeProposalEventBus.Count - 1);
+
+            //If the proposal, since being added to the active stat bus, no longer has its stat requirements filled then it is removed
+            if (proposalsList._proposals[activeProposalEventBus[nextProposalPos]].CheckStatRequirements(hiddenGameVariables) == false) {
+                standbyProposalEventBus.Add(activeProposalEventBus[nextProposalPos]);
+                activeProposalEventBus.Remove(nextProposalPos);
+                foundNextProposal = false;
+            } else {
+                //If the proposal can still proceed, it will break out of the while loop
+                foundNextProposal = true;
+            }
+        } while (foundNextProposal == false);
+
+        //TODO add a system where each proposal has a set chance/importance. All these chances are added up and forced into a 0-100 range and then picked
+        Debug.Log("Next proposal int: " + nextProposalPos);
+        return nextProposalPos;
     }
 
     public void HandleExtraInfo() {  
@@ -367,7 +389,7 @@ public class ProposalHandler : MonoBehaviour
     private void CheckStandbyProposals() {
         for(int i = 0; i < standbyProposalEventBus.Count; i++) {
             //Check if the proposal is available to be moved (or at least, its ID) to the active bus
-            if (proposalsList._proposals[standbyProposalEventBus[i]].IsProposalAvailable(hiddenGameVariables._currentMonth)) {
+            if (proposalsList._proposals[standbyProposalEventBus[i]].IsProposalAvailable(hiddenGameVariables._currentMonth, hiddenGameVariables)) {
                 //add the proposal to the active event bus, then remove it from the standby bus
                 activeProposalEventBus.Add(standbyProposalEventBus[i]);
                 standbyProposalEventBus.RemoveAt(i);

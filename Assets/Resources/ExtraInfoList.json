@@ -35,9 +35,14 @@
             "infoDescription": [
                     "<line-height=90%>Whilst most groups may dislike the Foundation's mission, many of them are happy to team up with the Foundation in the name of 'The enemy of my enemy is my friend'.\n\nThis is exemplified by the Sarkics and Mekanites who have been at each others throats for hundreds of thousands of years and will do anything to destroy the other."
             ]
+        },
+        {
+        "extraInfoType": "Information",
+            "infoID": 4,
+            "infoTitle": "Object Discovery",
+            "infoDescription": [
+                    "<line-height=90%>SCP-140 was found by Foundation agents investigated the unnatural death of <size=60%><voffset=0.5em>███████ ██████</voffset></size>, a well known civilian historian.\n\nA diary discovered in <size=60%><voffset=0.5em>███████ ██████</voffset></size>'s house suggests the book initially ended with the Daeva being wiped out by the forces of Chinese general Qin Kaiin 2<size=60%><voffset=0.5em>██</voffset></size> BCE, though this is no longer the case."
+            ]
         }
-
-
-        
     ]
 }

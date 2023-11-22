@@ -6,7 +6,7 @@ using UnityEngine;
 
 [Serializable]
 public class GenericProposal
-{
+{   
     [SerializeField] private string proposalDescription; 
     [SerializeField] private int proposalID;
     [SerializeField] private int requiredMonth;
@@ -14,6 +14,7 @@ public class GenericProposal
                            
     [SerializeField] private List<int> proposalPrerequisites;
     [SerializeField] private List<ChoiceRequirementList> proposalChoiceRequirements;
+    [SerializeField] private List<string> proposalStatRequirements;
 
     [SerializeField] private List<int> proposalPostUnlocksAccept; 
     [SerializeField] private List<int> proposalPostUnlocksDeny; 
@@ -36,7 +37,7 @@ public class GenericProposal
     // Stats changed by proposal (eg MTF, 60, 0 for increase MTF by 60 permanently. OR BrokeMasq 60 0 which increases the progression for a canon by 60)
     // In addition, stats can store if a requirement is fulfilled, like if a d class choice is made eg: "Requirement name (same as enum), num reference to enum value (_DClassMethod, 1, 0);
     public GenericProposal(string proposalTitle, string proposalDescription, int proposalID, int requiredMonth,
-                           List<int> proposalPrerequisites, List<ChoiceRequirementList> proposalChoiceRequirements,
+                           List<int> proposalPrerequisites, List<ChoiceRequirementList> proposalChoiceRequirements, List<string> proposalStatRequirements,
                            List<int> proposalPostUnlocksAccept, List<int> proposalPostUnlocksDeny, 
                            List<string> proposalStatChangesAccept, List<string> proposalStatChangesDeny,
                            int extraInfo, int followUpInfoAccept, int followUpInfoDeny, int achievement, List<int> relatedArticles) {
@@ -47,6 +48,7 @@ public class GenericProposal
 
         this.proposalPrerequisites = proposalPrerequisites;
         this.proposalChoiceRequirements = proposalChoiceRequirements;
+        this.proposalStatRequirements = proposalStatRequirements;
 
         this.proposalPostUnlocksAccept = proposalPostUnlocksAccept;
         this.proposalPostUnlocksDeny = proposalPostUnlocksDeny;
@@ -96,10 +98,43 @@ public class GenericProposal
         }
     }
 
-    public bool IsProposalAvailable(int currentMonth) {
+    //Need to check when adding to active bus AND when about to be played
+    public bool CheckStatRequirements(HiddenGameVariables hiddenGameVariables) {
+        //Stat requirements are stored as i and i + 1 in a list. i = the stat itself and i + 1 is the value.
+        //A negative on the value means the actual stat must be less than the presented number
+        int proposalStatRequirementsFufilled = 0;
+        for(int i = 0; i < proposalStatRequirements.Count; i += 2) {
+            if (proposalStatRequirements[i] == "DClassMethod") {
+                //Changes the string into the appropriate Enum for comparison to current Enum
+                DClassMethodEnum requiredDClassMethod;
+                Enum.TryParse(proposalStatRequirements[i+1], true, out requiredDClassMethod);
+                if (requiredDClassMethod == hiddenGameVariables._chosenDClassMethod) {
+                    proposalStatRequirementsFufilled++;
+                }
+                continue;
+            } else if (proposalStatRequirements[i] == "Morale") {
+                int requiredProposalStat = Int32.Parse(proposalStatRequirements[i + 1]);
+                if(requiredProposalStat > 0 &&
+                   hiddenGameVariables._currentMorale > requiredProposalStat) {
+                   proposalStatRequirementsFufilled++;
+                } else if (requiredProposalStat <= 0 &&
+                   hiddenGameVariables._currentMorale <= requiredProposalStat) {
+                }
+                continue;
+            }
+        }
+
+        if (proposalStatRequirementsFufilled == proposalStatRequirements.Count) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool IsProposalAvailable(int currentMonth, HiddenGameVariables hiddenGameVariables) {
         //If there are no unfulfilled prereqs, reqs, and the current month is correct then the proposal is available
         // Debug.Log("Proposal to Check: " + proposalID + " ---- Prereqs: " + proposalPrerequisites.Count + " ---- Reqs: " + proposalChoiceRequirements.Count);
-        if (proposalPrerequisites.Count == 0 && proposalChoiceRequirements.Count == 0 && currentMonth >= requiredMonth) {
+        if (proposalPrerequisites.Count == 0 && proposalChoiceRequirements.Count == 0 && CheckStatRequirements(hiddenGameVariables) && currentMonth >= requiredMonth) {
             return true;
         } else {
             return false;
