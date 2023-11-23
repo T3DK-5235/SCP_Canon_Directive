@@ -136,8 +136,7 @@ public class ProposalHandler : MonoBehaviour
         statCopy.__favourMekanite = hiddenGameVariables._favourMekanite;
         statCopy.__favourSerpentsHand = hiddenGameVariables._favourSerpentsHand;
         statCopy.__favourFactory = hiddenGameVariables._favourFactory;
-        statCopy.__favourAnderson = hiddenGameVariables._favourAnderson;  
-
+        statCopy.__favourAnderson = hiddenGameVariables._favourAnderson; 
 
         hiddenGameVariables._myStatCopy = statCopy;
 
@@ -225,6 +224,11 @@ public class ProposalHandler : MonoBehaviour
 
             if(proposalStatChanges[i] == "Anderson") {
                 changeAndersonFavor(statAmount);
+                continue;
+            }
+
+            if(proposalStatChanges[i] == "DClassMethod") {
+                changeDClassMethod(statAmount);
                 continue;
             }
         }
@@ -517,5 +521,9 @@ public class ProposalHandler : MonoBehaviour
     private void changeAndersonFavor(int additionalAndersonFavour) {
         hiddenGameVariables._myStatCopy.__favourAnderson = hiddenGameVariables._favourAnderson + additionalAndersonFavour;
         hiddenGameVariables._myStatCopy.__statsChanged.Add(13);
+    }
+
+    private void changeDClassMethod(int dClassEnumValue) {
+        hiddenGameVariables._myStatCopy.__chosenDClassMethod = (DClassMethodEnum)dClassEnumValue;
     }
 }

@@ -10,9 +10,9 @@
         },
         {
 	    "achievementID": 1,
-	    "achievementName": "<size=120%>New Achievement:", 
-        "achievementDescription": "<size=100%><line-height=90%> This is a new achievement to unlock",
-        "achievementHint": "Strange Achievement",
+	    "achievementName": "<size=120%>Thanks for Playing!", 
+        "achievementDescription": "<size=100%><line-height=90%> Finish the demo",
+        "achievementHint": "Curtains Closed",
         "achievementIcon": "",
         "completed": false
         }

@@ -269,7 +269,11 @@ public class GameManager : MonoBehaviour
     //====================================================================
  
     private void TutorialCheck(int currentID) {
-        if (currentID == 1 || currentID == 7){
+        //Makes sure to go to the next month
+        if (currentID == 6) {
+            hiddenGameVariables._numMonthlyProposals = 10;
+        }
+        if (currentID == 1){
             onSwitchTabletState.Raise("Initial Activation");   
         }
     }

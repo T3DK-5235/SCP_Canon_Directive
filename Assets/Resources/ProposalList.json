@@ -15,7 +15,7 @@
             1
         ],
         "proposalPostUnlocksDeny": [
-            -7
+            -6
         ],
         "proposalStatChangesAccept": [
         ],
@@ -69,7 +69,7 @@
         },
         {
 	    "proposalTitle": "The Red Ice",
-        "proposalDescription": "<line-height=90%>A strange red ice has been discovered by civilian researchers in the arctic. Following containment as SCP-009, this anomaly has been transferred to Site 44 for testing.\n\nRequires: Researchers for two months",
+        "proposalDescription": "<line-height=90%>A strange red ice has been discovered by civilian researchers in the arctic. Following containment as SCP-009, this anomaly has been transferred to Site 44 for testing.",
         "proposalID": 2,
         "requiredMonth": 0,
         "proposalPrerequisites": [
@@ -88,7 +88,10 @@
         "proposalStatChangesAccept": [
             "Researchers",
             "-10",
-            "2"
+            "2",
+            "DClass",
+            "-5",
+            "0"
         ],
         "proposalStatChangesDeny": [
         ],
@@ -102,7 +105,7 @@
         },
         {
 	    "proposalTitle": "Threat groups behind the Veil",
-        "proposalDescription": "<line-height=90%>Several Sarkic cultists have been spotted attempting to transport a sample of SCP-610 into Mongolia. Neutralization and containment is required immediately.\n\nRequires: MTF for one month",
+        "proposalDescription": "<line-height=90%>Several Sarkic cultists have been spotted attempting to transport a sample of SCP-610 into Mongolia. Neutralization and containment is required immediately.",
         "proposalID": 3,
         "requiredMonth": 0,
         "proposalPrerequisites": [
@@ -139,7 +142,7 @@
         },
         {
 	    "proposalTitle": "The Enemy of My Enemy...",
-        "proposalDescription": "<line-height=90%>Correspondence from a high ranking individual in the Church of the Broken God has proposed a research initiative to protect against hostile Sarkic forces and reinforce SCP-2309's defences.\n\nRequires: Researchers for three months",
+        "proposalDescription": "<line-height=90%>Correspondence from a high ranking individual in the Church of the Broken God has proposed a research initiative to protect against hostile Sarkic forces and reinforce SCP-2309's defences.",
         "proposalID": 4,
         "requiredMonth": 0,
         "proposalPrerequisites": [
@@ -159,6 +162,9 @@
             "Researchers",
             "-20",
             "2",
+            "DClass",
+            "-5",
+            "3",
             "Mekanite",
             "5",
             "1"
@@ -186,10 +192,10 @@
         "proposalStatRequirements": [
         ],
         "proposalPostUnlocksAccept": [
-            6
+            -6
         ],
         "proposalPostUnlocksDeny": [
-            6
+            -6
         ],
         "proposalStatChangesAccept": [
         ],
@@ -208,17 +214,22 @@
         "proposalID": 6,
         "requiredMonth": 0,
         "proposalPrerequisites": [
-            5
         ],
         "proposalChoiceRequirements": [
+            {
+                "ChoiceProposalIDs": [
+                    0,
+                    5
+                ]
+            }
         ],
         "proposalStatRequirements": [
         ],
         "proposalPostUnlocksAccept": [
-            -7
+            7
         ],
         "proposalPostUnlocksDeny": [
-            -7
+            7
         ],
         "proposalStatChangesAccept": [
         ],
@@ -233,18 +244,13 @@
         },
         {
         "proposalTitle": "A Chronicle of the Daeva",
-        "proposalDescription": "<line-height=90%>Whilst initially believed to be a basic anomalous items that changes when introduced to fluids, recent archeological findings linked to an unknown civilization suggest that SCP-140 may be able to rewrite history.\n\nRequires: Researchers for a month",
+        "proposalDescription": "<line-height=90%>Whilst initially believed to be a basic anomalous items that changes when introduced to fluids, recent archeological findings linked to an unknown civilization suggest that SCP-140 may be able to rewrite history.",
         "proposalID": 7,
         "requiredMonth": 0,
         "proposalPrerequisites": [
+            6
         ],
         "proposalChoiceRequirements": [
-            {
-                "ChoiceProposalIDs": [
-                    0,
-                    6
-                ]
-            }
         ],
         "proposalStatRequirements": [
         ],
@@ -257,11 +263,17 @@
         "proposalStatChangesAccept": [
             "Researchers",
             "-5",
-            "1"
+            "1",
+            "DClass",
+            "-10",
+            "1",
+            "DClass",
+            "-5",
+            "0"
         ],
         "proposalStatChangesDeny": [
         ],
-	    "extraInfo": 4,
+	    "extraInfo": -1,
         "followUpInfoAccept": 4,
         "followUpInfoDeny": 4,
         "achievement": -1,
@@ -271,8 +283,8 @@
         ]
         },
         {
-        "proposalTitle": "A Chronicle of the Daeva",
-        "proposalDescription": "<line-height=90%>Whilst initially believed to be a basic anomalous items that changes when introduced to fluids, recent archeological findings linked to an unknown civilization suggest that SCP-140 may be able to rewrite history.\n\nRequires: Researchers for a month",
+        "proposalTitle": "D-Class Situation",
+        "proposalDescription": "<line-height=90%>The Department of Human Resources has submitted a document showing that due to the increase in anomalous events there aren't enough death row inmates to fufill the quota of D-Class needed.\n\nDue to this they request permission to take D-Class from a wider selection of the prison population.",
         "proposalID": 8,
         "requiredMonth": 1,
         "proposalPrerequisites": [
@@ -283,12 +295,21 @@
         "proposalStatRequirements": [
         ],
         "proposalPostUnlocksAccept": [
-            7
+            9
         ],
         "proposalPostUnlocksDeny": [
-            7
+            9
         ],
         "proposalStatChangesAccept": [
+            "Morale",
+            "-20",
+            "0",
+            "DClass",
+            "25",
+            "0",
+            "DClassMethod",
+            "1",
+            "0"
         ],
         "proposalStatChangesDeny": [
         ],
@@ -297,6 +318,114 @@
         "followUpInfoDeny": -1,
         "achievement": -1,
         "relatedArticles": [    
+        ]
+        },
+        {
+        "proposalTitle": "The Small Red Disc",
+        "proposalDescription": "<line-height=90%>Testing currently shows that this object will change colours depending on the user holding it. Additionally upon being placed on a mirror, a dimension corresponding to this colour will appear, with the mirror acting as a door.\n\nPermission for D-Class exploration is requested. ",
+        "proposalID": 9,
+        "requiredMonth": 1,
+        "proposalPrerequisites": [
+            8
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            10
+        ],
+        "proposalPostUnlocksDeny": [
+            10
+        ],
+        "proposalStatChangesAccept": [
+            "DClass",
+            "-5",
+            "0",
+            "DClass",
+            "-10",
+            "2"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": 5,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": -1,
+        "relatedArticles": [ 
+            7  
+        ]
+        },
+        {
+        "proposalTitle": "High CRV DClass required",
+        "proposalDescription": "<line-height=90%>Partial testing of SCP-2075 has revealed it's ability to control infected subjects. However, it is yet unknown how significally, if at all, a high CRV would impact the level of control.",
+        "proposalID": 10,
+        "requiredMonth": 1,
+        "proposalPrerequisites": [
+            9
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            11
+        ],
+        "proposalPostUnlocksDeny": [
+            11
+        ],
+        "proposalStatChangesAccept": [
+            "Researchers",
+            "-5",
+            "2",
+            "DClass",
+            "-10",
+            "0"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": 6,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": 1,
+        "relatedArticles": [ 
+            8,
+            9
+        ]
+        },
+        {
+        "proposalTitle": "That's all for now folks",
+        "proposalDescription": "<line-height=90%>This is the end of the Demo for now. Much of my time has been spent on implementing the features so there isn't a huge amount of content.\n\nHopefully this gives a good idea of the general flow of the game and please stay tuned!",
+        "proposalID": 11,
+        "requiredMonth": 1,
+        "proposalPrerequisites": [
+            10
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            11
+        ],
+        "proposalPostUnlocksDeny": [
+            11
+        ],
+        "proposalStatChangesAccept": [
+            "Researchers",
+            "-5",
+            "2",
+            "DClass",
+            "-10",
+            "0"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": -1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": -1,
+        "relatedArticles": [ 
         ]
         }
     ]

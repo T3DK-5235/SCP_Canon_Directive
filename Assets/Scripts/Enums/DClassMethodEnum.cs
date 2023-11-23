@@ -1,7 +1,7 @@
 public enum DClassMethodEnum
 {
-    NONE,
-    PRISON,
-    PARTIALVOLUNTEER,
-    CLONING
+    NONE = 0,
+    PRISON = 1,
+    PARTIALVOLUNTEER = 2,
+    CLONING = 3
 }

@@ -38,6 +38,9 @@ public class UIHandler : MonoBehaviour
     private TextMeshProUGUI proposalTitle;
     private TextMeshProUGUI proposalDesc;
 
+    private RectTransform proposalTitlePos;
+    private RectTransform proposalDescPos;
+
     [SerializeField] GameObject proposalClipboard;
     
     [Header("Extra Info UI")]
@@ -130,7 +133,10 @@ public class UIHandler : MonoBehaviour
     public void InitUI(Component sender, object data) {
         // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
         proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+        proposalDesc = proposalClipboard.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        proposalTitlePos = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
+        proposalDescPos = proposalClipboard.transform.GetChild(0).GetChild(1).GetComponent<RectTransform>();
 
         SCPCreditRT = SCPCredit.GetComponent<RectTransform>();
         SCPAchieveRT = SCPAchieve.GetComponent<RectTransform>();
@@ -194,7 +200,24 @@ public class UIHandler : MonoBehaviour
         //TODO change this to be default of proposal 0 (unless save data exists)
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
+
+        StartCoroutine(ResizeProposalUI());
     }
+
+    IEnumerator ResizeProposalUI()
+    {
+        //Need to wait a second for the box to finish resizing when the text is entered above
+        yield return new WaitForSeconds(0.01f);
+        Debug.Log("Height? " + proposalTitlePos.sizeDelta.y);
+        //Will only equal 0 on startup
+        if (proposalTitlePos.sizeDelta.y > 8) {
+            proposalDescPos.anchoredPosition = new Vector3(47, -39, 0);
+        } else {
+            proposalDescPos.anchoredPosition = new Vector3(47, -32, 0);
+        }
+    }
+
+
     //====================================================================
     //                         EXTRA INFO SECTION                        |
     //====================================================================
@@ -445,7 +468,9 @@ public class UIHandler : MonoBehaviour
         gameCanvas.transform.GetComponent<GraphicRaycaster>().blockingObjects = GraphicRaycaster.BlockingObjects.All;
 
         //Turn off tablet
-        SwitchTabletState(null, null);
+        if (tabletOn == true) {
+            SwitchTabletState(null, null);
+        }
         //Close central UI
 
         if(centralUIOpen == true) {
@@ -546,7 +571,11 @@ public class UIHandler : MonoBehaviour
             
             followUpInfoInstance.SetActive(true);
         }
-        followUpInfoClipboard.SetActive(true);
+        
+        if(followUpInfoList._currentFollowUpInfo.Count > 0) {
+            followUpInfoClipboard.SetActive(true);
+        }
+        
         followUpInfoList._currentFollowUpInfo.Clear();
     }
 

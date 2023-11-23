@@ -43,6 +43,22 @@
             "infoDescription": [
                     "<line-height=90%>SCP-140 was found by Foundation agents investigated the unnatural death of <size=60%><voffset=0.5em>███████ ██████</voffset></size>, a well known civilian historian.\n\nA diary discovered in <size=60%><voffset=0.5em>███████ ██████</voffset></size>'s house suggests the book initially ended with the Daeva being wiped out by the forces of Chinese general Qin Kaiin 2<size=60%><voffset=0.5em>██</voffset></size> BCE, though this is no longer the case."
             ]
+        },
+        {
+        "extraInfoType": "Information",
+            "infoID": 5,
+            "infoTitle": "Lord Blackwood's Vault",
+            "infoDescription": [
+                    "<line-height=90%>Following the discovery of a vault containing the findings of well known paranormal adventurer Lord Theodore Blackwood, several items have been brought into containment to be studied.\n\nDiary entries by Lord Blackwood detail the discovery locations of the objects and analyse their anomalous affects, though Foundation testing still needs to be performed to ascertain specific details."
+            ]
+        },
+        {
+        "extraInfoType": "Information",
+            "infoID": 6,
+            "infoTitle": "The Karcists",
+            "infoDescription": [
+                    "<line-height=90%>Karcists are spiritual leaders for Sarkic organizations, coming in many different sizes and shapes, though typically being immortal.\n\n SCP-2075 claims to be an approximately 800 year old Karcist going by the name Karcist Varis."
+            ]
         }
     ]
 }

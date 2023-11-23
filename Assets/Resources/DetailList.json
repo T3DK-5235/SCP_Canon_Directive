@@ -43,17 +43,41 @@
         {
 	        "detailID": 5,
             "detailCategory":"SCP",
-	        "articleName": "SCP#: 140<space=2em><color=#00000000>.</color>", 
+	        "articleName": "Item#: SCP-140<space=1em><color=#00000000>.</color>", 
             "articleDescription": "Description: A book describing the Daevite history. Any suitable writing fluid added to the book expands the history of the Daeva, rewriting our timeline. <space=5em><color=#00000000>.</color>",
 	        "articleAuthors": "Author: AssertiveRoland", 
             "articleLink": ""
         },
         {
-	        "detailID": 4,
+	        "detailID": 6,
             "detailCategory":"Group",
-	        "articleName": "Group#: The Daeva<space=2em><color=#00000000>.</color>", 
-            "articleDescription": "Description: The Daeva were a civilization known for practicing both Chlorokinesis and human sacrifice, whilst currently in the past SCP-140 keeps them creeping closer to the present.<space=5em><color=#00000000>.</color>",
-	        "articleAuthors": "", 
+	        "articleName": "Group#: The Daeva<space=8em><color=#00000000>.</color>", 
+            "articleDescription": "Description: The Daeva were a civilization known for practicing both Chlorokinesis and human sacrifice. Whilst currently in the past, SCP-140 keeps them creeping closer.<space=5em><color=#00000000>.</color>",
+	        "articleAuthors": "",
+            "articleLink": ""
+        },
+        {
+	        "detailID": 7,
+            "detailCategory":"SCP",
+	        "articleName": "Item#: SCP-093<space=2em><color=#00000000>.</color>", 
+            "articleDescription": "Description: A red disc that when held, then attached to a mirror, opens up a gateway to a colour (determined by the user) tinted extradimensional space.<space=5em><color=#00000000>.</color>",
+	        "articleAuthors": "Author: NekoChris",
+            "articleLink": ""
+        },
+        {
+	        "detailID": 8,
+            "detailCategory":"SCP",
+	        "articleName": "Item#: SCP-2075<space=1em><color=#00000000>.</color>", 
+            "articleDescription": "Description: A former GRU Division \"P\" security guard, SCP-2075 can use an exhaled microbial pathogen to control an individual as if it was their own body.<space=5em><color=#00000000>.</color>",
+	        "articleAuthors": "Author: Metaphysician",
+            "articleLink": ""
+        },
+        {
+	        "detailID": 9,
+            "detailCategory":"Group",
+	        "articleName": "Group#: GRU Division \"P\"<space=8em><color=#00000000>.</color>", 
+            "articleDescription": "Description: GRU Division \"P\" were a containment and research group under the command of the Soviet Union. Whilst no longer in operation, their influence still lingers.<space=5em><color=#00000000>.</color>",
+	        "articleAuthors": "",
             "articleLink": ""
         }
     ]
