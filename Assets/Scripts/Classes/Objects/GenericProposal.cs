@@ -16,16 +16,18 @@ public class GenericProposal
     [SerializeField] private List<ChoiceRequirementList> proposalChoiceRequirements;
     [SerializeField] private List<string> proposalStatRequirements;
 
-    [SerializeField] private List<int> proposalPostUnlocksAccept; 
-    [SerializeField] private List<int> proposalPostUnlocksDeny; 
+    [SerializeField] private List<PostUnlocks> proposalPostUnlocks;
+
+    // [SerializeField] private List<int> proposalPostUnlocksAccept; 
+    // [SerializeField] private List<int> proposalPostUnlocksDeny; 
     
-    [SerializeField] private List<string> proposalStatChangesAccept;
-    [SerializeField] private List<string> proposalStatChangesDeny;
+    // [SerializeField] private List<string> proposalStatChangesAccept;
+    // [SerializeField] private List<string> proposalStatChangesDeny;
 
     [SerializeField] private int extraInfo;
-    [SerializeField] private int followUpInfoAccept;
-    [SerializeField] private int followUpInfoDeny;
-    [SerializeField] private int achievement;
+    // [SerializeField] private int followUpInfoAccept;
+    // [SerializeField] private int followUpInfoDeny;
+    // [SerializeField] private int achievement;
     [SerializeField] private List<int> relatedArticles;
 
     //ProposalPrereqs are proposals that have to be done to contribute to unlocking this proposal
@@ -38,9 +40,8 @@ public class GenericProposal
     // In addition, stats can store if a requirement is fulfilled, like if a d class choice is made eg: "Requirement name (same as enum), num reference to enum value (_DClassMethod, 1, 0);
     public GenericProposal(string proposalTitle, string proposalDescription, int proposalID, int requiredMonth,
                            List<int> proposalPrerequisites, List<ChoiceRequirementList> proposalChoiceRequirements, List<string> proposalStatRequirements,
-                           List<int> proposalPostUnlocksAccept, List<int> proposalPostUnlocksDeny, 
-                           List<string> proposalStatChangesAccept, List<string> proposalStatChangesDeny,
-                           int extraInfo, int followUpInfoAccept, int followUpInfoDeny, int achievement, List<int> relatedArticles) {
+                           List<PostUnlocks> proposalPostUnlock,
+                           int extraInfo, List<int> relatedArticles) {
         this.proposalTitle = proposalTitle;
         this.proposalDescription = proposalDescription;
         this.proposalID = proposalID;

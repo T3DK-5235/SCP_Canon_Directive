@@ -1,0 +1,439 @@
+{
+    "Proposals": [
+        {
+	    "proposalTitle": "welcome to scp: canon directive", 
+        "proposalDescription": "<line-height=90%>If you wish to play the tutorial, accept this proposal by stamping the decision button and signing on the line.\n\nif you instead wish to jump in, deny the proposal.",
+        "proposalID": 0,
+        "requiredMonth": 0,
+        "extraInfo": -1,
+        "proposalPrerequisites": [
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "postUnlocks": [
+            {
+                "proposalIDs": [
+                    1
+                ],
+                "proposalStatChanges": [
+                ],
+                "followUpInfo": -1,
+                "achievement": -1
+            },
+            {
+                "proposalIDs": [
+                    -6
+                ],
+                "proposalStatChanges": [
+                ],
+                "followUpInfo": -1,
+                "achievement": -1
+            }
+        ],
+        "relatedArticles": [            
+        ]
+        },
+        {
+	    "proposalTitle": "Prospective New Recruits",
+        "proposalDescription": "<line-height=90%>Next up is getting some new workers! \n\nAt the start of each year you can employ more researchers and MTF, this allows you to accept more proposals or do larger activities.\n\nClick on the left clipboard clip for more.",
+        "proposalID": 1,
+        "requiredMonth": 0,
+        "proposalPrerequisites": [
+            0
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            2
+        ],
+        "proposalPostUnlocksDeny": [
+            2
+        ],
+        "proposalStatChangesAccept": [
+            "MTF",
+            "10",
+            "0",
+            "Researchers",
+            "10",
+            "0",
+            "DClass",
+            "10",
+            "0"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": 0,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": -1,
+        "relatedArticles": [
+            0           
+        ]
+        },
+        {
+	    "proposalTitle": "The Red Ice",
+        "proposalDescription": "<line-height=90%>A strange red ice has been discovered by civilian researchers in the arctic. Following containment as SCP-009, this anomaly has been transferred to Site 44 for testing.",
+        "proposalID": 2,
+        "requiredMonth": 0,
+        "proposalPrerequisites": [
+            1
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            3
+        ],
+        "proposalPostUnlocksDeny": [
+            3
+        ],
+        "proposalStatChangesAccept": [
+            "Researchers",
+            "-10",
+            "2",
+            "DClass",
+            "-5",
+            "0"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": 1,
+        "followUpInfoAccept": 0,
+        "followUpInfoDeny": -1,
+        "achievement": -1,
+        "relatedArticles": [  
+            1         
+        ]
+        },
+        {
+	    "proposalTitle": "Threat groups behind the Veil",
+        "proposalDescription": "<line-height=90%>Several Sarkic cultists have been spotted attempting to transport a sample of SCP-610 into Mongolia. Neutralization and containment is required immediately.",
+        "proposalID": 3,
+        "requiredMonth": 0,
+        "proposalPrerequisites": [
+            2
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            4
+        ],
+        "proposalPostUnlocksDeny": [
+            4
+        ],
+        "proposalStatChangesAccept": [
+            "MTF",
+            "-20",
+            "1",
+            "Nalka",
+            "-5",
+            "1"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": 2,
+        "followUpInfoAccept": 1,
+        "followUpInfoDeny": 2,
+        "achievement": 1,
+        "relatedArticles": [
+            2,
+            3          
+        ]
+        },
+        {
+	    "proposalTitle": "The Enemy of My Enemy...",
+        "proposalDescription": "<line-height=90%>Correspondence from a high ranking individual in the Church of the Broken God has proposed a research initiative to protect against hostile Sarkic forces and reinforce SCP-2309's defences.",
+        "proposalID": 4,
+        "requiredMonth": 0,
+        "proposalPrerequisites": [
+            3
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            5
+        ],
+        "proposalPostUnlocksDeny": [
+            5
+        ],
+        "proposalStatChangesAccept": [
+            "Researchers",
+            "-20",
+            "2",
+            "DClass",
+            "-5",
+            "3",
+            "Mekanite",
+            "5",
+            "1"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": 3,
+        "followUpInfoAccept": 3,
+        "followUpInfoDeny": -1,
+        "achievement": -1,
+        "relatedArticles": [ 
+            4           
+        ]
+        },
+        {
+	    "proposalTitle": "Branching paths",
+        "proposalDescription": "<line-height=90%>Whilst clicking both Accept or Deny has lead to the same proposal in this tutorial, this won't always be the case.\n\nCertain proposal choices along the way will start particular story threads and may lead towards a specific ending or event.",
+        "proposalID": 5,
+        "requiredMonth": 0,
+        "proposalPrerequisites": [
+            4
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            -6
+        ],
+        "proposalPostUnlocksDeny": [
+            -6
+        ],
+        "proposalStatChangesAccept": [
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": -1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": -1,
+        "relatedArticles": [            
+        ]
+        },
+        {
+	    "proposalTitle": "Check the calendar",
+        "proposalDescription": "<line-height=90%>Every 4-6 proposals (At least, to start) there will be a new month. This is mainly an opportunity to recover some of your spent assets. Also, a report about the consequences of your choices will be prepared for you to mull over!",
+        "proposalID": 6,
+        "requiredMonth": 0,
+        "proposalPrerequisites": [
+        ],
+        "proposalChoiceRequirements": [
+            {
+                "ChoiceProposalIDs": [
+                    0,
+                    5
+                ]
+            }
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            7
+        ],
+        "proposalPostUnlocksDeny": [
+            7
+        ],
+        "proposalStatChangesAccept": [
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": -1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": 0,
+        "relatedArticles": [            
+        ]
+        },
+        {
+        "proposalTitle": "A Chronicle of the Daeva",
+        "proposalDescription": "<line-height=90%>Whilst initially believed to be a basic anomalous items that changes when introduced to fluids, recent archeological findings linked to an unknown civilization suggest that SCP-140 may be able to rewrite history.",
+        "proposalID": 7,
+        "requiredMonth": 0,
+        "proposalPrerequisites": [
+            6
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            8
+        ],
+        "proposalPostUnlocksDeny": [
+            8
+        ],
+        "proposalStatChangesAccept": [
+            "Researchers",
+            "-5",
+            "1",
+            "DClass",
+            "-10",
+            "1",
+            "DClass",
+            "-5",
+            "0"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": -1,
+        "followUpInfoAccept": 4,
+        "followUpInfoDeny": 4,
+        "achievement": -1,
+        "relatedArticles": [
+            5,
+            6        
+        ]
+        },
+        {
+        "proposalTitle": "D-Class Situation",
+        "proposalDescription": "<line-height=90%>The Department of Human Resources has submitted a document showing that due to the increase in anomalous events there aren't enough death row inmates to fufill the quota of D-Class needed.\n\nDue to this they request permission to take D-Class from a wider selection of the prison population.",
+        "proposalID": 8,
+        "requiredMonth": 1,
+        "proposalPrerequisites": [
+            7
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            9
+        ],
+        "proposalPostUnlocksDeny": [
+            9
+        ],
+        "proposalStatChangesAccept": [
+            "Morale",
+            "-20",
+            "0",
+            "DClass",
+            "25",
+            "0",
+            "DClassMethod",
+            "1",
+            "0"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": -1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": -1,
+        "relatedArticles": [    
+        ]
+        },
+        {
+        "proposalTitle": "The Small Red Disc",
+        "proposalDescription": "<line-height=90%>Testing currently shows that this object will change colours depending on the user holding it. Additionally upon being placed on a mirror, a dimension corresponding to this colour will appear, with the mirror acting as a door.\n\nPermission for D-Class exploration is requested. ",
+        "proposalID": 9,
+        "requiredMonth": 1,
+        "proposalPrerequisites": [
+            8
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            10
+        ],
+        "proposalPostUnlocksDeny": [
+            10
+        ],
+        "proposalStatChangesAccept": [
+            "DClass",
+            "-5",
+            "0",
+            "DClass",
+            "-10",
+            "2"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": 5,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": -1,
+        "relatedArticles": [ 
+            7  
+        ]
+        },
+        {
+        "proposalTitle": "High CRV DClass required",
+        "proposalDescription": "<line-height=90%>Partial testing of SCP-2075 has revealed it's ability to control infected subjects. However, it is yet unknown how significally, if at all, a high CRV would impact the level of control.",
+        "proposalID": 10,
+        "requiredMonth": 1,
+        "proposalPrerequisites": [
+            9
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            11
+        ],
+        "proposalPostUnlocksDeny": [
+            11
+        ],
+        "proposalStatChangesAccept": [
+            "Researchers",
+            "-5",
+            "2",
+            "DClass",
+            "-10",
+            "0"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": 6,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": 1,
+        "relatedArticles": [ 
+            8,
+            9
+        ]
+        },
+        {
+        "proposalTitle": "That's all for now folks",
+        "proposalDescription": "<line-height=90%>This is the end of the Demo for now. Much of my time has been spent on implementing the features so there isn't a huge amount of content.\n\nHopefully this gives a good idea of the general flow of the game and please stay tuned!",
+        "proposalID": 11,
+        "requiredMonth": 1,
+        "proposalPrerequisites": [
+            10
+        ],
+        "proposalChoiceRequirements": [
+        ],
+        "proposalStatRequirements": [
+        ],
+        "proposalPostUnlocksAccept": [
+            11
+        ],
+        "proposalPostUnlocksDeny": [
+            11
+        ],
+        "proposalStatChangesAccept": [
+            "Researchers",
+            "-5",
+            "2",
+            "DClass",
+            "-10",
+            "0"
+        ],
+        "proposalStatChangesDeny": [
+        ],
+	    "extraInfo": -1,
+        "followUpInfoAccept": -1,
+        "followUpInfoDeny": -1,
+        "achievement": -1,
+        "relatedArticles": [ 
+        ]
+        }
+    ]
+}
