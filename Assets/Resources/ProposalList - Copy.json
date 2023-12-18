@@ -6,11 +6,15 @@
         "proposalID": 0,
         "requiredMonth": 0,
         "extraInfo": -1,
-        "proposalPrerequisites": [
-        ],
-        "proposalChoiceRequirements": [
-        ],
-        "proposalStatRequirements": [
+        "prerequisites": [
+            {
+                "proposalSingularRequirements": [
+                ],
+                "proposalChoiceRequirements": [
+                ],
+                "statRequirements": [
+                ]
+            }
         ],
         "postUnlocks": [
             {

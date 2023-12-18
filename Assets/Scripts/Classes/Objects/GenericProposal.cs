@@ -12,9 +12,10 @@ public class GenericProposal
     [SerializeField] private int requiredMonth;
     [SerializeField] private string proposalTitle;
                            
-    [SerializeField] private List<int> proposalPrerequisites;
-    [SerializeField] private List<ChoiceRequirementList> proposalChoiceRequirements;
-    [SerializeField] private List<string> proposalStatRequirements;
+    [SerializeField] private List<Prerequisites> proposalPrerequisites;
+    // [SerializeField] private List<int> proposalPrerequisites;
+    // [SerializeField] private List<ChoiceRequirementList> proposalChoiceRequirements;
+    // [SerializeField] private List<string> proposalStatRequirements;
 
     [SerializeField] private List<PostUnlocks> proposalPostUnlocks;
 
@@ -39,8 +40,7 @@ public class GenericProposal
     // Stats changed by proposal (eg MTF, 60, 0 for increase MTF by 60 permanently. OR BrokeMasq 60 0 which increases the progression for a canon by 60)
     // In addition, stats can store if a requirement is fulfilled, like if a d class choice is made eg: "Requirement name (same as enum), num reference to enum value (_DClassMethod, 1, 0);
     public GenericProposal(string proposalTitle, string proposalDescription, int proposalID, int requiredMonth,
-                           List<int> proposalPrerequisites, List<ChoiceRequirementList> proposalChoiceRequirements, List<string> proposalStatRequirements,
-                           List<PostUnlocks> proposalPostUnlock,
+                           List<Prerequisites> proposalPrerequisites, List<PostUnlocks> proposalPostUnlocks,
                            int extraInfo, List<int> relatedArticles) {
         this.proposalTitle = proposalTitle;
         this.proposalDescription = proposalDescription;
@@ -48,19 +48,23 @@ public class GenericProposal
         this.requiredMonth = requiredMonth;
 
         this.proposalPrerequisites = proposalPrerequisites;
-        this.proposalChoiceRequirements = proposalChoiceRequirements;
-        this.proposalStatRequirements = proposalStatRequirements;
 
-        this.proposalPostUnlocksAccept = proposalPostUnlocksAccept;
-        this.proposalPostUnlocksDeny = proposalPostUnlocksDeny;
+        // this.proposalPrerequisites = proposalPrerequisites;
+        // this.proposalChoiceRequirements = proposalChoiceRequirements;
+        // this.proposalStatRequirements = proposalStatRequirements;
 
-        this.proposalStatChangesAccept = proposalStatChangesAccept;
-        this.proposalStatChangesDeny = proposalStatChangesDeny;
+        this.proposalPostUnlocks = proposalPostUnlocks;
+
+        // this.proposalPostUnlocksAccept = proposalPostUnlocksAccept;
+        // this.proposalPostUnlocksDeny = proposalPostUnlocksDeny;
+
+        // this.proposalStatChangesAccept = proposalStatChangesAccept;
+        // this.proposalStatChangesDeny = proposalStatChangesDeny;
 
         this.extraInfo = extraInfo;
-        this.followUpInfoAccept = followUpInfoAccept;
-        this.followUpInfoDeny = followUpInfoDeny;
-        this.achievement = achievement;
+        // this.followUpInfoAccept = followUpInfoAccept;
+        // this.followUpInfoDeny = followUpInfoDeny;
+        // this.achievement = achievement;
         this.relatedArticles = relatedArticles;
     }
 
