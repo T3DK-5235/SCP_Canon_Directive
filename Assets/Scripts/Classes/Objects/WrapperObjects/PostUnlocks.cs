@@ -8,11 +8,11 @@ using UnityEngine;
 public class PostUnlocks
 {
     public List<int> proposalIDs;
-    public List<int> proposalStatChanges;
+    public List<string> proposalStatChanges;
     public int followUpInfo;
     public int achievement;
 
-    public PostUnlocks(List<int> proposalIDs, List<int> proposalStatChanges, int followUpInfo, int achievement) {
+    public PostUnlocks(List<int> proposalIDs, List<string> proposalStatChanges, int followUpInfo, int achievement) {
         this.proposalIDs = proposalIDs;
         this.proposalStatChanges = proposalStatChanges;
         this.followUpInfo = followUpInfo;
@@ -24,7 +24,7 @@ public class PostUnlocks
         return this.proposalIDs;
     }
 
-    public List<int> getProposalStatChanges()
+    public List<string> getProposalStatChanges()
     {
         return this.proposalStatChanges;
     }

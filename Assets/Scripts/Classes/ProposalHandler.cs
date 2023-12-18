@@ -242,15 +242,18 @@ public class ProposalHandler : MonoBehaviour
     public void ProposalDecision(Component sender, object data) {
         List<int> proposalPostUnlocks = null;
         int proposalFollowUpUnlocks = -1;
+        int proposalAchievement = -1;
 
         //Changes what is unlocked and changed based on player decision
         if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.ACCEPT) {
             //TODO figure out if its worth caching this bit as its also used above
             proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksAccept();
             proposalFollowUpUnlocks = hiddenGameVariables._currentProposal.getFollowUpInfoAccept();
+            proposalAchievement = hiddenGameVariables._currentProposal.getAchievementAccept();
         } else if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.DENY) {
             proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksDeny();
             proposalFollowUpUnlocks = hiddenGameVariables._currentProposal.getFollowUpInfoDeny();
+            proposalAchievement = hiddenGameVariables._currentProposal.getAchievementDeny();
         }
         
         UpdateNewStats();
@@ -258,7 +261,7 @@ public class ProposalHandler : MonoBehaviour
         CheckInactiveProposals(proposalPostUnlocks);
 
         //TODO maybe pass hiddenGameVariables._currentProposal in, to avoid extra calls?
-        CheckAchievements();
+        CheckAchievements(proposalAchievement);
 
         CheckDetails();
 
@@ -317,7 +320,7 @@ public class ProposalHandler : MonoBehaviour
                 //[2] Find the Proposal Object at the location of the uuid in the proposal list from the scriptable object
                 //[3] Update the prereq of the proposal by removing the ID of the current proposal from the prereq list
                 //[         2          ][          1           ][                                    3                                    ]
-                proposalsList._proposals[proposalPostUnlocks[i]].UpdatePrerequisites(hiddenGameVariables._currentProposal.getProposalID());
+                proposalsList._proposals[proposalPostUnlocks[i]].UpdateSingularRequirements(hiddenGameVariables._currentProposal.getProposalID());
             } else {
                 //Math.Abs makes i positive as the negative section is no longer needed
                 proposalsList._proposals[Math.Abs(proposalPostUnlocks[i])].UpdateChoiceRequirements(hiddenGameVariables._currentProposal.getProposalID());
@@ -340,14 +343,13 @@ public class ProposalHandler : MonoBehaviour
         }
     } 
 
-    private void CheckAchievements() {
+    private void CheckAchievements(int proposalAchievement) {
         //TODO remove all the hiddenGameVariables._currentProposal calls and pass it in to avoid unneeded calls
-        int relatedAchievement = hiddenGameVariables._currentProposal.getAchievement();
         //If there is actually an achievement
-        if (relatedAchievement != -1) {
+        if (proposalAchievement != -1) {
             //Set the related achievement to being true
-            achievementsList._achievements[relatedAchievement].setAchievementCompletion(true);
-            onAchievementCompleted.Raise(relatedAchievement);
+            achievementsList._achievements[proposalAchievement].setAchievementCompletion(true);
+            onAchievementCompleted.Raise(proposalAchievement);
         }
     }
 

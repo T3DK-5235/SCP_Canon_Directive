@@ -11,24 +11,25 @@ public class GenericProposal
     [SerializeField] private int proposalID;
     [SerializeField] private int requiredMonth;
     [SerializeField] private string proposalTitle;
-                           
-    [SerializeField] private List<Prerequisites> proposalPrerequisites;
-    // [SerializeField] private List<int> proposalPrerequisites;
-    // [SerializeField] private List<ChoiceRequirementList> proposalChoiceRequirements;
-    // [SerializeField] private List<string> proposalStatRequirements;
-
-    [SerializeField] private List<PostUnlocks> proposalPostUnlocks;
-
-    // [SerializeField] private List<int> proposalPostUnlocksAccept; 
-    // [SerializeField] private List<int> proposalPostUnlocksDeny; 
-    
-    // [SerializeField] private List<string> proposalStatChangesAccept;
-    // [SerializeField] private List<string> proposalStatChangesDeny;
-
     [SerializeField] private int extraInfo;
-    // [SerializeField] private int followUpInfoAccept;
-    // [SerializeField] private int followUpInfoDeny;
-    // [SerializeField] private int achievement;
+                           
+    //proposalPrerequisites
+    [SerializeField] private List<int> proposalSingularRequirements;
+    [SerializeField] private List<ChoiceRequirementList> proposalChoiceRequirements;
+    [SerializeField] private List<string> statRequirements;
+
+    //proposalPostUnlocks
+    [SerializeField] private List<int> proposalPostUnlocksAccept; 
+    [SerializeField] private List<int> proposalPostUnlocksDeny; 
+    [SerializeField] private List<string> proposalStatChangesAccept;
+    [SerializeField] private List<string> proposalStatChangesDeny;
+
+    [SerializeField] private int followUpInfoAccept;
+    [SerializeField] private int followUpInfoDeny;
+
+    [SerializeField] private int achievementAccept;
+    [SerializeField] private int achievementDeny;
+
     [SerializeField] private List<int> relatedArticles;
 
     //ProposalPrereqs are proposals that have to be done to contribute to unlocking this proposal
@@ -39,32 +40,32 @@ public class GenericProposal
     // Unlocks after processing proposal and clicking accept | Unlocks after processing proposal and clicking Deny
     // Stats changed by proposal (eg MTF, 60, 0 for increase MTF by 60 permanently. OR BrokeMasq 60 0 which increases the progression for a canon by 60)
     // In addition, stats can store if a requirement is fulfilled, like if a d class choice is made eg: "Requirement name (same as enum), num reference to enum value (_DClassMethod, 1, 0);
-    public GenericProposal(string proposalTitle, string proposalDescription, int proposalID, int requiredMonth,
+    public GenericProposal(string proposalTitle, string proposalDescription, int proposalID, int requiredMonth, int extraInfo, 
                            List<Prerequisites> proposalPrerequisites, List<PostUnlocks> proposalPostUnlocks,
-                           int extraInfo, List<int> relatedArticles) {
+                           List<int> relatedArticles) {
         this.proposalTitle = proposalTitle;
         this.proposalDescription = proposalDescription;
         this.proposalID = proposalID;
         this.requiredMonth = requiredMonth;
 
-        this.proposalPrerequisites = proposalPrerequisites;
-
-        // this.proposalPrerequisites = proposalPrerequisites;
-        // this.proposalChoiceRequirements = proposalChoiceRequirements;
-        // this.proposalStatRequirements = proposalStatRequirements;
-
-        this.proposalPostUnlocks = proposalPostUnlocks;
-
-        // this.proposalPostUnlocksAccept = proposalPostUnlocksAccept;
-        // this.proposalPostUnlocksDeny = proposalPostUnlocksDeny;
-
-        // this.proposalStatChangesAccept = proposalStatChangesAccept;
-        // this.proposalStatChangesDeny = proposalStatChangesDeny;
-
         this.extraInfo = extraInfo;
-        // this.followUpInfoAccept = followUpInfoAccept;
-        // this.followUpInfoDeny = followUpInfoDeny;
-        // this.achievement = achievement;
+
+        this.proposalSingularRequirements = proposalPrerequisites[0].getProposalSingularRequirements();
+        this.proposalChoiceRequirements = proposalPrerequisites[0].getProposalChoiceRequirements();
+        this.statRequirements = proposalPrerequisites[0].getStatRequirements();
+
+        this.proposalPostUnlocksAccept = proposalPostUnlocks[0].getProposalIDs();
+        this.proposalPostUnlocksDeny = proposalPostUnlocks[1].getProposalIDs();
+
+        this.proposalStatChangesAccept = proposalPostUnlocks[0].getProposalStatChanges();
+        this.proposalStatChangesDeny = proposalPostUnlocks[1].getProposalStatChanges();
+
+        this.followUpInfoAccept = proposalPostUnlocks[0].getFollowUpInfo();
+        this.followUpInfoDeny = proposalPostUnlocks[1].getFollowUpInfo();
+
+        this.achievementAccept = proposalPostUnlocks[0].getAchievement();
+        this.achievementDeny = proposalPostUnlocks[1].getAchievement();
+
         this.relatedArticles = relatedArticles;
     }
 
@@ -73,14 +74,14 @@ public class GenericProposal
     // ==============================================================================================================
 
     //Pass in the previous proposal uuid that was a prerequisite
-    public void UpdatePrerequisites(int prerequisiteFilled) {
+    public void UpdateSingularRequirements(int prerequisiteFilled) {
         //Loop through all prerequisites and when the filled prereq is found, remove it from the list
         //The prereq will be found, as the previous proposal will have stored this proposal as a PostUnlock thus we know when to check
-        for (int i = 0; i < proposalPrerequisites.Count; i++) {
-            if (proposalPrerequisites[i] == prerequisiteFilled) {
+        for (int i = 0; i < proposalSingularRequirements.Count; i++) {
+            if (proposalSingularRequirements[i] == prerequisiteFilled) {
                 //When prereq found, remove it from the List
                 //This means when the list length is 0, it can be moved to the activeProposalEventBus
-                proposalPrerequisites.RemoveAt(i);
+                proposalSingularRequirements.RemoveAt(i);
             }
         }
     }
@@ -107,21 +108,21 @@ public class GenericProposal
     public bool CheckStatRequirements(HiddenGameVariables hiddenGameVariables) {
         //Stat requirements are stored as i and i + 1 in a list. i = the stat itself and i + 1 is the value.
         //A negative on the value means the actual stat must be less than the presented number
-        int proposalStatRequirementsFufilled = 0;
-        for(int i = 0; i < proposalStatRequirements.Count; i += 2) {
-            if (proposalStatRequirements[i] == "DClassMethod") {
+        int statRequirementsFufilled = 0;
+        for(int i = 0; i < statRequirements.Count; i += 2) {
+            if (statRequirements[i] == "DClassMethod") {
                 //Changes the string into the appropriate Enum for comparison to current Enum
                 DClassMethodEnum requiredDClassMethod;
-                Enum.TryParse(proposalStatRequirements[i+1], true, out requiredDClassMethod);
+                Enum.TryParse(statRequirements[i+1], true, out requiredDClassMethod);
                 if (requiredDClassMethod == hiddenGameVariables._chosenDClassMethod) {
-                    proposalStatRequirementsFufilled++;
+                    statRequirementsFufilled++;
                 }
                 continue;
-            } else if (proposalStatRequirements[i] == "Morale") {
-                int requiredProposalStat = Int32.Parse(proposalStatRequirements[i + 1]);
+            } else if (statRequirements[i] == "Morale") {
+                int requiredProposalStat = Int32.Parse(statRequirements[i + 1]);
                 if(requiredProposalStat > 0 &&
                    hiddenGameVariables._currentMorale > requiredProposalStat) {
-                   proposalStatRequirementsFufilled++;
+                   statRequirementsFufilled++;
                 } else if (requiredProposalStat <= 0 &&
                    hiddenGameVariables._currentMorale <= requiredProposalStat) {
                 }
@@ -129,7 +130,7 @@ public class GenericProposal
             }
         }
 
-        if (proposalStatRequirementsFufilled == proposalStatRequirements.Count) {
+        if (statRequirementsFufilled == statRequirements.Count) {
             return true;
         } else {
             return false;
@@ -139,7 +140,7 @@ public class GenericProposal
     public bool IsProposalAvailable(int currentMonth, HiddenGameVariables hiddenGameVariables) {
         //If there are no unfulfilled prereqs, reqs, and the current month is correct then the proposal is available
         // Debug.Log("Proposal to Check: " + proposalID + " ---- Prereqs: " + proposalPrerequisites.Count + " ---- Reqs: " + proposalChoiceRequirements.Count);
-        if (proposalPrerequisites.Count == 0 && proposalChoiceRequirements.Count == 0 && CheckStatRequirements(hiddenGameVariables) && currentMonth >= requiredMonth) {
+        if (proposalSingularRequirements.Count == 0 && proposalChoiceRequirements.Count == 0 && CheckStatRequirements(hiddenGameVariables) && currentMonth >= requiredMonth) {
             return true;
         } else {
             return false;
@@ -189,8 +190,12 @@ public class GenericProposal
         return followUpInfoDeny;
     }
 
-    public int getAchievement() {
-        return achievement;
+    public int getAchievementAccept() {
+        return achievementAccept;
+    }
+
+    public int getAchievementDeny() {
+        return achievementDeny;
     }
 
     public List<int> getRelatedArticles() {

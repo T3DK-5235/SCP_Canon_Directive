@@ -8,10 +8,10 @@ using UnityEngine;
 public class Prerequisites
 {
     public List<int> proposalSingularRequirements;
-    public List<int> proposalChoiceRequirements;
-    public List<int> statRequirements;
+    public List<ChoiceRequirementList> proposalChoiceRequirements;
+    public List<string> statRequirements;
 
-    public ChoiceRequirementList(List<int> proposalSingularRequirements, List<int> proposalChoiceRequirements, List<int> statRequirements) {
+    public Prerequisites(List<int> proposalSingularRequirements, List<ChoiceRequirementList> proposalChoiceRequirements, List<string> statRequirements) {
         this.proposalSingularRequirements = proposalSingularRequirements;
         this.proposalChoiceRequirements = proposalChoiceRequirements;
         this.statRequirements = statRequirements;
@@ -22,12 +22,12 @@ public class Prerequisites
         return this.proposalSingularRequirements;
     }
 
-    public List<int> getProposalChoiceRequirements()
+    public List<ChoiceRequirementList> getProposalChoiceRequirements()
     {
         return this.proposalChoiceRequirements;
     }
 
-    public List<int> getStatRequirements()
+    public List<string> getStatRequirements()
     {
         return this.statRequirements;
     }
