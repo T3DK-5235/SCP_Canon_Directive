@@ -7,29 +7,13 @@ using UnityEngine;
 [Serializable]
 public class GenericProposal
 {   
-    [SerializeField] private string proposalDescription; 
+    [SerializeField] private string proposalTitle;
+    [SerializeField] private string proposalDescription;
     [SerializeField] private int proposalID;
     [SerializeField] private int requiredMonth;
-    [SerializeField] private string proposalTitle;
     [SerializeField] private int extraInfo;
-                           
-    //proposalPrerequisites
-    [SerializeField] private List<int> proposalSingularRequirements;
-    [SerializeField] private List<ChoiceRequirementList> proposalChoiceRequirements;
-    [SerializeField] private List<string> statRequirements;
-
-    //proposalPostUnlocks
-    [SerializeField] private List<int> proposalPostUnlocksAccept; 
-    [SerializeField] private List<int> proposalPostUnlocksDeny; 
-    [SerializeField] private List<string> proposalStatChangesAccept;
-    [SerializeField] private List<string> proposalStatChangesDeny;
-
-    [SerializeField] private int followUpInfoAccept;
-    [SerializeField] private int followUpInfoDeny;
-
-    [SerializeField] private int achievementAccept;
-    [SerializeField] private int achievementDeny;
-
+    [SerializeField] private List<Prerequisites> proposalPrerequisites;
+    [SerializeField] private List<PostUnlocks> proposalPostUnlocks;
     [SerializeField] private List<int> relatedArticles;
 
     //ProposalPrereqs are proposals that have to be done to contribute to unlocking this proposal
@@ -50,21 +34,8 @@ public class GenericProposal
 
         this.extraInfo = extraInfo;
 
-        this.proposalSingularRequirements = proposalPrerequisites[0].getProposalSingularRequirements();
-        this.proposalChoiceRequirements = proposalPrerequisites[0].getProposalChoiceRequirements();
-        this.statRequirements = proposalPrerequisites[0].getStatRequirements();
-
-        this.proposalPostUnlocksAccept = proposalPostUnlocks[0].getProposalIDs();
-        this.proposalPostUnlocksDeny = proposalPostUnlocks[1].getProposalIDs();
-
-        this.proposalStatChangesAccept = proposalPostUnlocks[0].getProposalStatChanges();
-        this.proposalStatChangesDeny = proposalPostUnlocks[1].getProposalStatChanges();
-
-        this.followUpInfoAccept = proposalPostUnlocks[0].getFollowUpInfo();
-        this.followUpInfoDeny = proposalPostUnlocks[1].getFollowUpInfo();
-
-        this.achievementAccept = proposalPostUnlocks[0].getAchievement();
-        this.achievementDeny = proposalPostUnlocks[1].getAchievement();
+        this.proposalPrerequisites = proposalPrerequisites;
+        this.proposalPostUnlocks = proposalPostUnlocks;
 
         this.relatedArticles = relatedArticles;
     }
@@ -75,6 +46,7 @@ public class GenericProposal
 
     //Pass in the previous proposal uuid that was a prerequisite
     public void UpdateSingularRequirements(int prerequisiteFilled) {
+        List<int> proposalSingularRequirements = proposalPrerequisites[0].getProposalSingularRequirements();
         //Loop through all prerequisites and when the filled prereq is found, remove it from the list
         //The prereq will be found, as the previous proposal will have stored this proposal as a PostUnlock thus we know when to check
         for (int i = 0; i < proposalSingularRequirements.Count; i++) {
@@ -89,6 +61,7 @@ public class GenericProposal
     //Checks which choice requirements the current proposal needs to have fulfilled. Eg: if a choice of dclass is made
     //Each Requirement is stored as a list of proposalIDs
     public void UpdateChoiceRequirements(int choiceRequirementFilled) {
+        List<ChoiceRequirementList> proposalChoiceRequirements = proposalPrerequisites[0].getProposalChoiceRequirements();
         //Loops through all requirement lists (groups of proposalIDs where ONE must be completed)
         for (int i = 0; i < proposalChoiceRequirements.Count; i++) {
             //For each requirement list loop through it
@@ -106,6 +79,7 @@ public class GenericProposal
 
     //Need to check when adding to active bus AND when about to be played
     public bool CheckStatRequirements(HiddenGameVariables hiddenGameVariables) {
+        List<string> statRequirements = proposalPrerequisites[0].getStatRequirements();
         //Stat requirements are stored as i and i + 1 in a list. i = the stat itself and i + 1 is the value.
         //A negative on the value means the actual stat must be less than the presented number
         int statRequirementsFufilled = 0;
@@ -140,7 +114,10 @@ public class GenericProposal
     public bool IsProposalAvailable(int currentMonth, HiddenGameVariables hiddenGameVariables) {
         //If there are no unfulfilled prereqs, reqs, and the current month is correct then the proposal is available
         // Debug.Log("Proposal to Check: " + proposalID + " ---- Prereqs: " + proposalPrerequisites.Count + " ---- Reqs: " + proposalChoiceRequirements.Count);
-        if (proposalSingularRequirements.Count == 0 && proposalChoiceRequirements.Count == 0 && CheckStatRequirements(hiddenGameVariables) && currentMonth >= requiredMonth) {
+        if (proposalPrerequisites[0].getProposalSingularRequirements().Count == 0 && 
+            proposalPrerequisites[0].getProposalChoiceRequirements().Count == 0 && 
+            CheckStatRequirements(hiddenGameVariables) &&
+            currentMonth >= requiredMonth) {
             return true;
         } else {
             return false;
@@ -151,20 +128,8 @@ public class GenericProposal
     // |                                  Code to get the affects of the proposal                                   |
     // ==============================================================================================================
 
-    public List<int> getPostUnlocksAccept() {
-        return proposalPostUnlocksAccept;
-    } 
-
-    public List<int> getPostUnlocksDeny() {
-        return proposalPostUnlocksDeny;
-    } 
-
-    public List<string> getStatChangesAccept() {
-        return proposalStatChangesAccept;
-    }
-
-    public List<string> getStatChangesDeny() {
-        return proposalStatChangesDeny;
+    public List<PostUnlocks> getPostUnlocks() {
+        return proposalPostUnlocks;
     }
 
     public string getProposalTitle() {
@@ -181,21 +146,6 @@ public class GenericProposal
 
     public int getExtraInfo() {
         return extraInfo;
-    }
-
-    public int getFollowUpInfoAccept() {
-        return followUpInfoAccept;
-    }
-    public int getFollowUpInfoDeny() {
-        return followUpInfoDeny;
-    }
-
-    public int getAchievementAccept() {
-        return achievementAccept;
-    }
-
-    public int getAchievementDeny() {
-        return achievementDeny;
     }
 
     public List<int> getRelatedArticles() {

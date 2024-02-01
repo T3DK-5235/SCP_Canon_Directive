@@ -15,8 +15,8 @@ public class GameFlowEventBus : MonoBehaviour
     }
 
     public void Enqueue(GameStateEnum[] gameEvents) {
-        for(int i = 0; i < gameEvents.Count; i++) {
-            gameStateQueue.AddLast(gameEvent);
+        for(int i = 0; i < gameEvents.Length; i++) {
+            gameStateQueue.AddLast(gameEvents[i]);
         }
     }
 
@@ -24,7 +24,7 @@ public class GameFlowEventBus : MonoBehaviour
         gameStateQueue.RemoveFirst();
     }
 
-     public void Interrupt(GameStateEnum gameEvent) {
+    public void Interrupt(GameStateEnum gameEvent) {
         gameStateQueue.AddFirst(gameEvent);
     }
 }

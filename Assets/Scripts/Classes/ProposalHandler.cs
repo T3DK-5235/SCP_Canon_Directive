@@ -140,10 +140,14 @@ public class ProposalHandler : MonoBehaviour
 
         hiddenGameVariables._myStatCopy = statCopy;
 
+        List<PostUnlocks> currentPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocks();
+
         if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.ACCEPT) {
-            proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesAccept();
+            PostUnlocks postUnlocksAccept = currentPostUnlocks[0];
+            proposalStatChanges = postUnlocksAccept.getProposalStatChanges();
         } else if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.DENY) {
-            proposalStatChanges = hiddenGameVariables._currentProposal.getStatChangesDeny();
+            PostUnlocks postUnlocksAccept = currentPostUnlocks[1];
+            proposalStatChanges = postUnlocksAccept.getProposalStatChanges();
         }
 
         // Generic Stat changes are stored in blocks of 3 in the order "stat, amount, duration"
@@ -244,16 +248,20 @@ public class ProposalHandler : MonoBehaviour
         int proposalFollowUpUnlocks = -1;
         int proposalAchievement = -1;
 
+        List<PostUnlocks> currentPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocks();
+
         //Changes what is unlocked and changed based on player decision
         if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.ACCEPT) {
             //TODO figure out if its worth caching this bit as its also used above
-            proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksAccept();
-            proposalFollowUpUnlocks = hiddenGameVariables._currentProposal.getFollowUpInfoAccept();
-            proposalAchievement = hiddenGameVariables._currentProposal.getAchievementAccept();
+            PostUnlocks postUnlocksAccept = currentPostUnlocks[0];
+            proposalPostUnlocks = postUnlocksAccept.getProposalIDs();
+            proposalFollowUpUnlocks = postUnlocksAccept.getFollowUpInfo();
+            proposalAchievement = postUnlocksAccept.getAchievement();
         } else if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.DENY) {
-            proposalPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocksDeny();
-            proposalFollowUpUnlocks = hiddenGameVariables._currentProposal.getFollowUpInfoDeny();
-            proposalAchievement = hiddenGameVariables._currentProposal.getAchievementDeny();
+            PostUnlocks postUnlocksDeny = currentPostUnlocks[1];
+            proposalPostUnlocks = postUnlocksDeny.getProposalIDs();
+            proposalFollowUpUnlocks = postUnlocksDeny.getFollowUpInfo();
+            proposalAchievement = postUnlocksDeny.getAchievement();
         }
         
         UpdateNewStats();
