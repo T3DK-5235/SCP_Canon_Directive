@@ -258,17 +258,16 @@ public class ProposalHandler : MonoBehaviour
         
         UpdateNewStats();
 
+        //TODO maybe pass hiddenGameVariables._currentProposal in, to avoid extra calls?
+
         CheckInactiveProposals(proposalPostUnlocks);
 
-        //TODO maybe pass hiddenGameVariables._currentProposal in, to avoid extra calls?
         CheckAchievements(proposalAchievement);
-
-        CheckDetails();
 
         CheckFollowUp(proposalFollowUpUnlocks);
 
-        //TODO CheckRelatedArticles
-        //TODO CheckFollowUpInfo (If there is follow up info add it to a (2D with months delay?) list that will be checked at the start of next month)
+        CheckDetails();
+
         CheckStandbyProposals();
     }
 
