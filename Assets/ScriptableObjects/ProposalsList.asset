@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ProposalsList
   m_EditorClassIdentifier: 
   _proposals:
-  - proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
+  - proposalTitle: 'welcome to scp: canon directive'
+    proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
       this proposal by stamping the decision button and signing on the line.
 
 
@@ -21,117 +22,138 @@ MonoBehaviour:
       you instead wish to jump in, deny the proposal.'
     proposalID: 0
     requiredMonth: 0
-    proposalTitle: welcome to scp administration
-    proposalPrerequisites: 
-    proposalChoiceRequirements: []
-    proposalPostUnlocksAccept: 01000000
-    proposalPostUnlocksDeny: f9ffffff
-    proposalStatChangesAccept: []
-    proposalStatChangesDeny: []
     extraInfo: -1
-    followUpInfoAccept: -1
-    followUpInfoDeny: -1
-    achievement: -1
+    proposalPrerequisites:
+    - proposalSingularRequirements: 
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 01000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
+    - proposalIDs: faffffff
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
     relatedArticles: 
-  - proposalDescription: "<line-height=90%>Next up is getting some new workers! \n\nAt
+  - proposalTitle: Prospective New Recruits
+    proposalDescription: "<line-height=90%>Next up is getting some new workers! \n\nAt
       the start of each year you can employ more researchers and MTF, this allows
       you to accept more proposals or do larger activities.\n\nClick on the left
       clipboard clip for more."
     proposalID: 1
     requiredMonth: 0
-    proposalTitle: Prospective New Recruits
-    proposalPrerequisites: 
-    proposalChoiceRequirements: []
-    proposalPostUnlocksAccept: 02000000
-    proposalPostUnlocksDeny: 02000000
-    proposalStatChangesAccept:
-    - MTF
-    - 10
-    - 0
-    - Researchers
-    - 10
-    - 0
-    - DClass
-    - 10
-    - 0
-    proposalStatChangesDeny: []
     extraInfo: 0
-    followUpInfoAccept: -1
-    followUpInfoDeny: -1
-    achievement: -1
+    proposalPrerequisites:
+    - proposalSingularRequirements: 00000000
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 02000000
+      proposalStatChanges:
+      - MTF
+      - 10
+      - 0
+      - Researchers
+      - 10
+      - 0
+      - DClass
+      - 10
+      - 0
+      followUpInfo: -1
+      achievement: -1
+    - proposalIDs: 02000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
     relatedArticles: 00000000
-  - proposalDescription: '<line-height=90%>A strange red ice has been discovered
-      by civilian researchers in the arctic. Following containment as SCP-009, this
+  - proposalTitle: The Red Ice
+    proposalDescription: <line-height=90%>A strange red ice has been discovered by
+      civilian researchers in the arctic. Following containment as SCP-009, this
       anomaly has been transferred to Site 44 for testing.
-
-
-      Requires: Researchers
-      for two months'
     proposalID: 2
     requiredMonth: 0
-    proposalTitle: The Red Ice
-    proposalPrerequisites: 
-    proposalChoiceRequirements: []
-    proposalPostUnlocksAccept: 03000000
-    proposalPostUnlocksDeny: 03000000
-    proposalStatChangesAccept:
-    - Researchers
-    - -10
-    - 2
-    proposalStatChangesDeny: []
     extraInfo: 1
-    followUpInfoAccept: 0
-    followUpInfoDeny: -1
-    achievement: -1
+    proposalPrerequisites:
+    - proposalSingularRequirements: 01000000
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 03000000
+      proposalStatChanges:
+      - Researchers
+      - -10
+      - 2
+      - DClass
+      - -5
+      - 0
+      followUpInfo: 0
+      achievement: -1
+    - proposalIDs: 03000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
     relatedArticles: 01000000
-  - proposalDescription: '<line-height=90%>Several Sarkic cultists have been spotted
+  - proposalTitle: Threat groups behind the Veil
+    proposalDescription: <line-height=90%>Several Sarkic cultists have been spotted
       attempting to transport a sample of SCP-610 into Mongolia. Neutralization and
       containment is required immediately.
-
-
-      Requires: MTF for one month'
     proposalID: 3
     requiredMonth: 0
-    proposalTitle: Threat groups behind the Veil
-    proposalPrerequisites: 
-    proposalChoiceRequirements: []
-    proposalPostUnlocksAccept: 04000000
-    proposalPostUnlocksDeny: 04000000
-    proposalStatChangesAccept:
-    - MTF
-    - 20
-    - 1
-    proposalStatChangesDeny: []
     extraInfo: 2
-    followUpInfoAccept: -1
-    followUpInfoDeny: 1
-    achievement: -1
-    relatedArticles: 
-  - proposalDescription: '<line-height=90%>Correspondence from a high ranking individual
+    proposalPrerequisites:
+    - proposalSingularRequirements: 02000000
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 04000000
+      proposalStatChanges:
+      - MTF
+      - -20
+      - 1
+      - Nalka
+      - -5
+      - 1
+      followUpInfo: 1
+      achievement: -1
+    - proposalIDs: 04000000
+      proposalStatChanges: []
+      followUpInfo: 2
+      achievement: -1
+    relatedArticles: 0200000003000000
+  - proposalTitle: The Enemy of My Enemy...
+    proposalDescription: <line-height=90%>Correspondence from a high ranking individual
       in the Church of the Broken God has proposed a research initiative to protect
-      against hostile Sarkic forces and reinforce SCP-2309''s defences.
-
-
-      Requires:
-      Researchers for three months'
+      against hostile Sarkic forces and reinforce SCP-2309's defences.
     proposalID: 4
     requiredMonth: 0
-    proposalTitle: The Enemy of My Enemy...
-    proposalPrerequisites: 03000000
-    proposalChoiceRequirements: []
-    proposalPostUnlocksAccept: 05000000
-    proposalPostUnlocksDeny: 05000000
-    proposalStatChangesAccept:
-    - Researchers
-    - -20
-    - 2
-    proposalStatChangesDeny: []
     extraInfo: 3
-    followUpInfoAccept: -1
-    followUpInfoDeny: -1
-    achievement: -1
-    relatedArticles: 
-  - proposalDescription: '<line-height=90%>Whilst clicking both Accept or Deny has
+    proposalPrerequisites:
+    - proposalSingularRequirements: 03000000
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 05000000
+      proposalStatChanges:
+      - Researchers
+      - -20
+      - 2
+      - DClass
+      - -5
+      - 3
+      - Mekanite
+      - 5
+      - 1
+      followUpInfo: 3
+      achievement: -1
+    - proposalIDs: 05000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
+    relatedArticles: 04000000
+  - proposalTitle: Branching paths
+    proposalDescription: '<line-height=90%>Whilst clicking both Accept or Deny has
       lead to the same proposal in this tutorial, this won''t always be the case.
 
 
@@ -140,49 +162,193 @@ MonoBehaviour:
       lead towards a specific ending or event.'
     proposalID: 5
     requiredMonth: 0
-    proposalTitle: Branching paths
-    proposalPrerequisites: 04000000
-    proposalChoiceRequirements: []
-    proposalPostUnlocksAccept: 06000000
-    proposalPostUnlocksDeny: 06000000
-    proposalStatChangesAccept: []
-    proposalStatChangesDeny: []
     extraInfo: -1
-    followUpInfoAccept: -1
-    followUpInfoDeny: -1
-    achievement: -1
+    proposalPrerequisites:
+    - proposalSingularRequirements: 04000000
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: faffffff
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
+    - proposalIDs: faffffff
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
     relatedArticles: 
-  - proposalDescription: <line-height=90%>Every 4-6 proposals (At least, to start)
+  - proposalTitle: Check the calendar
+    proposalDescription: <line-height=90%>Every 4-6 proposals (At least, to start)
       there will be a new month. This is mainly an opportunity to recover some of
       your spent assets. Also, a report about the consequences of your choices will
       be prepared for you to mull over!
     proposalID: 6
     requiredMonth: 0
-    proposalTitle: Check the calendar
-    proposalPrerequisites: 05000000
-    proposalChoiceRequirements: []
-    proposalPostUnlocksAccept: f9ffffff
-    proposalPostUnlocksDeny: f9ffffff
-    proposalStatChangesAccept: []
-    proposalStatChangesDeny: []
     extraInfo: -1
-    followUpInfoAccept: -1
-    followUpInfoDeny: -1
-    achievement: 0
+    proposalPrerequisites:
+    - proposalSingularRequirements: 
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 07000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: 0
+    - proposalIDs: 07000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: 0
     relatedArticles: 
-  - proposalDescription: <line-height=90%>Uh
+  - proposalTitle: A Chronicle of the Daeva
+    proposalDescription: <line-height=90%>Whilst initially believed to be a basic
+      anomalous items that changes when introduced to fluids, recent archeological
+      findings linked to an ancient civilization suggest that SCP-140 may be able
+      to rewrite history.
     proposalID: 7
     requiredMonth: 0
-    proposalTitle: New Month!
-    proposalPrerequisites: 
-    proposalChoiceRequirements:
-    - ChoiceProposalIDs: 0000000006000000
-    proposalPostUnlocksAccept: 01000000
-    proposalPostUnlocksDeny: 01000000
-    proposalStatChangesAccept: []
-    proposalStatChangesDeny: []
     extraInfo: -1
-    followUpInfoAccept: -1
-    followUpInfoDeny: -1
-    achievement: -1
+    proposalPrerequisites:
+    - proposalSingularRequirements: 
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 08000000
+      proposalStatChanges:
+      - Researchers
+      - -5
+      - 1
+      - DClass
+      - -10
+      - 1
+      - DClass
+      - -5
+      - 0
+      followUpInfo: 4
+      achievement: -1
+    - proposalIDs: 08000000
+      proposalStatChanges: []
+      followUpInfo: 4
+      achievement: -1
+    relatedArticles: 0500000006000000
+  - proposalTitle: D-Class Situation
+    proposalDescription: '<line-height=90%>The Department of Human Resources has
+      submitted a document showing that due to the increase in anomalous events there
+      aren''t enough death row inmates to fufill the quota of D-Class needed.
+
+
+      Due
+      to this they request permission to take D-Class from a wider selection of the
+      prison population.'
+    proposalID: 8
+    requiredMonth: 1
+    extraInfo: -1
+    proposalPrerequisites:
+    - proposalSingularRequirements: 07000000
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 09000000
+      proposalStatChanges:
+      - Morale
+      - -20
+      - 0
+      - DClass
+      - 25
+      - 0
+      - DClassMethod
+      - 1
+      - 0
+      followUpInfo: -1
+      achievement: -1
+    - proposalIDs: 09000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
+    relatedArticles: 
+  - proposalTitle: The Small Red Disc
+    proposalDescription: '<line-height=90%>Testing currently shows that this object
+      will change colours depending on the user holding it. Additionally upon being
+      placed on a mirror, a dimension corresponding to this colour will appear, with
+      the mirror acting as a door.
+
+
+      Permission for D-Class exploration is
+      requested.'
+    proposalID: 9
+    requiredMonth: 1
+    extraInfo: 5
+    proposalPrerequisites:
+    - proposalSingularRequirements: 08000000
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 0a000000
+      proposalStatChanges:
+      - DClass
+      - -5
+      - 0
+      - DClass
+      - -10
+      - 2
+      followUpInfo: -1
+      achievement: -1
+    - proposalIDs: 0a000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
+    relatedArticles: 07000000
+  - proposalTitle: High CRV DClass required
+    proposalDescription: <line-height=90%>Partial testing of SCP-2075 has revealed
+      it's ability to control infected subjects. However, it is yet unknown how significally,
+      if at all, a high CRV would impact the level of control.
+    proposalID: 10
+    requiredMonth: 1
+    extraInfo: 6
+    proposalPrerequisites:
+    - proposalSingularRequirements: 09000000
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 0b000000
+      proposalStatChanges:
+      - Researchers
+      - -5
+      - 2
+      - DClass
+      - -10
+      - 0
+      followUpInfo: -1
+      achievement: -1
+    - proposalIDs: 0b000000
+      proposalStatChanges:
+      - Researchers
+      - -5
+      - 0
+      followUpInfo: -1
+      achievement: -1
+    relatedArticles: 0800000009000000
+  - proposalTitle: That's all for now folks
+    proposalDescription: '<line-height=90%>This is the end of the Demo for now. Much
+      of my time has been spent on implementing the features so there isn''t a huge
+      amount of content.
+
+
+      Hopefully this gives a good idea of the general
+      flow of the game and please stay tuned!'
+    proposalID: 11
+    requiredMonth: 1
+    extraInfo: -1
+    proposalPrerequisites:
+    - proposalSingularRequirements: 0a000000
+      proposalChoiceRequirements: []
+      statRequirements: []
+    proposalPostUnlocks:
+    - proposalIDs: 0b000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: 1
+    - proposalIDs: 0b000000
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: 1
     relatedArticles: 
