@@ -7,6 +7,7 @@ public class HiddenGameVariables : ScriptableObject
 {
 
     [Header("Game State Handling")]
+    public GameFlowEventBus _gameFlowEventBus;
     public GameStateEnum _currentGameState;
     public int _currentMonth = 0;
     public int _currentMonthProposals = 0;
@@ -125,7 +126,7 @@ public class HiddenGameVariables : ScriptableObject
 
         _lastSavedProposal = 0;
 
-        _currentGameState = GameStateEnum.PROPOSAL_ONGOING;
+        _currentGameState = GameStateEnum.PROPOSAL_LOADING;
 
         _chosenDClassMethod = DClassMethodEnum.NONE;
 

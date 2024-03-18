@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class GameFlowEventBus : MonoBehaviour
 {
+    //ANIMATION_AMBIENT
+    //ANIMATION_NEW-MONTH
+    //ANIMATION_NEW-PROPOSAL
+    //PROPOSAL_LOADING
+    //PROPOSAL_ONGOING
+    //PROPOSAL_TEMP-DECISION
+    //PROPOSAL_FULL-DECISION
+    //PROPOSAL_STATS-UPDATED
     private LinkedList<GameStateEnum> gameStateQueue;
 
     public GameFlowEventBus(LinkedList<GameStateEnum> savedGameStateQueue) {
@@ -26,5 +34,9 @@ public class GameFlowEventBus : MonoBehaviour
 
     public void Interrupt(GameStateEnum gameEvent) {
         gameStateQueue.AddFirst(gameEvent);
+    }
+
+    public int GetBusSize() {
+        return gameStateQueue.Count;
     }
 }

@@ -27,8 +27,71 @@ MonoBehaviour:
       all bodily fluid into itself.<space=5em><color=#00000000>.</color>'
     articleAuthors: 'Author: Chameleon X'
     articleLink: 
-  _discoveredSCPs: 
+  - detailID: 2
+    detailCategory: SCP
+    articleName: 'Item#: SCP-610<space=2em><color=#00000000>.</color>'
+    articleDescription: 'Description: A Sarkic bioweapon that consumes living things
+      and turns them into infected fleshy lumps, these lumps often combine and cover
+      large areas.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: NekoChris'
+    articleLink: 
+  - detailID: 3
+    detailCategory: Group
+    articleName: 'Group#: The Nalka(Sarkics) <space=2em><color=#00000000>.</color>'
+    articleDescription: 'Description: A religious group of Carnomancers focused on
+      primitiveness and apotheosis.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 
+    articleLink: 
+  - detailID: 4
+    detailCategory: Group
+    articleName: 'Group#: Church of the Broken God<space=2em><color=#00000000>.</color>'
+    articleDescription: 'Description: A religious group who worship mechanization
+      and eshew flesh, focusing on rebuilding their mechanical god.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 
+    articleLink: 
+  - detailID: 5
+    detailCategory: SCP
+    articleName: 'Item#: SCP-140<space=1em><color=#00000000>.</color>'
+    articleDescription: 'Description: A book describing the Daevite history. Any
+      suitable writing fluid added to the book expands the history of the Daeva,
+      rewriting our timeline. <space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: AssertiveRoland'
+    articleLink: 
+  - detailID: 6
+    detailCategory: Group
+    articleName: 'Group#: The Daeva<space=8em><color=#00000000>.</color>'
+    articleDescription: 'Description: The Daeva were a civilization known for practicing
+      both Chlorokinesis and human sacrifice. Whilst currently in the past, SCP-140
+      keeps them creeping closer.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 
+    articleLink: 
+  - detailID: 7
+    detailCategory: SCP
+    articleName: 'Item#: SCP-093<space=2em><color=#00000000>.</color>'
+    articleDescription: 'Description: A red disc that when held, then attached to
+      a mirror, opens up a gateway to a colour (determined by the user) tinted extradimensional
+      space.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: NekoChris'
+    articleLink: 
+  - detailID: 8
+    detailCategory: SCP
+    articleName: 'Item#: SCP-2075<space=1em><color=#00000000>.</color>'
+    articleDescription: 'Description: A former GRU Division "P" security guard, SCP-2075
+      can use an exhaled microbial pathogen to control an individual as if it was
+      their own body.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 'Author: Metaphysician'
+    articleLink: 
+  - detailID: 9
+    detailCategory: Group
+    articleName: 'Group#: GRU Division "P"<space=8em><color=#00000000>.</color>'
+    articleDescription: 'Description: GRU Division "P" were a containment and research
+      group under the command of the Soviet Union. Whilst no longer in operation,
+      their influence still lingers.<space=5em><color=#00000000>.</color>'
+    articleAuthors: 
+    articleLink: 
+  _discoveredSCPs: 0100000002000000
   _discoveredTales: 
   _discoveredCanons: 
   _discoveredSeries: 
-  _discoveredGroups: 
+  _discoveredGroups: 0000000003000000
+  _newlyDiscoveredDetails: 0

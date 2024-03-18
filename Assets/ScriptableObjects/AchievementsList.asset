@@ -20,4 +20,12 @@ MonoBehaviour:
     achievementHint: Get Your Bearings
     achievementIcon: 
     completion: 0
-  _displayedAchievements: []
+  - achievementID: 1
+    achievementName: <size=120%>Thanks for Playing!
+    achievementDescription: <size=100%><line-height=90%> Finish the demo
+    achievementHint: Curtains Closed
+    achievementIcon: 
+    completion: 0
+  _displayedAchievements:
+  - {fileID: 0}
+  - {fileID: 0}
