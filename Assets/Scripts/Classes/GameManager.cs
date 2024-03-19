@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 using TMPro;
 
+using System.Linq;
+using UnityEditor;
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField] HiddenGameVariables hiddenGameVariables;
@@ -26,16 +29,44 @@ public class GameManager : MonoBehaviour
     public GameEvent onInitUI;
     public GameEvent onInitProposals;
 
-    public GameEvent onGetNextProposal;
-    public GameEvent onUpdateExtraInfo;
-    public GameEvent onUpdateProposalUI;
-    public GameEvent onHandleStatChanges;
-    public GameEvent onUpdateFlashingStatUI;
-    public GameEvent onProposalFullDecision;
-    public GameEvent onUpdateStatUI;
-    public GameEvent onCheckInvalidStats;
+    // public GameEvent onGetNextProposal;
+    // public GameEvent onUpdateExtraInfo;
+    // public GameEvent onUpdateProposalUI;
+    // public GameEvent onHandleStatChanges;
+    // public GameEvent onUpdateFlashingStatUI;
+    // public GameEvent onProposalFullDecision;
+    // public GameEvent onUpdateStatUI;
+    // public GameEvent onCheckInvalidStats;
+
+    //Game flow event plus the Enum int value
+    public GameEvent GFE_0;
+    public GameEvent GFE_1;
+    public GameEvent GFE_2;
+    public GameEvent GFE_3;
+    public GameEvent GFE_4;
+    public GameEvent GFE_5;
 
     public GameEvent onSwitchTabletState;
+
+    [Header("GameFlowBus Handling")]
+    Coroutine gameFlowManagerCoroutine;
+    private int currentBusSize;
+    private GameFlowEventBus gameFlowEventBus;
+
+    private static GameStateEnum[] genericProposalSet = new GameStateEnum[] {
+        GameStateEnum.PROPOSAL_INITIALIZATION,
+        GameStateEnum.ANIMATION_PROPOSAL_INITIALIZATION, 
+        GameStateEnum.PROPOSAL_ONGOING, 
+        GameStateEnum.PROPOSAL_FULL_DECISION,
+        GameStateEnum.ANIMATION_PROPOSAL_FINALIZATION,
+    };
+
+    private static GameStateEnum[] newMonthAnimSet = new GameStateEnum[] {
+        GameStateEnum.ANIMATION_NEWMONTH_INITIALIZATION,
+        GameStateEnum.PROPOSAL_CHECKURGENT, 
+        GameStateEnum.ANIMATION_NEWMONTH_FINALIZATION
+    };
+    
 
     void Awake()
     {
@@ -46,78 +77,154 @@ public class GameManager : MonoBehaviour
         //TODO gets save data from json save file (may change this to a save scene menu)
         //TODO saved proposal is put here instead of default one
         hiddenGameVariables.ResetToBase(proposalsList._proposals[0]);
-        
+        gameFlowEventBus = hiddenGameVariables._gameFlowEventBus;
+
         onInitProposals.Raise();
         onInitUI.Raise();
 
         getNewMonthLength();
         
-        DecideNextAction(null, null);
+
+
+        // DecideNextAction(null, null);
+        gameFlowEventBus.Enqueue(genericProposalSet);
+        //First proposal is initialised at 0 or by the save manager
+        gameFlowEventBus.Dequeue();
+        hiddenGameVariables._currentGameState = gameFlowEventBus.Head(); 
+        gameFlowManagerCoroutine = StartCoroutine(GameFlowManager());
     }
 
-    public void DecideNextAction(Component sender, object data) {
-        // hiddenGameVariables._currentProposal = proposalsList._proposals[0];
+    IEnumerator GameFlowManager() {
+        //Store bus size upon start of Coroutine
+        currentBusSize = gameFlowEventBus.GetBusSize();
 
-        if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_LOADING) {
-            //The above GameState will be caused by UIHandler "LoadNextProposal"
-            
-            onGetNextProposal.Raise();
-            
-        } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_ONGOING) {
-            //The above GameState will be caused by ProposalHandler "GetNextProposal"
-
-            onUpdateProposalUI.Raise();
-
-            //If extra info actually exists
-
-            // Debug.Log(hiddenGameVariables._currentProposal.getExtraInfo());
-            if(hiddenGameVariables._currentProposal.getExtraInfo() != -1) {
-                onUpdateExtraInfo.Raise();
-            }
-            //TODO call to slide clipboard and extra info board onscreen
-
-            int currentProposalID = hiddenGameVariables._currentProposal.getProposalID();
-            if (currentProposalID <= 7) {
-                TutorialCheck(currentProposalID);
-            }
-            
-        } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_TEMP_DECISION) {
-            //The above gamestate will be caused by DecisionButton
-
-            //Raises an event to make a stat copy - ProposalHandler "HandleStatChanges"
-            onHandleStatChanges.Raise();
-            
-            while(hiddenGameVariables._myStatCopy == null) {
-                Debug.Log("Creating stat copy");
-            }
-            onCheckInvalidStats.Raise();
-
-            //Raises an event to flash the UI stat bars to show changes - 
-            onUpdateFlashingStatUI.Raise();
-
-        } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_FULL_DECISION) {
-            //The above gamestate will be caused by DecisionButton
-
-            hiddenGameVariables._numMonthlyProposals++;
-
-            string newAnimType = "";
-            //If there has been the max number of proposals this month and it isn't the tutorial month
-            if (hiddenGameVariables._numMonthlyProposals >= monthLength && hiddenGameVariables._currentProposal.getProposalID() >= 6) {
-                newMonth();
-                newAnimType = "newMonth";
-            } else {
-                newAnimType = "newProposal";
-            }
-
-            //Raises an event to finalize the current stats and run animations if needed - ProposalHandler "ProposalDecision" + UIHandler "CheckNextAnim"
-            onProposalFullDecision.Raise(newAnimType);
-
-        } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_STATS_UPDATED) {
-            //The above gamestate will be caused by ProposalHandler "UpdateNewStats" - Is used to check stats are applied before changing UI
-        
-            onUpdateStatUI.Raise();
+        //TODO remove this after testing [
+        string currentFlowEventBus = "";
+        for(int i = 0; i < gameFlowEventBus.GetBusSize(); i++) {
+            GameStateEnum gameFlowEventBuss = gameFlowEventBus.GetFlowEventBus().ElementAt(i);
+            currentFlowEventBus += "i:" + ((int)gameFlowEventBuss).ToString() + " -- ";
         }
+        Debug.Log(currentFlowEventBus + "   The head of the queue is: " + gameFlowEventBus.Head());
+        //TODO ]
+
+        switch((int)hiddenGameVariables._gameFlowEventBus.Head())
+        {
+            //PROPOSAL_INITIALIZATION,              //0
+            //PROPOSAL_ONGOING,               //1
+            //PROPOSAL_FULL_DECISION,               //2
+            //ANIMATION_PROPOSAL_INITIALIZATION,    //3
+            //ANIMATION_PROPOSAL_FINALIZATION       //4
+            case 0:
+                //Init next proposal
+                GFE_0.Raise();
+                break;
+                
+            case 1:
+                //HandleStatChanges - ProposalHandler
+                //CheckInvalidStats - CURRENTLY decision button + O5 signature button
+                //UpdateFlashingStatUI - UIHandler
+                GFE_1.Raise();
+                break;
+            case 2:
+                //Raises an event to finalize the current stats and run animations if needed - ProposalHandler "ProposalDecision" + UIHandler "CheckNextAnim"
+                //TODO check that the program pauses on this line and adds the anim set before the next proposal set
+                GFE_2.Raise(CheckNewMonth());
+                //Load instructions for next proposal
+                gameFlowEventBus.Enqueue(genericProposalSet);
+                break;
+            case 3:
+                //TODO implement clipboards coming onscreen anim
+                hiddenGameVariables._gameFlowEventBus.Dequeue();
+                //GFE_3.Raise();
+                break;
+            case 4:
+                //TODO implement clipboards going offscreen anim
+                hiddenGameVariables._gameFlowEventBus.Dequeue();
+                //GFE_4.Raise();
+                break;
+            case 5:
+                //GFE_5.Raise();
+                break;
+            default:
+                Debug.Log("Error in GameManager Switch");
+                break;
+        }
+
+        //When an event is removed from the bus or added to it, then continue the coroutine
+        yield return new WaitUntil(() => currentBusSize != gameFlowEventBus.GetBusSize());
+        GameFlowLoop();
+        //Ends current coroutine and frees resources
     }
+
+    //This isn't done in the Coroutine above to prevent recursive frames
+    private void GameFlowLoop() {
+        StopCoroutine(gameFlowManagerCoroutine);
+        gameFlowManagerCoroutine = StartCoroutine(GameFlowManager());
+    }
+
+    // public void DecideNextAction(Component sender, object data) {
+    //     // hiddenGameVariables._currentProposal = proposalsList._proposals[0];
+
+    //     if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_LOADING) {
+    //         //The above GameState will be caused by UIHandler "LoadNextProposal"
+            
+    //         onGetNextProposal.Raise();
+            
+    //     } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_ONGOING) {
+    //         //The above GameState will be caused by ProposalHandler "GetNextProposal"
+
+    //         onUpdateProposalUI.Raise();
+
+    //         //If extra info actually exists
+
+    //         // Debug.Log(hiddenGameVariables._currentProposal.getExtraInfo());
+    //         if(hiddenGameVariables._currentProposal.getExtraInfo() != -1) {
+    //             onUpdateExtraInfo.Raise();
+    //         }
+    //         //TODO call to slide clipboard and extra info board onscreen
+
+    //         int currentProposalID = hiddenGameVariables._currentProposal.getProposalID();
+    //         if (currentProposalID <= 7) {
+    //             TutorialCheck(currentProposalID);
+    //         }
+            
+    //     } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_TEMP_DECISION) {
+    //         //The above gamestate will be caused by DecisionButton
+
+    //         //Raises an event to make a stat copy - ProposalHandler "HandleStatChanges"
+    //         onHandleStatChanges.Raise();
+            
+    //         while(hiddenGameVariables._myStatCopy == null) {
+    //             Debug.Log("Creating stat copy");
+    //         }
+    //         onCheckInvalidStats.Raise();
+
+    //         //Raises an event to flash the UI stat bars to show changes - 
+    //         onUpdateFlashingStatUI.Raise();
+
+    //     } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_FULL_DECISION) {
+    //         //The above gamestate will be caused by DecisionButton
+
+    //         hiddenGameVariables._numMonthlyProposals++;
+
+    //         string newAnimType = "";
+    //         //If there has been the max number of proposals this month and it isn't the tutorial month
+    //         if (hiddenGameVariables._numMonthlyProposals >= monthLength && hiddenGameVariables._currentProposal.getProposalID() >= 6) {
+    //             newMonth();
+    //             newAnimType = "newMonth";
+    //         } else {
+    //             newAnimType = "newProposal";
+    //         }
+
+    //         //Raises an event to finalize the current stats and run animations if needed - ProposalHandler "ProposalDecision" + UIHandler "CheckNextAnim"
+    //         onProposalFullDecision.Raise(newAnimType);
+
+    //     } else if (hiddenGameVariables._currentGameState == GameStateEnum.PROPOSAL_STATS_UPDATED) {
+    //         //The above gamestate will be caused by ProposalHandler "UpdateNewStats" - Is used to check stats are applied before changing UI
+        
+    //         onUpdateStatUI.Raise();
+    //     }
+    // }
 
     //====================================================================
     //                         ACHIEVEMENT SECTION                       |
@@ -135,13 +242,21 @@ public class GameManager : MonoBehaviour
     //                          NEW MONTH SECTION                        |
     //====================================================================
 
-    private void newMonth() {
-        //Increase the current month number
-        hiddenGameVariables._currentMonth++;
-        getNewMonthLength();
-        //Reset number of proposals done that month to 0
-        hiddenGameVariables._numMonthlyProposals = 0;
-        StartCoroutine(IWaitForAnim());
+    private bool CheckNewMonth() {
+        hiddenGameVariables._numMonthlyProposals++;
+        //If there has been the max number of proposals this month and it isn't the tutorial month
+        if (hiddenGameVariables._numMonthlyProposals >= monthLength && hiddenGameVariables._currentProposal.getProposalID() >= 6) {
+            //Increase the current month number
+            hiddenGameVariables._currentMonth++;
+            getNewMonthLength();
+            //Reset number of proposals done that month to 0
+            hiddenGameVariables._numMonthlyProposals = 0;
+            gameFlowEventBus.Enqueue(newMonthAnimSet);
+            StartCoroutine(IWaitForAnim());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void getNewMonthLength() {

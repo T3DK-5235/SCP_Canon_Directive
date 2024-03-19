@@ -26,7 +26,6 @@ public class ProposalHandler : MonoBehaviour
      [SerializeField] FollowUpInfoList followUpInfoList;
 
     [Header("Events")]
-    public GameEvent DecideNextAction;
     //Used to update details UI 
     public GameEvent onSwitchDetailsMenu;
     public GameEvent onAchievementCompleted;
@@ -59,8 +58,12 @@ public class ProposalHandler : MonoBehaviour
 
         HandleExtraInfo();
 
-        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_ONGOING;
-        DecideNextAction.Raise();
+        // hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_ONGOING;
+        // DecideNextAction.Raise();
+
+        //Tells the gameflow to move on, doesn't have to know what to do next
+        //Removes PROPOSAL_INITIALIZATION from queue
+        hiddenGameVariables._gameFlowEventBus.Dequeue();
     }
 
     private int PickNextProposalInt() {
@@ -83,7 +86,6 @@ public class ProposalHandler : MonoBehaviour
         } while (foundNextProposal == false);
 
         //TODO add a system where each proposal has a set chance/importance. All these chances are added up and forced into a 0-100 range and then picked
-        Debug.Log("Next proposal int: " + nextProposalPos);
         return nextProposalPos;
     }
 
@@ -108,9 +110,9 @@ public class ProposalHandler : MonoBehaviour
     //                      TEMP STAT CHANGE SECTION                     |
     //====================================================================
 
-    //Might need to be a Coroutine to prevent game from continuing before all stats are changed
     //Listens to the PlayerProposalTempDecision event system
     public void HandleStatChanges(Component sender, object data) {
+
         List<string> proposalStatChanges = null;
 
         HiddenGameVariables.StatCopy statCopy = new HiddenGameVariables.StatCopy();
@@ -250,6 +252,11 @@ public class ProposalHandler : MonoBehaviour
 
         List<PostUnlocks> currentPostUnlocks = hiddenGameVariables._currentProposal.getPostUnlocks();
 
+        //TODO remove after testing
+        LinkedList<ProposalChoiceEnum> choiceList = new LinkedList<ProposalChoiceEnum>();
+        choiceList.AddFirst(hiddenGameVariables._proposalDecision);
+        Debug.Log(choiceList.First.Value);
+
         //Changes what is unlocked and changed based on player decision
         if (hiddenGameVariables._proposalDecision == ProposalChoiceEnum.ACCEPT) {
             //TODO figure out if its worth caching this bit as its also used above
@@ -264,22 +271,43 @@ public class ProposalHandler : MonoBehaviour
             proposalAchievement = postUnlocksDeny.getAchievement();
         }
         
-        UpdateNewStats();
+        // UpdateNewStats();
 
-        //TODO maybe pass hiddenGameVariables._currentProposal in, to avoid extra calls?
+        // //TODO maybe pass hiddenGameVariables._currentProposal in, to avoid extra calls?
 
-        CheckInactiveProposals(proposalPostUnlocks);
+        // CheckInactiveProposals(proposalPostUnlocks);
 
-        CheckAchievements(proposalAchievement);
+        // CheckAchievements(proposalAchievement);
 
-        CheckFollowUp(proposalFollowUpUnlocks);
+        // CheckFollowUp(proposalFollowUpUnlocks);
 
-        CheckDetails();
+        // CheckDetails();
 
-        CheckStandbyProposals();
+        // CheckStandbyProposals();
+
+        //reset choice to a blank string for next use
+        hiddenGameVariables._proposalDecision = ProposalChoiceEnum.NONE;
+
+        bool updatedStats = UpdateNewStats();
+        bool checkedInactiveProposals = CheckInactiveProposals(proposalPostUnlocks);
+        bool checkedAchievements = CheckAchievements(proposalAchievement);
+        bool checkedFollowUp = CheckFollowUp(proposalFollowUpUnlocks);
+        bool checkedDetails = CheckDetails();
+        bool checkedStandbyProposals = CheckStandbyProposals();
+
+
+        while (updatedStats && checkedInactiveProposals &&
+               checkedAchievements && checkedFollowUp &&
+               checkedDetails && checkedStandbyProposals) {
+
+            //Removes PROPOSAL_FULL_DECISION
+            hiddenGameVariables._gameFlowEventBus.Dequeue();
+            break;
+        }
+        
     }
 
-    private void UpdateNewStats() {
+    private bool UpdateNewStats() {
         //set current variables to the variables changed by the current proposal
 
         hiddenGameVariables._chosenDClassMethod = hiddenGameVariables._myStatCopy.__chosenDClassMethod;
@@ -310,12 +338,13 @@ public class ProposalHandler : MonoBehaviour
             hiddenGameVariables._statChangeEventBus.Add(hiddenGameVariables._myStatCopy.__tempStatsChanged[i]);
         }
 
-        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_STATS_UPDATED;
-        DecideNextAction.Raise();
+        // hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_STATS_UPDATED;
+        // DecideNextAction.Raise();
+        return true;
     }
 
     // Updates proposal's prereqs and adds them to the standby bus if they aren't already
-    private void CheckInactiveProposals(List<int> proposalPostUnlocks) {
+    private bool CheckInactiveProposals(List<int> proposalPostUnlocks) {
         //Loops through the PostUnlocks and updates each mentioned proposal's prereq list and adds it to standby bus if needed
         for (int i = 0; i < proposalPostUnlocks.Count; i++) {
             
@@ -348,19 +377,22 @@ public class ProposalHandler : MonoBehaviour
                 standbyProposalEventBus.Add(Math.Abs(proposalPostUnlocks[i]));
             }
         }
+        return true;
     } 
 
-    private void CheckAchievements(int proposalAchievement) {
+    private bool CheckAchievements(int proposalAchievement) {
         //TODO remove all the hiddenGameVariables._currentProposal calls and pass it in to avoid unneeded calls
         //If there is actually an achievement
         if (proposalAchievement != -1) {
             //Set the related achievement to being true
             achievementsList._achievements[proposalAchievement].setAchievementCompletion(true);
+            //TODO figure out how to decouple this better, maybe?
             onAchievementCompleted.Raise(proposalAchievement);
         }
+        return true;
     }
 
-    private void CheckDetails() {
+    private bool CheckDetails() {
         //If there are any details
         List<int> proposalDetails = hiddenGameVariables._currentProposal.getRelatedArticles();
         if(proposalDetails.Count > 0) {
@@ -387,19 +419,22 @@ public class ProposalHandler : MonoBehaviour
             }
 
             // Debug.Log("Raising even to update the details menu");
+            //TODO figure out how to decouple this better, maybe?
             onSwitchDetailsMenu.Raise();
         }
+        return true;
     }
 
-    private void CheckFollowUp(int proposalFollowUpUnlocks) {
+    private bool CheckFollowUp(int proposalFollowUpUnlocks) {
         if(proposalFollowUpUnlocks != -1) {
             followUpInfoList._currentFollowUpInfo.Add(proposalFollowUpUnlocks);
         }
+        return true;
     }
 
     // Checks for Standby -> Active proposal possibilities
     // DOES NOT UPDATE EXISTING STANDBY PROPOSALS
-    private void CheckStandbyProposals() {
+    private bool CheckStandbyProposals() {
         for(int i = 0; i < standbyProposalEventBus.Count; i++) {
             //Check if the proposal is available to be moved (or at least, its ID) to the active bus
             if (proposalsList._proposals[standbyProposalEventBus[i]].IsProposalAvailable(hiddenGameVariables._currentMonth, hiddenGameVariables)) {
@@ -408,6 +443,7 @@ public class ProposalHandler : MonoBehaviour
                 standbyProposalEventBus.RemoveAt(i);
             }
         }
+        return true;
     }
 
     // ==============================================================================================================

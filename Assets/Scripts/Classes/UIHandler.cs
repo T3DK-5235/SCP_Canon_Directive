@@ -201,6 +201,10 @@ public class UIHandler : MonoBehaviour
         proposalTitle.text = hiddenGameVariables._currentProposal.getProposalTitle();
         proposalDesc.text = hiddenGameVariables._currentProposal.getProposalDescription();
 
+        if(hiddenGameVariables._currentProposal.getExtraInfo() != -1) {
+            UpdateExtraInfo();
+        }
+
         StartCoroutine(ResizeProposalUI());
     }
 
@@ -208,7 +212,7 @@ public class UIHandler : MonoBehaviour
     {
         //Need to wait a second for the box to finish resizing when the text is entered above
         yield return new WaitForSeconds(0.01f);
-        Debug.Log("Height? " + proposalTitlePos.sizeDelta.y);
+        //Debug.Log("Height? " + proposalTitlePos.sizeDelta.y);
         //Will only equal 0 on startup
         if (proposalTitlePos.sizeDelta.y > 8) {
             proposalDescPos.anchoredPosition = new Vector3(47, -39, 0);
@@ -222,7 +226,7 @@ public class UIHandler : MonoBehaviour
     //                         EXTRA INFO SECTION                        |
     //====================================================================
 
-    public void UpdateExtraInfo(Component sender, object data) {
+    public void UpdateExtraInfo() {
         //Sets the number of player checked prefabs back to 0
         currentPrefabNum = 0;
         extraInfoClipboard.SetActive(true);
@@ -451,10 +455,10 @@ public class UIHandler : MonoBehaviour
 
     public void CheckNextAnim(Component sender, object data) {
         //If the month should end and the game isnt in the tutorial section (proposals 0-6)
-        if ((string)data == "newMonth") {
+        if ((bool)data == true) {
             UpdateMonthUI();
             StartCoroutine(INewMonth());
-        } else if ((string)data == "newProposal") {
+        } else {
             //Animation of person walking over and giving files? Or just other stuff
             StartCoroutine(INewProposal());
         }
@@ -531,7 +535,7 @@ public class UIHandler : MonoBehaviour
         creditUILight.SetActive(true);
         achieveUILight.SetActive(true);
 
-        LoadNextProposal();
+        hiddenGameVariables._gameFlowEventBus.Dequeue();
         ShowNewFollowUpInfo();
 
         gameCanvas.transform.GetComponent<GraphicRaycaster>().blockingObjects = GraphicRaycaster.BlockingObjects.None;
@@ -543,12 +547,7 @@ public class UIHandler : MonoBehaviour
         // LeanTween.moveY(proposalClipboard, -160f, 30f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
         // yield return new WaitForSeconds(30f);
         yield return new WaitForSeconds(0.1f);
-        LoadNextProposal();
-    }
-
-    private void LoadNextProposal() {
-        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_LOADING;
-        DecideNextAction.Raise();
+        hiddenGameVariables._gameFlowEventBus.Dequeue();
     }
 
     private void RemoveOldFollowUpInfo() {

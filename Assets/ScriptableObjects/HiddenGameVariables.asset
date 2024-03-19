@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e32f20a36a65043bdc5a590055040a, type: 3}
   m_Name: HiddenGameVariables
   m_EditorClassIdentifier: 
-  _currentGameState: 2
-  _currentMonth: 1
+  _gameFlowEventBus: {fileID: 0}
+  _currentGameState: 0
+  _currentMonth: 0
   _currentMonthProposals: 0
   _numMonthlyProposals: 0
   _prevProposal:
-    proposalTitle: Check the calendar
-    proposalDescription: <line-height=90%>Every 4-6 proposals (At least, to start)
-      there will be a new month. This is mainly an opportunity to recover some of
-      your spent assets. Also, a report about the consequences of your choices will
-      be prepared for you to mull over!
-    proposalID: 6
+    proposalTitle: 'welcome to scp: canon directive'
+    proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
+      this proposal by stamping the decision button and signing on the line.
+
+
+      if
+      you instead wish to jump in, deny the proposal.'
+    proposalID: 0
     requiredMonth: 0
     extraInfo: -1
     proposalPrerequisites:
@@ -30,24 +33,26 @@ MonoBehaviour:
       proposalChoiceRequirements: []
       statRequirements: []
     proposalPostUnlocks:
-    - proposalIDs: 07000000
+    - proposalIDs: 01000000
       proposalStatChanges: []
       followUpInfo: -1
-      achievement: 0
-    - proposalIDs: 07000000
+      achievement: -1
+    - proposalIDs: faffffff
       proposalStatChanges: []
       followUpInfo: -1
-      achievement: 0
+      achievement: -1
     relatedArticles: 
   _lastSavedProposal: 0
   _hasActiveProposal: 0
   _currentProposal:
-    proposalTitle: A Chronicle of the Daeva
-    proposalDescription: <line-height=90%>Whilst initially believed to be a basic
-      anomalous items that changes when introduced to fluids, recent archeological
-      findings linked to an ancient civilization suggest that SCP-140 may be able
-      to rewrite history.
-    proposalID: 7
+    proposalTitle: 'welcome to scp: canon directive'
+    proposalDescription: '<line-height=90%>If you wish to play the tutorial, accept
+      this proposal by stamping the decision button and signing on the line.
+
+
+      if
+      you instead wish to jump in, deny the proposal.'
+    proposalID: 0
     requiredMonth: 0
     extraInfo: -1
     proposalPrerequisites:
@@ -55,24 +60,15 @@ MonoBehaviour:
       proposalChoiceRequirements: []
       statRequirements: []
     proposalPostUnlocks:
-    - proposalIDs: 08000000
-      proposalStatChanges:
-      - Researchers
-      - -5
-      - 1
-      - DClass
-      - -10
-      - 1
-      - DClass
-      - -5
-      - 0
-      followUpInfo: 4
-      achievement: -1
-    - proposalIDs: 08000000
+    - proposalIDs: 01000000
       proposalStatChanges: []
-      followUpInfo: 4
+      followUpInfo: -1
       achievement: -1
-    relatedArticles: 0500000006000000
+    - proposalIDs: faffffff
+      proposalStatChanges: []
+      followUpInfo: -1
+      achievement: -1
+    relatedArticles: 
   _currentExtraInfo:
     extraInfoType: 
     infoID: 0

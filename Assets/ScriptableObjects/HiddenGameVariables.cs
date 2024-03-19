@@ -126,7 +126,11 @@ public class HiddenGameVariables : ScriptableObject
 
         _lastSavedProposal = 0;
 
-        _currentGameState = GameStateEnum.PROPOSAL_LOADING;
+        _myStatCopy = new StatCopy();
+
+        _gameFlowEventBus = new GameFlowEventBus(new LinkedList<GameStateEnum>());
+
+        _currentGameState = GameStateEnum.PROPOSAL_INITIALIZATION;
 
         _chosenDClassMethod = DClassMethodEnum.NONE;
 

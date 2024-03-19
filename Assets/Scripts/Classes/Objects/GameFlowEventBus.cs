@@ -7,9 +7,8 @@ public class GameFlowEventBus : MonoBehaviour
     //ANIMATION_AMBIENT
     //ANIMATION_NEW-MONTH
     //ANIMATION_NEW-PROPOSAL
-    //PROPOSAL_LOADING
+    //PROPOSAL_INITIALIZATION
     //PROPOSAL_ONGOING
-    //PROPOSAL_TEMP-DECISION
     //PROPOSAL_FULL-DECISION
     //PROPOSAL_STATS-UPDATED
     private LinkedList<GameStateEnum> gameStateQueue;
@@ -36,7 +35,22 @@ public class GameFlowEventBus : MonoBehaviour
         gameStateQueue.AddFirst(gameEvent);
     }
 
+    public void Interrupt(GameStateEnum[] gameEvents) {
+        for(int i = 0; i < gameEvents.Length; i++) {
+            gameStateQueue.AddFirst(gameEvents[i]);
+        }
+    }
+
     public int GetBusSize() {
         return gameStateQueue.Count;
+    }
+
+    public GameStateEnum Head(){
+        return gameStateQueue.First.Value;
+    }
+
+    //Used for debugging only
+    public LinkedList<GameStateEnum> GetFlowEventBus() {
+        return gameStateQueue;
     }
 }

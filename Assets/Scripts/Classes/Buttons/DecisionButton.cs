@@ -17,7 +17,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
     private static bool validProposal = false;
 
     [Header("Events")]
-    public GameEvent DecideNextAction;
+    public GameEvent HandleTempDecision;
 
     PointerEventData eventData;
 
@@ -36,26 +36,32 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         this.eventData = eventData;
         //This deals with the button used for accepting or denying the proposal
         if(eventData.pointerPress == decisionButton) {
-            if (eventData.button == PointerEventData.InputButton.Left) {
+            if (eventData.button == PointerEventData.InputButton.Left && acceptStamp.activeSelf != true) {
                 hiddenGameVariables._proposalDecision = ProposalChoiceEnum.ACCEPT;
                 if(denyStamp.activeSelf) {
                     denyStamp.SetActive(false);
                 }
                 acceptStamp.SetActive(true);
-            } else if (eventData.button == PointerEventData.InputButton.Right) {
+            } else if (eventData.button == PointerEventData.InputButton.Right && denyStamp.activeSelf != true) {
                 hiddenGameVariables._proposalDecision = ProposalChoiceEnum.DENY;
                 if(acceptStamp.activeSelf) {
                     acceptStamp.SetActive(false);
                 }
                 denyStamp.SetActive(true);
+            } else {
+                //If the user tries to accept twice. 
+                return;
             }
-            hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_TEMP_DECISION;
-            DecideNextAction.Raise();
+
+            // hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_TEMP_DECISION;
+            // DecideNextAction.Raise();
+            HandleTempDecision.Raise();
+            
         }
 
         //This deals with if the signature button has been clicked and a choice has been made PLUS if the choice can actually be chosen
         if(validProposal == true && eventData.pointerPress == signatureButton && hiddenGameVariables._proposalDecision != ProposalChoiceEnum.NONE) {
-            // Debug.Log("Proposal can be accepted");
+            //Debug.Log("Proposal can be accepted");
             finishProposal();
         }
     }
@@ -66,6 +72,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         validProposal = true;
 
         //If the values in the stat copy are less than 0, the proposal is invalid
+        //TODO fix this obamanation
         if (hiddenGameVariables._myStatCopy.__availableMTF < 0) {
             validProposal = false;
             //TODO raise an event to make the UI bar flash red?
@@ -79,7 +86,6 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
         if (hiddenGameVariables._myStatCopy.__currentMorale < 0) { 
             validProposal = false;
         }
-
         if (hiddenGameVariables._myStatCopy.__favourGOC < 0) { 
             validProposal = false;
         }
@@ -106,25 +112,21 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
     }
 
     private void finishProposal() {
-    
         signature.SetActive(true);
-
         //Disallow users interacting with the buttons at this point
         CanvasGroup canvasGroup = GetComponentInParent<CanvasGroup>(true);
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
 
-        //Send out event
-        hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_FULL_DECISION;
-        DecideNextAction.Raise();
+        // hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_FULL_DECISION;
+        // DecideNextAction.Raise();
+        //Dequeue PROPOSAL_TEMP_DECISION
+        hiddenGameVariables._gameFlowEventBus.Dequeue();
 
-        //reset choice to a blank string for next use
-        hiddenGameVariables._proposalDecision = ProposalChoiceEnum.NONE;
-
-        StartCoroutine(AnimationCoroutine(canvasGroup));
+        StartCoroutine(IButtonReset(canvasGroup));
     }
 
-    IEnumerator AnimationCoroutine(CanvasGroup canvasGroup)
+    IEnumerator IButtonReset(CanvasGroup canvasGroup)
     {
         yield return new WaitForSeconds(0.2f);
 
