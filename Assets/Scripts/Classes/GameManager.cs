@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     public GameEvent GFE_3;
     public GameEvent GFE_4;
     public GameEvent GFE_5;
+    public GameEvent GFE_6;
+    public GameEvent GFE_7;
 
     public GameEvent onSwitchTabletState;
 
@@ -63,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     private static GameStateEnum[] newMonthAnimSet = new GameStateEnum[] {
         GameStateEnum.ANIMATION_NEWMONTH_INITIALIZATION,
-        GameStateEnum.PROPOSAL_CHECKURGENT, 
+        GameStateEnum.EVENT_CHECK, 
         GameStateEnum.ANIMATION_NEWMONTH_FINALIZATION
     };
     
@@ -108,9 +110,10 @@ public class GameManager : MonoBehaviour
         //TODO ]
 
         switch((int)hiddenGameVariables._gameFlowEventBus.Head())
-        {
+        {   
+            //GFE (Game Flow Event)                 //Num
             //PROPOSAL_INITIALIZATION,              //0
-            //PROPOSAL_ONGOING,               //1
+            //PROPOSAL_ONGOING,                     //1
             //PROPOSAL_FULL_DECISION,               //2
             //ANIMATION_PROPOSAL_INITIALIZATION,    //3
             //ANIMATION_PROPOSAL_FINALIZATION       //4
@@ -128,9 +131,10 @@ public class GameManager : MonoBehaviour
             case 2:
                 //Raises an event to finalize the current stats and run animations if needed - ProposalHandler "ProposalDecision" + UIHandler "CheckNextAnim"
                 //TODO check that the program pauses on this line and adds the anim set before the next proposal set
-                GFE_2.Raise(CheckNewMonth());
+                GFE_2.Raise();
+                CheckNewMonth();
                 //Load instructions for next proposal
-                gameFlowEventBus.Enqueue(genericProposalSet);
+                //gameFlowEventBus.Enqueue(genericProposalSet);
                 break;
             case 3:
                 //TODO implement clipboards coming onscreen anim
@@ -143,20 +147,33 @@ public class GameManager : MonoBehaviour
                 //GFE_4.Raise();
                 break;
             case 5:
-                //GFE_5.Raise();
+                //Raise an event to signal the end of the month
+                //Runs EndMonthAnim in UI handler
+                GFE_5.Raise();
+                break;
+            case 6:
+                //TODO handle mid month events here (Or well, the calling of them)
+                //GFE_6.Raise();
+                hiddenGameVariables._gameFlowEventBus.Dequeue();
+                break;
+            case 7:
+                GFE_7.Raise();
                 break;
             default:
                 Debug.Log("Error in GameManager Switch");
                 break;
+            
         }
 
         //When an event is removed from the bus or added to it, then continue the coroutine
+        //TODO check if I should change this to < rather than != to prevent it being run when it shouldn't be after adding proposal sets
+        //TODO either that, or wait for a second here, to prevent duplicate inputs when dequeing then adding a set
         yield return new WaitUntil(() => currentBusSize != gameFlowEventBus.GetBusSize());
         GameFlowLoop();
         //Ends current coroutine and frees resources
     }
 
-    //This isn't done in the Coroutine above to prevent recursive frames
+    //This isn't done in the Coroutine above to prevent potential recursive issues
     private void GameFlowLoop() {
         StopCoroutine(gameFlowManagerCoroutine);
         gameFlowManagerCoroutine = StartCoroutine(GameFlowManager());
@@ -242,7 +259,7 @@ public class GameManager : MonoBehaviour
     //                          NEW MONTH SECTION                        |
     //====================================================================
 
-    private bool CheckNewMonth() {
+    private void CheckNewMonth() {
         hiddenGameVariables._numMonthlyProposals++;
         //If there has been the max number of proposals this month and it isn't the tutorial month
         if (hiddenGameVariables._numMonthlyProposals >= monthLength && hiddenGameVariables._currentProposal.getProposalID() >= 6) {
@@ -251,11 +268,15 @@ public class GameManager : MonoBehaviour
             getNewMonthLength();
             //Reset number of proposals done that month to 0
             hiddenGameVariables._numMonthlyProposals = 0;
+
+            //Add events for the new month and remove the Proposal Finished event from the bus
             gameFlowEventBus.Enqueue(newMonthAnimSet);
+            gameFlowEventBus.Enqueue(genericProposalSet);
+            gameFlowEventBus.Dequeue();
+
             StartCoroutine(IWaitForAnim());
-            return true;
         } else {
-            return false;
+            gameFlowEventBus.Enqueue(genericProposalSet);
         }
     }
 

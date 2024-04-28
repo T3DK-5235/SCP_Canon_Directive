@@ -455,16 +455,23 @@ public class UIHandler : MonoBehaviour
 
     public void CheckNextAnim(Component sender, object data) {
         //If the month should end and the game isnt in the tutorial section (proposals 0-6)
-        if ((bool)data == true) {
-            UpdateMonthUI();
-            StartCoroutine(INewMonth());
-        } else {
-            //Animation of person walking over and giving files? Or just other stuff
-            StartCoroutine(INewProposal());
-        }
+        //Debug.Log("check which anim to use (true = new month): " + (bool)data);
+        //if ((bool)data == true) {
+        //    UpdateMonthUI();
+        //    StartCoroutine(IEndMonth());
+        //} else {
+        //    //Animation of person walking over and giving files? Or just other stuff
+        //StartCoroutine(INewProposal());
+        //}
+        //TODO revamp this to slide proposal offscreen (After being notified by GFE_2)
     }
 
-    IEnumerator INewMonth() {
+    public void EndMonthAnim(Component sender, object data) {
+        StartCoroutine(IEndMonth());
+    }
+
+    //TODO seperate this out so the initial lights are done, then events can be checked, then the lights come back on
+    IEnumerator IEndMonth() {
         //TODO figure out if this is better defined at the start
         int MainRoomLightCount = MainRoomLights.transform.childCount;
         int HallLightCount = HallLights.transform.childCount;
@@ -506,7 +513,16 @@ public class UIHandler : MonoBehaviour
 
         RemoveOldFollowUpInfo();
 
-        yield return new WaitForSeconds(2f);
+        hiddenGameVariables._gameFlowEventBus.Dequeue();
+    }
+
+    public void StartMonthAnim(Component sender, object data) {
+        StartCoroutine(IStartMonth());
+    }
+
+    IEnumerator IStartMonth() {
+        int MainRoomLightCount = MainRoomLights.transform.childCount;
+        int HallLightCount = HallLights.transform.childCount;
 
         for(int i = 0; i < HallLightCount; i++) {
             HallLights.transform.GetChild(i).gameObject.SetActive(true);
@@ -536,19 +552,20 @@ public class UIHandler : MonoBehaviour
         achieveUILight.SetActive(true);
 
         hiddenGameVariables._gameFlowEventBus.Dequeue();
+        
         ShowNewFollowUpInfo();
 
         gameCanvas.transform.GetComponent<GraphicRaycaster>().blockingObjects = GraphicRaycaster.BlockingObjects.None;
     }
 
-    IEnumerator INewProposal() {
-        //TODO fully implement proposal coming offscroon
-        //TODO check if extra info board is active and slide off too
-        // LeanTween.moveY(proposalClipboard, -160f, 30f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
-        // yield return new WaitForSeconds(30f);
-        yield return new WaitForSeconds(0.1f);
-        hiddenGameVariables._gameFlowEventBus.Dequeue();
-    }
+    // IEnumerator INewProposal() {
+    //     //fully implement proposal coming offscroon
+    //     //check if extra info board is active and slide off too
+    //     // LeanTween.moveY(proposalClipboard, -160f, 30f).setEase(LeanTweenType.easeInOutQuad).setDelay(1f);
+    //     // yield return new WaitForSeconds(30f);
+    //     yield return new WaitForSeconds(0.1f);
+    //     //hiddenGameVariables._gameFlowEventBus.Dequeue();
+    // }
 
     private void RemoveOldFollowUpInfo() {
         followUpInfoClipboard.SetActive(false);
