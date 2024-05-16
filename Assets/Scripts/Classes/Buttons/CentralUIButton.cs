@@ -14,6 +14,10 @@ public class CentralUIButton : MonoBehaviour, IPointerClickHandler {
     [SerializeField] Texture2D objectCursor;
 
     public void OnMouseEnter() {
+        Debug.Log(this.gameObject.name);
+        if (this.gameObject == centralUIButton) {
+            Debug.Log("this.gameobject does return same as gameobject in field");
+        }
         Cursor.SetCursor(objectCursor, new Vector2(12, 10), CursorMode.Auto);
     }
 

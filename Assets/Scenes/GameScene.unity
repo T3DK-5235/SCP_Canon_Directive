@@ -2497,6 +2497,8 @@ GameObject:
   - component: {fileID: 271144021}
   - component: {fileID: 271144022}
   - component: {fileID: 271144023}
+  - component: {fileID: 271144024}
+  - component: {fileID: 271144025}
   m_Layer: 0
   m_Name: UIHandler
   m_TagString: Untagged
@@ -2857,6 +2859,62 @@ MonoBehaviour:
       - m_Target: {fileID: 271144011}
         m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
         m_MethodName: UpdateAchievements
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &271144024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271144010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2da66f438ced04c9b45b05a8b59a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: df5a1580abe1fea45b284e95a5cee7b3, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 271144011}
+        m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
+        m_MethodName: EndMonthAnim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &271144025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271144010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2da66f438ced04c9b45b05a8b59a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 08de85b4f6967ea43821234a923a4898, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 271144011}
+        m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
+        m_MethodName: StartMonthAnim
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9418,6 +9476,8 @@ MonoBehaviour:
   GFE_3: {fileID: 11400000, guid: f5db64332f79bdc499ccc21c40925ad5, type: 2}
   GFE_4: {fileID: 11400000, guid: 6036ea352b44d2b44b2bfee7f43dfb2c, type: 2}
   GFE_5: {fileID: 11400000, guid: df5a1580abe1fea45b284e95a5cee7b3, type: 2}
+  GFE_6: {fileID: 11400000, guid: 609a2677b468d1346970adbb8dfcc2a5, type: 2}
+  GFE_7: {fileID: 11400000, guid: 08de85b4f6967ea43821234a923a4898, type: 2}
   onSwitchTabletState: {fileID: 11400000, guid: 24fca059c0075f640ad7739c677e0beb, type: 2}
 --- !u!1 &1115848883
 GameObject:

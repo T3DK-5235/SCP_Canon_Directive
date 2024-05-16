@@ -271,13 +271,11 @@ public class GameManager : MonoBehaviour
 
             //Add events for the new month and remove the Proposal Finished event from the bus
             gameFlowEventBus.Enqueue(newMonthAnimSet);
-            gameFlowEventBus.Enqueue(genericProposalSet);
             gameFlowEventBus.Dequeue();
 
             StartCoroutine(IWaitForAnim());
-        } else {
-            gameFlowEventBus.Enqueue(genericProposalSet);
         }
+        gameFlowEventBus.Enqueue(genericProposalSet);
     }
 
     private void getNewMonthLength() {
