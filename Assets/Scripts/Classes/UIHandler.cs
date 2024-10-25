@@ -473,8 +473,8 @@ public class UIHandler : MonoBehaviour
     //TODO seperate this out so the initial lights are done, then events can be checked, then the lights come back on
     IEnumerator IEndMonth() {
         //TODO figure out if this is better defined at the start
-        int MainRoomLightCount = MainRoomLights.transform.childCount;
-        int HallLightCount = HallLights.transform.childCount;
+        // int MainRoomLightCount = MainRoomLights.transform.childCount;
+        // int HallLightCount = HallLights.transform.childCount;
 
         gameCanvas.transform.GetComponent<GraphicRaycaster>().blockingObjects = GraphicRaycaster.BlockingObjects.All;
 
@@ -490,26 +490,13 @@ public class UIHandler : MonoBehaviour
         creditUILight.SetActive(false);
         achieveUILight.SetActive(false);
 
-        for(int i = MainRoomLightCount; i > 0; i--) {
-            MainRoomLights.transform.GetChild(i-1).gameObject.SetActive(false);
-
-            if ((i - 1) == 4) {
-                DeskLights.transform.GetChild(0).gameObject.SetActive(false);
-            } else if ((i - 1) == 3) {
-                DeskLights.transform.GetChild(1).gameObject.SetActive(false);
-            }
-
-            yield return new WaitForSeconds(0.35f);
-        }
-        for(int i = HallLightCount; i > 0; i--) {
-            HallLights.transform.GetChild(i-1).gameObject.SetActive(false);
-
-            if ((i - 1) == 0) {
-                TopStatLight.SetActive(false);
-            }
-
-            yield return new WaitForSeconds(0.35f);
-        }
+        yield return new WaitForSeconds(1f);
+        MainRoomLights.SetActive(false);
+        DeskLights.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        HallLights.SetActive(false);
+        TopStatLight.SetActive(false);
+        yield return new WaitForSeconds(1f);
 
         RemoveOldFollowUpInfo();
 
@@ -521,29 +508,37 @@ public class UIHandler : MonoBehaviour
     }
 
     IEnumerator IStartMonth() {
-        int MainRoomLightCount = MainRoomLights.transform.childCount;
-        int HallLightCount = HallLights.transform.childCount;
+        // int MainRoomLightCount = MainRoomLights.transform.childCount;
+        // int HallLightCount = HallLights.transform.childCount;
 
-        for(int i = 0; i < HallLightCount; i++) {
-            HallLights.transform.GetChild(i).gameObject.SetActive(true);
+        // for(int i = 0; i < HallLightCount; i++) {
+        //     HallLights.transform.GetChild(i).gameObject.SetActive(true);
 
-            if (i == 0) {
-                TopStatLight.SetActive(true);
-            }
+        //     if (i == 0) {
+        //         TopStatLight.SetActive(true);
+        //     }
 
-            yield return new WaitForSeconds(0.35f);
-        }
-        for(int i = 0; i < MainRoomLightCount; i++) {
-            MainRoomLights.transform.GetChild(i).gameObject.SetActive(true);
+        //     yield return new WaitForSeconds(0.35f);
+        // }
+        // for(int i = 0; i < MainRoomLightCount; i++) {
+        //     MainRoomLights.transform.GetChild(i).gameObject.SetActive(true);
 
-            if (i == 2) {
-                DeskLights.transform.GetChild(1).gameObject.SetActive(true);
-            } else if (i == 3) {
-                DeskLights.transform.GetChild(0).gameObject.SetActive(true);
-            }
+        //     if (i == 2) {
+        //         DeskLights.transform.GetChild(1).gameObject.SetActive(true);
+        //     } else if (i == 3) {
+        //         DeskLights.transform.GetChild(0).gameObject.SetActive(true);
+        //     }
 
-            yield return new WaitForSeconds(0.35f);
-        }
+        //     yield return new WaitForSeconds(0.35f);
+        // }
+
+        yield return new WaitForSeconds(1f);
+        HallLights.SetActive(true);
+        TopStatLight.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        MainRoomLights.SetActive(true);
+        DeskLights.SetActive(true);
+        yield return new WaitForSeconds(1f);
 
         UpdateStatUI(null, null);
         SwitchTabletState(null, null);
