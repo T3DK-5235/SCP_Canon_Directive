@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 using UnityEngine.UI;
 //using UnityEngine.UIElements;
@@ -729,14 +730,17 @@ public class UIHandler : MonoBehaviour
         creditUILight.SetActive(true);
         achieveUILight.SetActive(true);
 
-        LeanTween.moveY(CentralUIRT, 66.55f, 0.75f).setEase(LeanTweenType.easeInOutQuad);
+        //LeanTween.moveY(CentralUIRT, 66.55f, 0.75f).setEase(LeanTweenType.easeInOutQuad);
+        // As canvas scale is 0.00625 all actual movement values have to be multiplied by the scale for DOTween
+        CentralUIRT.DOMoveY(0.4159f, 0.75f).SetEase(Ease.InOutQuad);
 
         yield return new WaitForSeconds(0.25f);
 
         O5Elements.SetActive(false);
         achievementMask.GetComponent<Mask>().enabled = true;
 
-        LeanTween.moveY(SCPAchieveRT, 10007f, 0.75f).setEase(LeanTweenType.easeOutBounce).setDelay(0.5f);
+        //LeanTween.moveY(SCPAchieveRT, 10007f, 0.75f).setEase(LeanTweenType.easeOutBounce).setDelay(0.5f);
+        SCPAchieveRT.DOMoveY(0.807f, 0.75f).SetEase(Ease.OutBounce).SetDelay(0.5f);
 
         //Reset the total number of discovered details that the user hasnt checked out
         detailsList._newlyDiscoveredDetails = 0;
@@ -765,14 +769,16 @@ public class UIHandler : MonoBehaviour
         centralUIButtonCollider.enabled = false;
         centralUIButtonImageCollider.enabled = false;
 
-        LeanTween.moveY(SCPAchieveRT, 3450f, 0.75f).setEase(LeanTweenType.easeOutQuad).setDelay(0.5f);
+        //LeanTween.moveY(SCPAchieveRT, 3450f, 0.75f).setEase(LeanTweenType.easeOutQuad).setDelay(0.5f);
+        SCPAchieveRT.DOMoveY(0.55f, 0.75f).SetEase(Ease.OutQuad);
 
-        yield return new WaitForSeconds(1f);
-
+        yield return new WaitForSeconds(1.5f);
+        
         achievementMask.GetComponent<Mask>().enabled = false;
         O5Elements.SetActive(true);
-        
-        LeanTween.moveY(CentralUIRT, -17.5f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(0.5f);
+
+        //LeanTween.moveY(CentralUIRT, -17.5f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(0.5f);
+        CentralUIRT.DOMoveY(-0.109375f, 0.75f).SetEase(Ease.InOutQuad);
 
         //Lets animation finish before removing lights
         yield return new WaitForSeconds(2f);
