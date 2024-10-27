@@ -17,6 +17,9 @@ public class UIHandler : MonoBehaviour
     [SerializeField] AchievementsList achievementsList;
 
     [SerializeField] Canvas gameCanvas;
+    
+    [SerializeField] GameObject bottomBackgroundUI;
+    private int bottomUISortingOrder;
 
     private TextMeshProUGUI currentMonthText;
     private TextMeshProUGUI uncheckedDetailsText;
@@ -67,13 +70,17 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject GoIStatScreen;
 
     [Header("Central UI")]
-    private bool centralUIOpen = false;
+    [SerializeField] GameObject CentralUI;
+
+    [Header("Central Top")]
+    private bool centralUITopOpen = false;
     [SerializeField] GameObject SCPCredit;
     [SerializeField] GameObject SCPAchieve;
-    [SerializeField] GameObject CentralUI;
+    private GameObject CentralUITop;
     private RectTransform SCPCreditRT;
     private RectTransform SCPAchieveRT;
-    private RectTransform CentralUIRT;
+    private RectTransform CentralUITopRT;
+    private int CentralUITopSortingOrder;
 
     [SerializeField] GameObject CentralUIButton;
     private BoxCollider2D centralUIButtonCollider;
@@ -82,6 +89,15 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject achievementPrefab;
     [SerializeField] GameObject achievementContainer;
 
+    [Header("Central Top")]
+    private bool centralUIBottomOpen = false;
+    private GameObject CentralUIBottom;
+    [SerializeField] GameObject SiteMapUI;
+    [SerializeField] GameObject SiteMapExtraUI;
+    private RectTransform CentralUIBottomRT;
+    private RectTransform SiteMapRT;
+    private RectTransform SiteMapExtraRT;
+    private int CentralUIBottomSortingOrder;
 
     [Header("Foundation UI Stat Bars")]
 
@@ -139,9 +155,18 @@ public class UIHandler : MonoBehaviour
         proposalTitlePos = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
         proposalDescPos = proposalClipboard.transform.GetChild(0).GetChild(1).GetComponent<RectTransform>();
 
+        bottomUISortingOrder = bottomBackgroundUI.GetComponent<Canvas>().sortingOrder;
+
         SCPCreditRT = SCPCredit.GetComponent<RectTransform>();
         SCPAchieveRT = SCPAchieve.GetComponent<RectTransform>();
-        CentralUIRT = CentralUI.GetComponent<RectTransform>();
+        CentralUITopRT = CentralUI.transform.GetChild(0).GetComponent<RectTransform>();
+        CentralUIBottomSortingOrder = CentralUI.transform.GetChild(0).GetComponent<Canvas>().sortingOrder;
+
+        SiteMapRT = SiteMapUI.GetComponent<RectTransform>();
+        SiteMapExtraRT = SiteMapExtraUI.GetComponent<RectTransform>();
+        CentralUIBottomRT = CentralUI.transform.GetChild(1).GetComponent<RectTransform>();
+        //.sortingOrder
+        CentralUIBottomSortingOrder = CentralUI.transform.GetChild(1).GetComponent<Canvas>().sortingOrder;
 
         currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
         uncheckedDetailsText = uncheckedDetailsObj.transform.GetComponent<TextMeshProUGUI>();
@@ -485,9 +510,13 @@ public class UIHandler : MonoBehaviour
         }
         //Close central UI
 
-        if(centralUIOpen == true) {
-            SwitchCentralUIState(null, null);
+        if(centralUITopOpen == true) {
+            SwitchCentralUIState(null, "top");
         }
+        if(centralUIBottomOpen == true) {
+            SwitchCentralUIState(null, "bottom");
+        }
+
         creditUILight.SetActive(false);
         achieveUILight.SetActive(false);
 
@@ -702,16 +731,18 @@ public class UIHandler : MonoBehaviour
     //====================================================================
 
     public void SwitchCentralUIState(Component sender, object data) {
-        if(centralUIOpen == false) {
-            StartCoroutine(IOpenCentralUI());
-            centralUIOpen = true;
-        } else if (centralUIOpen == true) {
-            StartCoroutine(ICloseCentralUI());
-            centralUIOpen = false;
+        if (data == "top") {
+            if(centralUITopOpen == false) {
+                StartCoroutine(IOpenTopCentralUI());
+                centralUITopOpen = true;
+            } else if (centralUITopOpen == true) {
+                StartCoroutine(ICloseTopCentralUI());
+                centralUITopOpen = false;
+            }
         }
     }
 
-    IEnumerator IOpenCentralUI()
+    IEnumerator IOpenTopCentralUI()
     {
         //Activate SCP section of details list
         SwitchDetails(null, "SCPs");
@@ -732,11 +763,11 @@ public class UIHandler : MonoBehaviour
 
         //LeanTween.moveY(CentralUIRT, 66.55f, 0.75f).setEase(LeanTweenType.easeInOutQuad);
         // As canvas scale is 0.00625 all actual movement values have to be multiplied by the scale for DOTween
-        CentralUIRT.DOMoveY(0.4159f, 0.75f).SetEase(Ease.InOutQuad);
+        CentralUITopRT.DOMoveY(0.4159f, 0.75f).SetEase(Ease.InOutQuad);
 
         yield return new WaitForSeconds(0.25f);
 
-        O5Elements.SetActive(false);
+        //O5Elements.SetActive(false);
         achievementMask.GetComponent<Mask>().enabled = true;
 
         //LeanTween.moveY(SCPAchieveRT, 10007f, 0.75f).setEase(LeanTweenType.easeOutBounce).setDelay(0.5f);
@@ -763,7 +794,7 @@ public class UIHandler : MonoBehaviour
         achievementText.text = achievementToUpdate.getAchievementName() + achievementToUpdate.getAchievementDescription();
     }
 
-    IEnumerator ICloseCentralUI()
+    IEnumerator ICloseTopCentralUI()
     {
 
         centralUIButtonCollider.enabled = false;
@@ -772,16 +803,18 @@ public class UIHandler : MonoBehaviour
         //LeanTween.moveY(SCPAchieveRT, 3450f, 0.75f).setEase(LeanTweenType.easeOutQuad).setDelay(0.5f);
         SCPAchieveRT.DOMoveY(0.55f, 0.75f).SetEase(Ease.OutQuad);
 
-        yield return new WaitForSeconds(1.5f);
-        
-        achievementMask.GetComponent<Mask>().enabled = false;
-        O5Elements.SetActive(true);
+        yield return new WaitForSeconds(1f);
 
         //LeanTween.moveY(CentralUIRT, -17.5f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(0.5f);
-        CentralUIRT.DOMoveY(-0.109375f, 0.75f).SetEase(Ease.InOutQuad);
+        CentralUITopRT.DOMoveY(-0.109375f, 0.75f).SetEase(Ease.InOutQuad);
+
+        yield return new WaitForSeconds(0.3f);
+
+        achievementMask.GetComponent<Mask>().enabled = false;
+        //O5Elements.SetActive(true);
 
         //Lets animation finish before removing lights
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.7f);
 
         creditUILight.SetActive(false);
         achieveUILight.SetActive(false);
@@ -808,9 +841,9 @@ public class UIHandler : MonoBehaviour
         detailsPrefabList.Clear();
 
         //If the central UI is open
-        if(centralUIOpen == true) {
+        if(centralUITopOpen == true) {
             detailsList._newlyDiscoveredDetails = 0;
-        } else if (centralUIOpen == false && data == null) {
+        } else if (centralUITopOpen == false && data == null) {
             //TODO probably a better way of coding this
             uncheckedDetailsText.text = "" + detailsList._newlyDiscoveredDetails;
             alertLight.SetActive(true);

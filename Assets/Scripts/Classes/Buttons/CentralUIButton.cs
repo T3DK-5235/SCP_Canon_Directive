@@ -7,6 +7,7 @@ public class CentralUIButton : MonoBehaviour, IPointerClickHandler {
 
     [Header("Buttons")]
     [SerializeField] GameObject centralUIButton;
+    [SerializeField] GameObject sitesUIButton;
 
     [Header("Events")]
     public GameEvent onSwitchCentralUIState;
@@ -27,6 +28,10 @@ public class CentralUIButton : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        onSwitchCentralUIState.Raise();
+        if (this.gameObject == centralUIButton) {
+            onSwitchCentralUIState.Raise("top"); 
+        } else if (this.gameObject == sitesUIButton) {
+            onSwitchCentralUIState.Raise("bottom");
+        }
     }
 }

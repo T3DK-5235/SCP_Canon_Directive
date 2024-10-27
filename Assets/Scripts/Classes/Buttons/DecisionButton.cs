@@ -55,6 +55,7 @@ public class DecisionButton : MonoBehaviour, IPointerClickHandler {
 
             // hiddenGameVariables._currentGameState = GameStateEnum.PROPOSAL_TEMP_DECISION;
             // DecideNextAction.Raise();
+            Debug.Log("Did I get here?");
             HandleTempDecision.Raise();
             
         }
