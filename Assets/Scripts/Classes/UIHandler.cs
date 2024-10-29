@@ -19,7 +19,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] Canvas gameCanvas;
     
     [SerializeField] GameObject bottomBackgroundUI;
-    private int bottomUISortingOrder;
+    private Canvas bottomUICanvas;
 
     private TextMeshProUGUI currentMonthText;
     private TextMeshProUGUI uncheckedDetailsText;
@@ -80,7 +80,7 @@ public class UIHandler : MonoBehaviour
     private RectTransform SCPCreditRT;
     private RectTransform SCPAchieveRT;
     private RectTransform CentralUITopRT;
-    private int CentralUITopSortingOrder;
+    private Canvas CentralUITopCanvas;
 
     [SerializeField] GameObject CentralUIButton;
     private BoxCollider2D centralUIButtonCollider;
@@ -89,7 +89,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] GameObject achievementPrefab;
     [SerializeField] GameObject achievementContainer;
 
-    [Header("Central Top")]
+    [Header("Central Bottom")]
     private bool centralUIBottomOpen = false;
     private GameObject CentralUIBottom;
     [SerializeField] GameObject SiteMapUI;
@@ -97,7 +97,7 @@ public class UIHandler : MonoBehaviour
     private RectTransform CentralUIBottomRT;
     private RectTransform SiteMapRT;
     private RectTransform SiteMapExtraRT;
-    private int CentralUIBottomSortingOrder;
+    private Canvas CentralUIBottomCanvas;
 
     [Header("Foundation UI Stat Bars")]
 
@@ -155,18 +155,18 @@ public class UIHandler : MonoBehaviour
         proposalTitlePos = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
         proposalDescPos = proposalClipboard.transform.GetChild(0).GetChild(1).GetComponent<RectTransform>();
 
-        bottomUISortingOrder = bottomBackgroundUI.GetComponent<Canvas>().sortingOrder;
+        bottomUICanvas = bottomBackgroundUI.GetComponent<Canvas>();
+        // bottomUICanvas.sortingOrder = -5;
 
         SCPCreditRT = SCPCredit.GetComponent<RectTransform>();
         SCPAchieveRT = SCPAchieve.GetComponent<RectTransform>();
         CentralUITopRT = CentralUI.transform.GetChild(0).GetComponent<RectTransform>();
-        CentralUIBottomSortingOrder = CentralUI.transform.GetChild(0).GetComponent<Canvas>().sortingOrder;
+        CentralUITopCanvas = CentralUI.transform.GetChild(0).GetComponent<Canvas>();
 
         SiteMapRT = SiteMapUI.GetComponent<RectTransform>();
         SiteMapExtraRT = SiteMapExtraUI.GetComponent<RectTransform>();
         CentralUIBottomRT = CentralUI.transform.GetChild(1).GetComponent<RectTransform>();
-        //.sortingOrder
-        CentralUIBottomSortingOrder = CentralUI.transform.GetChild(1).GetComponent<Canvas>().sortingOrder;
+        CentralUIBottomCanvas = CentralUI.transform.GetChild(1).GetComponent<Canvas>();
 
         currentMonthText = currentMonthTextObj.transform.GetComponent<TextMeshProUGUI>();
         uncheckedDetailsText = uncheckedDetailsObj.transform.GetComponent<TextMeshProUGUI>();
@@ -739,6 +739,15 @@ public class UIHandler : MonoBehaviour
                 StartCoroutine(ICloseTopCentralUI());
                 centralUITopOpen = false;
             }
+        //}
+        } else if (data == "bottom") {
+            if(centralUIBottomOpen == false) {
+                StartCoroutine(IOpenBottomCentralUI());
+                centralUIBottomOpen = true;
+            } else if (centralUIBottomOpen == true) {
+                StartCoroutine(ICloseBottomCentralUI());
+                centralUIBottomOpen = false;
+            }
         }
     }
 
@@ -803,18 +812,21 @@ public class UIHandler : MonoBehaviour
         //LeanTween.moveY(SCPAchieveRT, 3450f, 0.75f).setEase(LeanTweenType.easeOutQuad).setDelay(0.5f);
         SCPAchieveRT.DOMoveY(0.55f, 0.75f).SetEase(Ease.OutQuad);
 
+        //test pos
+        achievementMask.GetComponent<Mask>().enabled = false;
+
         yield return new WaitForSeconds(1f);
 
         //LeanTween.moveY(CentralUIRT, -17.5f, 1f).setEase(LeanTweenType.easeInOutQuad).setDelay(0.5f);
         CentralUITopRT.DOMoveY(-0.109375f, 0.75f).SetEase(Ease.InOutQuad);
 
-        yield return new WaitForSeconds(0.3f);
+        //yield return new WaitForSeconds(0.3f);
 
-        achievementMask.GetComponent<Mask>().enabled = false;
+        // og pos achievementMask.GetComponent<Mask>().enabled = false;
         //O5Elements.SetActive(true);
 
         //Lets animation finish before removing lights
-        yield return new WaitForSeconds(1.7f);
+        yield return new WaitForSeconds(2f);
 
         creditUILight.SetActive(false);
         achieveUILight.SetActive(false);
@@ -825,6 +837,51 @@ public class UIHandler : MonoBehaviour
 
         centralUIButtonCollider.enabled = true;
         centralUIButtonImageCollider.enabled = true;
+    }
+
+    //====================================================================
+    //              SITE MAP CONTROL AND COMMAND SECTION                 |
+    //====================================================================
+
+    IEnumerator IOpenBottomCentralUI()
+    {
+        Debug.Log("got here");
+        //Can't change the sorting order of the bottom canvas (currently -1) as it will override the top canvas
+        //This means the actual bottom UI has to be at -2, with the topcentralui hidden behind it at -3
+        bottomUICanvas.sortingOrder = -2;
+        CentralUITopCanvas.sortingOrder = -3;
+
+        CentralUIBottomRT.DOMoveY(-0.109375f, 0.75f).SetEase(Ease.InOutQuad);
+        yield return new WaitForSeconds(0.25f);
+
+        // achievementMask.GetComponent<Mask>().enabled = true;
+
+        SiteMapExtraRT.DOMoveX(-1.275f, 0.75f).SetEase(Ease.InCirc).SetDelay(0.5f);
+
+        yield return new WaitForSeconds(1.5f);
+
+        // After covering up the bottom desk, the order is reajusted so that a player can access the other central UI
+        // If these values weren't changed, then the top central ui would be at -1, and be stuck behind the main top UI when opened.
+        //TODO disable clicking the open central UI button whilst this happens, and make it obvious to the player that it's disabled.
+        CentralUIBottomCanvas.sortingOrder = 3;
+        CentralUITopCanvas.sortingOrder = 2;
+    }
+
+    IEnumerator ICloseBottomCentralUI()
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        //Set back to normal values. This allows the top menu to work properly.
+
+
+        //TODO reset to normal positions
+
+
+
+        bottomUICanvas.sortingOrder = 3;
+        CentralUITopCanvas.sortingOrder = 1;
+
+
     }
 
     //====================================================================
