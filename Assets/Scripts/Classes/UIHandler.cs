@@ -189,6 +189,8 @@ public class UIHandler : MonoBehaviour
         centralUIButtonCollider = CentralUIButton.GetComponent<BoxCollider2D>();
         centralUIButtonImageCollider = CentralUIButton.GetComponent<Image>();
 
+        SwitchTabletState(null, null);
+
         InitAchievements();
 
         UpdateMonthUI();
