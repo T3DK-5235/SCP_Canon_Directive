@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: a5ccc395cd1166848a165c47bedaf12b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 9
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - CanonDirectiveFont
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: feacad2fe616f7945940931a94b679b0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
