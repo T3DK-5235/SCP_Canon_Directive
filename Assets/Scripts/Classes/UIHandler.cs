@@ -147,6 +147,10 @@ public class UIHandler : MonoBehaviour
     [Header("Events")]
     public GameEvent DecideNextAction;
 
+    [Header("UI 3.0 Testing")]
+    [SerializeField] Sprite[] slicedSpriteTest;
+    [SerializeField] GameObject TestStatPrefab;
+
     public void InitUI(Component sender, object data) {
         // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
         proposalTitle = proposalClipboard.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -194,6 +198,14 @@ public class UIHandler : MonoBehaviour
         InitAchievements();
 
         UpdateMonthUI();
+    }
+
+    private void TestPopulateStatSection()
+    {
+        for (int i = 0; i < slicedSpriteTest.Length; i++)
+        {
+            //? Testing the new Stats UI section
+        }
     }
 
     private void InitAchievements() {
