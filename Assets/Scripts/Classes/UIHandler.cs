@@ -148,8 +148,20 @@ public class UIHandler : MonoBehaviour
     public GameEvent DecideNextAction;
 
     [Header("UI 3.0 Testing")]
-    [SerializeField] Sprite[] slicedSpriteTest;
-    [SerializeField] GameObject TestStatPrefab;
+
+    [Header("StatSection")]
+
+    [SerializeField] GameObject foundationStatContainer;
+    [SerializeField] Sprite[] foundationStatSprites;
+    [SerializeField] Sprite[] foundationStatBarSprites;
+    [SerializeField] GameObject foundationStatPrefab;
+    private List<GameObject> foundationStatPrefabList;
+
+    [SerializeField] GameObject goiStatContainer;
+    [SerializeField] Sprite[] goiStatSprites;
+    [SerializeField] Sprite[] goiStatBarSprites;
+    [SerializeField] GameObject goiStatPrefab;
+    private List<GameObject> goiStatPrefabList;
 
     public void InitUI(Component sender, object data) {
         // get the text from the proposal UI object (And cache it to prevent unneeded GetComponent calls)
@@ -198,13 +210,50 @@ public class UIHandler : MonoBehaviour
         InitAchievements();
 
         UpdateMonthUI();
+
+        TestPopulateStatSection();
     }
 
     private void TestPopulateStatSection()
     {
-        for (int i = 0; i < slicedSpriteTest.Length; i++)
+        foundationStatPrefabList = new List<GameObject>();
+        
+        for (int j = 0; j < foundationStatSprites.Length; j++)
         {
-            //? Testing the new Stats UI section
+            //TODO maybe a debug check to make sure the same number of bars and sprites exist
+            GameObject newFStatPrefab = Instantiate(foundationStatPrefab, foundationStatContainer.transform) as GameObject;
+            // Set the correct sprite for the visual indicator
+            newFStatPrefab.GetComponent<Image>().sprite = foundationStatSprites[j];
+            // Set the correct sprite for the total amount bar
+            //! currently, j * 2 is used as there are two bars for each stat, so stat bar 2, needs bars at array positions 4 and 5
+            newFStatPrefab.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = foundationStatBarSprites[(j * 2) + 1];
+            // Set the correct sprite for the available amount bar
+            newFStatPrefab.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<Image>().sprite = foundationStatBarSprites[j * 2];
+
+            foundationStatPrefabList.Add(newFStatPrefab);
+        }
+
+        //! Temp, need to figure a better way of doing this, possibly using an ID stored in a genericOrg object
+        totalMtfBar = foundationStatPrefabList[0].GetComponent<Slider>();
+        availableMtfBar = foundationStatPrefabList[0].transform.GetChild(1).GetComponent<Slider>();
+
+        totalResearcherBar = foundationStatPrefabList[1].GetComponent<Slider>();
+        availableResearcherBar = foundationStatPrefabList[1].transform.GetChild(1).GetComponent<Slider>();
+
+        totalDClassBar = foundationStatPrefabList[2].GetComponent<Slider>();
+        availableDClassBar = foundationStatPrefabList[2].transform.GetChild(1).GetComponent<Slider>();
+
+        goiStatPrefabList = new List<GameObject>();
+        for (int i = 0; i < goiStatSprites.Length; i++)
+        {
+            //TODO maybe a debug check to make sure the same number of bars and sprites exist
+            GameObject newGStatPrefab = Instantiate(goiStatPrefab, goiStatContainer.transform) as GameObject;
+            // Set the correct sprite for the visual indicator
+            newGStatPrefab.GetComponent<Image>().sprite = goiStatSprites[i];
+            // Set the correct sprite for the bar
+            newGStatPrefab.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = goiStatBarSprites[i];
+
+            goiStatPrefabList.Add(newGStatPrefab);
         }
     }
 
@@ -398,6 +447,7 @@ public class UIHandler : MonoBehaviour
 
                 yield return new WaitForSeconds(0.1f);
                 flashStatBar = true;
+                
             } else if (flashStatBar == true) {
                 availableMtfBar.value = hiddenGameVariables._availableMTF;
                 totalMtfBar.value = hiddenGameVariables._totalMTF;
